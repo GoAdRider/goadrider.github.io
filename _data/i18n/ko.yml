@@ -1,0 +1,23 @@
+site:
+  title: "NewsLens"
+  description: "철학적, 과학적 사고로 세상을 바라보는 블로그"
+
+nav:
+  home: "홈"
+  categories: "카테고리"
+  tags: "태그"
+  about: "소개"
+
+common:
+  language: "언어"
+  read_more: "더 읽기"
+  posted_on: "게시일"
+  categories: "카테고리"
+  tags: "태그"
+  next: "다음"
+  previous: "이전"
+
+home:
+  latest_posts: "최신 포스트"
+  load_more: "더 보기"
+  no_more_posts: "더 이상 포스트가 없습니다." 

@@ -1,0 +1,77 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+        {% if page.title %}
+        {{ page.title }} | {{ site.title }}
+        {% else %}
+        {{ site.title }}
+        {% endif %}
+    </title>
+
+    <meta name="description"
+        content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="author" content="{{ site.author }}">
+
+    <!-- 오픈 그래프 데이터 -->
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:description"
+        content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url"
+        content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+    <meta property="og:image"
+        content="{% if page.image %}{{ page.image | prepend: site.baseurl | prepend: site.url }}{% else %}{{ site.logo | prepend: site.baseurl | prepend: site.url }}{% endif %}">
+
+    <!-- 언어 참조 메타 태그 -->
+    {% if page.lang-ref %}
+    <meta name="lang-ref" content="{{ page.lang-ref }}">
+    {% endif %}
+
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ " /assets/css/style.css" | relative_url }}">
+
+    <!-- 캐노니컬 URL -->
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+
+    <!-- 대체 언어 링크 -->
+    {% assign posts=site.posts | where:"lang-ref", page.lang-ref | sort: 'lang' %}
+    {% if posts.size > 1 %}
+    {% for post in posts %}
+    <link rel="alternate" hreflang="{{ post.lang }}"
+        href="{{ post.url | prepend: site.baseurl | prepend: site.url }}" />
+    {% endfor %}
+    {% endif %}
+
+    {% assign pages=site.pages | where:"lang-ref", page.lang-ref | sort: 'lang' %}
+    {% if pages.size > 1 %}
+    {% for page in pages %}
+    <link rel="alternate" hreflang="{{ page.lang }}"
+        href="{{ page.url | prepend: site.baseurl | prepend: site.url }}" />
+    {% endfor %}
+    {% endif %}
+
+    <!-- 파비콘 -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ " /assets/images/favicon-32x32.png" | relative_url }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ " /assets/images/favicon-16x16.png" | relative_url }}">
+
+    <!-- JavaScript -->
+    <script defer src="{{ " /assets/js/main.js" | relative_url }}"></script>
+    <script defer src="{{ " /assets/js/infinite-scroll.js" | relative_url }}"></script>
+    <script defer src="{{ " /assets/js/lang-switcher.js" | relative_url }}"></script>
+
+    <!-- 현재 언어 -->
+    <script>
+        document.documentElement.lang = "{% if page.lang %}{{ page.lang }}{% else %}en{% endif %}";
+    </script>
+</head>

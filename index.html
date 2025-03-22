@@ -1,0 +1,53 @@
+---
+layout: default
+lang: en
+lang-ref: home
+---
+
+<div class="bg-image"></div>
+
+<h1 class="home-title">
+    {% if page.lang == 'ko' %}
+    최신 글
+    {% else %}
+    Latest Posts
+    {% endif %}
+</h1>
+
+<div class="post-grid">
+    {% assign posts = site.posts | where: "lang", page.lang %}
+    {% for post in posts limit: 10 %}
+    <div class="post-card">
+        <div class="post-card-header">
+            {% if post.image %}
+            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+            {% else %}
+            <img src="{{ '/assets/images/default-post.jpg' | relative_url }}" alt="{{ post.title }}">
+            {% endif %}
+        </div>
+        <div class="post-card-body">
+            <h3 class="post-card-title">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            <div class="post-card-meta">{{ post.date | date: "%Y년 %m월 %d일" }}</div>
+            <div class="post-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
+            <a href="{{ post.url | relative_url }}" class="post-card-link">
+                {% if page.lang == 'ko' %}
+                계속 읽기
+                {% else %}
+                Read more
+                {% endif %}
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="loader">
+    <div class="loader-dots">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>

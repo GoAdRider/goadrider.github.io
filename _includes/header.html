@@ -1,0 +1,31 @@
+<header class="site-header">
+    <div class="header-wrapper">
+        <div class="site-logo">
+            <a href="{{ " /" | relative_url }}">{{ site.title | escape }}</a>
+        </div>
+
+        <nav class="site-nav">
+            <a href="{{ " /" | relative_url }}">{% if page.lang == 'ko' %}{{ site.data.i18n.ko.nav.home }}{% else %}{{
+                site.data.i18n.en.nav.home }}{% endif %}</a>
+            <a href="{{ " /categories" | relative_url }}">{% if page.lang == 'ko' %}{{ site.data.i18n.ko.nav.categories
+                }}{% else %}{{ site.data.i18n.en.nav.categories }}{% endif %}</a>
+            <a href="{{ " /tags" | relative_url }}">{% if page.lang == 'ko' %}{{ site.data.i18n.ko.nav.tags }}{% else
+                %}{{ site.data.i18n.en.nav.tags }}{% endif %}</a>
+            <a href="{{ " /about" | relative_url }}">{% if page.lang == 'ko' %}{{ site.data.i18n.ko.nav.about }}{% else
+                %}{{ site.data.i18n.en.nav.about }}{% endif %}</a>
+
+            <div class="language-selector">
+                <button type="button" id="language-btn" aria-label="언어 변경">
+                    {% if page.lang == 'ko' %}{{ site.data.i18n.ko.common.language }}{% else %}{{
+                    site.data.i18n.en.common.language }}{% endif %}
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="language-dropdown">
+                    <a href="#" data-lang="ko" class="{% if page.lang == 'ko' %}active{% endif %}">한국어</a>
+                    <a href="#" data-lang="en"
+                        class="{% if page.lang == 'en' or page.lang == nil %}active{% endif %}">English</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
