@@ -381,3 +381,85 @@ a:hover {
         font-size: 20px;
     }
 }
+
+/* 오버라이드 스타일 - 미니마 테마 */
+.wrapper {
+    max-width: 1200px;
+}
+
+.site-title {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.site-title:hover {
+    text-decoration: none;
+    color: var(--accent-color);
+}
+
+.site-header {
+    border-top: 5px solid var(--primary-color);
+}
+
+.page-content {
+    padding: 60px 0;
+}
+
+.page-heading {
+    font-size: 32px;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.post-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-left: 0;
+    list-style: none;
+}
+
+.post-list>li {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    height: 100%;
+    margin-bottom: 30px;
+}
+
+.post-list>li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.post-meta {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 10px;
+}
+
+.post-link {
+    font-size: 18px;
+    font-weight: 700;
+    display: block;
+    color: var(--text-color);
+}
+
+.post-link:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.rss-subscribe {
+    margin-top: 30px;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.rss-subscribe a {
+    color: var(--primary-color);
+}

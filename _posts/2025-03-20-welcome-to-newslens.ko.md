@@ -6,8 +6,10 @@ categories: [공지사항]
 tags: [환영, 소개, 철학, 과학]
 lang: ko
 lang-ref: welcome-post
-image: /assets/images/default/welcome-post.jpg
+image: /assets/images/default-post.jpg
 ---
+
+![NewsLens에 오신 것을 환영합니다](/assets/images/default-post.jpg)
 
 안녕하세요, NewsLens 블로그에 오신 것을 환영합니다!
 

@@ -6,6 +6,7 @@ email: your-email@example.com
 baseurl: ""
 url: "https://goadrider.github.io"
 logo: "/assets/images/site-logo.png"
+theme: minima
 
 # 다국어 설정
 default_lang: "en"
@@ -46,6 +47,7 @@ plugins:
 # 포함할 파일/폴더
 include:
   - _pages
+  - assets
 
 # 포함하지 않을 파일/폴더
 exclude:

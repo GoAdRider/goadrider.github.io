@@ -40,6 +40,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ " /assets/css/style.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ " /assets/main.css" | relative_url }}">
 
     <!-- 캐노니컬 URL -->
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
@@ -69,6 +70,21 @@
     <script defer src="{{ " /assets/js/main.js" | relative_url }}"></script>
     <script defer src="{{ " /assets/js/infinite-scroll.js" | relative_url }}"></script>
     <script defer src="{{ " /assets/js/lang-switcher.js" | relative_url }}"></script>
+
+    <style>
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{{ "/assets/images/infinite-scroll.jpg" | relative_url }}');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: -1;
+        }
+    </style>
 
     <!-- 현재 언어 -->
     <script>

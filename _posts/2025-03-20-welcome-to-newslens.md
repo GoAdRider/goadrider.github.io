@@ -6,8 +6,10 @@ categories: [Notice]
 tags: [Welcome, Introduction, Philosophy, Science]
 lang: en
 lang-ref: welcome-post
-image: /assets/images/default/welcome-post.jpg
+image: /assets/images/default-post.jpg
 ---
+
+![Welcome to NewsLens!](/assets/images/default-post.jpg)
 
 Hello, and welcome to the NewsLens blog!
 
