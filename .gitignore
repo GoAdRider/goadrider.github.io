@@ -1,0 +1,20 @@
+# Jekyll 빌드 파일
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# 의존성
+.bundle/
+vendor/
+
+# 시스템 파일
+.DS_Store
+Thumbs.db
+.env
+
+# IDE 및 편집기 파일
+.idea/
+.vscode/
+*.swp
+*.swo 
