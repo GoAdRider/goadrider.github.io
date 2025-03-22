@@ -3,6 +3,10 @@
  * Jekyll 블로그를 위한 인피니티 스크롤 기능
  */
 
+/**
+ * NewsLens 인피니티 스크롤 기능
+ */
+
 // 인피니티 스크롤 컨트롤러
 class InfiniteScroll {
     constructor(options = {}) {
@@ -166,4 +170,79 @@ document.addEventListener('DOMContentLoaded', function () {
         language: currentLang,
         path: '/page/:num/',
     });
+
+    // 인피니티 스크롤 관련 변수 초기화
+    let currentPage = 1;
+    let isLoading = false;
+    const loaderElement = document.querySelector('.loader');
+    const postGrid = document.querySelector('.post-grid');
+
+    // 메인 페이지에서만 인피니티 스크롤 활성화
+    if (!postGrid || !loaderElement) {
+        return;
+    }
+
+    // 스크롤 이벤트 리스너 추가
+    window.addEventListener('scroll', function () {
+        // 스크롤이 페이지 하단에 도달했는지 확인
+        if (isScrollNearBottom() && !isLoading) {
+            loadMorePosts();
+        }
+    });
+
+    /**
+     * 스크롤이 페이지 하단에 도달했는지 확인하는 함수
+     * @returns {boolean} 스크롤이 하단에 도달했는지 여부
+     */
+    function isScrollNearBottom() {
+        return (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500);
+    }
+
+    /**
+     * 추가 포스트를 로드하는 함수
+     */
+    function loadMorePosts() {
+        isLoading = true;
+        loaderElement.classList.add('visible');
+
+        // 다음 페이지 URL 생성
+        const nextPageUrl = `/page/${currentPage + 1}/` + (currentLang === 'ko' ? 'index.ko.html' : '');
+
+        // AJAX 요청으로 다음 페이지 콘텐츠 가져오기
+        fetch(nextPageUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('No more posts');
+                }
+                return response.text();
+            })
+            .then(html => {
+                // HTML 응답 파싱
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const newPosts = doc.querySelectorAll('.post-card');
+
+                // 새 포스트가 없으면 중단
+                if (newPosts.length === 0) {
+                    throw new Error('No more posts');
+                }
+
+                // 새 포스트를 그리드에 추가
+                newPosts.forEach(post => {
+                    postGrid.appendChild(post.cloneNode(true));
+                });
+
+                // 다음 페이지로 업데이트
+                currentPage = currentPage + 1;
+
+                // 로딩 상태 업데이트
+                isLoading = false;
+                loaderElement.classList.remove('visible');
+            })
+            .catch(error => {
+                console.log('Error loading more posts:', error);
+                loaderElement.classList.remove('visible');
+                isLoading = false;
+            });
+    }
 });

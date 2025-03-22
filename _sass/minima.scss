@@ -1,0 +1,78 @@
+@charset "utf-8";
+
+// 미니마 테마 변수 정의
+$brand-color: #3a3af4;
+$text-color: #333;
+$background-color: #fcfcfc;
+$grey-color: #7a7a7a;
+$grey-color-light: lighten($grey-color, 40%);
+$grey-color-dark: darken($grey-color, 25%);
+$spacing-unit: 30px;
+$content-width: 1200px;
+
+// 미니마 테마 가져오기
+@import "minima/initialize";
+
+// 배경 이미지 스타일
+.bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/images/infinite-scroll.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+// 헤더 스타일 오버라이드
+.site-header {
+    border-top: 5px solid $brand-color;
+    border-bottom: 1px solid $grey-color-light;
+}
+
+// 푸터 스타일 오버라이드
+.site-footer {
+    padding: 30px 0;
+    background-color: #f8f8f8;
+    border-top: 1px solid #eaeaea;
+}
+
+// 포스트 목록 스타일 오버라이드
+.post-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-left: 0;
+    list-style: none;
+}
+
+.post-list>li {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    margin-bottom: 30px;
+}
+
+.post-list>li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+// 포스트 제목 스타일 오버라이드
+.post-link {
+    font-size: 18px;
+    font-weight: 700;
+    display: block;
+    color: $text-color;
+}
+
+.post-link:hover {
+    color: $brand-color;
+    text-decoration: none;
+}

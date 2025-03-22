@@ -1,3 +1,7 @@
+/**
+ * NewsLens 메인 JavaScript 파일
+ */
+
 // DOM 요소
 const languageBtn = document.getElementById('language-btn');
 const languageDropdown = document.getElementById('language-dropdown');
@@ -139,4 +143,59 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-}); 
+
+    // 배경 이미지 설정
+    setupBackgroundImage();
+
+    // 언어 변경 버튼 설정
+    setupLanguageSwitcher();
+});
+
+/**
+ * 배경 이미지 설정 함수
+ */
+function setupBackgroundImage() {
+    // bg-image 요소가 없으면 동적으로 추가
+    if (!document.querySelector('.bg-image')) {
+        const bgImage = document.createElement('div');
+        bgImage.className = 'bg-image';
+        document.body.insertBefore(bgImage, document.body.firstChild);
+    }
+}
+
+/**
+ * 언어 전환 버튼 설정 함수
+ */
+function setupLanguageSwitcher() {
+    const langBtn = document.getElementById('language-btn');
+    const langDropdown = document.querySelector('.language-dropdown');
+
+    if (!langBtn || !langDropdown) return;
+
+    // 언어 드롭다운 토글
+    langBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        langDropdown.classList.toggle('show');
+    });
+
+    // 드롭다운 외부 클릭 시 닫기
+    document.addEventListener('click', function (e) {
+        if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+            langDropdown.classList.remove('show');
+        }
+    });
+
+    // 현재 언어 표시
+    langBtn.querySelector('span').textContent = document.documentElement.lang.toUpperCase();
+
+    // 활성 언어 표시
+    const langLinks = langDropdown.querySelectorAll('a');
+    langLinks.forEach(link => {
+        const linkLang = link.getAttribute('data-lang');
+        if (linkLang === document.documentElement.lang) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+} 
