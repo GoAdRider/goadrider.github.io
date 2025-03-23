@@ -1,68 +1,55 @@
 <!-- start custom head snippets -->
 
-<!-- 기본 스타일시트 -->
-<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-
-<!-- favicon (브라우저 탭 아이콘) -->
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
-
-<!-- 구글 폰트 -->
+<!-- Google Font 로드 -->
+{% if site.lang == "ko" or page.lang == "ko" %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+{% endif %}
 
-<!-- Lunr.js 검색 스크립트 -->
-<script src="{{ '/assets/js/lunr/lunr.min.js' | relative_url }}"></script>
-
-<!-- 검색 데이터 로더 (항상 로드) -->
+<!-- 검색 기능 스크립트 로드 -->
+{% if site.search == true %}
 <script src="{{ '/assets/js/lunr/lunr-store-static.js' | relative_url }}"></script>
-
-<!-- 언어 감지 및 적절한 언어 스크립트 로드 -->
 <script>
+    // 페이지 언어에 따라 다른 검색 스크립트 로드
     document.addEventListener('DOMContentLoaded', function () {
-        // 현재 언어 감지
-        var lang = document.documentElement.getAttribute('lang') || 'ko';
-        var scriptPath = '';
+        function loadSearchScript(lang) {
+            // 이전에 로드된 스크립트 제거
+            var oldScript = document.getElementById('lunr-script');
+            if (oldScript) {
+                oldScript.remove();
+            }
 
-        // 언어에 따른 스크립트 경로 설정
-        if (lang === 'ko') {
-            scriptPath = "{{ '/assets/js/lunr/lunr-ko.js' | relative_url }}";
-        } else {
-            scriptPath = "{{ '/assets/js/lunr/lunr-en.js' | relative_url }}";
+            // 새 스크립트 생성 및 로드
+            var script = document.createElement('script');
+            script.id = 'lunr-script';
+            script.src = '{{ ' / assets / js / lunr / lunr - ' | relative_url }}' + lang + '.js';
+            script.async = true;
+            document.body.appendChild(script);
         }
 
-        // 캐시 버스팅을 위한 타임스탬프 추가
-        scriptPath += '?v=' + new Date().getTime();
+        // 초기 언어 감지
+        var lang = document.documentElement.lang || 'en';
+        loadSearchScript(lang == 'ko' ? 'ko' : 'en');
 
-        // 스크립트 동적 로드
-        var script = document.createElement('script');
-        script.src = scriptPath;
-        script.async = true;
-        script.onerror = function () {
-            console.error('검색 스크립트 로드 실패:', scriptPath);
-            // 오류 메시지 표시
-            var searchError = document.getElementById('search-error');
-            if (searchError) {
-                searchError.style.display = 'block';
-                searchError.textContent = '검색 기능을 초기화할 수 없습니다.';
-            }
-        };
-        document.head.appendChild(script);
-
-        console.log('검색 스크립트 로드:', scriptPath);
+        // 언어 변경 감지
+        document.addEventListener('languageChanged', function (e) {
+            loadSearchScript(e.detail.language == 'ko' ? 'ko' : 'en');
+        });
     });
 </script>
+{% endif %}
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.google.tracking_id }}"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', '{{ site.analytics.google.tracking_id }}');
-</script>
+<!-- Google Analytics -->
+{% if jekyll.environment == 'production' and site.analytics.provider and page.analytics != false %}
+{% include analytics.html %}
+{% endif %}
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
 
 <!-- end custom head snippets -->
 
