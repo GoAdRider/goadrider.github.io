@@ -1,16 +1,28 @@
 <div class="language-switcher">
     <span class="lang-switch-title">{{ site.data.i18n[site.active_lang].lang_switcher.change_lang }}</span>
-    <div class="lang-switch-buttons">
-        <a href="{{ site.baseurl_root }}{{ page.url }}"
-            class="lang-btn {% if site.active_lang == 'ko' %}active{% endif %}" data-lang="ko">
+    <div class="lang-dropdown">
+        <button class="dropdown-btn">
+            {% if site.active_lang == 'ko' %}
             <span class="lang-icon">🇰🇷</span>
             <span class="lang-text">한국어</span>
-        </a>
-        <a href="{{ site.baseurl_root }}/en{{ page.url }}"
-            class="lang-btn {% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
+            {% else %}
             <span class="lang-icon">🇺🇸</span>
             <span class="lang-text">English</span>
-        </a>
+            {% endif %}
+            <span class="dropdown-arrow">▼</span>
+        </button>
+        <div class="dropdown-content">
+            <a href="{{ site.baseurl_root }}{{ page.url }}" class="{% if site.active_lang == 'ko' %}active{% endif %}"
+                data-lang="ko">
+                <span class="lang-icon">🇰🇷</span>
+                <span class="lang-text">한국어</span>
+            </a>
+            <a href="{{ site.baseurl_root }}/en{{ page.url }}"
+                class="{% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
+                <span class="lang-icon">🇺🇸</span>
+                <span class="lang-text">English</span>
+            </a>
+        </div>
     </div>
 </div>
 
@@ -18,7 +30,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         // 언어 변경 시 필요한 처리
         const languageSwitcher = document.querySelector('.language-switcher');
-        const langButtons = document.querySelectorAll('.lang-btn');
+        const langButtons = document.querySelectorAll('.dropdown-content a');
 
         if (langButtons) {
             langButtons.forEach(function (btn) {
@@ -35,7 +47,7 @@
         }
 
         // 현재 언어에 기반하여 HTML lang 속성 설정
-        const currentLang = document.querySelector('.lang-btn.active');
+        const currentLang = document.querySelector('.dropdown-content a.active');
         if (currentLang) {
             const lang = currentLang.getAttribute('data-lang');
             document.documentElement.setAttribute('lang', lang);
@@ -58,14 +70,11 @@
         color: #666;
     }
 
-    .lang-switch-buttons {
-        display: flex;
-        border-radius: 4px;
-        overflow: hidden;
-        border: 1px solid #e0e0e0;
+    .lang-dropdown {
+        position: relative;
     }
 
-    .lang-btn {
+    .dropdown-btn {
         display: flex;
         align-items: center;
         padding: 0.25rem 0.5rem;
@@ -76,14 +85,29 @@
         font-size: 0.85rem;
     }
 
-    .lang-btn:hover {
+    .dropdown-btn:hover {
         background-color: #e0e0e0;
         text-decoration: none;
     }
 
-    .lang-btn.active {
-        background-color: #336699;
-        color: white;
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
     }
 
     .lang-icon {
@@ -95,7 +119,7 @@
             display: none;
         }
 
-        .lang-btn {
+        .dropdown-btn {
             padding: 0.25rem;
         }
 
