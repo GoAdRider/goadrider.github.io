@@ -13,10 +13,15 @@ var idx = null;
 var resultdiv = null;
 var searchInput = null;
 var dataLoaded = false; // 데이터 로드 상태
+var searchTimeout = null;
+var indexBuilding = false;
+
+/* 디버깅 모드 */
+var DEBUG_MODE = true;
 
 /* 페이지 로드 시 검색 초기화 */
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('영어 검색 엔진 초기화 중...');
+    if (DEBUG_MODE) console.log('영어 검색 엔진 초기화');
 
     // DOM 요소 캐싱
     resultdiv = document.getElementById('results');
@@ -33,34 +38,42 @@ document.addEventListener('DOMContentLoaded', function () {
     var searchToggle = document.querySelector('.search__toggle');
     if (searchToggle) {
         searchToggle.addEventListener('click', function () {
-            document.querySelector('.search-content').classList.toggle('is--visible');
-            document.querySelector('.initial-content').classList.toggle('is--hidden');
+            var searchContent = document.querySelector('.search-content');
+            if (searchContent && searchContent.classList.contains('is--visible')) {
+                // 데이터가 로드된 상태에서 인덱스가 없으면 인덱스 생성
+                if (typeof store !== 'undefined' && store.length > 0 && !idx && !indexBuilding) {
+                    buildSearchIndex();
+                }
 
-            // 검색 데이터가 로드되었지만 인덱스가 아직 생성되지 않았으면 인덱스 생성
-            if (dataLoaded && !idx) {
-                buildSearchIndex();
+                // 검색창에 포커스
+                setTimeout(function () {
+                    searchInput.focus();
+                }, 300);
             }
-
-            // 검색창에 포커스
-            setTimeout(function () {
-                searchInput.focus();
-            }, 400);
         });
     }
 
     // 검색 데이터 로드 완료 이벤트 리스너
     document.addEventListener('searchDataLoaded', function (e) {
-        console.log('검색 데이터 로드 완료, 항목 수:', e.detail.storeSize);
-        dataLoaded = true;
+        if (DEBUG_MODE) console.log('검색 데이터 로드 완료:', e.detail);
 
-        // 검색창이 활성화된 상태라면 인덱스 즉시 구축
-        if (document.querySelector('.search-content').classList.contains('is--visible')) {
+        // 검색창이 이미 표시된 상태면 인덱스 구축
+        var searchContent = document.querySelector('.search-content');
+        if (searchContent && searchContent.classList.contains('is--visible')) {
             buildSearchIndex();
         }
     });
 
     // 검색어 입력 이벤트 연결
-    searchInput.addEventListener('keyup', performSearch);
+    if (searchInput) {
+        searchInput.addEventListener('keyup', function () {
+            // 디바운싱 처리
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(function () {
+                performSearch();
+            }, 250);
+        });
+    }
 });
 
 /**
@@ -68,163 +81,248 @@ document.addEventListener('DOMContentLoaded', function () {
  * 비동기적으로 처리하여 브라우저 응답성 유지
  */
 function buildSearchIndex() {
-    // 인덱스가 이미 생성되었으면 중복 생성 방지
-    if (idx) return;
-
-    var searchLoading = document.getElementById('search-loading');
-    if (searchLoading) {
-        searchLoading.style.display = 'block';
+    // 이미 인덱스가 있거나 구축 중이면 무시
+    if (idx || indexBuilding || typeof store === 'undefined' || !store.length) {
+        return;
     }
 
-    console.log('영어 검색 인덱스 구축 중...');
+    // 인덱스 구축 상태로 변경
+    indexBuilding = true;
 
-    // 비동기 처리로 인덱스 생성 (브라우저 응답성 유지)
+    // 로딩 상태 표시
+    updateLoadingState(true);
+
+    if (DEBUG_MODE) console.log('영어 검색 인덱스 구축 시작');
+
+    // 메인 스레드 블로킹 방지를 위한 비동기 처리
     setTimeout(function () {
         try {
-            idx = lunr(function () {
-                // LUNR 기본 설정
-                this.field('title', { boost: 10 });
-                this.field('excerpt');
-                this.field('categories');
-                this.field('tags');
-                this.ref('id');
+            // 검색 인덱스 생성 시작 시간
+            var startTime = performance.now();
 
-                // 색인 데이터 추가
-                for (var i = 0; i < store.length; i++) {
-                    this.add({
-                        title: store[i].title,
-                        excerpt: store[i].excerpt,
-                        categories: store[i].categories,
-                        tags: store[i].tags,
-                        id: i
-                    });
-                }
-            });
-
-            console.log('영어 검색 인덱스 구축 완료');
-
-            // 로딩 상태 업데이트
-            if (searchLoading) {
-                searchLoading.style.display = 'none';
+            // WebWorker 지원 여부에 따라 다른 방식으로 처리
+            if (typeof (Worker) !== 'undefined' && false) { // WebWorker 비활성화 (추후 구현)
+                // TODO: WebWorker 구현
+                createSearchIndex();
+            } else {
+                createSearchIndex();
             }
 
-            // 이미 검색어가 입력되어 있다면 검색 실행
-            if (searchInput.value.length > 0) {
+            // 구축 시간 측정
+            var endTime = performance.now();
+            if (DEBUG_MODE) console.log('영어 검색 인덱스 구축 완료 (' + (endTime - startTime).toFixed(0) + 'ms)');
+
+            // 로딩 상태 해제
+            updateLoadingState(false);
+
+            // 인덱스 구축 완료 상태로 변경
+            indexBuilding = false;
+
+            // 검색창에 이미 값이 있으면 검색 실행
+            if (searchInput && searchInput.value.trim().length > 0) {
                 performSearch();
             }
         } catch (e) {
-            console.error('검색 인덱스 초기화 오류:', e);
-
-            // 로딩 상태 업데이트
-            if (searchLoading) {
-                searchLoading.style.display = 'none';
-            }
-
-            // 오류 메시지 표시
-            var searchError = document.getElementById('search-error');
-            if (searchError) {
-                searchError.style.display = 'block';
-            }
+            // 오류 발생 시 처리
+            console.error('검색 인덱스 구축 실패:', e);
+            indexBuilding = false;
+            updateLoadingState(false);
+            showSearchError('검색 준비 중 오류가 발생했습니다: ' + e.message);
         }
     }, 100);
+}
+
+/**
+ * 로딩 상태 업데이트
+ */
+function updateLoadingState(isLoading) {
+    var searchLoading = document.getElementById('search-loading');
+    if (searchLoading) {
+        searchLoading.style.display = isLoading ? 'block' : 'none';
+    }
+
+    // 결과 영역도 함께 조정
+    if (resultdiv) {
+        resultdiv.style.display = isLoading ? 'none' : 'block';
+    }
+}
+
+/**
+ * 검색 오류 표시
+ */
+function showSearchError(message) {
+    var searchError = document.getElementById('search-error');
+    if (searchError) {
+        var errorTextElem = searchError.querySelector('.search-error-text');
+        if (errorTextElem) {
+            errorTextElem.textContent = message;
+        }
+        searchError.style.display = 'block';
+    }
+}
+
+/**
+ * 검색 인덱스 생성 (메인 스레드)
+ */
+function createSearchIndex() {
+    // Lunr.js를 사용한 인덱스 생성
+    idx = lunr(function () {
+        // 검색 필드 설정
+        this.field('title', { boost: 10 });
+        this.field('excerpt', { boost: 5 });
+        this.field('categories', { boost: 3 });
+        this.field('tags', { boost: 3 });
+        this.ref('id');
+
+        // 데이터 추가 (100개씩 나누어 처리)
+        var batchSize = 100;
+        for (var i = 0; i < store.length; i += batchSize) {
+            var end = Math.min(i + batchSize, store.length);
+            for (var j = i; j < end; j++) {
+                this.add({
+                    id: j,
+                    title: store[j].title || '',
+                    excerpt: store[j].excerpt || '',
+                    categories: store[j].categories ? store[j].categories.join(' ') : '',
+                    tags: store[j].tags ? store[j].tags.join(' ') : ''
+                });
+            }
+        }
+    });
 }
 
 /**
  * 검색 실행 함수
  */
 function performSearch() {
-    // 인덱스가 준비되지 않았으면 무시
+    // 인덱스가 없으면 구축
     if (!idx) {
-        if (dataLoaded) {
-            buildSearchIndex(); // 데이터는 로드되었지만 인덱스가 없으면 인덱스 구축
+        if (typeof store !== 'undefined' && store.length > 0 && !indexBuilding) {
+            buildSearchIndex();
         }
         return;
     }
 
-    var query = searchInput.value.toLowerCase();
+    // 검색어 가져오기
+    var query = searchInput.value.trim();
 
-    // 검색어가 없으면 결과 초기화
-    if (query.length === 0) {
+    // 결과 초기화
+    if (resultdiv) {
         resultdiv.innerHTML = '';
-        return;
     }
 
-    // 검색 실행
+    // 검색어가 없으면 종료
+    if (query.length === 0) return;
+
+    if (DEBUG_MODE) console.log('검색 실행:', query);
+
     try {
-        var result = idx.query(function (q) {
-            // 검색어 토큰화 및 검색
-            query.split(lunr.tokenizer.separator).forEach(function (term) {
-                q.term(term, { boost: 100 });
+        // 검색 수행
+        var results = idx.search(query);
 
-                // 부분 일치 검색 지원
-                if (query.lastIndexOf(" ") != query.length - 1) {
-                    q.term(term, { usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 });
-                }
+        if (DEBUG_MODE) console.log('검색 결과 수:', results.length);
 
-                // 유사 검색 지원 (오타 허용)
-                if (term != "") {
-                    q.term(term, { usePipeline: false, editDistance: 1, boost: 1 });
-                }
-            });
-        });
+        // 결과 메시지 표시
+        var resultText = document.createElement('p');
+        resultText.className = 'results__found';
 
-        // 결과 표시 초기화
-        resultdiv.innerHTML = '';
-
-        // 결과 수 표시
-        var resultCount = document.createElement('p');
-        resultCount.className = 'results__found';
-        resultCount.textContent = result.length + ' ' + (result.length == 1 ? "result" : "results") + ' found';
-        resultdiv.appendChild(resultCount);
-
-        // 결과가 없으면 여기서 종료
-        if (result.length === 0) return;
-
-        // 결과 표시 최적화 (한번에 최대 50개만 표시)
-        var maxResults = Math.min(result.length, 50);
-        for (var i = 0; i < maxResults; i++) {
-            var ref = result[i].ref;
-            var item = store[ref];
-            var searchItem = createSearchResultItem(item);
-            resultdiv.innerHTML += searchItem;
+        // 언어에 맞는 메시지
+        if (document.documentElement.lang === 'ko') {
+            resultText.textContent = results.length > 0 ?
+                results.length + '개의 결과를 찾았습니다.' :
+                '검색 결과가 없습니다.';
+        } else {
+            resultText.textContent = results.length + ' ' +
+                (results.length === 1 ? 'result' : 'results') + ' found';
         }
 
-        // 표시된 결과가 실제 결과보다 적을 경우 안내 메시지
-        if (result.length > maxResults) {
-            var moreResults = document.createElement('p');
-            moreResults.className = 'results__more';
-            moreResults.textContent = (result.length - maxResults) + ' more results not shown';
-            resultdiv.appendChild(moreResults);
+        resultdiv.appendChild(resultText);
+
+        // 검색 결과 없으면 종료
+        if (results.length === 0) return;
+
+        // 최대 결과 제한
+        var maxResults = Math.min(results.length, 30);
+
+        // 결과 표시
+        for (var i = 0; i < maxResults; i++) {
+            var ref = results[i].ref;
+            var item = createResultItem(store[ref]);
+            resultdiv.appendChild(item);
+        }
+
+        // 추가 결과가 있으면 메시지 표시
+        if (results.length > maxResults) {
+            var moreText = document.createElement('p');
+            moreText.className = 'results__more';
+
+            if (document.documentElement.lang === 'ko') {
+                moreText.textContent = '더 많은 결과 ' + (results.length - maxResults) + '개가 표시되지 않았습니다.';
+            } else {
+                moreText.textContent = (results.length - maxResults) + ' more results not shown';
+            }
+
+            resultdiv.appendChild(moreText);
         }
     } catch (e) {
-        console.error('검색 실행 오류:', e);
-        resultdiv.innerHTML = '<p class="results__found">An error occurred during search</p>';
+        console.error('검색 실행 중 오류:', e);
+
+        // 오류 메시지 표시
+        resultdiv.innerHTML = '<p class="results__found">검색 중 오류가 발생했습니다: ' + e.message + '</p>';
     }
 }
 
 /**
- * 검색 결과 항목 HTML 생성
+ * 검색 결과 항목 생성
  */
-function createSearchResultItem(item) {
-    // 검색 결과 항목 HTML 생성
-    var searchitem = '<div class="list__item">' +
-        '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">' +
-        '<h2 class="archive__item-title" itemprop="headline">' +
-        '<a href="' + item.url + '" rel="permalink">' + item.title + '</a>' +
-        '</h2>';
+function createResultItem(item) {
+    if (!item) return document.createDocumentFragment();
 
-    // 썸네일 이미지가 있는 경우 추가
+    var listItem = document.createElement('div');
+    listItem.className = 'list__item';
+
+    var article = document.createElement('article');
+    article.className = 'archive__item';
+    article.setAttribute('itemscope', '');
+    article.setAttribute('itemtype', 'https://schema.org/CreativeWork');
+
+    // 제목
+    var titleElement = document.createElement('h2');
+    titleElement.className = 'archive__item-title';
+    titleElement.setAttribute('itemprop', 'headline');
+
+    var titleLink = document.createElement('a');
+    titleLink.href = item.url;
+    titleLink.setAttribute('rel', 'permalink');
+    titleLink.textContent = item.title;
+
+    titleElement.appendChild(titleLink);
+    article.appendChild(titleElement);
+
+    // 썸네일 (있는 경우)
     if (item.teaser) {
-        searchitem += '<div class="archive__item-teaser">' +
-            '<img src="' + item.teaser + '" alt="">' +
-            '</div>';
+        var imageDiv = document.createElement('div');
+        imageDiv.className = 'archive__item-teaser';
+
+        var image = document.createElement('img');
+        image.src = item.teaser;
+        image.alt = '';
+
+        imageDiv.appendChild(image);
+        article.appendChild(imageDiv);
     }
 
-    // 내용 요약 추가
-    searchitem += '<p class="archive__item-excerpt" itemprop="description">' +
-        item.excerpt.split(" ").splice(0, 20).join(" ") + '...</p>' +
-        '</article>' +
-        '</div>';
+    // 요약
+    var excerptElement = document.createElement('p');
+    excerptElement.className = 'archive__item-excerpt';
+    excerptElement.setAttribute('itemprop', 'description');
 
-    return searchitem;
+    // 요약 최대 20단어로 제한
+    var excerptText = item.excerpt.split(' ').slice(0, 20).join(' ') + '...';
+    excerptElement.textContent = excerptText;
+
+    article.appendChild(excerptElement);
+    listItem.appendChild(article);
+
+    return listItem;
 } 

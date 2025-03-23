@@ -22,11 +22,11 @@ locale: "ko-KR"
 timezone: Asia/Seoul
 encoding: "utf-8"
 markdown: kramdown
-search: false
-search_full_content: false
+search: true
+search_full_content: true
 search_provider: lunr
 lunr:
-  search_within_pages: false
+  search_within_pages: true
 
 # 출력 설정
 permalink: /:categories/:title/
