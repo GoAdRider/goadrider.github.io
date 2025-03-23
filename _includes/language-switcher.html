@@ -2,13 +2,8 @@
     <span class="lang-switch-title">{{ site.data.i18n[site.active_lang].lang_switcher.change_lang }}</span>
     <div class="lang-dropdown">
         <button id="langDropdownBtn" class="dropdown-btn">
-            {% if site.active_lang == 'ko' or site.default_lang == 'ko' %}
-            <span class="lang-icon">🇰🇷</span>
-            <span class="lang-text">한국어</span>
-            {% else %}
-            <span class="lang-icon">🇺🇸</span>
-            <span class="lang-text">English</span>
-            {% endif %}
+            <span id="currentLangIcon" class="lang-icon">🇰🇷</span>
+            <span id="currentLangText" class="lang-text">한국어</span>
             <span class="dropdown-arrow">▼</span>
         </button>
         <div id="langDropdownContent" class="dropdown-content">
@@ -50,6 +45,8 @@
         // 언어 전환 드롭다운 토글 처리
         const dropdownBtn = document.getElementById('langDropdownBtn');
         const dropdownContent = document.getElementById('langDropdownContent');
+        const currentLangIcon = document.getElementById('currentLangIcon');
+        const currentLangText = document.getElementById('currentLangText');
 
         if (dropdownBtn) {
             dropdownBtn.addEventListener('click', function (e) {
@@ -115,19 +112,26 @@
             });
         }
 
-        // 현재 언어에 기반하여 HTML lang 속성 설정
-        const html = document.documentElement;
-        let currentLang = defaultLang;
-
-        // 현재 활성화된 언어 버튼 확인
-        const activeButton = document.querySelector('.dropdown-content a.active');
-        if (activeButton) {
-            currentLang = activeButton.getAttribute('data-lang');
-        } else {
+        // 현재 언어 감지 및 설정
+        function detectCurrentLanguage() {
             // URL에서 언어 확인
             const urlLang = window.location.pathname.startsWith('/en/') ? 'en' : 'ko';
-            currentLang = urlLang;
+
+            // 현재 언어에 따라 드롭다운 버튼 업데이트
+            if (urlLang === 'en') {
+                currentLangIcon.textContent = '🇺🇸';
+                currentLangText.textContent = 'English';
+            } else {
+                currentLangIcon.textContent = '🇰🇷';
+                currentLangText.textContent = '한국어';
+            }
+
+            return urlLang;
         }
+
+        // 현재 언어에 기반하여 HTML lang 속성 설정
+        const html = document.documentElement;
+        let currentLang = detectCurrentLanguage();
 
         html.setAttribute('lang', currentLang);
 
