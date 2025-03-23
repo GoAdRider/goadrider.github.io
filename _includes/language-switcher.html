@@ -1,7 +1,7 @@
 <div class="language-switcher">
     <span class="lang-switch-title">{{ site.data.i18n[site.active_lang].lang_switcher.change_lang }}</span>
     <div class="lang-dropdown">
-        <button class="dropdown-btn">
+        <button id="langDropdownBtn" class="dropdown-btn">
             {% if site.active_lang == 'ko' %}
             <span class="lang-icon">🇰🇷</span>
             <span class="lang-text">한국어</span>
@@ -11,7 +11,7 @@
             {% endif %}
             <span class="dropdown-arrow">▼</span>
         </button>
-        <div class="dropdown-content">
+        <div id="langDropdownContent" class="dropdown-content">
             <a href="{{ site.baseurl_root }}{{ page.url }}" class="{% if site.active_lang == 'ko' %}active{% endif %}"
                 data-lang="ko">
                 <span class="lang-icon">🇰🇷</span>
@@ -28,10 +28,29 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 언어 변경 시 필요한 처리
-        const languageSwitcher = document.querySelector('.language-switcher');
-        const langButtons = document.querySelectorAll('.dropdown-content a');
+        // 언어 전환 드롭다운 토글 처리
+        const dropdownBtn = document.getElementById('langDropdownBtn');
+        const dropdownContent = document.getElementById('langDropdownContent');
 
+        if (dropdownBtn) {
+            dropdownBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                dropdownContent.classList.toggle('show');
+            });
+        }
+
+        // 문서 클릭 시 드롭다운 닫기
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.language-switcher')) {
+                if (dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                }
+            }
+        });
+
+        // 언어 버튼 클릭 이벤트
+        const langButtons = document.querySelectorAll('.dropdown-content a');
         if (langButtons) {
             langButtons.forEach(function (btn) {
                 btn.addEventListener('click', function (e) {

@@ -2,7 +2,7 @@
 layout: single
 title: "양자역학적 관점에서 바라본 의식의 본질"
 title_en: "The Nature of Consciousness from a Quantum Mechanical Perspective"
-date: 2023-03-25 10:30:00 +0900
+date: 2025-03-25 10:30:00 +0900
 categories: 
   - 과학
   - 철학
