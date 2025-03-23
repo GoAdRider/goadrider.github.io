@@ -1,5 +1,7 @@
 ---
-title: "About"
+title_ko: "소개"
+title_en: "About"
+title: " "
 permalink: /about/
 layout: single
 author_profile: true
@@ -62,6 +64,19 @@ toc: false
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // 페이지 제목 업데이트 함수
+  function updatePageTitle() {
+    const lang = document.documentElement.getAttribute('lang') || 'ko';
+    const title = lang === 'ko' ? "소개" : "About";
+    document.title = title + " | {{ site.title }}";
+    
+    // H1 제목도 업데이트
+    const pageHeader = document.querySelector('.page__title');
+    if (pageHeader) {
+      pageHeader.textContent = title;
+    }
+  }
+
   // 언어 변경 감지 함수
   function updateLanguage() {
     const lang = document.documentElement.getAttribute('lang') || 'ko';
@@ -76,6 +91,9 @@ document.addEventListener('DOMContentLoaded', function() {
       if(koContent) koContent.style.display = 'none';
       if(enContent) enContent.style.display = 'block';
     }
+    
+    // 페이지 제목 업데이트
+    updatePageTitle();
   }
   
   // 초기 설정 및 이벤트 리스너

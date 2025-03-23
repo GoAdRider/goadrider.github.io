@@ -1,5 +1,7 @@
 ---
-title: "Tags"
+title_ko: "태그"
+title_en: "Tags"
+title: " "
 permalink: /tags/
 layout: tags
 author_profile: true
@@ -17,6 +19,19 @@ author_profile: true
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // 페이지 제목 업데이트 함수
+  function updatePageTitle() {
+    const lang = document.documentElement.getAttribute('lang') || 'ko';
+    const title = lang === 'ko' ? "태그" : "Tags";
+    document.title = title + " | {{ site.title }}";
+    
+    // H1 제목도 업데이트
+    const pageHeader = document.querySelector('.page__title');
+    if (pageHeader) {
+      pageHeader.textContent = title;
+    }
+  }
+
   // 언어 변경 감지 함수
   function updateLanguage() {
     const lang = document.documentElement.getAttribute('lang') || 'ko';
@@ -31,6 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
       if(koContent) koContent.style.display = 'none';
       if(enContent) enContent.style.display = 'block';
     }
+    
+    // 페이지 제목 업데이트
+    updatePageTitle();
   }
   
   // 초기 설정 및 이벤트 리스너

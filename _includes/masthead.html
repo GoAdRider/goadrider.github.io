@@ -15,8 +15,13 @@
                 <ul class="visible-links">
                     {%- for link in site.data.navigation.main -%}
                     <li class="masthead__menu-item">
-                        <a href="{{ link.url | relative_url }}" {% if link.description %} title="{{ link.description }}"
-                            {% endif %}>{{ link.title }}</a>
+                        {% if site.active_lang == "ko" %}
+                        <a href="{{ link.url_ko | relative_url }}" {% if link.description %}
+                            title="{{ link.description }}" {% endif %}>{{ link.title_ko }}</a>
+                        {% else %}
+                        <a href="{{ link.url_en | relative_url }}" {% if link.description %}
+                            title="{{ link.description }}" {% endif %}>{{ link.title_en }}</a>
+                        {% endif %}
                     </li>
                     {%- endfor -%}
                 </ul>
