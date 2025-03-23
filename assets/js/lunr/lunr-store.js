@@ -54,7 +54,6 @@ var store = [
     "teaser": { { teaser | absolute_url | jsonify } }
 } {% - unless forloop.last and l -%}, {% - endunless -%}
 {% - endfor -%}
-{% - unless forloop.last -%}, {% - endunless -%}
 {% - endfor -%}
 
 {% - for post in site.posts -%}
