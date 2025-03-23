@@ -1,0 +1,39 @@
+# English translation file
+global:
+  title: "ThoughtfulAI"
+  description: "A blog that views the world through philosophical and scientific thinking"
+  
+nav:
+  home: "Home"
+  about: "About"
+  categories: "Categories"
+  tags: "Tags"
+  archive: "Archive"
+  search: "Search"
+  
+lang_switcher:
+  lang: "EN"
+  change_lang: "Change Language"
+  
+footer:
+  copyright: "© ThoughtfulAI. All Rights Reserved."
+  powered_by: "Powered by Jekyll & Minimal Mistakes"
+  
+post:
+  read_time: "About %d minute(s) to read"
+  posted_on: "Posted on"
+  updated_on: "Updated on"
+  categories: "Categories"
+  tags: "Tags"
+  share: "Share"
+  related: "Related Posts"
+  comments: "Comments"
+  
+pagination:
+  previous: "Previous"
+  next: "Next"
+  
+search:
+  placeholder: "Enter search term..."
+  results_title: "Search Results"
+  no_results: "No results found." 

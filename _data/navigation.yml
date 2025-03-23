@@ -1,0 +1,32 @@
+# 메인 내비게이션
+main:
+  - title: "Home"
+    url: /
+    title_ko: "홈"
+    url_ko: /
+    title_en: "Home"
+    url_en: /en/
+  - title: "About"
+    url: /about/
+    title_ko: "소개"
+    url_ko: /about/
+    title_en: "About"
+    url_en: /en/about/
+  - title: "Categories"
+    url: /categories/
+    title_ko: "카테고리"
+    url_ko: /categories/
+    title_en: "Categories"
+    url_en: /en/categories/
+  - title: "Tags"
+    url: /tags/
+    title_ko: "태그"
+    url_ko: /tags/
+    title_en: "Tags"
+    url_en: /en/tags/
+  - title: "Archive"
+    url: /year-archive/
+    title_ko: "아카이브"
+    url_ko: /year-archive/
+    title_en: "Archive"
+    url_en: /en/year-archive/ 
