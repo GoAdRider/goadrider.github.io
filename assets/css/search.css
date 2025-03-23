@@ -4,24 +4,24 @@
     visibility: hidden;
     padding-top: 1em;
     padding-bottom: 1em;
+}
 
-    &.is--visible {
-        display: block;
-        visibility: visible;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background-color: rgba(255, 255, 255, 0.98);
-        z-index: 101;
-        -webkit-transition: 0.2s;
-        transition: 0.2s;
-        -webkit-transform: translateY(0);
-        -ms-transform: translateY(0);
-        transform: translateY(0);
-        opacity: 1;
-    }
+.search-content.is--visible {
+    display: block;
+    visibility: visible;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.98);
+    z-index: 101;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .search-content__inner-wrap {
