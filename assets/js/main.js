@@ -149,6 +149,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 언어 변경 버튼 설정
     setupLanguageSwitcher();
+
+    // 스크롤 애니메이션 설정
+    setupScrollAnimations();
+
+    // 카드 효과 설정
+    setupCardEffects();
 });
 
 /**
@@ -186,16 +192,99 @@ function setupLanguageSwitcher() {
     });
 
     // 현재 언어 표시
-    langBtn.querySelector('span').textContent = document.documentElement.lang.toUpperCase();
+    if (langBtn.querySelector('span')) {
+        langBtn.querySelector('span').textContent = document.documentElement.lang.toUpperCase();
+    } else {
+        langBtn.textContent = document.documentElement.lang.toUpperCase();
+    }
 
     // 활성 언어 표시
     const langLinks = langDropdown.querySelectorAll('a');
     langLinks.forEach(link => {
-        const linkLang = link.getAttribute('data-lang');
+        const linkLang = link.getAttribute('data-lang') || link.getAttribute('hreflang');
         if (linkLang === document.documentElement.lang) {
             link.classList.add('active');
         } else {
             link.classList.remove('active');
         }
+    });
+}
+
+/**
+ * 스크롤 애니메이션 설정 함수
+ */
+function setupScrollAnimations() {
+    const header = document.querySelector('.site-header');
+    const heroSection = document.querySelector('.hero-section');
+    const postCards = document.querySelectorAll('.post-card');
+
+    // 스크롤 이벤트 리스너
+    window.addEventListener('scroll', function () {
+        const scrollPos = window.scrollY;
+
+        // 헤더 스크롤 효과
+        if (header) {
+            if (scrollPos > 50) {
+                header.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.1)';
+                header.style.backdropFilter = 'blur(20px)';
+            } else {
+                header.style.boxShadow = '0 2px 25px rgba(0, 0, 0, 0.05)';
+                header.style.backdropFilter = 'blur(15px)';
+            }
+        }
+
+        // 히어로 섹션 패럴랙스 효과
+        if (heroSection) {
+            heroSection.style.transform = `translateY(${scrollPos * 0.1}px)`;
+            heroSection.style.opacity = 1 - (scrollPos * 0.003);
+        }
+
+        // 포스트 카드 애니메이션
+        animateOnScroll(postCards);
+    });
+
+    // 초기 애니메이션
+    setTimeout(() => {
+        animateOnScroll(postCards);
+    }, 100);
+}
+
+/**
+ * 스크롤 시 요소 애니메이션 적용
+ */
+function animateOnScroll(elements) {
+    elements.forEach((element, index) => {
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (rect.top < windowHeight - 100) {
+            // 순차적으로 애니메이션 적용
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, index * 100);
+        }
+    });
+}
+
+/**
+ * 카드 호버 효과 설정
+ */
+function setupCardEffects() {
+    const cards = document.querySelectorAll('.post-card');
+
+    cards.forEach(card => {
+        // 초기 상태 설정
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+
+        // 카드 호버 효과
+        card.addEventListener('mouseenter', function () {
+            this.style.transform = 'translateY(-10px)';
+        });
+
+        card.addEventListener('mouseleave', function () {
+            this.style.transform = 'translateY(0)';
+        });
     });
 } 

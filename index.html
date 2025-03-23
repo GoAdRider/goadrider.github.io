@@ -6,13 +6,22 @@ lang-ref: home
 
 <div class="bg-image"></div>
 
-<h1 class="home-title">
-    {% if page.lang == 'ko' %}
-    최신 글
-    {% else %}
-    Latest Posts
-    {% endif %}
-</h1>
+<div class="hero-section">
+    <h1 class="home-title">
+        {% if page.lang == 'ko' %}
+        최신 글
+        {% else %}
+        Latest Insights
+        {% endif %}
+    </h1>
+    <p class="home-subtitle">
+        {% if page.lang == 'ko' %}
+        철학적, 과학적 사고로 세상을 바라보는 콘텐츠
+        {% else %}
+        Exploring the world through philosophical and scientific lenses
+        {% endif %}
+    </p>
+</div>
 
 <div class="post-grid">
     {% assign posts = site.posts | where: "lang", page.lang %}
@@ -23,6 +32,14 @@ lang-ref: home
             <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
             {% else %}
             <img src="{{ '/assets/images/default-post.jpg' | relative_url }}" alt="{{ post.title }}">
+            {% endif %}
+            {% assign categories = post.categories %}
+            {% if categories.size > 0 %}
+            <div class="post-categories">
+                {% for category in categories limit: 1 %}
+                <span class="post-category">{{ category }}</span>
+                {% endfor %}
+            </div>
             {% endif %}
         </div>
         <div class="post-card-body">
