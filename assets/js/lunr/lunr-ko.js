@@ -11,21 +11,31 @@
 var idx = null;
 var resultdiv = null;
 var searchInput = null;
+var dataLoaded = false; // 데이터 로드 상태
 
 /* 페이지 로드 후 비동기적으로 인덱스를 생성하여 성능 개선 */
 $(document).ready(function () {
+    console.log('한국어 검색 엔진 초기화 중...');
+
     // DOM 요소 캐싱
     resultdiv = $('#results');
     searchInput = $('.search-input');
+    var searchLoading = $('#search-loading');
+    var searchError = $('#search-error');
+
+    if (!resultdiv || !searchInput) {
+        console.warn('검색 요소를 찾을 수 없습니다. 검색 기능이 비활성화됩니다.');
+        return;
+    }
 
     // 검색창 표시/숨김 전환 처리
     $('.search__toggle').on('click', function () {
         $('.search-content').toggleClass('is--visible');
         $('.initial-content').toggleClass('is--hidden');
 
-        // 인덱스가 아직 생성되지 않았으면 생성
-        if (!idx) {
-            initSearchIndex();
+        // 검색 데이터가 로드되었지만 인덱스가 아직 생성되지 않았으면 인덱스 생성
+        if (dataLoaded && !idx) {
+            buildSearchIndex();
         }
 
         // 검색창에 포커스
@@ -34,65 +44,96 @@ $(document).ready(function () {
         }, 400);
     });
 
+    // 검색 데이터 로드 완료 이벤트 리스너
+    $(document).on('searchDataLoaded', function (e) {
+        console.log('검색 데이터 로드 완료, 항목 수:', e.detail.storeSize);
+        dataLoaded = true;
+
+        // 검색창이 활성화된 상태라면 인덱스 즉시 구축
+        if ($('.search-content').hasClass('is--visible')) {
+            buildSearchIndex();
+        }
+    });
+
     // 검색어 입력 이벤트 연결
     searchInput.on('keyup', performSearch);
 });
 
 /* 비동기적으로 검색 인덱스 초기화 */
-function initSearchIndex() {
-    // UI 표시
-    resultdiv.empty();
-    resultdiv.prepend('<p class="results__found">검색 인덱스를 초기화하는 중...</p>');
+function buildSearchIndex() {
+    // 인덱스가 이미 생성되었으면 중복 생성 방지
+    if (idx) return;
+
+    var searchLoading = $('#search-loading');
+    if (searchLoading) {
+        searchLoading.css('display', 'block');
+    }
+
+    console.log('한국어 검색 인덱스 구축 중...');
 
     // 비동기 처리로 인덱스 생성 (브라우저 응답성 유지)
     setTimeout(function () {
         try {
             idx = lunr(function () {
                 // LUNR 기본 설정
-                this.field('title')
-                this.field('excerpt')
-                this.field('categories')
-                this.field('tags')
-                this.ref('id')
+                this.field('title', { boost: 10 });
+                this.field('excerpt');
+                this.field('categories');
+                this.field('tags');
+                this.ref('id');
 
                 // 한글 검색을 위한 설정
-                this.pipeline.remove(lunr.trimmer)
-                this.pipeline.remove(lunr.stemmer)
-                this.pipeline.remove(lunr.stopWordFilter)
+                this.pipeline.remove(lunr.trimmer);
+                this.pipeline.remove(lunr.stemmer);
+                this.pipeline.remove(lunr.stopWordFilter);
 
                 // 색인 데이터 추가
-                for (var item in store) {
+                for (var i = 0; i < store.length; i++) {
                     this.add({
-                        title: store[item].title,
-                        excerpt: store[item].excerpt,
-                        categories: store[item].categories,
-                        tags: store[item].tags,
-                        id: item
-                    })
+                        title: store[i].title,
+                        excerpt: store[i].excerpt,
+                        categories: store[i].categories,
+                        tags: store[i].tags,
+                        id: i
+                    });
                 }
             });
 
-            // 인덱스 생성 완료 메시지
-            resultdiv.empty();
-            resultdiv.prepend('<p class="results__found">검색할 준비가 되었습니다</p>');
+            console.log('한국어 검색 인덱스 구축 완료');
+
+            // 로딩 상태 업데이트
+            if (searchLoading) {
+                searchLoading.css('display', 'none');
+            }
 
             // 이미 검색어가 입력되어 있다면 검색 실행
             if (searchInput.val().length > 0) {
                 performSearch();
             }
         } catch (e) {
-            console.error("검색 인덱스 초기화 오류:", e);
-            resultdiv.empty();
-            resultdiv.prepend('<p class="results__found">검색 기능을 초기화하는 중 오류가 발생했습니다</p>');
+            console.error('검색 인덱스 초기화 오류:', e);
+
+            // 로딩 상태 업데이트
+            if (searchLoading) {
+                searchLoading.css('display', 'none');
+            }
+
+            // 오류 메시지 표시
+            var searchError = $('#search-error');
+            if (searchError) {
+                searchError.css('display', 'block');
+            }
         }
     }, 100);
 }
 
 /* 검색 실행 함수 */
 function performSearch() {
-    // 인덱스가 아직 초기화되지 않았으면 초기화
+    // 인덱스가 준비되지 않았으면 무시
     if (!idx) {
-        initSearchIndex();
+        if (dataLoaded) {
+            buildSearchIndex(); // 데이터는 로드되었지만 인덱스가 없으면 인덱스 구축
+        }
         return;
     }
 
@@ -108,16 +149,16 @@ function performSearch() {
         var result = idx.query(function (q) {
             // 한글 자모 단위로 검색어 분리하여 검색
             query.split(/\s+/).forEach(function (term) {
-                q.term(term, { boost: 100 })
+                q.term(term, { boost: 100 });
                 // 부분 일치 검색 지원
                 if (query.lastIndexOf(" ") != query.length - 1) {
-                    q.term(term, { usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+                    q.term(term, { usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 });
                 }
                 // 유사 검색 지원 (오타 허용)
                 if (term != "") {
-                    q.term(term, { usePipeline: false, editDistance: 1, boost: 1 })
+                    q.term(term, { usePipeline: false, editDistance: 1, boost: 1 });
                 }
-            })
+            });
         });
 
         resultdiv.empty();
