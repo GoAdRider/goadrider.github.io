@@ -12,24 +12,30 @@
             <span class="dropdown-arrow">▼</span>
         </button>
         <div id="langDropdownContent" class="dropdown-content">
-            {% assign ko_url = page.url %}
-            {% assign en_url = page.url | prepend: '/en' %}
-
             {% if site.active_lang == 'en' %}
             {% assign ko_url = page.url | replace_first: '/en', '' %}
             {% if ko_url == '' %}
             {% assign ko_url = '/' %}
             {% endif %}
-            {% endif %}
-
             <a href="{{ ko_url }}" class="{% if site.active_lang == 'ko' %}active{% endif %}" data-lang="ko">
                 <span class="lang-icon">🇰🇷</span>
                 <span class="lang-text">한국어</span>
             </a>
+            <a href="{{ page.url }}" class="{% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
+                <span class="lang-icon">🇺🇸</span>
+                <span class="lang-text">English</span>
+            </a>
+            {% else %}
+            <a href="{{ page.url }}" class="{% if site.active_lang == 'ko' %}active{% endif %}" data-lang="ko">
+                <span class="lang-icon">🇰🇷</span>
+                <span class="lang-text">한국어</span>
+            </a>
+            {% assign en_url = '/en' | append: page.url %}
             <a href="{{ en_url }}" class="{% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
                 <span class="lang-icon">🇺🇸</span>
                 <span class="lang-text">English</span>
             </a>
+            {% endif %}
         </div>
     </div>
 </div>
