@@ -1,67 +1,214 @@
+{% if site.search == true %}
 <div class="search-content__inner-wrap">
-    <form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    {%- assign search_provider = site.search_provider | default: "lunr" -%}
+    {%- case search_provider -%}
+    {%- when "lunr" -%}
+    <form class="search-content__form" onsubmit="return false;">
         <label class="sr-only" for="search">
-            {{ site.data.ui-text[site.locale].search_label_text | default: '검색어 입력...' }}
+            {{ site.data.ui-text[site.active_lang].search_label_text | default: 'Enter your search term...' }}
         </label>
         <input type="search" id="search" class="search-input" tabindex="-1"
-            placeholder="{{ site.data.ui-text[site.locale].search_placeholder_text | default: '검색어를 입력하세요...' }}" />
+            placeholder="{{ site.data.ui-text[site.active_lang].search_placeholder_text | default: 'Enter your search term...' }}" />
     </form>
+    <div id="search-loading" class="search-loading" style="display: none;">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <p class="search-loading-text">{{ site.data.ui-text[site.active_lang].search_loading_text | default: 'Loading
+            search index...' }}</p>
+    </div>
     <div id="results" class="results"></div>
 
-    <div class="search-instructions">
-        <div class="search-instructions-ko" style="display: block;">
-            <p>검색 결과가 없으신가요? 다음을 시도해보세요:</p>
-            <ul>
-                <li>다른 검색어를 사용해보세요</li>
-                <li>더 일반적인 단어로 검색해보세요</li>
-                <li>검색어 철자가 정확한지 확인해보세요</li>
-            </ul>
-        </div>
-        <div class="search-instructions-en" style="display: none;">
-            <p>Can't find what you're looking for? Try:</p>
-            <ul>
-                <li>Using different keywords</li>
-                <li>Using more general terms</li>
-                <li>Checking spelling of your search terms</li>
-            </ul>
-        </div>
+    <div id="search-error" class="search-error" style="display: none;">
+        <p class="search-error-text">{{ site.data.ui-text[site.active_lang].search_error_text | default: 'An error
+            occurred during search. Please try refreshing the page.' }}</p>
+        <button id="search-retry" class="search-retry-button" onclick="clearSearchCache()">
+            {{ site.data.ui-text[site.active_lang].search_retry_button | default: 'Refresh Search' }}
+        </button>
     </div>
+
+    {% if site.search_tips %}
+    <div class="search-instructions">
+        <h4 class="search-instructions-title">{{ site.data.ui-text[site.active_lang].search_tips_title | default:
+            'Search Tips' }}</h4>
+        <ul class="search-instructions-list">
+            <li>{{ site.data.ui-text[site.active_lang].search_tips_multiple_words | default: 'Use multiple words to
+                refine your search' }}</li>
+            <li>{{ site.data.ui-text[site.active_lang].search_tips_exact_match | default: 'Use quotes for exact phrase
+                matching' }}</li>
+            <li>{{ site.data.ui-text[site.active_lang].search_tips_boolean | default: 'Use AND, OR, NOT for boolean
+                operations' }}</li>
+        </ul>
+    </div>
+    {% endif %}
+
+    {%- when "google" -%}
+    <form onsubmit="return googleCustomSearchExecute();" id="cse-search-box-form-id">
+        <label class="sr-only" for="cse-search-input-box-id">
+            {{ site.data.ui-text[site.active_lang].search_label_text | default: 'Enter your search term...' }}
+        </label>
+        <input type="search" id="cse-search-input-box-id" class="search-input" tabindex="-1"
+            placeholder="{{ site.data.ui-text[site.active_lang].search_placeholder_text | default: 'Enter your search term...' }}" />
+    </form>
+    <div id="results" class="results">
+        <gcse:searchresults-only></gcse:searchresults-only>
+    </div>
+    {%- endcase -%}
 </div>
+{% endif %}
 
-<script>
-    // 언어에 따른 화면 표시 조정
-    document.addEventListener('DOMContentLoaded', function () {
-        function updateSearchLanguage() {
-            const lang = document.documentElement.getAttribute('lang') || 'ko';
-            const koInstructions = document.querySelector('.search-instructions-ko');
-            const enInstructions = document.querySelector('.search-instructions-en');
+<!-- 검색 로딩 스타일 -->
+<style>
+    .search-loading {
+        text-align: center;
+        padding: 2rem 0;
+    }
 
-            if (lang === 'ko') {
-                if (koInstructions) koInstructions.style.display = 'block';
-                if (enInstructions) enInstructions.style.display = 'none';
-                document.getElementById('search').placeholder = '검색어를 입력하세요...';
-            } else {
-                if (koInstructions) koInstructions.style.display = 'none';
-                if (enInstructions) enInstructions.style.display = 'block';
-                document.getElementById('search').placeholder = 'Enter search term...';
-            }
+    .search-loading-text {
+        margin-top: 1rem;
+        font-size: 0.9em;
+        color: #767676;
+    }
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .double-bounce1,
+    .double-bounce2 {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #6f777d;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+    }
+
+    .double-bounce2 {
+        animation-delay: -1.0s;
+    }
+
+    @keyframes sk-bounce {
+
+        0%,
+        100% {
+            transform: scale(0.0);
         }
 
-        // 초기 설정
-        updateSearchLanguage();
+        50% {
+            transform: scale(1.0);
+        }
+    }
 
-        // 언어 변경 이벤트 감지
-        document.addEventListener('languageChanged', updateSearchLanguage);
+    .search-error {
+        text-align: center;
+        padding: 2rem 0;
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 4px;
+        margin-top: 1rem;
+    }
 
-        // HTML lang 속성 변경 감지
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                if (mutation.attributeName === 'lang') {
-                    updateSearchLanguage();
-                }
-            });
+    .search-retry-button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 0.5rem;
+    }
+
+    .search-retry-button:hover {
+        background-color: #218838;
+    }
+</style>
+
+<script>
+    // 페이지 로드 시 이벤트 처리
+    document.addEventListener('DOMContentLoaded', function () {
+        // 로딩 및 결과 요소 캐싱
+        var searchInput = document.getElementById('search');
+        var searchLoading = document.getElementById('search-loading');
+        var searchResults = document.getElementById('results');
+        var searchError = document.getElementById('search-error');
+
+        // 검색 입력란에 포커스가 가면 발생하는 이벤트
+        searchInput.addEventListener('focus', function () {
+            // 검색 인덱스가 아직 로드되지 않았을 때만 로딩 표시
+            if (typeof idx === 'undefined' || idx === null) {
+                searchResults.style.display = 'none';
+                searchLoading.style.display = 'block';
+
+                // 인덱스 초기화 상태 확인 (1초마다)
+                var checkInterval = setInterval(function () {
+                    if (typeof idx !== 'undefined' && idx !== null) {
+                        searchLoading.style.display = 'none';
+                        searchResults.style.display = 'block';
+                        clearInterval(checkInterval);
+                    }
+                }, 1000);
+
+                // 10초 후에도 로드되지 않으면 오류 메시지 표시
+                setTimeout(function () {
+                    if (typeof idx === 'undefined' || idx === null) {
+                        searchLoading.style.display = 'none';
+                        searchError.style.display = 'block';
+                        clearInterval(checkInterval);
+                        console.error('검색 인덱스 로드 시간 초과');
+                    }
+                }, 10000);
+            }
         });
 
-        observer.observe(document.documentElement, { attributes: true });
+        // 오류 발생 시 재시도 버튼
+        document.getElementById('search-retry').addEventListener('click', function () {
+            searchError.style.display = 'none';
+            searchLoading.style.display = 'block';
+
+            // 캐시 초기화 및 페이지 새로고침
+            if (typeof clearSearchCache === 'function') {
+                clearSearchCache();
+            } else {
+                location.reload(true);
+            }
+        });
+
+        // 검색 결과 언어별 표시 설정
+        updateSearchInstructionsByLanguage();
+
+        // 언어 변경 이벤트 감지
+        document.addEventListener('languageChanged', function () {
+            updateSearchInstructionsByLanguage();
+        });
     });
+
+    /**
+     * 현재 언어에 맞게 검색 도움말 업데이트
+     */
+    function updateSearchInstructionsByLanguage() {
+        var lang = document.documentElement.getAttribute('lang') || 'ko';
+
+        // 언어별 검색 팁 요소가 있다면 표시/숨김 처리
+        var koInstructions = document.querySelector('.search-instructions-ko');
+        var enInstructions = document.querySelector('.search-instructions-en');
+
+        if (koInstructions && enInstructions) {
+            if (lang === 'ko') {
+                koInstructions.style.display = 'block';
+                enInstructions.style.display = 'none';
+            } else {
+                koInstructions.style.display = 'none';
+                enInstructions.style.display = 'block';
+            }
+        }
+    }
 </script>
