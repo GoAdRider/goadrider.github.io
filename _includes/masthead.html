@@ -57,9 +57,37 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // 쿠키 관련 함수
+        function getCookie(name) {
+            let value = `; ${document.cookie}`;
+            let parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+        // 현재 언어 감지 함수
+        function getCurrentLanguage() {
+            // 1. 쿠키에서 언어 확인
+            const cookieLang = getCookie('preferred_lang');
+            if (cookieLang === 'ko' || cookieLang === 'en') {
+                return cookieLang;
+            }
+
+            // 2. URL에서 언어 확인
+            if (window.location.pathname.startsWith('/en/')) {
+                return 'en';
+            }
+
+            // 3. 기본값은 한국어
+            return 'ko';
+        }
+
         // 메뉴 이름과 링크 업데이트 함수
         function updateMenuLanguage() {
-            const lang = document.documentElement.getAttribute('lang') || 'ko';
+            const lang = getCurrentLanguage();
+            // HTML 문서의 lang 속성 설정
+            document.documentElement.setAttribute('lang', lang);
+
             const menuItems = document.querySelectorAll('.masthead__menu-item');
 
             menuItems.forEach(function (item) {
@@ -74,13 +102,23 @@
                 if (title) link.textContent = title;
                 if (url) link.href = url;
             });
+
+            // 언어 변경 이벤트 발생
+            document.dispatchEvent(new CustomEvent('languageChanged', {
+                detail: { language: lang }
+            }));
         }
 
-        // 초기 실행
+        // 페이지 로드 시 즉시 실행
         updateMenuLanguage();
 
         // 언어 변경 이벤트 리스너
-        document.addEventListener('languageChanged', updateMenuLanguage);
+        document.addEventListener('languageChanged', function () {
+            updateMenuLanguage();
+        });
+
+        // 1초 후 다시 한번 업데이트 (페이지 전환 후 안정화)
+        setTimeout(updateMenuLanguage, 1000);
 
         // HTML lang 속성 변경 감지
         const observer = new MutationObserver(function (mutations) {

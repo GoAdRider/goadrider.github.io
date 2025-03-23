@@ -195,6 +195,11 @@
                 if (koLangBtn) koLangBtn.classList.remove('active');
                 if (enLangBtn) enLangBtn.classList.add('active');
             }
+
+            // 언어 변경 이벤트 발생 - 메뉴와 페이지 내용을 업데이트하기 위해
+            document.dispatchEvent(new CustomEvent('languageChanged', {
+                detail: { language: currentLang }
+            }));
         }
 
         // UI 업데이트
