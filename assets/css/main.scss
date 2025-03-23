@@ -1,135 +1,21 @@
---- # Jekyll front matter --- @charset "utf-8";
-
-@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
-@import "minimal-mistakes";
-
-/* 사이트 커스텀 스타일 */
-:root {
-    --primary-color: #336699;
-    --secondary-color: #ff6b6b;
-    --background-color: #f8f9fa;
-    --text-color: #333;
-    --heading-color: #1a1a1a;
-    --link-color: #0366d6;
-    --nav-bg: #ffffff;
-    --nav-text: #3d4852;
-}
-
-/* 드롭다운 언어 전환 스타일 */
-.language-switcher {
-    position: relative;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin: 0 1rem;
-}
-
-.lang-switch-title {
-    font-size: 0.8rem;
-    margin-bottom: 0.25rem;
-    color: #666;
-}
-
-.lang-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-btn {
-    display: flex;
-    align-items: center;
-    padding: 0.4rem 0.8rem;
-    background-color: #f5f5f5;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: #333;
-    transition: all 0.2s ease;
-}
-
-.dropdown-btn:hover {
-    background-color: #e8e8e8;
-}
-
-.dropdown-arrow {
-    margin-left: 8px;
-    font-size: 0.7rem;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #fff;
-    min-width: 120px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    z-index: 1000;
-    overflow: hidden;
-    border: 1px solid #e0e0e0;
-}
-
-.dropdown-content.show {
-    display: block;
-}
-
-.dropdown-content a {
-    color: #333;
-    padding: 10px 16px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    transition: all 0.2s ease;
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-    color: var(--primary-color);
-}
-
-.dropdown-content a.active {
-    background-color: #f0f0f0;
-    font-weight: 600;
-}
-
-.lang-icon {
-    margin-right: 8px;
-}
-
-@media (max-width: 767px) {
-    .lang-text {
-        display: none;
-    }
-
-    .dropdown-btn {
-        padding: 0.3rem;
-    }
-
-    .lang-icon {
-        margin-right: 0;
-    }
-}
-
-/* 외부 CSS 파일 가져오기 */
-@import url("/assets/css/style.css");
-
-/* 사이트에서 사용할 기본 스타일시트와 변수들 */
-:root {
-    --primary-color: #336699;
-    --secondary-color: #ff6b6b;
-    --background-color: #f8f9fa;
-    --text-color: #333;
-    --heading-color: #1a1a1a;
-    --link-color: #0366d6;
-    --nav-bg: #ffffff;
-    --nav-text: #3d4852;
-}
+--- # Only the main Sass file needs front matter (the dashes are enough) search: false --- @charset "utf-8";
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
 
 // NewsLens 블로그 커스텀 스타일
+
+// 글로벌 디자인 변수
+:root {
+    --primary-color: #336699;
+    --secondary-color: #ff6b6b;
+    --background-color: #f8f9fa;
+    --text-color: #333;
+    --heading-color: #1a1a1a;
+    --link-color: #0366d6;
+    --nav-bg: #ffffff;
+    --nav-text: #3d4852;
+}
 
 // 기본 스타일 개선
 body {
@@ -236,6 +122,20 @@ body {
     }
 }
 
+// 언어 전환 버튼 스타일 향상
+.language-switcher .lang-btn {
+    transition: all 0.2s ease-in-out;
+}
+
+.language-switcher .lang-btn:hover {
+    transform: translateY(-2px);
+}
+
+.language-switcher .lang-btn.active {
+    background-color: var(--primary-color);
+    font-weight: 600;
+}
+
 // 카드 스타일 포스트
 .archive__item {
     border-radius: 6px;
@@ -294,5 +194,4 @@ body {
     .greedy-nav a.site-title {
         font-size: 1.2em;
     }
-}
 }

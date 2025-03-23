@@ -12,13 +12,21 @@
             <span class="dropdown-arrow">▼</span>
         </button>
         <div id="langDropdownContent" class="dropdown-content">
-            <a href="{{ site.baseurl_root }}{{ page.url }}" class="{% if site.active_lang == 'ko' %}active{% endif %}"
-                data-lang="ko">
+            {% assign ko_url = page.url %}
+            {% assign en_url = page.url | prepend: '/en' %}
+
+            {% if site.active_lang == 'en' %}
+            {% assign ko_url = page.url | replace_first: '/en', '' %}
+            {% if ko_url == '' %}
+            {% assign ko_url = '/' %}
+            {% endif %}
+            {% endif %}
+
+            <a href="{{ ko_url }}" class="{% if site.active_lang == 'ko' %}active{% endif %}" data-lang="ko">
                 <span class="lang-icon">🇰🇷</span>
                 <span class="lang-text">한국어</span>
             </a>
-            <a href="{{ site.baseurl_root }}/en{{ page.url }}"
-                class="{% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
+            <a href="{{ en_url }}" class="{% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
                 <span class="lang-icon">🇺🇸</span>
                 <span class="lang-text">English</span>
             </a>
@@ -43,7 +51,7 @@
         // 문서 클릭 시 드롭다운 닫기
         document.addEventListener('click', function (e) {
             if (!e.target.closest('.language-switcher')) {
-                if (dropdownContent.classList.contains('show')) {
+                if (dropdownContent && dropdownContent.classList.contains('show')) {
                     dropdownContent.classList.remove('show');
                 }
             }
