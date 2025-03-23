@@ -1,56 +1,67 @@
 <!-- start custom head snippets -->
 
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<!-- 기본 스타일시트 -->
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 
-<!-- Google fonts -->
+<!-- favicon (브라우저 탭 아이콘) -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+
+<!-- 구글 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
-    rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-<!-- Custom styles -->
-<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-<link rel="stylesheet" href="{{ '/assets/css/search.css' | relative_url }}">
+<!-- Lunr.js 검색 스크립트 -->
+<script src="{{ '/assets/js/lunr/lunr.min.js' | relative_url }}"></script>
 
-<!-- Lunr.js 검색 라이브러리 - 비동기적으로 로드 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" defer></script>
+<!-- 검색 데이터 로더 (항상 로드) -->
+<script src="{{ '/assets/js/lunr/lunr-store-static.js' | relative_url }}"></script>
 
-<!-- 검색 데이터 및 기능 로드 -->
-<script src="{{ '/assets/js/lunr/lunr-store-static.js' | relative_url }}" defer></script>
-
-<!-- 언어별 검색 스크립트 비동기 로드 -->
+<!-- 언어 감지 및 적절한 언어 스크립트 로드 -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        function loadSearchScript() {
-            var lang = document.documentElement.getAttribute('lang') || 'ko';
-            var scriptUrl = lang === 'ko' ?
-                "{{ '/assets/js/lunr/lunr-ko.js' | relative_url }}" :
-                "{{ '/assets/js/lunr/lunr-en.js' | relative_url }}";
+        // 현재 언어 감지
+        var lang = document.documentElement.getAttribute('lang') || 'ko';
+        var scriptPath = '';
 
-            // 이전 스크립트 제거
-            var oldScript = document.getElementById('lunr-lang-script');
-            if (oldScript) {
-                oldScript.remove();
-            }
-
-            // 새 스크립트 로드
-            var script = document.createElement('script');
-            script.id = 'lunr-lang-script';
-            script.src = scriptUrl + '?v=' + new Date().getTime(); // 캐시 버스팅
-            script.defer = true;
-            document.head.appendChild(script);
-
-            console.log('검색 스크립트 로드:', scriptUrl);
+        // 언어에 따른 스크립트 경로 설정
+        if (lang === 'ko') {
+            scriptPath = "{{ '/assets/js/lunr/lunr-ko.js' | relative_url }}";
+        } else {
+            scriptPath = "{{ '/assets/js/lunr/lunr-en.js' | relative_url }}";
         }
 
-        // 초기 로드
-        loadSearchScript();
+        // 캐시 버스팅을 위한 타임스탬프 추가
+        scriptPath += '?v=' + new Date().getTime();
 
-        // 언어 변경 감지
-        document.addEventListener('languageChanged', loadSearchScript);
+        // 스크립트 동적 로드
+        var script = document.createElement('script');
+        script.src = scriptPath;
+        script.async = true;
+        script.onerror = function () {
+            console.error('검색 스크립트 로드 실패:', scriptPath);
+            // 오류 메시지 표시
+            var searchError = document.getElementById('search-error');
+            if (searchError) {
+                searchError.style.display = 'block';
+                searchError.textContent = '검색 기능을 초기화할 수 없습니다.';
+            }
+        };
+        document.head.appendChild(script);
+
+        console.log('검색 스크립트 로드:', scriptPath);
     });
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.google.tracking_id }}"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '{{ site.analytics.google.tracking_id }}');
 </script>
 
 <!-- end custom head snippets -->

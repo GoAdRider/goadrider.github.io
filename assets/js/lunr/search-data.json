@@ -1,240 +1,117 @@
 ---
 layout: null
 ---
-[
-    {%- for c in site.collections -%
+{
+    {% assign docs = site.documents | where_exp:'doc','doc.search != false' %
     }
-    {%- if forloop.last -%
+  {% assign pages = site.html_pages | where_exp:'doc','doc.search != false' %
     }
-      {%- assign l = true -%
+  
+  {% assign collections = docs | map: 'collection' | uniq %
     }
-    {%- endif -%
+  {% assign entries = '' | split: '' %
     }
-    {%- assign docs = c.docs | where_exp:'doc','doc.search != false' -%
+  
+  {% for collection in collections %
     }
-    {%- for doc in docs -%
+    {% assign docs_collection = docs | where: 'collection', collection %
     }
-      {%- if doc.header.teaser -%
+    {% for doc in docs_collection %
     }
-        {%- capture teaser -%
-    }{
-        { doc.header.teaser
+      {% assign entries = entries | push: doc %
+    }
+    {% endfor %
+    }
+  {% endfor %
+    }
+  
+  {% assign entries = entries | concat: pages %
+    }
+  
+  "items": [
+        {% for entry in entries %
         }
-    }{%- endcapture -%
-    }
-      {%- else -%
-    }
-        {%- assign teaser = site.teaser -%
-    }
-      {%- endif -%
-    }
-      {
-        "title": {
-            { doc.title | jsonify
-            }
-        },
-        "excerpt": {%- if site.search_full_content == true -%
-        }{
-            { doc.content | newline_to_br | replace: "<br />",
-                " " | replace: "</p>",
-                " " | replace: "</h1>",
-                " " | replace: "</h2>",
-                " " | replace: "</h3>",
-                " " | replace: "</h4>",
-                " " | replace: "</h5>",
-                " " | replace: "</h6>",
-                " " | strip_html | strip_newlines | jsonify
-            }
-        }{%- else -%
-        }{
-            { doc.content | newline_to_br | replace: "<br />",
-                " " | replace: "</p>",
-                " " | replace: "</h1>",
-                " " | replace: "</h2>",
-                " " | replace: "</h3>",
-                " " | replace: "</h4>",
-                " " | replace: "</h5>",
-                " " | replace: "</h6>",
-                " " | strip_html | strip_newlines | truncatewords: 50 | jsonify
-            }
-        }{%- endif -%
-        },
-        "categories": {
-            { doc.categories | jsonify
-            }
-        },
-        "tags": {
-            { doc.tags | jsonify
-            }
-        },
-        "url": {
-            { doc.url | absolute_url | jsonify
-            }
-        },
-        "teaser": {
-            { teaser | absolute_url | jsonify
-            }
-        }
-    }{%- unless forloop.last and l -%
-    },
-    {%- endunless -%
-    }
-    {%- endfor -%
-    }
-  {%- endfor -%
-    }
-
-  {%- for post in site.posts -%
-    }
-    {%- if forloop.last -%
-    }
-      {%- assign l = true -%
-    }
-    {%- endif -%
-    }
-    {%- if post.header.teaser -%
-    }
-      {%- capture teaser -%
-    }{
-        { post.header.teaser
-        }
-    }{%- endcapture -%
-    }
-    {%- else -%
-    }
-      {%- assign teaser = site.teaser -%
-    }
-    {%- endif -%
-    }
     {
-        "title": {
-            { post.title | jsonify
+            "title": {
+                { entry.title | jsonify
+                }
+            },
+            "excerpt": {
+                { entry.excerpt | strip_html | truncatewords: 50 | jsonify
+                }
+            },
+            "categories": {
+                { entry.categories | jsonify
+                }
+            },
+            "tags": {
+                { entry.tags | jsonify
+                }
+            },
+            "url": {
+                { entry.url | absolute_url | jsonify
+                }
+            },
+            {% if entry.header.teaser %
             }
-        },
-        "excerpt": {%- if site.search_full_content == true -%
-        }{
-            { post.content | newline_to_br | replace: "<br />",
-                " " | replace: "</p>",
-                " " | replace: "</h1>",
-                " " | replace: "</h2>",
-                " " | replace: "</h3>",
-                " " | replace: "</h4>",
-                " " | replace: "</h5>",
-                " " | replace: "</h6>",
-                " " | strip_html | strip_newlines | jsonify
-            }
-        }{%- else -%
-        }{
-            { post.content | newline_to_br | replace: "<br />",
-                " " | replace: "</p>",
-                " " | replace: "</h1>",
-                " " | replace: "</h2>",
-                " " | replace: "</h3>",
-                " " | replace: "</h4>",
-                " " | replace: "</h5>",
-                " " | replace: "</h6>",
-                " " | strip_html | strip_newlines | truncatewords: 50 | jsonify
-            }
-        }{%- endif -%
-        },
-        "categories": {
-            { post.categories | jsonify
-            }
-        },
-        "tags": {
-            { post.tags | jsonify
-            }
-        },
-        "url": {
-            { post.url | absolute_url | jsonify
-            }
-        },
         "teaser": {
-            { teaser | absolute_url | jsonify
+                { entry.header.teaser | absolute_url | jsonify
+                }
             }
+      {% else %
+            }
+        "teaser": null
+      {% endif %
+            }
+        }{% unless forloop.last %
+        },
+        {% endunless %
         }
-    }{%- unless forloop.last and l -%
-    },
-    {%- endunless -%
-    }
-  {%- endfor -%
-    }
-
-  {%- assign pages = site.pages | where_exp:'page','page.search != false' -%
-    }
-  {%- for page in pages -%
-    }
-    {%- if forloop.last -%
-    }
-      {%- assign l = true -%
-    }
-    {%- endif -%
-    }
-    {%- if page.header.teaser -%
-    }
-      {%- capture teaser -%
-    }{
-        { page.header.teaser
+  {% endfor %
         }
-    }{%- endcapture -%
-    }
-    {%- else -%
-    }
-      {%- assign teaser = site.teaser -%
-    }
-    {%- endif -%
-    }
-    {
-        "title": {
-            { page.title | jsonify
-            }
+  
+  {% assign posts = site.posts | where_exp:'post','post.search != false' %
+        }
+  {% for post in posts %
+        }
+    {% unless entries contains post %
         },
-        "excerpt": {%- if site.search_full_content == true -%
-        }{
-            { page.content | newline_to_br | replace: "<br />",
-                " " | replace: "</p>",
-                " " | replace: "</h1>",
-                " " | replace: "</h2>",
-                " " | replace: "</h3>",
-                " " | replace: "</h4>",
-                " " | replace: "</h5>",
-                " " | replace: "</h6>",
-                " " | strip_html | strip_newlines | jsonify
+        {
+            "title": {
+                { post.title | jsonify
+                }
+            },
+            "excerpt": {
+                { post.excerpt | strip_html | truncatewords: 50 | jsonify
+                }
+            },
+            "categories": {
+                { post.categories | jsonify
+                }
+            },
+            "tags": {
+                { post.tags | jsonify
+                }
+            },
+            "url": {
+                { post.url | absolute_url | jsonify
+                }
+            },
+            {% if post.header.teaser %
             }
-        }{%- else -%
-        }{
-            { page.content | newline_to_br | replace: "<br />",
-                " " | replace: "</p>",
-                " " | replace: "</h1>",
-                " " | replace: "</h2>",
-                " " | replace: "</h3>",
-                " " | replace: "</h4>",
-                " " | replace: "</h5>",
-                " " | replace: "</h6>",
-                " " | strip_html | strip_newlines | truncatewords: 50 | jsonify
-            }
-        }{%- endif -%
-        },
-        "categories": {
-            { page.categories | jsonify
-            }
-        },
-        "tags": {
-            { page.tags | jsonify
-            }
-        },
-        "url": {
-            { page.url | absolute_url | jsonify
-            }
-        },
         "teaser": {
-            { teaser | absolute_url | jsonify
+                { post.header.teaser | absolute_url | jsonify
+                }
+            }
+      {% else %
+            }
+        "teaser": null
+      {% endif %
             }
         }
-    }{%- unless forloop.last and l -%
-    },
-    {%- endunless -%
-    }
-  {%- endfor -%
-    }
-]
+    {% endunless %
+        }
+  {% endfor %
+        }
+    ]
+}
