@@ -9,6 +9,7 @@
 
 <!-- 검색 기능 스크립트 로드 -->
 {% if site.search == true %}
+<script src="{{ '/assets/js/lunr/lunr.min.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/lunr/lunr-store-static.js' | relative_url }}"></script>
 <script>
     // 페이지 언어에 따라 다른 검색 스크립트 로드
@@ -23,7 +24,7 @@
             // 새 스크립트 생성 및 로드
             var script = document.createElement('script');
             script.id = 'lunr-script';
-            script.src = '{{ ' / assets / js / lunr / lunr - ' | relative_url }}' + lang + '.js';
+            script.src = "{{ '/assets/js/lunr/lunr-' | relative_url }}" + lang + ".js";
             script.async = true;
             document.body.appendChild(script);
         }

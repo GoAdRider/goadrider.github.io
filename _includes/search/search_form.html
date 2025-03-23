@@ -1,214 +1,256 @@
 {% if site.search == true %}
 <div class="search-content__inner-wrap">
-    {%- assign search_provider = site.search_provider | default: "lunr" -%}
-    {%- case search_provider -%}
-    {%- when "lunr" -%}
-    <form class="search-content__form" onsubmit="return false;">
-        <label class="sr-only" for="search">
-            {{ site.data.ui-text[site.active_lang].search_label_text | default: 'Enter your search term...' }}
-        </label>
-        <input type="search" id="search" class="search-input" tabindex="-1"
-            placeholder="{{ site.data.ui-text[site.active_lang].search_placeholder_text | default: 'Enter your search term...' }}" />
-    </form>
-    <div id="search-loading" class="search-loading" style="display: none;">
-        <div class="spinner">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-        </div>
-        <p class="search-loading-text">{{ site.data.ui-text[site.active_lang].search_loading_text | default: 'Loading
-            search index...' }}</p>
+    <div class="search-form-container">
+        <form class="search-form" action="{{ site.baseurl }}/search/" method="get">
+            <label class="sr-only" for="search">{{ site.data.ui-text[site.locale].search_label_text | default: 'Enter
+                your search term...' }}</label>
+            <div class="search-input-container">
+                <input type="search" id="search"
+                    aria-placeholder="{{ site.data.ui-text[site.locale].search_placeholder_text | default: 'Enter your search term...' }}"
+                    placeholder="{{ site.data.ui-text[site.locale].search_placeholder_text | default: 'Enter your search term...' }}"
+                    name="q" />
+                <button type="submit" class="search-submit">
+                    <i class="fas fa-search" aria-hidden="true"></i><span class="sr-only">{{
+                        site.data.ui-text[site.locale].search_label | default: "Search" }}</span>
+                </button>
+            </div>
+        </form>
     </div>
-    <div id="results" class="results"></div>
 
+    <!-- 검색 로딩 표시 -->
+    <div id="search-loading" class="search-loading" style="display: none;">
+        <div class="search-loading__spinner">
+            <i class="fas fa-spinner fa-pulse fa-3x fa-fw"></i>
+            <span class="sr-only">{{ site.data.ui-text[site.locale].loading_label | default: "Loading..." }}</span>
+        </div>
+    </div>
+
+    <!-- 검색 오류 메시지 -->
     <div id="search-error" class="search-error" style="display: none;">
-        <p class="search-error-text">{{ site.data.ui-text[site.active_lang].search_error_text | default: 'An error
-            occurred during search. Please try refreshing the page.' }}</p>
-        <button id="search-retry" class="search-retry-button" onclick="clearSearchCache()">
-            {{ site.data.ui-text[site.active_lang].search_retry_button | default: 'Refresh Search' }}
+        <i class="fas fa-exclamation-triangle"></i>
+        <span class="search-error-text">검색 기능을 로드하는 중 오류가 발생했습니다.</span>
+        <button onClick="window.debugSearch().reload()" class="search-retry">
+            <i class="fas fa-redo"></i> 다시 시도
         </button>
     </div>
 
-    {% if site.search_tips %}
-    <div class="search-instructions">
-        <h4 class="search-instructions-title">{{ site.data.ui-text[site.active_lang].search_tips_title | default:
-            'Search Tips' }}</h4>
-        <ul class="search-instructions-list">
-            <li>{{ site.data.ui-text[site.active_lang].search_tips_multiple_words | default: 'Use multiple words to
-                refine your search' }}</li>
-            <li>{{ site.data.ui-text[site.active_lang].search_tips_exact_match | default: 'Use quotes for exact phrase
-                matching' }}</li>
-            <li>{{ site.data.ui-text[site.active_lang].search_tips_boolean | default: 'Use AND, OR, NOT for boolean
-                operations' }}</li>
+    <!-- 검색 결과 영역 -->
+    <div id="results" class="results"></div>
+
+    <!-- 검색 팁 -->
+    <div class="search-tips">
+        <h4 class="search-tips__title">
+            {% if site.locale == "ko" %}
+            검색 도움말
+            {% else %}
+            Search Tips
+            {% endif %}
+        </h4>
+        <ul class="search-tips__list">
+            {% if site.locale == "ko" %}
+            <li>정확한 단어나 문구로 검색하세요.</li>
+            <li>단어 사이에 공백을 넣어 여러 키워드로 검색할 수 있습니다.</li>
+            <li>너무 일반적인 단어는 검색 결과가 너무 많을 수 있습니다.</li>
+            {% else %}
+            <li>Search with exact words or phrases.</li>
+            <li>Use space between words to search for multiple keywords.</li>
+            <li>Common words may yield too many results.</li>
+            {% endif %}
         </ul>
     </div>
-    {% endif %}
-
-    {%- when "google" -%}
-    <form onsubmit="return googleCustomSearchExecute();" id="cse-search-box-form-id">
-        <label class="sr-only" for="cse-search-input-box-id">
-            {{ site.data.ui-text[site.active_lang].search_label_text | default: 'Enter your search term...' }}
-        </label>
-        <input type="search" id="cse-search-input-box-id" class="search-input" tabindex="-1"
-            placeholder="{{ site.data.ui-text[site.active_lang].search_placeholder_text | default: 'Enter your search term...' }}" />
-    </form>
-    <div id="results" class="results">
-        <gcse:searchresults-only></gcse:searchresults-only>
-    </div>
-    {%- endcase -%}
 </div>
-{% endif %}
 
-<!-- 검색 로딩 스타일 -->
 <style>
+    /* 검색 폼 레이아웃과 스타일 */
+    .search-content__inner-wrap {
+        max-width: 100%;
+        padding: 1em;
+    }
+
+    .search-form-container {
+        margin-bottom: 1.5em;
+    }
+
+    .search-form {
+        position: relative;
+    }
+
+    .search-input-container {
+        display: flex;
+        align-items: center;
+    }
+
+    #search {
+        flex: 1;
+        padding: 0.5em 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .search-submit {
+        background: transparent;
+        border: none;
+        margin-left: -40px;
+        color: #666;
+        font-size: 1.2em;
+        cursor: pointer;
+        padding: 0.5em;
+    }
+
+    .search-submit:hover {
+        color: #333;
+    }
+
+    /* 로딩 인디케이터 */
     .search-loading {
         text-align: center;
-        padding: 2rem 0;
+        padding: 2em;
     }
 
-    .search-loading-text {
-        margin-top: 1rem;
-        font-size: 0.9em;
-        color: #767676;
+    .search-loading__spinner {
+        color: #666;
     }
 
-    .spinner {
-        width: 40px;
-        height: 40px;
-        position: relative;
-        margin: 0 auto;
-    }
-
-    .double-bounce1,
-    .double-bounce2 {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        background-color: #6f777d;
-        opacity: 0.6;
-        position: absolute;
-        top: 0;
-        left: 0;
-        animation: sk-bounce 2.0s infinite ease-in-out;
-    }
-
-    .double-bounce2 {
-        animation-delay: -1.0s;
-    }
-
-    @keyframes sk-bounce {
-
-        0%,
-        100% {
-            transform: scale(0.0);
-        }
-
-        50% {
-            transform: scale(1.0);
-        }
-    }
-
+    /* 에러 메시지 */
     .search-error {
         text-align: center;
-        padding: 2rem 0;
-        color: #721c24;
-        background-color: #f8d7da;
-        border: 1px solid #f5c6cb;
+        padding: 1em;
+        margin: 1em 0;
+        background-color: #ffecec;
+        border: 1px solid #f5aca6;
         border-radius: 4px;
-        margin-top: 1rem;
+        color: #cc0033;
     }
 
-    .search-retry-button {
-        background-color: #28a745;
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
+    .search-error i {
+        margin-right: 0.5em;
+    }
+
+    .search-retry {
+        background: #f0f0f0;
+        border: 1px solid #ddd;
         border-radius: 4px;
+        padding: 0.3em 0.8em;
+        margin-left: 1em;
         cursor: pointer;
-        margin-top: 0.5rem;
+        font-size: 0.9em;
     }
 
-    .search-retry-button:hover {
-        background-color: #218838;
+    .search-retry:hover {
+        background: #e0e0e0;
+    }
+
+    /* 검색 결과 스타일 */
+    .results {
+        margin-top: 1em;
+    }
+
+    .results__found {
+        margin-bottom: 1em;
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid #eee;
+        font-weight: bold;
+    }
+
+    .list__item {
+        margin-bottom: 2em;
+        padding-bottom: 1em;
+        border-bottom: 1px solid #f2f2f2;
+    }
+
+    .archive__item-title {
+        margin-top: 0;
+        margin-bottom: 0.5em;
+        font-size: 1.2em;
+    }
+
+    .archive__item-excerpt {
+        margin-top: 0.5em;
+        margin-bottom: 0;
+        font-size: 0.9em;
+        color: #666;
+    }
+
+    /* 검색 팁 */
+    .search-tips {
+        margin-top: 2em;
+        padding: 1em;
+        background-color: #f9f9f9;
+        border: 1px solid #eee;
+        border-radius: 4px;
+    }
+
+    .search-tips__title {
+        margin-top: 0;
+        margin-bottom: 0.8em;
+        font-size: 1em;
+        color: #333;
+    }
+
+    .search-tips__list {
+        margin: 0;
+        padding-left: 1.2em;
+    }
+
+    .search-tips__list li {
+        margin-bottom: 0.5em;
+        font-size: 0.9em;
+        color: #666;
+    }
+
+    /* 반응형 조정 */
+    @media screen and (max-width: 768px) {
+        .search-content__inner-wrap {
+            padding: 0.5em;
+        }
+
+        #search {
+            padding: 0.4em 0.8em;
+            font-size: 0.9em;
+        }
+
+        .search-tips {
+            padding: 0.8em;
+        }
     }
 </style>
 
 <script>
-    // 페이지 로드 시 이벤트 처리
+    // 페이지 로드 시 초기화
     document.addEventListener('DOMContentLoaded', function () {
-        // 로딩 및 결과 요소 캐싱
         var searchInput = document.getElementById('search');
-        var searchLoading = document.getElementById('search-loading');
-        var searchResults = document.getElementById('results');
-        var searchError = document.getElementById('search-error');
+        var resultsContainer = document.getElementById('results');
 
-        // 검색 입력란에 포커스가 가면 발생하는 이벤트
-        searchInput.addEventListener('focus', function () {
-            // 검색 인덱스가 아직 로드되지 않았을 때만 로딩 표시
-            if (typeof idx === 'undefined' || idx === null) {
-                searchResults.style.display = 'none';
-                searchLoading.style.display = 'block';
+        // URL에서 쿼리 파라미터 가져오기
+        var urlParams = new URLSearchParams(window.location.search);
+        var query = urlParams.get('q');
 
-                // 인덱스 초기화 상태 확인 (1초마다)
-                var checkInterval = setInterval(function () {
-                    if (typeof idx !== 'undefined' && idx !== null) {
-                        searchLoading.style.display = 'none';
-                        searchResults.style.display = 'block';
-                        clearInterval(checkInterval);
-                    }
-                }, 1000);
+        // 쿼리 파라미터가 있으면 입력 필드에 설정
+        if (query) {
+            searchInput.value = query;
 
-                // 10초 후에도 로드되지 않으면 오류 메시지 표시
-                setTimeout(function () {
-                    if (typeof idx === 'undefined' || idx === null) {
-                        searchLoading.style.display = 'none';
-                        searchError.style.display = 'block';
-                        clearInterval(checkInterval);
-                        console.error('검색 인덱스 로드 시간 초과');
-                    }
-                }, 10000);
-            }
-        });
-
-        // 오류 발생 시 재시도 버튼
-        document.getElementById('search-retry').addEventListener('click', function () {
-            searchError.style.display = 'none';
-            searchLoading.style.display = 'block';
-
-            // 캐시 초기화 및 페이지 새로고침
-            if (typeof clearSearchCache === 'function') {
-                clearSearchCache();
+            // 검색 데이터가 이미 로드되었는지 확인하고 그에 따라 처리
+            if (window.store && window.store.length > 0) {
+                // 이미 데이터가 로드됨 - 검색 실행 가능
+                // lunr.js 스크립트가 로드되면 자동으로 검색 실행됨
             } else {
-                location.reload(true);
-            }
-        });
-
-        // 검색 결과 언어별 표시 설정
-        updateSearchInstructionsByLanguage();
-
-        // 언어 변경 이벤트 감지
-        document.addEventListener('languageChanged', function () {
-            updateSearchInstructionsByLanguage();
-        });
-    });
-
-    /**
-     * 현재 언어에 맞게 검색 도움말 업데이트
-     */
-    function updateSearchInstructionsByLanguage() {
-        var lang = document.documentElement.getAttribute('lang') || 'ko';
-
-        // 언어별 검색 팁 요소가 있다면 표시/숨김 처리
-        var koInstructions = document.querySelector('.search-instructions-ko');
-        var enInstructions = document.querySelector('.search-instructions-en');
-
-        if (koInstructions && enInstructions) {
-            if (lang === 'ko') {
-                koInstructions.style.display = 'block';
-                enInstructions.style.display = 'none';
-            } else {
-                koInstructions.style.display = 'none';
-                enInstructions.style.display = 'block';
+                // 데이터가 아직 로드되지 않음 - 로딩 표시
+                document.getElementById('search-loading').style.display = 'block';
             }
         }
-    }
+
+        // 폼 제출 처리 
+        document.querySelector('.search-form').addEventListener('submit', function (e) {
+            var q = searchInput.value.trim();
+
+            // 검색어가 없으면 제출 취소
+            if (!q) {
+                e.preventDefault();
+            }
+        });
+    });
 </script>
+{% endif %}
