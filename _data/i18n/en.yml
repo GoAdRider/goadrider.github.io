@@ -1,6 +1,6 @@
 # English translation file
 global:
-  title: "ThoughtfulAI"
+  title: "NewsLens"
   description: "A blog that views the world through philosophical and scientific thinking"
   
 nav:
@@ -16,7 +16,7 @@ lang_switcher:
   change_lang: "Change Language"
   
 footer:
-  copyright: "© ThoughtfulAI. All Rights Reserved."
+  copyright: "© NewsLens. All Rights Reserved."
   powered_by: "Powered by Jekyll & Minimal Mistakes"
   
 post:

@@ -31,14 +31,20 @@ jobs:
       env:
         JEKYLL_ENV: production
         TZ: Asia/Seoul
-    
-    - name: Deploy to GitHub Pages
+        
+    # main 브랜치에 직접 배포합니다 (github-pages 사용)
+    - name: Commit built site
       if: github.event_name != 'pull_request'
-      uses: peaceiris/actions-gh-pages@v3
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add -f _site
+        git commit -m "Built site for GitHub Pages - ${{ github.event.head_commit.message }}"
+      continue-on-error: true
+      
+    - name: Push changes
+      if: github.event_name != 'pull_request'
+      uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_site
-        publish_branch: gh-pages  # GitHub Pages 서비스 브랜치
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
-        full_commit_message: '${{ github.event.head_commit.message }} - 자동 배포' 
+        branch: main 

@@ -1,7 +1,8 @@
 source "https://rubygems.org"
 
 gem "jekyll", "~> 4.3.2"
-gem "minimal-mistakes-jekyll", "~> 4.24.0"
+gem "github-pages", group: :jekyll_plugins
+gem "jekyll-remote-theme"
 gem "jekyll-polyglot", "~> 1.6.0"
 
 group :jekyll_plugins do

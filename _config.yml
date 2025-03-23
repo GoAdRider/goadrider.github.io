@@ -1,14 +1,14 @@
-# ThoughtfulAI 블로그 설정
-title: "ThoughtfulAI"
+# NewsLens 블로그 설정
+title: "NewsLens"
 subtitle: "철학적, 과학적 사고로 세상을 바라보는 블로그"
-name: "ThoughtfulAI"
+name: "NewsLens"
 description: "철학적, 과학적 사고로 세상을 바라보는 블로그"
 url: "https://goadrider.github.io"
 baseurl: ""
 repository: "GoAdRider/goadrider.github.io"
 
 # 테마 설정
-theme: minimal-mistakes-jekyll
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
 minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # 다국어 설정 (jekyll-polyglot)
@@ -48,6 +48,7 @@ plugins:
   - jekyll-paginate
   - jekyll-include-cache
   - jekyll-polyglot
+  - jekyll-remote-theme
 
 # 기본 값
 defaults:
@@ -72,11 +73,11 @@ defaults:
 
 # 저자 정보
 author:
-  name: "ThoughtfulAI"
+  name: "NewsLens"
   avatar: "/assets/images/bio-photo.jpg"
   bio: "철학적, 과학적 사고로 세상을 바라보는 블로그"
   location: "Seoul, Korea"
-  email: "contact@thoughtfulai.blog"
+  email: "contact@newslens.blog"
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"

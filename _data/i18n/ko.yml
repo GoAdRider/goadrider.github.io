@@ -1,6 +1,6 @@
 # 한국어 번역 파일
 global:
-  title: "ThoughtfulAI"
+  title: "NewsLens"
   description: "철학적, 과학적 사고로 세상을 바라보는 블로그"
   
 nav:
@@ -16,7 +16,7 @@ lang_switcher:
   change_lang: "언어 변경"
   
 footer:
-  copyright: "© ThoughtfulAI. 모든 권리 보유."
+  copyright: "© NewsLens. 모든 권리 보유."
   powered_by: "Powered by Jekyll & Minimal Mistakes"
   
 post:

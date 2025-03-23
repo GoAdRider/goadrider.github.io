@@ -9,9 +9,9 @@ toc: false
 <div class="about-content-ko">
   <h1>소개</h1>
   
-  <h2>ThoughtfulAI 블로그에 오신 것을 환영합니다</h2>
+  <h2>NewsLens 블로그에 오신 것을 환영합니다</h2>
   
-  <p>ThoughtfulAI는 철학적, 과학적 사고를 통해 현대 사회의 다양한 주제를 깊이 있게 탐구하는 블로그입니다. 우리는 빠르게 변화하는 세상 속에서 의미 있는 통찰을 발견하고, 복잡한 문제들을 다양한 관점에서 바라보고자 합니다.</p>
+  <p>NewsLens는 철학적, 과학적 사고를 통해 현대 사회의 다양한 주제를 깊이 있게 탐구하는 블로그입니다. 우리는 빠르게 변화하는 세상 속에서 의미 있는 통찰을 발견하고, 복잡한 문제들을 다양한 관점에서 바라보고자 합니다.</p>
   
   <h3>블로그의 주요 주제</h3>
   
@@ -28,7 +28,7 @@ toc: false
   
   <h3>함께해 주세요</h3>
   
-  <p>ThoughtfulAI 블로그는 지속적으로 성장하고 발전하고 있습니다. 여러분의 의견과 피드백은 저희에게 큰 도움이 됩니다. 댓글을 통해 생각을 공유하거나, 소셜 미디어에서 저희를 팔로우하여 최신 포스트 소식을 받아보세요.</p>
+  <p>NewsLens 블로그는 지속적으로 성장하고 발전하고 있습니다. 여러분의 의견과 피드백은 저희에게 큰 도움이 됩니다. 댓글을 통해 생각을 공유하거나, 소셜 미디어에서 저희를 팔로우하여 최신 포스트 소식을 받아보세요.</p>
   
   <p>감사합니다!</p>
 </div>
@@ -36,9 +36,9 @@ toc: false
 <div class="about-content-en" style="display: none;">
   <h1>About</h1>
   
-  <h2>Welcome to ThoughtfulAI Blog</h2>
+  <h2>Welcome to NewsLens Blog</h2>
   
-  <p>ThoughtfulAI is a blog dedicated to exploring various topics in modern society through philosophical and scientific thinking. We aim to discover meaningful insights in a rapidly changing world and to view complex problems from diverse perspectives.</p>
+  <p>NewsLens is a blog dedicated to exploring various topics in modern society through philosophical and scientific thinking. We aim to discover meaningful insights in a rapidly changing world and to view complex problems from diverse perspectives.</p>
   
   <h3>Main Topics</h3>
   
@@ -55,7 +55,7 @@ toc: false
   
   <h3>Join Us</h3>
   
-  <p>The ThoughtfulAI blog is continuously growing and evolving. Your opinions and feedback are invaluable to us. Share your thoughts through comments or follow us on social media to receive updates about our latest posts.</p>
+  <p>The NewsLens blog is continuously growing and evolving. Your opinions and feedback are invaluable to us. Share your thoughts through comments or follow us on social media to receive updates about our latest posts.</p>
   
   <p>Thank you!</p>
 </div>
