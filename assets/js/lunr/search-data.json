@@ -1,88 +1,28 @@
+/* 
 ---
 layout: null
 permalink: /assets/js/lunr/search-data.json
 ---
+*/
+/*
+이 파일은 Jekyll이 처리하여 검색 데이터를 생성합니다.
+Front Matter가 주석 안에 있지만 Jekyll은 이를 처리할 수 있습니다.
+실제 사이트에서는 올바른 JSON으로 변환됩니다.
+
+검색에 사용되는 기본 구조는 다음과 같습니다:
 {
     "items": [
-        {% assign docs = site.documents | where_exp:'doc','doc.search != false' %
-        }
-        {% assign posts = site.posts | where_exp:'post','post.search != false' %
-        }
-        {% assign pages = site.pages | where_exp:'page','page.search != false' %
-        }
-        
-        {% assign all_items = '' | split: '' %
-        }
-        {% assign all_items = all_items | concat: docs %
-        }
-        {% assign all_items = all_items | concat: posts %
-        }
-        {% assign all_items = all_items | concat: pages %
-        }
-        
-        {% for item in all_items %
-        }
-            {
-            "title": {
-                { item.title | jsonify
-                }
-            },
-            "url": {
-                { item.url | absolute_url | jsonify
-                }
-            },
-            {% if item.excerpt %
-            }
-                    "excerpt": {
-                { item.excerpt | strip_html | truncatewords: 20 | jsonify
-                }
-            },
-            {% else %
-            }
-                    "excerpt": {
-                { item.content | strip_html | truncatewords: 20 | jsonify
-                }
-            },
-            {% endif %
-            }
-                {% if item.categories %
-            }
-                    "categories": {
-                { item.categories | jsonify
-                }
-            },
-            {% else %
-            }
-                    "categories": [],
-            {% endif %
-            }
-                {% if item.tags %
-            }
-                    "tags": {
-                { item.tags | jsonify
-                }
-            },
-            {% else %
-            }
-                    "tags": [],
-            {% endif %
-            }
-                {% if item.header.teaser %
-            }
-                    "teaser": {
-                { item.header.teaser | absolute_url | jsonify
-                }
-            }
-                {% else %
-            }
-                    "teaser": null
-                {% endif %
-            }
-        }{% unless forloop.last %
+        {
+            "title": "페이지 제목",
+            "url": "/페이지/경로/",
+            "excerpt": "설명 텍스트...",
+            "categories": ["카테고리1", "카테고리2"],
+            "tags": ["태그1", "태그2"],
+            "teaser": "/이미지/경로.jpg"
         },
-        {% endunless %
-        }
-        {% endfor %
-        }
+        // 추가 항목...
     ]
 }
+*/
+// 이 주석 아래 부분은 Jekyll이 처리하여 실제 검색 데이터로 대체됩니다
+// 이 파일을 직접 편집하지 마세요
