@@ -13,27 +13,27 @@
         </button>
         <div id="langDropdownContent" class="dropdown-content">
             {% if site.active_lang == 'en' %}
+            {% comment %} 영어에서 한국어로 전환 {% endcomment %}
             {% assign ko_url = page.url | replace_first: '/en', '' %}
             {% if ko_url == '' %}
             {% assign ko_url = '/' %}
             {% endif %}
-            <a href="{{ ko_url }}"
-                class="{% if site.active_lang == 'ko' or site.default_lang == 'ko' %}active{% endif %}" data-lang="ko">
+            <a href="{{ ko_url }}" class="ko-lang {% if site.active_lang == 'ko' %}active{% endif %}" data-lang="ko">
                 <span class="lang-icon">🇰🇷</span>
                 <span class="lang-text">한국어</span>
             </a>
-            <a href="{{ page.url }}" class="{% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
+            <a href="{{ page.url }}" class="en-lang {% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
                 <span class="lang-icon">🇺🇸</span>
                 <span class="lang-text">English</span>
             </a>
             {% else %}
-            <a href="{{ page.url }}"
-                class="{% if site.active_lang == 'ko' or site.default_lang == 'ko' %}active{% endif %}" data-lang="ko">
+            {% comment %} 한국어에서 영어로 전환 {% endcomment %}
+            <a href="{{ page.url }}" class="ko-lang {% if site.active_lang == 'ko' %}active{% endif %}" data-lang="ko">
                 <span class="lang-icon">🇰🇷</span>
                 <span class="lang-text">한국어</span>
             </a>
             {% assign en_url = '/en' | append: page.url %}
-            <a href="{{ en_url }}" class="{% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
+            <a href="{{ en_url }}" class="en-lang {% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
                 <span class="lang-icon">🇺🇸</span>
                 <span class="lang-text">English</span>
             </a>
@@ -44,6 +44,9 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // 기본 언어 설정 (한국어)
+        const defaultLang = 'ko';
+
         // 언어 전환 드롭다운 토글 처리
         const dropdownBtn = document.getElementById('langDropdownBtn');
         const dropdownContent = document.getElementById('langDropdownContent');
@@ -65,27 +68,79 @@
             }
         });
 
-        // 언어 버튼 클릭 이벤트
+        // URL 정규화 함수
+        function normalizeUrl(url, targetLang) {
+            // 현재 URL 가져오기
+            let currentPath = window.location.pathname;
+            let newUrl = '';
+
+            if (targetLang === 'en') {
+                // 이미 /en으로 시작하는지 확인
+                if (currentPath.startsWith('/en/')) {
+                    newUrl = currentPath; // 이미 영어 경로면 유지
+                } else if (currentPath === '/') {
+                    newUrl = '/en/'; // 홈페이지인 경우
+                } else {
+                    // /en/ 접두사 추가
+                    newUrl = '/en' + currentPath;
+                }
+
+                // 중복된 /en/en/ 패턴 제거
+                newUrl = newUrl.replace(/\/en\/en\//g, '/en/');
+            } else {
+                // 영어에서 한국어로 변경하는 경우 /en 제거
+                newUrl = currentPath.replace(/^\/en/, '');
+                if (newUrl === '') newUrl = '/';
+            }
+
+            return newUrl;
+        }
+
+        // 언어 버튼 클릭 이벤트 핸들러
         const langButtons = document.querySelectorAll('.dropdown-content a');
         if (langButtons) {
             langButtons.forEach(function (btn) {
                 btn.addEventListener('click', function (e) {
-                    // 언어 변경 시 쿠키 저장
+                    e.preventDefault(); // 기본 동작 방지
+
                     const lang = this.getAttribute('data-lang');
+                    const newUrl = normalizeUrl(window.location.pathname, lang);
+
+                    // 언어 변경 시 쿠키 저장
                     document.cookie = `preferred_lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
 
-                    // 사용자 정의 이벤트 발생
-                    const event = new CustomEvent('languageChanged', { detail: { language: lang } });
-                    document.dispatchEvent(event);
+                    // 페이지 이동
+                    window.location.href = newUrl;
                 });
             });
         }
 
         // 현재 언어에 기반하여 HTML lang 속성 설정
-        const currentLang = document.querySelector('.dropdown-content a.active');
-        if (currentLang) {
-            const lang = currentLang.getAttribute('data-lang');
-            document.documentElement.setAttribute('lang', lang);
+        const html = document.documentElement;
+        let currentLang = defaultLang;
+
+        // 현재 활성화된 언어 버튼 확인
+        const activeButton = document.querySelector('.dropdown-content a.active');
+        if (activeButton) {
+            currentLang = activeButton.getAttribute('data-lang');
+        } else {
+            // URL에서 언어 확인
+            const urlLang = window.location.pathname.startsWith('/en/') ? 'en' : 'ko';
+            currentLang = urlLang;
+        }
+
+        html.setAttribute('lang', currentLang);
+
+        // 언어 전환 버튼 상태 업데이트
+        const koLangBtn = document.querySelector('.ko-lang');
+        const enLangBtn = document.querySelector('.en-lang');
+
+        if (currentLang === 'ko') {
+            if (koLangBtn) koLangBtn.classList.add('active');
+            if (enLangBtn) enLangBtn.classList.remove('active');
+        } else {
+            if (koLangBtn) koLangBtn.classList.remove('active');
+            if (enLangBtn) enLangBtn.classList.add('active');
         }
     });
 </script>
