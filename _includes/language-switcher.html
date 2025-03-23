@@ -2,7 +2,7 @@
     <span class="lang-switch-title">{{ site.data.i18n[site.active_lang].lang_switcher.change_lang }}</span>
     <div class="lang-dropdown">
         <button id="langDropdownBtn" class="dropdown-btn">
-            {% if site.active_lang == 'ko' %}
+            {% if site.active_lang == 'ko' or site.default_lang == 'ko' %}
             <span class="lang-icon">🇰🇷</span>
             <span class="lang-text">한국어</span>
             {% else %}
@@ -17,7 +17,8 @@
             {% if ko_url == '' %}
             {% assign ko_url = '/' %}
             {% endif %}
-            <a href="{{ ko_url }}" class="{% if site.active_lang == 'ko' %}active{% endif %}" data-lang="ko">
+            <a href="{{ ko_url }}"
+                class="{% if site.active_lang == 'ko' or site.default_lang == 'ko' %}active{% endif %}" data-lang="ko">
                 <span class="lang-icon">🇰🇷</span>
                 <span class="lang-text">한국어</span>
             </a>
@@ -26,7 +27,8 @@
                 <span class="lang-text">English</span>
             </a>
             {% else %}
-            <a href="{{ page.url }}" class="{% if site.active_lang == 'ko' %}active{% endif %}" data-lang="ko">
+            <a href="{{ page.url }}"
+                class="{% if site.active_lang == 'ko' or site.default_lang == 'ko' %}active{% endif %}" data-lang="ko">
                 <span class="lang-icon">🇰🇷</span>
                 <span class="lang-text">한국어</span>
             </a>
