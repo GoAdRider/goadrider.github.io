@@ -11,6 +11,17 @@
 
 <!-- Custom styles -->
 <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/search.css' | relative_url }}">
+
+<!-- Lunr.js 검색 라이브러리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
+{% if site.active_lang == "ko" %}
+<script src="{{ '/assets/js/lunr/lunr-ko.js' | relative_url }}"></script>
+{% else %}
+<script src="{{ '/assets/js/lunr/lunr-en.js' | relative_url }}"></script>
+{% endif %}
+<script src="{{ '/assets/js/lunr/lunr-store.js' | relative_url }}"></script>
 
 <!-- end custom head snippets -->
 

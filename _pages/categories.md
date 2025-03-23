@@ -5,6 +5,7 @@ title: " "
 permalink: /categories/
 layout: categories
 author_profile: true
+search: true
 ---
 
 <div class="categories-content-ko">

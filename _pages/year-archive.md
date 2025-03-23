@@ -5,6 +5,7 @@ title: " "
 permalink: /year-archive/
 layout: posts
 author_profile: true
+search: true
 ---
 
 <div class="archive-content-ko">

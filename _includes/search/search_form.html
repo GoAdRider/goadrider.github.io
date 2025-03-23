@@ -1,0 +1,67 @@
+<div class="search-content__inner-wrap">
+    <form class="search-content__form" onkeydown="return event.key != 'Enter';">
+        <label class="sr-only" for="search">
+            {{ site.data.ui-text[site.locale].search_label_text | default: '검색어 입력...' }}
+        </label>
+        <input type="search" id="search" class="search-input" tabindex="-1"
+            placeholder="{{ site.data.ui-text[site.locale].search_placeholder_text | default: '검색어를 입력하세요...' }}" />
+    </form>
+    <div id="results" class="results"></div>
+
+    <div class="search-instructions">
+        <div class="search-instructions-ko" style="display: block;">
+            <p>검색 결과가 없으신가요? 다음을 시도해보세요:</p>
+            <ul>
+                <li>다른 검색어를 사용해보세요</li>
+                <li>더 일반적인 단어로 검색해보세요</li>
+                <li>검색어 철자가 정확한지 확인해보세요</li>
+            </ul>
+        </div>
+        <div class="search-instructions-en" style="display: none;">
+            <p>Can't find what you're looking for? Try:</p>
+            <ul>
+                <li>Using different keywords</li>
+                <li>Using more general terms</li>
+                <li>Checking spelling of your search terms</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 언어에 따른 화면 표시 조정
+    document.addEventListener('DOMContentLoaded', function () {
+        function updateSearchLanguage() {
+            const lang = document.documentElement.getAttribute('lang') || 'ko';
+            const koInstructions = document.querySelector('.search-instructions-ko');
+            const enInstructions = document.querySelector('.search-instructions-en');
+
+            if (lang === 'ko') {
+                if (koInstructions) koInstructions.style.display = 'block';
+                if (enInstructions) enInstructions.style.display = 'none';
+                document.getElementById('search').placeholder = '검색어를 입력하세요...';
+            } else {
+                if (koInstructions) koInstructions.style.display = 'none';
+                if (enInstructions) enInstructions.style.display = 'block';
+                document.getElementById('search').placeholder = 'Enter search term...';
+            }
+        }
+
+        // 초기 설정
+        updateSearchLanguage();
+
+        // 언어 변경 이벤트 감지
+        document.addEventListener('languageChanged', updateSearchLanguage);
+
+        // HTML lang 속성 변경 감지
+        const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.attributeName === 'lang') {
+                    updateSearchLanguage();
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, { attributes: true });
+    });
+</script>

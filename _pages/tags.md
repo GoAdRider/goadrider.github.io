@@ -5,6 +5,7 @@ title: " "
 permalink: /tags/
 layout: tags
 author_profile: true
+search: true
 ---
 
 <div class="tags-content-ko">
