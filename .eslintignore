@@ -1,0 +1,7 @@
+# Jekyll 관련 파일 무시
+assets/js/lunr/lunr-store.js
+assets/js/lunr/search-data.json
+assets/js/lunr/*.js
+_site/**/*
+.jekyll-cache/**/*
+vendor/**/* 
