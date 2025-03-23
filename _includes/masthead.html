@@ -14,14 +14,11 @@
                 </a>
                 <ul class="visible-links">
                     {%- for link in site.data.navigation.main -%}
-                    <li class="masthead__menu-item">
-                        {% if site.active_lang == "ko" %}
-                        <a href="{{ link.url_ko | relative_url }}" {% if link.description %}
-                            title="{{ link.description }}" {% endif %}>{{ link.title_ko }}</a>
-                        {% else %}
-                        <a href="{{ link.url_en | relative_url }}" {% if link.description %}
-                            title="{{ link.description }}" {% endif %}>{{ link.title_en }}</a>
-                        {% endif %}
+                    <li class="masthead__menu-item" data-title-ko="{{ link.title_ko }}"
+                        data-title-en="{{ link.title_en }}" data-url-ko="{{ link.url_ko | relative_url }}"
+                        data-url-en="{{ link.url_en | relative_url }}">
+                        <a href="{{ link.url | relative_url }}" {% if link.description %} title="{{ link.description }}"
+                            {% endif %}>{{ link.title }}</a>
                     </li>
                     {%- endfor -%}
                 </ul>
@@ -57,3 +54,43 @@
         }
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 메뉴 이름과 링크 업데이트 함수
+        function updateMenuLanguage() {
+            const lang = document.documentElement.getAttribute('lang') || 'ko';
+            const menuItems = document.querySelectorAll('.masthead__menu-item');
+
+            menuItems.forEach(function (item) {
+                const link = item.querySelector('a');
+                if (!link) return;
+
+                // 현재 언어에 따른 타이틀과 URL 가져오기
+                const title = lang === 'ko' ? item.getAttribute('data-title-ko') : item.getAttribute('data-title-en');
+                const url = lang === 'ko' ? item.getAttribute('data-url-ko') : item.getAttribute('data-url-en');
+
+                // 링크 업데이트
+                if (title) link.textContent = title;
+                if (url) link.href = url;
+            });
+        }
+
+        // 초기 실행
+        updateMenuLanguage();
+
+        // 언어 변경 이벤트 리스너
+        document.addEventListener('languageChanged', updateMenuLanguage);
+
+        // HTML lang 속성 변경 감지
+        const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.attributeName === 'lang') {
+                    updateMenuLanguage();
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, { attributes: true });
+    });
+</script>

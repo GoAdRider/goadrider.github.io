@@ -106,3 +106,22 @@
         font-size: 2rem !important;
     }
 }
+
+/* 페이지 제목 중복 문제 해결 */
+.page__title {
+    display: none;
+}
+
+/* 대신 JavaScript로 추가한 제목 사용 */
+.about-content-ko h1,
+.about-content-en h1,
+.categories-content-ko h1,
+.categories-content-en h1,
+.tags-content-ko h1,
+.tags-content-en h1,
+.archive-content-ko h1,
+.archive-content-en h1 {
+    font-size: 2em;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
