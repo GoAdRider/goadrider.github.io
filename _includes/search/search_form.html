@@ -17,51 +17,41 @@
         </form>
     </div>
 
-    <!-- 검색 로딩 표시 -->
+    <!-- 검색 로딩 표시 - 단순화 -->
     <div id="search-loading" class="search-loading" style="display: none;">
         <div class="search-loading__spinner">
-            <i class="fas fa-spinner fa-pulse fa-3x fa-fw"></i>
-            <span class="sr-only">{{ site.data.ui-text[site.locale].loading_label | default: "Loading..." }}</span>
+            <i class="fas fa-circle-notch fa-spin fa-2x"></i>
+            <span>{{ site.data.ui-text[site.locale].loading_label | default: "Loading..." }}</span>
         </div>
     </div>
 
-    <!-- 검색 오류 메시지 -->
+    <!-- 검색 오류 메시지 - 단순화 -->
     <div id="search-error" class="search-error" style="display: none;">
-        <i class="fas fa-exclamation-triangle"></i>
-        <span class="search-error-text">검색 기능을 로드하는 중 오류가 발생했습니다.</span>
-        <button onClick="window.debugSearch().reload()" class="search-retry">
-            <i class="fas fa-redo"></i> 다시 시도
-        </button>
+        <i class="fas fa-exclamation-circle"></i>
+        <span class="search-error-text">
+            {% if site.locale == "ko" %}
+            검색 데이터를 불러올 수 없습니다. 잠시 후 다시 시도해 주세요.
+            {% else %}
+            Unable to load search data. Please try again later.
+            {% endif %}
+        </span>
     </div>
 
     <!-- 검색 결과 영역 -->
     <div id="results" class="results"></div>
 
-    <!-- 검색 팁 -->
+    <!-- 검색 팁 - 단순화 -->
     <div class="search-tips">
-        <h4 class="search-tips__title">
-            {% if site.locale == "ko" %}
-            검색 도움말
-            {% else %}
-            Search Tips
-            {% endif %}
-        </h4>
-        <ul class="search-tips__list">
-            {% if site.locale == "ko" %}
-            <li>정확한 단어나 문구로 검색하세요.</li>
-            <li>단어 사이에 공백을 넣어 여러 키워드로 검색할 수 있습니다.</li>
-            <li>너무 일반적인 단어는 검색 결과가 너무 많을 수 있습니다.</li>
-            {% else %}
-            <li>Search with exact words or phrases.</li>
-            <li>Use space between words to search for multiple keywords.</li>
-            <li>Common words may yield too many results.</li>
-            {% endif %}
-        </ul>
+        {% if site.locale == "ko" %}
+        <p>키워드를 입력하여 블로그 내용을 검색하세요.</p>
+        {% else %}
+        <p>Enter keywords to search blog content.</p>
+        {% endif %}
     </div>
 </div>
 
 <style>
-    /* 검색 폼 레이아웃과 스타일 */
+    /* 검색 폼 레이아웃과 스타일 - 단순화 */
     .search-content__inner-wrap {
         max-width: 100%;
         padding: 1em;
@@ -86,7 +76,6 @@
         border: 1px solid #ccc;
         border-radius: 4px;
         font-size: 1em;
-        box-sizing: border-box;
         width: 100%;
     }
 
@@ -100,50 +89,35 @@
         padding: 0.5em;
     }
 
-    .search-submit:hover {
-        color: #333;
-    }
-
-    /* 로딩 인디케이터 */
+    /* 로딩 인디케이터 - 최적화 */
     .search-loading {
         text-align: center;
-        padding: 2em;
+        padding: 1em;
     }
 
     .search-loading__spinner {
         color: #666;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
     }
 
-    /* 에러 메시지 */
+    /* 에러 메시지 - 단순화 */
     .search-error {
         text-align: center;
-        padding: 1em;
-        margin: 1em 0;
-        background-color: #ffecec;
-        border: 1px solid #f5aca6;
+        padding: 0.8em;
+        margin: 0.8em 0;
+        background-color: #fff0f0;
         border-radius: 4px;
-        color: #cc0033;
+        color: #d30000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
     }
 
-    .search-error i {
-        margin-right: 0.5em;
-    }
-
-    .search-retry {
-        background: #f0f0f0;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 0.3em 0.8em;
-        margin-left: 1em;
-        cursor: pointer;
-        font-size: 0.9em;
-    }
-
-    .search-retry:hover {
-        background: #e0e0e0;
-    }
-
-    /* 검색 결과 스타일 */
+    /* 검색 결과 스타일 - 단순화 */
     .results {
         margin-top: 1em;
     }
@@ -155,102 +129,66 @@
         font-weight: bold;
     }
 
+    .archive__item-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
     .list__item {
-        margin-bottom: 2em;
-        padding-bottom: 1em;
+        margin-bottom: 1.5em;
+        padding-bottom: 0.8em;
         border-bottom: 1px solid #f2f2f2;
     }
 
     .archive__item-title {
-        margin-top: 0;
-        margin-bottom: 0.5em;
-        font-size: 1.2em;
+        margin: 0 0 0.4em 0;
+        font-size: 1.1em;
     }
 
     .archive__item-excerpt {
-        margin-top: 0.5em;
-        margin-bottom: 0;
-        font-size: 0.9em;
-        color: #666;
-    }
-
-    /* 검색 팁 */
-    .search-tips {
-        margin-top: 2em;
-        padding: 1em;
-        background-color: #f9f9f9;
-        border: 1px solid #eee;
-        border-radius: 4px;
-    }
-
-    .search-tips__title {
-        margin-top: 0;
-        margin-bottom: 0.8em;
-        font-size: 1em;
-        color: #333;
-    }
-
-    .search-tips__list {
         margin: 0;
-        padding-left: 1.2em;
-    }
-
-    .search-tips__list li {
-        margin-bottom: 0.5em;
         font-size: 0.9em;
         color: #666;
     }
 
-    /* 반응형 조정 */
-    @media screen and (max-width: 768px) {
-        .search-content__inner-wrap {
-            padding: 0.5em;
-        }
-
-        #search {
-            padding: 0.4em 0.8em;
-            font-size: 0.9em;
-        }
-
-        .search-tips {
-            padding: 0.8em;
-        }
+    /* 검색 팁 - 단순화 */
+    .search-tips {
+        margin-top: 1em;
+        text-align: center;
+        color: #777;
+        font-size: 0.9em;
     }
 </style>
 
 <script>
-    // 페이지 로드 시 초기화
+    // 페이지 로드 시 초기화 - 최적화 버전
     document.addEventListener('DOMContentLoaded', function () {
-        var searchInput = document.getElementById('search');
-        var resultsContainer = document.getElementById('results');
+        try {
+            var searchInput = document.getElementById('search');
+            if (!searchInput) return;
 
-        // URL에서 쿼리 파라미터 가져오기
-        var urlParams = new URLSearchParams(window.location.search);
-        var query = urlParams.get('q');
+            // URL에서 쿼리 파라미터 가져오기
+            var urlParams = new URLSearchParams(window.location.search);
+            var query = urlParams.get('q');
 
-        // 쿼리 파라미터가 있으면 입력 필드에 설정
-        if (query) {
-            searchInput.value = query;
-
-            // 검색 데이터가 이미 로드되었는지 확인하고 그에 따라 처리
-            if (window.store && window.store.length > 0) {
-                // 이미 데이터가 로드됨 - 검색 실행 가능
-                // lunr.js 스크립트가 로드되면 자동으로 검색 실행됨
-            } else {
-                // 데이터가 아직 로드되지 않음 - 로딩 표시
-                document.getElementById('search-loading').style.display = 'block';
+            // 쿼리 파라미터가 있으면 입력 필드에 설정
+            if (query) {
+                searchInput.value = query;
             }
+
+            // 폼 제출 처리 - 단순화
+            var searchForm = document.querySelector('.search-form');
+            if (searchForm) {
+                searchForm.addEventListener('submit', function (e) {
+                    if (!searchInput.value.trim()) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        } catch (e) {
+            console.error('검색 폼 초기화 오류:', e);
         }
-
-        // 폼 제출 처리 
-        document.querySelector('.search-form').addEventListener('submit', function (e) {
-            var q = searchInput.value.trim();
-
-            // 검색어가 없으면 제출 취소
-            if (!q) {
-                e.preventDefault();
-            }
-        });
     });
 </script>
 {% endif %}
