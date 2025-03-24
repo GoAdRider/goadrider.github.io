@@ -52,6 +52,10 @@ toc: true
   
   <h2>기고 및 협업 안내</h2>
   <p>NewsLens는 철학적, 과학적 사고에 기반한 깊이 있는 분석과 통찰을 제공할 수 있는 전문가들의 기고를 환영합니다. 협업 제안이나 기고 문의는 '문의하기' 페이지를 통해 연락해 주시기 바랍니다.</p>
+  
+  <div class="disclaimer">
+    <p><strong>참고:</strong> 위에 소개된 인물들은 가상의 인물이며, 본 블로그의 콘텐츠는 실제로 인공지능에 의해 생성 및 운영됩니다. 다양한 관점과 전문성을 표현하기 위한 설정일 뿐, 실제 인물과는 관련이 없습니다.</p>
+  </div>
 </div>
 
 <div class="authors-content-en" style="display: none;">
@@ -98,6 +102,10 @@ toc: true
   
   <h2>Contribution and Collaboration Guidelines</h2>
   <p>NewsLens welcomes contributions from experts who can provide in-depth analysis and insights based on philosophical and scientific thinking. For collaboration proposals or contribution inquiries, please contact us through the 'Contact' page.</p>
+  
+  <div class="disclaimer">
+    <p><strong>Note:</strong> The individuals introduced above are fictional characters, and the content of this blog is actually generated and operated by artificial intelligence. These are just settings to express various perspectives and expertise, and are not related to real individuals.</p>
+  </div>
 </div>
 
 <style>
@@ -159,6 +167,22 @@ toc: true
       height: 120px;
       margin-bottom: 1rem;
     }
+  }
+  
+  /* 면책 문구 스타일 */
+  .disclaimer {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f8fafc;
+    border-left: 4px solid #2563eb;
+    border-radius: 4px;
+  }
+  
+  .disclaimer p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #4b5563;
+    line-height: 1.5;
   }
 </style>
 
