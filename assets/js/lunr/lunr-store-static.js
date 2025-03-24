@@ -102,8 +102,27 @@ function tryLoadSearchData() {
             return response.json();
         })
         .then(function (data) {
-            if (data && data.items && Array.isArray(data.items)) {
-                store = data.items;
+            // 새로운 구조 처리: docs, posts, pages 배열 합치기
+            var newStore = [];
+
+            // docs 배열 처리
+            if (data && data.docs && Array.isArray(data.docs)) {
+                newStore = newStore.concat(data.docs);
+            }
+
+            // posts 배열 처리
+            if (data && data.posts && Array.isArray(data.posts)) {
+                newStore = newStore.concat(data.posts);
+            }
+
+            // pages 배열 처리
+            if (data && data.pages && Array.isArray(data.pages)) {
+                newStore = newStore.concat(data.pages);
+            }
+
+            // 유효한 항목이 있으면 store 갱신
+            if (newStore.length > 0) {
+                store = newStore;
 
                 // 이벤트 발생
                 document.dispatchEvent(new CustomEvent('searchDataLoaded', {
@@ -111,6 +130,8 @@ function tryLoadSearchData() {
                 }));
 
                 console.log('[검색] 전체 데이터 로드 완료:', store.length);
+            } else {
+                console.log('[검색] 로드된 데이터가 없음, 기본 데이터 유지');
             }
 
             clearTimeout(timeout);
@@ -120,7 +141,7 @@ function tryLoadSearchData() {
         })
         .catch(function (error) {
             // 오류 발생해도 기본 데이터가 있으므로 무시
-            console.log('[검색] 데이터 로드 실패, 기본 데이터 유지');
+            console.log('[검색] 데이터 로드 실패, 기본 데이터 유지:', error);
 
             clearTimeout(timeout);
             if (searchLoading) {
