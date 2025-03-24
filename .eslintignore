@@ -4,4 +4,12 @@ assets/js/lunr/search-data.json
 assets/js/lunr/*.js
 _site/**/*
 .jekyll-cache/**/*
-vendor/**/* 
+vendor/**/*
+
+# Jekyll 템플릿 파일 무시
+**/*.json
+**/*.js
+assets/js/lunr/search-data.json
+assets/js/lunr/lunr-store.js
+assets/js/lunr/lunr-*.js
+_includes/**/*.html 

@@ -26,3 +26,116 @@ Front Matter가 주석 안에 있지만 Jekyll은 이를 처리할 수 있습니
 */
 // 이 주석 아래 부분은 Jekyll이 처리하여 실제 검색 데이터로 대체됩니다
 // 이 파일을 직접 편집하지 마세요
+
+---
+layout: null
+permalink: /assets/js/lunr/search-data.json
+---
+{
+    {% assign docs = site.documents %
+    }
+  {% assign docs_count = docs | size %
+    }
+  {% assign posts = site.posts | where_exp: 'post', 'post.search != false' %
+    }
+  {% assign posts_count = posts | size %
+    }
+  {% assign pages = site.pages | where_exp: 'page', 'page.search != false' %
+    }
+  {% assign pages_count = pages | size %
+    }
+  
+  "docs": [
+        {% for doc in docs %
+        }
+      {
+            "title": {
+                { doc.title | jsonify
+                }
+            },
+            "url": {
+                { doc.url | absolute_url | jsonify
+                }
+            },
+            "excerpt": {
+                { doc.excerpt | strip_html | strip_newlines | jsonify
+                }
+            },
+            "categories": {
+                { doc.categories | jsonify
+                }
+            },
+            "tags": {
+                { doc.tags | jsonify
+                }
+            }
+        }{% unless forloop.last %
+        },
+        {% endunless %
+        }
+    {% endfor %
+        }
+    ],
+    "posts": [
+        {% for post in posts %
+        }
+      {
+            "title": {
+                { post.title | jsonify
+                }
+            },
+            "url": {
+                { post.url | absolute_url | jsonify
+                }
+            },
+            "excerpt": {
+                { post.excerpt | strip_html | strip_newlines | jsonify
+                }
+            },
+            "categories": {
+                { post.categories | jsonify
+                }
+            },
+            "tags": {
+                { post.tags | jsonify
+                }
+            }
+        }{% unless forloop.last %
+        },
+        {% endunless %
+        }
+    {% endfor %
+        }
+    ],
+    "pages": [
+        {% for page in pages %
+        }
+      {
+            "title": {
+                { page.title | jsonify
+                }
+            },
+            "url": {
+                { page.url | absolute_url | jsonify
+                }
+            },
+            "excerpt": {
+                { page.excerpt | strip_html | strip_newlines | jsonify
+                }
+            },
+            "categories": {
+                { page.categories | jsonify
+                }
+            },
+            "tags": {
+                { page.tags | jsonify
+                }
+            }
+        }{% unless forloop.last %
+        },
+        {% endunless %
+        }
+    {% endfor %
+        }
+    ]
+}
