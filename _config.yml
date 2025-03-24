@@ -22,11 +22,15 @@ locale: "ko-KR"
 timezone: Asia/Seoul
 encoding: "utf-8"
 markdown: kramdown
+
+# 검색 설정 - 안정성 중심으로 최적화
 search: true
-search_full_content: true
+search_full_content: false  # 전체 콘텐츠 검색은 부하가 큼, 필요시 true로 변경
 search_provider: lunr
 lunr:
   search_within_pages: true
+  search_limit: 50  # 검색 결과 제한 수 추가
+  search_entries_limit: 20  # 색인 항목 제한 추가 
 
 # 출력 설정
 permalink: /:categories/:title/
