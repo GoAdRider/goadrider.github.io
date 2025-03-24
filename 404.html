@@ -1,0 +1,58 @@
+---
+layout: default
+permalink: /404.html
+---
+
+<style type="text/css" media="screen">
+    .container {
+        margin: 10px auto;
+        max-width: 600px;
+        text-align: center;
+    }
+
+    h1 {
+        margin: 30px 0;
+        font-size: 4em;
+        line-height: 1;
+        letter-spacing: -1px;
+    }
+
+    .error-message {
+        margin-bottom: 40px;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container">
+    <h1>404</h1>
+    <p class="error-message">이런! 요청하신 페이지를 찾을 수 없습니다.</p>
+    <p>요청하신 페이지가 이동되었거나 삭제되었을 수 있습니다.</p>
+    <p>홈페이지로 이동하시면 원하시는 정보를 찾으실 수 있을 것입니다.</p>
+    <a href="{{ site.baseurl }}/" class="button">홈페이지로 돌아가기</a>
+</div>
+
+<script>
+    // 페이지 로드 완료 확인
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('404 페이지 로드됨');
+    });
+
+    // 5초 후 자동으로 홈페이지로 리다이렉트
+    setTimeout(function () {
+        window.location.href = '{{ site.url }}{{ site.baseurl }}/';
+    }, 5000);
+</script>

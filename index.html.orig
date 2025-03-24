@@ -1,0 +1,61 @@
+---
+layout: home
+author_profile: true
+title_ko: "NewsLens"
+title_en: "NewsLens"
+excerpt_ko: "철학적, 과학적 사고로 세상을 바라보는 블로그"
+excerpt_en: "A blog that views the world through philosophical and scientific thinking"
+header:
+overlay_color: "#5e616c"
+overlay_filter: "0.5"
+---
+
+<div class="home-content-ko">
+    <!-- 한국어 홈페이지 콘텐츠 -->
+    <h2>철학적, 과학적 사고로 세상을 바라보는 블로그</h2>
+    <p>NewsLens 블로그에 오신 것을 환영합니다. 이곳에서는 현대 사회의 다양한 주제를 철학적, 과학적 관점에서 분석하고 고찰합니다.</p>
+    <p>최신 포스트를 아래에서 확인하세요.</p>
+</div>
+
+<div class="home-content-en" style="display: none;">
+    <!-- 영어 홈페이지 콘텐츠 -->
+    <h2>A blog that views the world through philosophical and scientific thinking</h2>
+    <p>Welcome to NewsLens blog. Here, we analyze and contemplate various topics in modern society from
+        philosophical and scientific perspectives.</p>
+    <p>Check out the latest posts below.</p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 언어 변경 감지 함수
+        function updateLanguage() {
+            const lang = document.documentElement.getAttribute('lang') || 'ko';
+            const koContent = document.querySelector('.home-content-ko');
+            const enContent = document.querySelector('.home-content-en');
+
+            // 콘텐츠 표시/숨김 전환
+            if (lang === 'ko') {
+                if (koContent) koContent.style.display = 'block';
+                if (enContent) enContent.style.display = 'none';
+            } else {
+                if (koContent) koContent.style.display = 'none';
+                if (enContent) enContent.style.display = 'block';
+            }
+        }
+
+        // 초기 설정 및 이벤트 리스너
+        updateLanguage();
+        document.addEventListener('languageChanged', updateLanguage);
+
+        // HTML lang 속성 변경 감지
+        const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.attributeName === 'lang') {
+                    updateLanguage();
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, { attributes: true });
+    });
+</script>
