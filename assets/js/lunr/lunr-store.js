@@ -1,3 +1,11 @@
+---
+    layout: null
+permalink: /assets/js / lunr / lunr - store.js
+---
+
+// 검색 데이터 스토어
+var store = [];
+
 /*
  * layout: null
  * Front Matter 영역 - Jekyll에서 이 파일을 처리하기 위한 필수 영역입니다.
@@ -24,30 +32,30 @@ var store = [
     {
         {
             doc.content | newline_to_br |
-            replace: "<br />", " " |
-                replace: "</p>", " " |
-                    replace: "</h1>", " " |
-                        replace: "</h2>", " " |
-                            replace: "</h3>", " " |
-                                replace: "</h4>", " " |
-                                    replace: "</h5>", " " |
-                                        replace: "</h6>", " " |
-                                            strip_html | strip_newlines | jsonify
+                replace: "<br />", " " |
+                    replace: "</p>", " " |
+                        replace: "</h1>", " " |
+                            replace: "</h2>", " " |
+                                replace: "</h3>", " " |
+                                    replace: "</h4>", " " |
+                                        replace: "</h5>", " " |
+                                            replace: "</h6>", " " |
+                                                strip_html | strip_newlines | jsonify
         }
     }
     {% else %}
     {
         {
             doc.content | newline_to_br |
-            replace: "<br />", " " |
-                replace: "</p>", " " |
-                    replace: "</h1>", " " |
-                        replace: "</h2>", " " |
-                            replace: "</h3>", " " |
-                                replace: "</h4>", " " |
-                                    replace: "</h5>", " " |
-                                        replace: "</h6>", " " |
-                                            strip_html | strip_newlines | truncatewords: 50 | jsonify
+                replace: "<br />", " " |
+                    replace: "</p>", " " |
+                        replace: "</h1>", " " |
+                            replace: "</h2>", " " |
+                                replace: "</h3>", " " |
+                                    replace: "</h4>", " " |
+                                        replace: "</h5>", " " |
+                                            replace: "</h6>", " " |
+                                                strip_html | strip_newlines | truncatewords: 50 | jsonify
         }
     }
     {% endif %},
@@ -76,30 +84,30 @@ var store = [
     {
         {
             post.content | newline_to_br |
-            replace: "<br />", " " |
-                replace: "</p>", " " |
-                    replace: "</h1>", " " |
-                        replace: "</h2>", " " |
-                            replace: "</h3>", " " |
-                                replace: "</h4>", " " |
-                                    replace: "</h5>", " " |
-                                        replace: "</h6>", " " |
-                                            strip_html | strip_newlines | jsonify
+                replace: "<br />", " " |
+                    replace: "</p>", " " |
+                        replace: "</h1>", " " |
+                            replace: "</h2>", " " |
+                                replace: "</h3>", " " |
+                                    replace: "</h4>", " " |
+                                        replace: "</h5>", " " |
+                                            replace: "</h6>", " " |
+                                                strip_html | strip_newlines | jsonify
         }
     }
     {% else %}
     {
         {
             post.content | newline_to_br |
-            replace: "<br />", " " |
-                replace: "</p>", " " |
-                    replace: "</h1>", " " |
-                        replace: "</h2>", " " |
-                            replace: "</h3>", " " |
-                                replace: "</h4>", " " |
-                                    replace: "</h5>", " " |
-                                        replace: "</h6>", " " |
-                                            strip_html | strip_newlines | truncatewords: 50 | jsonify
+                replace: "<br />", " " |
+                    replace: "</p>", " " |
+                        replace: "</h1>", " " |
+                            replace: "</h2>", " " |
+                                replace: "</h3>", " " |
+                                    replace: "</h4>", " " |
+                                        replace: "</h5>", " " |
+                                            replace: "</h6>", " " |
+                                                strip_html | strip_newlines | truncatewords: 50 | jsonify
         }
     }
     {% endif %},
@@ -127,30 +135,30 @@ var store = [
     {
         {
             page.content | newline_to_br |
-            replace: "<br />", " " |
-                replace: "</p>", " " |
-                    replace: "</h1>", " " |
-                        replace: "</h2>", " " |
-                            replace: "</h3>", " " |
-                                replace: "</h4>", " " |
-                                    replace: "</h5>", " " |
-                                        replace: "</h6>", " " |
-                                            strip_html | strip_newlines | jsonify
+                replace: "<br />", " " |
+                    replace: "</p>", " " |
+                        replace: "</h1>", " " |
+                            replace: "</h2>", " " |
+                                replace: "</h3>", " " |
+                                    replace: "</h4>", " " |
+                                        replace: "</h5>", " " |
+                                            replace: "</h6>", " " |
+                                                strip_html | strip_newlines | jsonify
         }
     }
     {% else %}
     {
         {
             page.content | newline_to_br |
-            replace: "<br />", " " |
-                replace: "</p>", " " |
-                    replace: "</h1>", " " |
-                        replace: "</h2>", " " |
-                            replace: "</h3>", " " |
-                                replace: "</h4>", " " |
-                                    replace: "</h5>", " " |
-                                        replace: "</h6>", " " |
-                                            strip_html | strip_newlines | truncatewords: 50 | jsonify
+                replace: "<br />", " " |
+                    replace: "</p>", " " |
+                        replace: "</h1>", " " |
+                            replace: "</h2>", " " |
+                                replace: "</h3>", " " |
+                                    replace: "</h4>", " " |
+                                        replace: "</h5>", " " |
+                                            replace: "</h6>", " " |
+                                                strip_html | strip_newlines | truncatewords: 50 | jsonify
         }
     }
     {% endif %},
