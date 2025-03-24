@@ -1,17 +1,120 @@
----
-layout: home
-author_profile: true
-title: "NewsLens"
-excerpt: "A blog that views the world through philosophical and scientific thinking"
-header:
-overlay_color: "#5e616c"
-overlay_filter: "0.5"
-lang: en
----
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="home-content-en">
-    <h2>A blog that views the world through philosophical and scientific thinking</h2>
-    <p>Welcome to NewsLens blog. Here, we analyze and contemplate various topics in modern society from philosophical
-        and scientific perspectives.</p>
-    <p>Check out the latest posts below.</p>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsLens - A blog that views the world through philosophical and scientific thinking</title>
+    <style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #5e616c;
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        main {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        .posts {
+            margin-top: 2rem;
+        }
+
+        .post {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .language-switcher {
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+
+        .language-switcher a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>NewsLens</h1>
+            <p>A blog that views the world through philosophical and scientific thinking</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="language-switcher">
+            <a href="/">한국어</a>
+        </div>
+
+        <main>
+            <h1>A blog that views the world through philosophical and scientific thinking</h1>
+
+            <p>Welcome to NewsLens blog. Here, we analyze and contemplate various topics in modern society from
+                philosophical and scientific perspectives.</p>
+
+            <p>Check out the latest posts below.</p>
+
+            <div class="posts">
+                <!-- 최신 포스트 리스트 (임시) -->
+                <div class="post">
+                    <h3>We're upgrading our site</h3>
+                    <p>We're currently making improvements to our website. Please check back soon for new content.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 NewsLens. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+
+</html>
