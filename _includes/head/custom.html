@@ -18,62 +18,81 @@
 
 <!-- 언어별 검색 스크립트 로드 (지연 로딩) -->
 <script>
-    // 페이지 렌더링 후 검색 스크립트 지연 로딩
-    window.addEventListener('DOMContentLoaded', function () {
-        // 검색 스크립트 로딩 상태 관리
-        var searchScriptLoaded = false;
+    // 페이지 로딩 최우선 처리: 페이지가 막히지 않도록 안전장치 추가
+    window.searchInitAttempt = 0;
 
-        // 스크립트 로딩 최적화를 위해 5초 지연
-        setTimeout(function () {
-            try {
-                // 현재 언어 확인
-                var lang = document.documentElement.lang || 'en';
-                var scriptLanguage = lang === 'ko' ? 'ko' : 'en';
+    // 검색 초기화 최대 시도 횟수
+    var MAX_SEARCH_INIT_ATTEMPTS = 3;
 
-                // 스크립트 존재 확인 (이미 로드된 경우 방지)
-                if (document.querySelector('script[src*="lunr-' + scriptLanguage + '.js"]')) {
-                    return;
-                }
+    // 검색 초기화 함수 - 오류 발생 시 자동 복구
+    function initializeSearch() {
+        try {
+            window.searchInitAttempt++;
 
-                // 스크립트 생성 및 로드
-                var script = document.createElement('script');
-                script.src = "{{ '/assets/js/lunr/lunr-' | relative_url }}" + scriptLanguage + ".js";
-                script.defer = true;
-                script.async = true; // 비동기 로딩
-                document.body.appendChild(script);
-
-                searchScriptLoaded = true;
-                console.log('검색 스크립트 로드: ' + scriptLanguage);
-            } catch (e) {
-                console.error('검색 스크립트 로드 오류:', e);
+            // 시도 횟수 제한
+            if (window.searchInitAttempt > MAX_SEARCH_INIT_ATTEMPTS) {
+                console.warn('[안전모드] 검색 초기화 시도 횟수 초과, 검색 기능 비활성화');
+                return;
             }
-        }, 1000);
 
-        // 언어 변경 시 스크립트 재로드
-        document.addEventListener('languageChanged', function (e) {
-            try {
-                if (!e.detail || !e.detail.language) return;
+            // 현재 언어 확인
+            var lang = document.documentElement.lang || 'en';
+            var scriptLanguage = lang === 'ko' ? 'ko' : 'en';
 
-                var scriptLanguage = e.detail.language === 'ko' ? 'ko' : 'en';
-
-                // 이전 스크립트 제거
-                var oldScript = document.querySelector('script[src*="lunr-ko.js"], script[src*="lunr-en.js"]');
-                if (oldScript) {
-                    oldScript.remove();
-                }
-
-                // 새 스크립트 로드
-                var script = document.createElement('script');
-                script.src = "{{ '/assets/js/lunr/lunr-' | relative_url }}" + scriptLanguage + ".js";
-                script.defer = true;
-                script.async = true;
-                document.body.appendChild(script);
-
-                console.log('언어 변경으로 검색 스크립트 업데이트: ' + scriptLanguage);
-            } catch (e) {
-                console.error('언어 변경 시 스크립트 로드 오류:', e);
+            // 스크립트 존재 확인 (이미 로드된 경우 방지)
+            if (document.querySelector('script[src*="lunr-' + scriptLanguage + '.js"]')) {
+                return;
             }
+
+            // 스크립트 생성 및 로드
+            var script = document.createElement('script');
+            script.src = "{{ '/assets/js/lunr/lunr-' | relative_url }}" + scriptLanguage + ".js";
+            script.defer = true;
+            script.async = true; // 비동기 로딩
+
+            // 오류 발생 시 처리
+            script.onerror = function () {
+                console.error('[안전모드] 검색 스크립트 로드 실패: ' + scriptLanguage);
+                // 스크립트 자동 제거
+                script.remove();
+            };
+
+            document.body.appendChild(script);
+            console.log('[검색] 스크립트 로드: ' + scriptLanguage);
+        } catch (e) {
+            console.error('[안전모드] 검색 초기화 오류:', e);
+        }
+    }
+
+    // 지연 로딩 구현 - 페이지 렌더링 후 최소 2초 이후 실행
+    if (document.readyState === 'complete') {
+        setTimeout(initializeSearch, 2000);
+    } else {
+        window.addEventListener('load', function () {
+            setTimeout(initializeSearch, 2000);
         });
+    }
+
+    // 언어 변경 시 스크립트 재로드 - 안전모드로 변경
+    document.addEventListener('languageChanged', function (e) {
+        try {
+            if (!e.detail || !e.detail.language) return;
+
+            var scriptLanguage = e.detail.language === 'ko' ? 'ko' : 'en';
+
+            // 이전 스크립트 제거
+            var oldScript = document.querySelector('script[src*="lunr-ko.js"], script[src*="lunr-en.js"]');
+            if (oldScript) {
+                oldScript.remove();
+            }
+
+            // 새 스크립트 로드 - 지연 로딩
+            setTimeout(function () {
+                initializeSearch();
+            }, 1000);
+        } catch (e) {
+            console.error('[안전모드] 언어 변경 스크립트 오류:', e);
+        }
     });
 </script>
 {% endif %}
@@ -94,21 +113,68 @@
 <!-- 글로벌 스크립트 - 페이지 로드 전에 실행됨 (지연 로딩으로 변경) -->
 <script src="{{ '/assets/js/global.js' | relative_url }}" defer></script>
 
-<!-- Safe Mode Script - 사이트 응답성 보장 -->
+<!-- Critical Safe Mode Script - 반드시 먼저 실행되어야 함 -->
 <script>
-    // 무한 루프 방지 타임아웃 설정
-    setTimeout(function () {
-        // 페이지가 10초 이상 로딩 중이면 자동으로 복구 시도
-        if (document.readyState !== 'complete') {
-            console.log('페이지 로딩 지연 감지, 복구 시도 중...');
+    // 긴급 복구 기능 - 페이지 로딩 문제 감지 및 자동 수정
+    (function () {
+        // 긴급 타임아웃 - 5초 이내에 로딩이 완료되지 않으면 자동 복구
+        var EMERGENCY_TIMEOUT = 5000;
+        var isEmergencyMode = false;
 
-            // 문제 식별 - 콘솔에 메시지 출력
-            console.warn('페이지 응답성 문제가 감지되었습니다.');
+        // 긴급 복구 함수
+        function emergencyRecovery() {
+            if (document.readyState !== 'complete' && !isEmergencyMode) {
+                isEmergencyMode = true;
+                console.warn('[긴급모드] 페이지 로딩 지연 감지, 복구 시작...');
 
-            // 이벤트 리스너 등록 - 페이지 로드 완료 시 알림
-            window.addEventListener('load', function () {
-                console.log('페이지 로딩 완료 (안전 모드)');
-            });
+                // 문제 스크립트 식별 및 제거
+                var problemScripts = document.querySelectorAll('script[src*="lunr-"], script[src*="search"]');
+                problemScripts.forEach(function (script) {
+                    console.log('[긴급모드] 스크립트 제거:', script.src);
+                    script.remove();
+                });
+
+                // 사용자에게 알림
+                var recoveryMessage = document.createElement('div');
+                recoveryMessage.style.position = 'fixed';
+                recoveryMessage.style.top = '10px';
+                recoveryMessage.style.left = '10px';
+                recoveryMessage.style.background = 'rgba(255,255,255,0.9)';
+                recoveryMessage.style.padding = '10px';
+                recoveryMessage.style.borderRadius = '5px';
+                recoveryMessage.style.zIndex = '9999';
+                recoveryMessage.style.color = '#333';
+                recoveryMessage.style.maxWidth = '300px';
+                recoveryMessage.style.fontSize = '14px';
+                recoveryMessage.innerHTML = '페이지 로딩 문제가 감지되어 자동 복구되었습니다.<br>검색 기능이 일시적으로 비활성화되었습니다.';
+
+                // body가 로드되면 메시지 추가
+                if (document.body) {
+                    document.body.appendChild(recoveryMessage);
+                    setTimeout(function () {
+                        recoveryMessage.style.opacity = '0';
+                        recoveryMessage.style.transition = 'opacity 1s ease';
+                        setTimeout(function () {
+                            recoveryMessage.remove();
+                        }, 1000);
+                    }, 5000);
+                }
+
+                // 강제 페이지 완료 이벤트 트리거
+                setTimeout(function () {
+                    window.dispatchEvent(new Event('load'));
+                }, 500);
+            }
         }
-    }, 10000);
+
+        // 즉시 긴급 타이머 시작
+        setTimeout(emergencyRecovery, EMERGENCY_TIMEOUT);
+
+        // 실제 로딩 완료되면 복구 메시지 표시
+        window.addEventListener('load', function () {
+            if (isEmergencyMode) {
+                console.log('[긴급모드] 페이지 로딩 완료 (자동 복구됨)');
+            }
+        });
+    })();
 </script>

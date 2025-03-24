@@ -34,21 +34,21 @@ permalink: /assets/js/lunr/search-data.json
 {
     {% assign docs = site.documents %
     }
-  {% assign docs_count = docs | size %
+    {% assign docs_count = docs | size %
     }
-  {% assign posts = site.posts | where_exp: 'post', 'post.search != false' %
+    {% assign posts = site.posts | where_exp: 'post', 'post.search != false' %
     }
-  {% assign posts_count = posts | size %
+    {% assign posts_count = posts | size %
     }
-  {% assign pages = site.pages | where_exp: 'page', 'page.search != false' %
+    {% assign pages = site.pages | where_exp: 'page', 'page.search != false' %
     }
-  {% assign pages_count = pages | size %
+    {% assign pages_count = pages | size %
     }
   
-  "docs": [
+    "docs": [
         {% for doc in docs %
         }
-      {
+          {
             "title": {
                 { doc.title | jsonify
                 }
@@ -73,13 +73,13 @@ permalink: /assets/js/lunr/search-data.json
         },
         {% endunless %
         }
-    {% endfor %
+        {% endfor %
         }
     ],
     "posts": [
         {% for post in posts %
         }
-      {
+          {
             "title": {
                 { post.title | jsonify
                 }
@@ -104,13 +104,13 @@ permalink: /assets/js/lunr/search-data.json
         },
         {% endunless %
         }
-    {% endfor %
+        {% endfor %
         }
     ],
     "pages": [
         {% for page in pages %
         }
-      {
+          {
             "title": {
                 { page.title | jsonify
                 }
@@ -135,7 +135,7 @@ permalink: /assets/js/lunr/search-data.json
         },
         {% endunless %
         }
-    {% endfor %
+        {% endfor %
         }
     ]
 }
