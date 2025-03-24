@@ -3,7 +3,7 @@
 permalink: /assets/js / lunr / lunr - store.js
 ---
 
-// 검색 데이터 스토어
+// 검색 기능이 비활성화 상태입니다
 var store = [];
 
 /*

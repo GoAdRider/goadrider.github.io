@@ -22,20 +22,59 @@
 <!-- end custom head snippets -->
 
 <!-- 글로벌 스크립트 - 페이지 로드 전에 실행됨 (지연 로딩으로 변경) -->
-<script src="{{ '/assets/js/global.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/global.js' | relative_url }}" defer async></script>
 
-<!-- 페이지 로딩 문제 자동 감지 및 복구 -->
+<!-- 긴급 복구 시스템 - 새로운 방식으로 구현 -->
 <script>
-    // 최소 기능 복구 시스템
-    setTimeout(function () {
-        if (document.readyState !== 'complete') {
-            console.warn('[긴급모드] 페이지 로딩 지연 감지');
+    (function () {
+        // 최우선 실행되는 안전 장치
+        var safetyTimer = setTimeout(function () {
+            if (document.readyState !== 'complete') {
+                console.warn('[안전모드] 페이지 로딩이 지연되고 있습니다. 복구 시작...');
 
-            // 로딩 완료 강제 트리거
-            window.dispatchEvent(new Event('load'));
-            document.dispatchEvent(new Event('DOMContentLoaded'));
+                // 문제가 될 수 있는 스크립트 제거
+                var allScripts = document.querySelectorAll('script[src]');
+                for (var i = 0; i < allScripts.length; i++) {
+                    var script = allScripts[i];
+                    if (script.src.indexOf('/lunr/') !== -1 ||
+                        script.src.indexOf('search') !== -1 ||
+                        script.src.indexOf('/js/') !== -1) {
+                        console.log('[안전모드] 문제 스크립트 제거:', script.src);
+                        script.remove();
+                    }
+                }
 
-            console.log('[긴급모드] 페이지 로딩 강제 완료');
-        }
-    }, 3000);
+                // 로딩 이벤트 강제 발생
+                window.dispatchEvent(new Event('load'));
+                document.dispatchEvent(new Event('DOMContentLoaded'));
+
+                // 사용자에게 상태 알림
+                var notice = document.createElement('div');
+                notice.style.position = 'fixed';
+                notice.style.top = '10px';
+                notice.style.left = '10px';
+                notice.style.padding = '10px';
+                notice.style.background = 'rgba(255,255,255,0.9)';
+                notice.style.border = '1px solid #ddd';
+                notice.style.borderRadius = '5px';
+                notice.style.zIndex = '999999';
+                notice.style.fontSize = '14px';
+                notice.textContent = '페이지 로딩이 자동으로 복구되었습니다.';
+
+                if (document.body) {
+                    document.body.appendChild(notice);
+                    setTimeout(function () {
+                        notice.style.opacity = '0';
+                        notice.style.transition = 'opacity 1s';
+                        setTimeout(function () { notice.remove(); }, 1000);
+                    }, 3000);
+                }
+            }
+        }, 2000); // 2초 후 체크
+
+        // 페이지가 정상적으로 로드된 경우
+        window.addEventListener('load', function () {
+            clearTimeout(safetyTimer);
+        });
+    })();
 </script>
