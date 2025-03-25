@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>필자 소개 - NewsLens</title>
+    <title>필자소개 - NewsLens</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -24,7 +24,7 @@
         }
 
         body {
-            font-family: 'Inter', 'Noto Sans', sans-serif;
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
             line-height: 1.7;
             color: var(--dark-color);
             background-color: var(--light-color);
@@ -36,19 +36,27 @@
             padding: 0 2rem;
         }
 
-        .header {
-            padding: 1.5rem 0;
-            background-color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        /* 헤더 */
+        header {
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.2rem 0;
         }
 
-        .header-container {
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .logo {
@@ -56,31 +64,110 @@
             font-weight: 700;
             color: var(--primary-color);
             text-decoration: none;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            color: var(--dark-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color);
-        }
-
-        .lang-switcher {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--gray-color);
+            text-decoration: none;
             font-weight: 500;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
             cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .language-switcher:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .language-switcher i {
+            color: var(--primary-color);
+        }
+
+        .search-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .search-button:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+
+            nav,
+            .header-actions {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
         }
 
         .main {
@@ -221,21 +308,38 @@
 </head>
 
 <body>
-    <header class="header">
-        <div class="container header-container">
-            <a href="/" class="logo">NewsLens</a>
-            <ul class="nav-menu">
-                <li><a href="/" class="nav-link">홈</a></li>
-                <li><a href="/categories/" class="nav-link">카테고리</a></li>
-                <li><a href="/popular/" class="nav-link">인기글</a></li>
-                <li><a href="/methodology/" class="nav-link">분석방법론</a></li>
-                <li><a href="/authors/" class="nav-link">필자소개</a></li>
-                <li><a href="/contact/" class="nav-link">문의하기</a></li>
-                <li><a href="/search/" class="nav-link">검색</a></li>
-            </ul>
-            <div class="lang-switcher" id="langSwitcher">
-                <span id="currentLang">한국어</span>
-                <i class="fas fa-chevron-down"></i>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <a href="/" class="logo">
+                        <i class="fas fa-brain"></i>
+                        NewsLens
+                    </a>
+                </div>
+
+                <nav>
+                    <a href="/">홈</a>
+                    <a href="/categories/">카테고리</a>
+                    <a href="/popular/">인기 글</a>
+                    <a href="/about/">소개</a>
+                    <a href="/contact/">문의</a>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="/authors/?lang=en" class="language-switcher" id="langSwitcher">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">English</span>
+                    </a>
+
+                    <a href="/search/" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </div>
+
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </div>
     </header>
