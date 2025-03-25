@@ -123,164 +123,196 @@
 </head>
 
 <body>
-    <!-- 네비게이션 바 -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="container">
-                <div class="navbar-brand">
-                    <a href="/" class="logo">NewsLens</a>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <a href="/" class="logo">
+                        <i class="fas fa-brain"></i>
+                        <span>NewsLens</span>
+                    </a>
                 </div>
-                <div class="navbar-menu">
-                    <ul class="nav-links">
-                        <li><a href="/" class="nav-link">홈</a></li>
-                        <li><a href="/categories/" class="nav-link">카테고리</a></li>
-                        <li><a href="/popular/" class="nav-link">인기 글</a></li>
-                        <li><a href="/about/" class="nav-link">소개</a></li>
-                        <li><a href="/contact/" class="nav-link">문의</a></li>
-                    </ul>
+                <nav>
+                    <a href="/">홈</a>
+                    <a href="/categories/">카테고리</a>
+                    <a href="/popular/">인기 글</a>
+                    <a href="/about/">소개</a>
+                    <a href="/methodology/" class="active">분석방법론</a>
+                    <a href="/contact/">문의</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="/en/methodology/" class="language-switcher" id="langSwitcher">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">한국어</span>
+                    </a>
+                    <a href="/search/" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </a>
                 </div>
-                <div class="navbar-actions">
-                    <button class="language-switcher">한국어</button>
-                    <button class="theme-toggle">
-                        <i class="fas fa-moon"></i>
-                    </button>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
                 </div>
-                <button class="mobile-menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
             </div>
-        </nav>
+        </div>
     </header>
 
     <style>
         /* 헤더 스타일 */
-        .header {
-            background-color: var(--background-color);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: fixed;
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 1000;
-        }
-
-        .navbar {
             padding: 1rem 0;
         }
 
-        .navbar .container {
+        .header-content {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
-        .navbar-brand .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-color);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-link {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color);
-        }
-
-        .navbar-actions {
+        .logo-container {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
         }
 
-        .language-switcher,
-        .theme-toggle {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            cursor: pointer;
-            padding: 0.5rem;
-            transition: var(--transition);
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2563eb;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .language-switcher:hover,
-        .theme-toggle:hover {
-            color: var(--primary-color);
+        .logo i {
+            color: #fb7185;
         }
 
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
+        nav {
+            display: flex;
+            gap: 2rem;
         }
 
-        .mobile-menu-toggle span {
-            display: block;
-            width: 25px;
+        nav a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #2563eb;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
             height: 2px;
-            background-color: var(--text-color);
-            margin: 5px 0;
-            transition: var(--transition);
+            background-color: #2563eb;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .language-switcher:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .language-switcher i {
+            color: #2563eb;
+        }
+
+        .search-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2563eb;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .search-button:hover {
+            background-color: #1e40af;
+            transform: scale(1.05);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
         @media (max-width: 768px) {
 
-            .navbar-menu,
-            .navbar-actions {
+            nav,
+            .header-actions {
                 display: none;
             }
 
-            .mobile-menu-toggle {
+            .mobile-menu {
                 display: block;
             }
 
-            .navbar-menu.active {
-                display: block;
+            nav.active,
+            .header-actions.active {
+                display: flex;
+                flex-direction: column;
                 position: absolute;
                 top: 100%;
                 left: 0;
                 right: 0;
-                background-color: var(--background-color);
+                background-color: white;
                 padding: 1rem;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
-            .nav-links {
-                flex-direction: column;
-            }
-
-            .nav-link {
-                padding: 0.5rem 0;
-            }
-
-            .navbar-actions.active {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 1rem;
+            nav.active {
+                gap: 1rem;
             }
         }
     </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenuToggle = document.querySelector('.mobile-menu');
             const navbarMenu = document.querySelector('.navbar-menu');
             const navbarActions = document.querySelector('.navbar-actions');
 
