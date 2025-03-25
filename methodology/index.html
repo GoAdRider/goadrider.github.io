@@ -4,30 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>분석 방법론 - NewsLens</title>
+    <title>분석방법론 - NewsLens</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #fb7185;
-            --dark-color: #1e293b;
-            --light-color: #f8fafc;
-            --gray-color: #64748b;
-            --transition: all 0.3s ease;
-        }
-
-        * {
+        body {
+            font-family: 'Pretendard', 'Arial', sans-serif;
+            line-height: 1.7;
+            color: #1e293b;
+            background-color: #f8fafc;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Noto Sans', sans-serif;
-            line-height: 1.7;
-            color: var(--dark-color);
-            background-color: var(--light-color);
         }
 
         .container {
@@ -36,180 +22,174 @@
             padding: 0 2rem;
         }
 
-        .header {
-            padding: 1.5rem 0;
+        /* 헤더 스타일 */
+        header {
             background-color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
+            padding: 1rem 0;
         }
 
-        .header-container {
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            color: var(--dark-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color);
-        }
-
-        .lang-switcher {
+        .logo-container {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-weight: 500;
-            cursor: pointer;
         }
 
-        .main {
-            padding: 4rem 0;
-            min-height: calc(100vh - 200px);
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2563eb;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 3rem 0;
+        .logo i {
+            color: #fb7185;
         }
 
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        nav {
+            display: flex;
             gap: 2rem;
         }
 
-        .footer-section h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
+        nav a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .footer-section h3::after {
+        nav a:hover {
+            color: #2563eb;
+        }
+
+        nav a::after {
             content: '';
             position: absolute;
+            bottom: -5px;
             left: 0;
-            bottom: -0.5rem;
-            width: 50px;
+            width: 0;
             height: 2px;
-            background-color: var(--primary-color);
+            background-color: #2563eb;
+            transition: all 0.3s ease;
         }
 
-        .footer-links {
-            list-style: none;
+        nav a:hover::after {
+            width: 100%;
         }
 
-        .footer-link {
-            margin-bottom: 0.8rem;
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
         }
 
-        .footer-link a {
-            color: #cbd5e1;
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             text-decoration: none;
-            transition: var(--transition);
+            color: inherit;
         }
 
-        .footer-link a:hover {
+        .language-switcher:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .language-switcher i {
+            color: #2563eb;
+        }
+
+        .search-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2563eb;
             color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
 
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid #334155;
-            color: #94a3b8;
+        .search-button:hover {
+            background-color: #1e40af;
+            transform: scale(1.05);
         }
 
-        /* 분석 방법론 페이지 스타일 */
-        .methodology-content-ko h1,
-        .methodology-content-en h1 {
-            margin-bottom: 1.5rem;
-            color: var(--dark-color);
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
-        .methodology-content-ko h2,
-        .methodology-content-en h2 {
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
+        @media (max-width: 768px) {
 
-        .methodology-content-ko h3,
-        .methodology-content-en h3 {
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: var(--dark-color);
-        }
+            nav,
+            .header-actions {
+                display: none;
+            }
 
-        .methodology-content-ko p,
-        .methodology-content-en p {
-            margin-bottom: 1rem;
-        }
-
-        .methodology-content-ko ul,
-        .methodology-content-en ul {
-            margin-bottom: 1.5rem;
-            margin-left: 1.5rem;
-        }
-
-        .methodology-content-ko li,
-        .methodology-content-en li {
-            margin-bottom: 0.5rem;
-        }
-
-        .methodology-content-ko strong,
-        .methodology-content-en strong {
-            color: var(--dark-color);
-        }
-
-        .methodology-content-ko blockquote,
-        .methodology-content-en blockquote {
-            border-left: 4px solid var(--primary-color);
-            padding-left: 1rem;
-            margin: 1.5rem 0;
-            color: var(--gray-color);
+            .mobile-menu {
+                display: block;
+            }
         }
     </style>
 </head>
 
 <body>
-    <header class="header">
-        <div class="container header-container">
-            <a href="/" class="logo">NewsLens</a>
-            <ul class="nav-menu">
-                <li><a href="/" class="nav-link">홈</a></li>
-                <li><a href="/categories/" class="nav-link">카테고리</a></li>
-                <li><a href="/popular/" class="nav-link">인기글</a></li>
-                <li><a href="/methodology/" class="nav-link">분석방법론</a></li>
-                <li><a href="/authors/" class="nav-link">필자소개</a></li>
-                <li><a href="/contact/" class="nav-link">문의하기</a></li>
-                <li><a href="/search/" class="nav-link">검색</a></li>
-            </ul>
-            <div class="lang-switcher" id="langSwitcher">
-                <span id="currentLang">한국어</span>
-                <i class="fas fa-chevron-down"></i>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <a href="/" class="logo">
+                        <i class="fas fa-brain"></i>
+                        NewsLens
+                    </a>
+                </div>
+
+                <nav>
+                    <a href="/">홈</a>
+                    <a href="/categories/">카테고리</a>
+                    <a href="/popular/">인기 글</a>
+                    <a href="/about/">소개</a>
+                    <a href="/contact/">문의</a>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="/methodology/?lang=en" class="language-switcher" id="langSwitcher">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">English</span>
+                    </a>
+
+                    <a href="/search/" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </div>
+
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </div>
     </header>
