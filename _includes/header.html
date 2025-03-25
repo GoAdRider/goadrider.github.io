@@ -1,0 +1,190 @@
+<!-- 네비게이션 바 -->
+<header class="header">
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="/" class="logo">NewsLens</a>
+            </div>
+            <div class="navbar-menu">
+                <ul class="nav-links">
+                    <li><a href="/" class="nav-link">홈</a></li>
+                    <li><a href="/categories/" class="nav-link">카테고리</a></li>
+                    <li><a href="/popular/" class="nav-link">인기 글</a></li>
+                    <li><a href="/about/" class="nav-link">소개</a></li>
+                    <li><a href="/contact/" class="nav-link">문의</a></li>
+                </ul>
+            </div>
+            <div class="navbar-actions">
+                <button class="language-switcher">한국어</button>
+                <button class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <button class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<style>
+    /* 헤더 스타일 */
+    .header {
+        background-color: var(--background-color);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    .navbar {
+        padding: 1rem 0;
+    }
+
+    .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .navbar-brand .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-color);
+        text-decoration: none;
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-link {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        transition: var(--transition);
+    }
+
+    .nav-link:hover {
+        color: var(--primary-color);
+    }
+
+    .navbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .language-switcher,
+    .theme-toggle {
+        background: none;
+        border: none;
+        color: var(--text-color);
+        cursor: pointer;
+        padding: 0.5rem;
+        transition: var(--transition);
+    }
+
+    .language-switcher:hover,
+    .theme-toggle:hover {
+        color: var(--primary-color);
+    }
+
+    .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    .mobile-menu-toggle span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        background-color: var(--text-color);
+        margin: 5px 0;
+        transition: var(--transition);
+    }
+
+    @media (max-width: 768px) {
+
+        .navbar-menu,
+        .navbar-actions {
+            display: none;
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+        }
+
+        .navbar-menu.active {
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--background-color);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            flex-direction: column;
+        }
+
+        .nav-link {
+            padding: 0.5rem 0;
+        }
+
+        .navbar-actions.active {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 1rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navbarMenu = document.querySelector('.navbar-menu');
+        const navbarActions = document.querySelector('.navbar-actions');
+
+        mobileMenuToggle.addEventListener('click', function () {
+            navbarMenu.classList.toggle('active');
+            navbarActions.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+
+        // 테마 토글 기능
+        const themeToggle = document.querySelector('.theme-toggle');
+        const htmlElement = document.documentElement;
+
+        themeToggle.addEventListener('click', function () {
+            htmlElement.classList.toggle('dark-theme');
+            const isDarkTheme = htmlElement.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+
+            // 아이콘 변경
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
+
+        // 저장된 테마 적용
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            htmlElement.classList.add('dark-theme');
+            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+        }
+    });
+</script>

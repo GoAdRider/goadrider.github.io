@@ -1,11 +1,8 @@
 # NewsLens 블로그 설정
-title: "NewsLens"
-subtitle: ""
-name: "NewsLens"
-description: "철학적, 과학적 사고로 세상을 바라보는 블로그"
-url: "https://goadrider.github.io"
+title: NewsLens
+description: 철학적, 과학적 사고로 세상을 바라보는 블로그
 baseurl: ""
-repository: "GoAdRider/goadrider.github.io"
+url: "https://goadrider.github.io"
 
 # 테마 설정
 remote_theme: "mmistakes/minimal-mistakes@4.24.0"
@@ -44,6 +41,8 @@ exclude:
   - vendor
   - .git
   - .github
+  - README.md
+  - LICENSE
 
 # 플러그인
 plugins:
@@ -60,14 +59,10 @@ defaults:
   # _posts
   - scope:
       path: ""
-      type: posts
+      type: "posts"
     values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
+      layout: "post"
+      author: "NewsLens"
   # _pages
   - scope:
       path: "_pages"
@@ -77,13 +72,6 @@ defaults:
       author_profile: true
 
 # 저자 정보
-author:
-  name: "NewsLens"
-  avatar: "/assets/images/bio-photo.jpg"
-  bio: "철학적, 과학적 사고로 세상을 바라보는 블로그"
-  location: "Seoul, Korea"
-  email: "contact@newslens.blog"
-  links:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/GoAdRider"
+author: NewsLens
+email: contact@newslens.com
+github_username: goadrider

@@ -5,526 +5,203 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>문의하기 - NewsLens</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Pretendard', 'Arial', sans-serif;
-            line-height: 1.7;
-            color: #1e293b;
-            background-color: #f8fafc;
+        :root {
+            --primary-color: #3b82f6;
+            --dark-color: #1e293b;
+            --light-color: #f1f5f9;
+            --danger-color: #ef4444;
+            --background-color: #ffffff;
+            --text-color: #1e293b;
+            --transition: all 0.3s ease;
+        }
+
+        /* 다크 테마 */
+        .dark-theme {
+            --background-color: #1e293b;
+            --text-color: #f1f5f9;
+            --dark-color: #0f172a;
+            --light-color: #334155;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1rem;
         }
 
-        /* 헤더 스타일 */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
+        /* 메인 콘텐츠 스타일 */
+        .main-content {
+            padding: 6rem 0 3rem;
         }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: var(--light-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #2563eb;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            color: #fb7185;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #64748b;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a:hover {
-            color: #2563eb;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #2563eb;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .language-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .language-switcher:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-        }
-
-        .language-switcher i {
-            color: #2563eb;
-        }
-
-        .search-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #2563eb;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .search-button:hover {
-            background-color: #1e40af;
-            transform: scale(1.05);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-
-            nav,
-            .header-actions {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-        }
-
-        /* Footer 스타일 */
-        .footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 3rem 0;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 2rem;
+        .form-title {
+            text-align: center;
             margin-bottom: 2rem;
+            color: var(--text-color);
         }
 
-        .footer-brand {
-            max-width: 400px;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .footer-description {
-            color: #94a3b8;
-            line-height: 1.6;
+        .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .footer-links-container {
-            display: flex;
-            flex-direction: column;
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
         }
 
-        .footer-links-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1.2rem;
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
             color: white;
-        }
-
-        .footer-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-link {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-link a {
-            color: #94a3b8;
-            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
             transition: var(--transition);
         }
 
-        .footer-link a:hover {
-            color: white;
+        .submit-btn:hover {
+            background-color: #2563eb;
         }
 
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #334155;
-        }
-
-        .copyright p {
-            color: #94a3b8;
-            margin: 0;
-        }
-
-        /* 반응형 스타일 */
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
-            }
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
         }
 
         @media (max-width: 768px) {
-            .footer-content {
-                grid-template-columns: 1fr;
+            .contact-form {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <header>
+    {% include header.html %}
+
+    <main class="main-content">
         <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <a href="/" class="logo">
-                        <i class="fas fa-brain"></i>
-                        NewsLens
-                    </a>
+            <form class="contact-form" id="contactForm">
+                <h1 class="form-title">문의하기</h1>
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" name="name" required>
+                    <div class="error-message" id="nameError">이름을 입력해주세요.</div>
                 </div>
-
-                <nav>
-                    <a href="/">홈</a>
-                    <a href="/categories/">카테고리</a>
-                    <a href="/popular/">인기 글</a>
-                    <a href="/about/">소개</a>
-                    <a href="/contact/">문의</a>
-                </nav>
-
-                <div class="header-actions">
-                    <a href="/contact/?lang=en" class="language-switcher" id="langSwitcher">
-                        <i class="fas fa-globe"></i>
-                        <span id="currentLang">English</span>
-                    </a>
-
-                    <a href="/search/" class="search-button">
-                        <i class="fas fa-search"></i>
-                    </a>
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message" id="emailError">올바른 이메일 주소를 입력해주세요.</div>
                 </div>
-
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
+                <div class="form-group">
+                    <label for="subject">제목</label>
+                    <input type="text" id="subject" name="subject" required>
+                    <div class="error-message" id="subjectError">제목을 입력해주세요.</div>
                 </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="main">
-        <div class="container">
-            <div class="contact-content-ko">
-                <h1>문의하기</h1>
-
-                <p>NewsLens 블로그에 관심을 가져주셔서 감사합니다. 질문, 제안, 협업 제안 등 어떤 내용이든 아래 양식을 통해 연락해 주시면 빠른 시일 내에 답변 드리겠습니다.</p>
-
-                <div class="contact-form-container">
-                    <form id="contact-form" class="contact-form">
-                        <div class="form-group">
-                            <label for="name">이름 *</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">이메일 *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="subject">제목 *</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">메시지 *</label>
-                            <textarea id="message" name="message" rows="6" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inquiry-type">문의 유형</label>
-                            <select id="inquiry-type" name="inquiry-type">
-                                <option value="general">일반 문의</option>
-                                <option value="feedback">피드백</option>
-                                <option value="collaboration">협업 제안</option>
-                                <option value="guest-post">기고 문의</option>
-                                <option value="other">기타</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group checkbox-group">
-                            <input type="checkbox" id="privacy-consent" name="privacy-consent" required>
-                            <label for="privacy-consent">개인정보 수집 및 이용에 동의합니다. *</label>
-                        </div>
-
-                        <button type="submit" class="submit-button">보내기</button>
-                    </form>
-
-                    <div id="form-success" class="form-message success" style="display: none;">
-                        <i class="fas fa-check-circle"></i>
-                        <p>메시지가 성공적으로 전송되었습니다. 빠른 시일 내에 답변 드리겠습니다.</p>
-                    </div>
-
-                    <div id="form-error" class="form-message error" style="display: none;">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <p>메시지 전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.</p>
-                    </div>
+                <div class="form-group">
+                    <label for="message">내용</label>
+                    <textarea id="message" name="message" required></textarea>
+                    <div class="error-message" id="messageError">내용을 입력해주세요.</div>
                 </div>
-
-                <div class="contact-info">
-                    <h2>기타 연락 방법</h2>
-                    <p>문의 양식 외에도 다음과 같은 방법으로 연락하실 수 있습니다:</p>
-
-                    <ul>
-                        <li>블로그 포스트 댓글</li>
-                        <li>NewsLens 뉴스레터 답장</li>
-                    </ul>
-
-                    <h3>자주 묻는 질문</h3>
-                    <p>문의하기 전에 <a href="#">자주 묻는 질문</a> 페이지를 확인해 보세요. 이미 원하는 답변이 있을 수 있습니다.</p>
-                </div>
-            </div>
-
-            <div class="contact-content-en" style="display: none;">
-                <h1>Contact</h1>
-
-                <p>Thank you for your interest in NewsLens blog. Please use the form below to send us any questions,
-                    suggestions, or collaboration proposals, and we will get back to you as soon as possible.</p>
-
-                <div class="contact-form-container">
-                    <form id="contact-form-en" class="contact-form">
-                        <div class="form-group">
-                            <label for="name-en">Name *</label>
-                            <input type="text" id="name-en" name="name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email-en">Email *</label>
-                            <input type="email" id="email-en" name="email" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="subject-en">Subject *</label>
-                            <input type="text" id="subject-en" name="subject" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message-en">Message *</label>
-                            <textarea id="message-en" name="message" rows="6" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inquiry-type-en">Inquiry Type</label>
-                            <select id="inquiry-type-en" name="inquiry-type">
-                                <option value="general">General Inquiry</option>
-                                <option value="feedback">Feedback</option>
-                                <option value="collaboration">Collaboration Proposal</option>
-                                <option value="guest-post">Guest Post Inquiry</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group checkbox-group">
-                            <input type="checkbox" id="privacy-consent-en" name="privacy-consent" required>
-                            <label for="privacy-consent-en">I agree to the collection and use of personal information.
-                                *</label>
-                        </div>
-
-                        <button type="submit" class="submit-button">Send</button>
-                    </form>
-
-                    <div id="form-success-en" class="form-message success" style="display: none;">
-                        <i class="fas fa-check-circle"></i>
-                        <p>Your message has been sent successfully. We will get back to you as soon as possible.</p>
-                    </div>
-
-                    <div id="form-error-en" class="form-message error" style="display: none;">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <p>An error occurred while sending your message. Please try again later.</p>
-                    </div>
-                </div>
-
-                <div class="contact-info">
-                    <h2>Other Contact Methods</h2>
-                    <p>In addition to the contact form, you can also reach us through:</p>
-
-                    <ul>
-                        <li>Blog post comments</li>
-                        <li>Reply to NewsLens newsletter</li>
-                    </ul>
-
-                    <h3>Frequently Asked Questions</h3>
-                    <p>Before contacting us, please check our <a href="#">FAQ page</a>. You may find the answer you're
-                        looking for there.</p>
-                </div>
-            </div>
+                <button type="submit" class="submit-btn">보내기</button>
+            </form>
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">카테고리</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy">철학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science">과학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society">사회/정치</a></li>
-                        <li class="footer-link"><a href="/categories/?category=technology">기술</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture">문화/예술</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">정보</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/">소개</a></li>
-                        <li class="footer-link"><a href="/authors/">필자 소개</a></li>
-                        <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
-                        <li class="footer-link"><a href="/contact/">문의하기</a></li>
-                        <li class="footer-link"><a href="/privacy/">개인정보처리방침</a></li>
-                        <li class="footer-link"><a href="/terms/">이용약관</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">연락처</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/">문의는 '문의하기' 메뉴를 이용해 주세요</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2024 NewsLens. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    {% include footer.html %}
 
     <script>
-        // 언어 전환 기능
-        document.addEventListener('DOMContentLoaded', function () {
-            const langSwitcher = document.getElementById('langSwitcher');
-            const currentLang = document.getElementById('currentLang');
-            const koContent = document.querySelector('.contact-content-ko');
-            const enContent = document.querySelector('.contact-content-en');
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
 
-            // URL 파라미터에서 언어 확인
-            const urlParams = new URLSearchParams(window.location.search);
-            const langParam = urlParams.get('lang');
+            // 폼 유효성 검사
+            let isValid = true;
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const subject = document.getElementById('subject');
+            const message = document.getElementById('message');
 
-            // 언어 파라미터에 따라 콘텐츠 표시
-            if (langParam === 'en') {
-                koContent.style.display = 'none';
-                enContent.style.display = 'block';
-                currentLang.textContent = 'English';
+            // 이름 검사
+            if (!name.value.trim()) {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('nameError').style.display = 'none';
             }
 
-            // 언어 전환 클릭 이벤트
-            langSwitcher.addEventListener('click', function () {
-                if (currentLang.textContent === '한국어') {
-                    // 영어로 전환
-                    window.location.href = '?lang=en';
-                } else {
-                    // 한국어로 전환
-                    window.location.href = '/contact/';
-                }
-            });
+            // 이메일 검사
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim() || !emailRegex.test(email.value)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').style.display = 'none';
+            }
 
-            // 폼 제출 처리
-            const koForm = document.getElementById('contact-form');
-            const enForm = document.getElementById('contact-form-en');
+            // 제목 검사
+            if (!subject.value.trim()) {
+                document.getElementById('subjectError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('subjectError').style.display = 'none';
+            }
 
-            koForm.addEventListener('submit', handleFormSubmit);
-            enForm.addEventListener('submit', handleFormSubmit);
+            // 내용 검사
+            if (!message.value.trim()) {
+                document.getElementById('messageError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('messageError').style.display = 'none';
+            }
 
-            function handleFormSubmit(e) {
-                e.preventDefault();
-
-                // 여기에 실제 폼 제출 로직 구현
-                const isKorean = this.id === 'contact-form';
-                const successMsg = isKorean ? 'form-success' : 'form-success-en';
-                const errorMsg = isKorean ? 'form-error' : 'form-error-en';
-
-                // 성공 메시지 표시 (데모용)
-                document.getElementById(successMsg).style.display = 'flex';
-
-                // 폼 초기화
+            if (isValid) {
+                // 여기에 폼 제출 로직 추가
+                alert('문의가 접수되었습니다. 감사합니다!');
                 this.reset();
             }
         });
