@@ -645,9 +645,9 @@
                 </nav>
 
                 <div class="header-actions">
-                    <a href="/en/" class="language-switcher">
+                    <a href="/?lang=en" class="language-switcher" id="langSwitcher">
                         <i class="fas fa-globe"></i>
-                        <span>English</span>
+                        <span id="currentLang">한국어</span>
                     </a>
 
                     <a href="/search/" class="search-button">
@@ -665,7 +665,8 @@
     <!-- 히어로 섹션 -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
+            <!-- 한국어 콘텐츠 -->
+            <div class="hero-content" id="ko-content">
                 <div class="hero-text">
                     <h1 class="hero-title">최신 뉴스, 철학적·과학적 관점으로 재해석</h1>
                     <p class="hero-subtitle">NewsLens는 일상의 뉴스와 사회 현상을 철학적, 과학적 렌즈로 분석합니다. 시사적 이슈에 깊이를 더하고, 새로운 관점으로 세상을
@@ -687,38 +688,102 @@
                     <img src="assets/images/thinking-person-silhouette.jpg" alt="생각하는 모습" class="hero-img">
                 </div>
             </div>
+
+            <!-- 영어 콘텐츠 -->
+            <div class="hero-content" id="en-content" style="display: none;">
+                <div class="hero-text">
+                    <h1 class="hero-title">Latest News, Reinterpreted through Philosophical and Scientific Perspectives
+                    </h1>
+                    <p class="hero-subtitle">NewsLens analyzes everyday news and social phenomena through philosophical
+                        and scientific lenses. We add depth to current issues and provide insights that view the world
+                        from a new perspective.</p>
+
+                    <div class="cta-buttons">
+                        <a href="#recent-posts" class="primary-button">
+                            <i class="fas fa-book-open"></i>
+                            View Latest Analysis
+                        </a>
+                        <a href="/methodology/?lang=en" class="secondary-button">
+                            <i class="fas fa-info-circle"></i>
+                            Analysis Methodology
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <img src="assets/images/thinking-person-silhouette.jpg" alt="Thinking person" class="hero-img">
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- 특성 섹션 -->
     <section class="features">
         <div class="container">
-            <h2 class="section-title">NewsLens의 분석 특징</h2>
-            <p class="section-subtitle">당신이 접하는 뉴스를 철학과 과학의 렌즈로 다시 바라봅니다.</p>
+            <!-- 한국어 콘텐츠 -->
+            <div id="features-ko">
+                <h2 class="section-title">NewsLens의 분석 특징</h2>
+                <p class="section-subtitle">당신이 접하는 뉴스를 철학과 과학의 렌즈로 다시 바라봅니다.</p>
 
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-newspaper"></i>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h3 class="feature-title">시사 뉴스 분석</h3>
+                        <p class="feature-description">최신 시사 뉴스를 철학적, 과학적 관점에서 재해석하여 이슈의 본질과 함의를 깊이 있게 살펴봅니다.</p>
                     </div>
-                    <h3 class="feature-title">시사 뉴스 분석</h3>
-                    <p class="feature-description">최신 시사 뉴스를 철학적, 과학적 관점에서 재해석하여 이슈의 본질과 함의를 깊이 있게 살펴봅니다.</p>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 class="feature-title">다층적 해석</h3>
+                        <p class="feature-description">하나의 뉴스 사건에 대해 다양한 사상적 관점과 과학적 증거를 기반으로 다층적 해석을 제시합니다.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="feature-title">현실적 통찰</h3>
+                        <p class="feature-description">학술적 깊이를 유지하면서도 현실 사회에 적용 가능한 실질적인 통찰과 대안을 제시합니다.</p>
+                    </div>
                 </div>
+            </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3 class="feature-title">다층적 해석</h3>
-                    <p class="feature-description">하나의 뉴스 사건에 대해 다양한 사상적 관점과 과학적 증거를 기반으로 다층적 해석을 제시합니다.</p>
-                </div>
+            <!-- 영어 콘텐츠 -->
+            <div id="features-en" style="display: none;">
+                <h2 class="section-title">NewsLens Analysis Features</h2>
+                <p class="section-subtitle">View the news you encounter through the lens of philosophy and science.</p>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-lightbulb"></i>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h3 class="feature-title">Current News Analysis</h3>
+                        <p class="feature-description">Reinterpret current news from philosophical and scientific
+                            perspectives, examining the essence and implications of issues in depth.</p>
                     </div>
-                    <h3 class="feature-title">현실적 통찰</h3>
-                    <p class="feature-description">학술적 깊이를 유지하면서도 현실 사회에 적용 가능한 실질적인 통찰과 대안을 제시합니다.</p>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 class="feature-title">Multi-layered Interpretation</h3>
+                        <p class="feature-description">Present multi-layered interpretations of news events based on
+                            various ideological perspectives and scientific evidence.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="feature-title">Practical Insights</h3>
+                        <p class="feature-description">Provide practical insights and alternatives applicable to real
+                            society while maintaining academic depth.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -847,6 +912,43 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 모바일 메뉴 토글
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const nav = document.querySelector('nav');
+            const headerActions = document.querySelector('.header-actions');
+
+            mobileMenu.addEventListener('click', function () {
+                nav.classList.toggle('active');
+                headerActions.classList.toggle('active');
+            });
+
+            // 언어 전환 기능
+            const langSwitcher = document.getElementById('langSwitcher');
+            const currentLang = document.getElementById('currentLang');
+            const koContent = document.getElementById('ko-content');
+            const enContent = document.getElementById('en-content');
+            const featuresKo = document.getElementById('features-ko');
+            const featuresEn = document.getElementById('features-en');
+
+            // URL 파라미터에서 언어 확인
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+
+            // 언어 파라미터에 따라 콘텐츠 표시
+            if (langParam === 'en') {
+                koContent.style.display = 'none';
+                enContent.style.display = 'flex';
+                featuresKo.style.display = 'none';
+                featuresEn.style.display = 'block';
+                currentLang.textContent = 'English';
+                document.title = 'NewsLens - Philosophical and Scientific Analysis of Current Affairs';
+                document.documentElement.lang = 'en';
+            }
+        });
+    </script>
 </body>
 
 </html>
