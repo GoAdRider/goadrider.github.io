@@ -132,7 +132,7 @@
                     <a href="/contact/">문의</a>
                 </nav>
                 <div class="header-actions">
-                    <a href="/en/methodology/" class="language-switcher" id="langSwitcher">
+                    <a href="/methodology/?lang=en" class="language-switcher" id="langSwitcher">
                         <i class="fas fa-globe"></i>
                         <span id="currentLang">한국어</span>
                     </a>
@@ -316,6 +316,8 @@
             // 언어 전환 기능
             const langSwitcher = document.getElementById('langSwitcher');
             const currentLang = document.getElementById('currentLang');
+            const koContent = document.getElementById('ko-content');
+            const enContent = document.getElementById('en-content');
 
             // URL 파라미터에서 언어 확인
             const urlParams = new URLSearchParams(window.location.search);
@@ -323,14 +325,18 @@
 
             // 언어 파라미터에 따라 콘텐츠 표시
             if (langParam === 'en') {
-                window.location.href = '/en/methodology/';
+                koContent.style.display = 'none';
+                enContent.style.display = 'block';
+                currentLang.textContent = 'English';
+                document.title = 'Analysis Methodology - NewsLens';
+                document.documentElement.lang = 'en';
             }
         });
     </script>
 
     <main class="main-content">
         <div class="container">
-            <div class="methodology-container">
+            <div class="methodology-container" id="ko-content">
                 <div class="methodology-header">
                     <h1>분석방법론</h1>
                     <p>NewsLens가 철학적, 과학적 토대 위에서 다양한 사회 현상을 분석하는 방법론을 소개합니다.</p>
@@ -401,6 +407,109 @@
                         <li><strong>반성적 실천:</strong> 자신의 전제와 편향에 대해 지속적으로 성찰하고 검토합니다.</li>
                     </ul>
                     <p>이러한 윤리적 원칙은 단순히 부가적인 고려사항이 아니라, NewsLens 분석 방법론의 핵심적 구성요소입니다.</p>
+                </div>
+            </div>
+
+            <!-- 영어 콘텐츠 -->
+            <div class="methodology-container" id="en-content" style="display: none;">
+                <div class="methodology-header">
+                    <h1>Analysis Methodology</h1>
+                    <p>Introducing the methodologies that NewsLens employs to analyze various social phenomena on
+                        philosophical and scientific foundations.</p>
+                </div>
+
+                <div class="methodology-section">
+                    <h2>Philosophical Analysis Framework</h2>
+                    <p>NewsLens analyzes phenomena based on the following philosophical perspectives:</p>
+                    <ul class="methodology-list">
+                        <li><strong>Phenomenological Approach:</strong> Focuses on the essence and structure of
+                            experience, exploring how phenomena themselves appear in consciousness.</li>
+                        <li><strong>Hermeneutic Method:</strong> Interprets texts, discourses, and social practices in
+                            context and extracts meaning.</li>
+                        <li><strong>Analytic Philosophy Approach:</strong> Verifies the clarity, accuracy, and
+                            consistency of concepts and arguments while pursuing linguistic clarification.</li>
+                        <li><strong>Dialectical Thinking:</strong> Promotes a higher level of understanding through the
+                            tension and integration between opposing perspectives.</li>
+                    </ul>
+                    <p>We pursue a multi-layered understanding of complex phenomena by complementarily utilizing these
+                        diverse philosophical methodologies.</p>
+                    <div class="methodology-quote">
+                        "The core of philosophy lies in problematizing what is taken for granted." - Michel Foucault
+                    </div>
+                </div>
+
+                <div class="methodology-section">
+                    <h2>Scientific Approach</h2>
+                    <p>NewsLens integrates the following scientific methodologies along with philosophical reflection:
+                    </p>
+                    <ul class="methodology-list">
+                        <li><strong>Evidence-based Analysis:</strong> Develops claims based on verifiable data and
+                            empirical research results.</li>
+                        <li><strong>Interdisciplinary Approach:</strong> Integrates insights from various disciplines
+                            such as physics, biology, cognitive science, and social sciences.</li>
+                        <li><strong>Model-based Thinking:</strong> Develops and validates explanatory and predictive
+                            models for understanding complex phenomena.</li>
+                        <li><strong>Systems Thinking:</strong> Applies a complex systems perspective where the way parts
+                            interact determines the behavior and properties of the whole.</li>
+                    </ul>
+                    <p>Through these scientific approaches, we secure objective validity and provide empirically
+                        verifiable analysis.</p>
+                </div>
+
+                <div class="methodology-section">
+                    <h2>Socio-cultural Contextualization</h2>
+                    <p>All phenomena occur and gain meaning within specific socio-cultural contexts. NewsLens considers
+                        the following contextual elements:</p>
+                    <ul class="methodology-list">
+                        <li><strong>Historical Context:</strong> Traces how current phenomena have been formed through
+                            historical processes.</li>
+                        <li><strong>Cultural Impact:</strong> Analyzes the influence of cultural norms, values, and
+                            practices on phenomena.</li>
+                        <li><strong>Power Relations:</strong> Considers how social power structures and inequalities
+                            influence the formation and interpretation of phenomena.</li>
+                        <li><strong>Discourse Analysis:</strong> Examines how language and discourse around phenomena
+                            construct and reflect reality.</li>
+                    </ul>
+                    <p>Through this contextualization work, we provide a richer and more nuanced understanding of
+                        phenomena.</p>
+                </div>
+
+                <div class="methodology-section">
+                    <h2>Methodological Pluralism</h2>
+                    <p>NewsLens rejects the view that any single methodology or theoretical framework can fully explain
+                        all complex phenomena. Instead, we adopt the following methodological pluralism:</p>
+                    <ul class="methodology-list">
+                        <li><strong>Complementary Approach:</strong> Integrates various methodologies and theoretical
+                            perspectives to complement each other.</li>
+                        <li><strong>Methodological Triangulation:</strong> Enhances the reliability of conclusions by
+                            using multiple methods and data sources.</li>
+                        <li><strong>Recognition of Context Specificity:</strong> Flexibly selects methodologies most
+                            suitable for specific contexts and problems.</li>
+                        <li><strong>Meta-theoretical Reflection:</strong> Maintains a critical awareness of the
+                            limitations and assumptions of each methodology.</li>
+                    </ul>
+                    <p>Through this methodological pluralism, we aim to capture various aspects of phenomena and
+                        overcome the limitations of a single perspective.</p>
+                    <div class="methodology-quote">
+                        "Simple answers to complex problems are almost always wrong." - H.L. Mencken
+                    </div>
+                </div>
+
+                <div class="methodology-section">
+                    <h2>Ethical Considerations</h2>
+                    <p>NewsLens's analysis is based on the following ethical principles:</p>
+                    <ul class="methodology-list">
+                        <li><strong>Intellectual Honesty:</strong> Faithfully adheres to evidence and logic,
+                            transparently acknowledging uncertainties and limitations.</li>
+                        <li><strong>Respect for Diverse Perspectives:</strong> Strives to treat various viewpoints and
+                            positions fairly.</li>
+                        <li><strong>Social Responsibility:</strong> Considers the impact and implications that analysis
+                            may have on society.</li>
+                        <li><strong>Reflective Practice:</strong> Continuously reflects on and examines one's own
+                            assumptions and biases.</li>
+                    </ul>
+                    <p>These ethical principles are not simply additional considerations but core components of
+                        NewsLens's analysis methodology.</p>
                 </div>
             </div>
         </div>
