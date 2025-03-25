@@ -7,27 +7,13 @@
     <title>소개 - NewsLens</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #fb7185;
-            --dark-color: #1e293b;
-            --light-color: #f8fafc;
-            --gray-color: #64748b;
-            --transition: all 0.3s ease;
-        }
-
-        * {
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.7;
+            color: #1e293b;
+            background-color: #f8fafc;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Noto Sans', sans-serif;
-            line-height: 1.7;
-            color: var(--dark-color);
-            background-color: var(--light-color);
         }
 
         .container {
@@ -54,7 +40,7 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: #2563eb;
             text-decoration: none;
         }
 
@@ -65,22 +51,14 @@
         }
 
         .nav-link {
-            color: var(--dark-color);
+            color: #1e293b;
             text-decoration: none;
             font-weight: 500;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
         .nav-link:hover {
-            color: var(--primary-color);
-        }
-
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-            cursor: pointer;
+            color: #2563eb;
         }
 
         .main {
@@ -88,8 +66,33 @@
             min-height: calc(100vh - 200px);
         }
 
+        .about-header {
+            margin-bottom: 3rem;
+        }
+
+        .about-header h1 {
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        .about-section {
+            margin-bottom: 4rem;
+        }
+
+        .about-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #2563eb;
+        }
+
+        .about-section p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
         .footer {
-            background-color: var(--dark-color);
+            background-color: #1e293b;
             color: white;
             padding: 3rem 0;
         }
@@ -100,287 +103,11 @@
             gap: 2rem;
         }
 
-        .footer-section h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -0.5rem;
-            width: 50px;
-            height: 2px;
-            background-color: var(--primary-color);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-link a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-link a:hover {
-            color: white;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid #334155;
-            color: #94a3b8;
-        }
-
-        /* 소개 페이지 스타일 */
-        .about-header {
-            margin-bottom: 3rem;
-        }
-
-        .about-header h1 {
-            margin-bottom: 1rem;
-            font-size: 2.5rem;
-            color: var(--dark-color);
-        }
-
-        .about-header p {
-            color: var(--gray-color);
-            font-size: 1.2rem;
-            max-width: 800px;
-        }
-
-        .about-section {
-            margin-bottom: 4rem;
-        }
-
-        .about-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark-color);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .about-section h2::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--primary-color);
-        }
-
-        .about-section p {
-            margin-bottom: 1.5rem;
-            font-size: 1.05rem;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .value-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
-        }
-
-        .value-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .value-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .value-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-
-        .value-description {
-            color: var(--gray-color);
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            width: 2px;
-            background-color: #e2e8f0;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -1px;
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-
-        .timeline-content {
-            padding: 1.5rem;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            position: relative;
-        }
-
-        .timeline-date {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: -10px;
-            top: 15px;
-            background-color: white;
-            transform: rotate(45deg);
-            box-shadow: 4px -4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .timeline-item:nth-child(even) .timeline-content::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            left: -10px;
-            top: 15px;
-            background-color: white;
-            transform: rotate(45deg);
-            box-shadow: -4px 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .timeline-dot {
-            width: 20px;
-            height: 20px;
-            background-color: var(--primary-color);
-            border: 4px solid white;
-            border-radius: 50%;
-            position: absolute;
-            top: 15px;
-            z-index: 10;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-dot {
-            right: -10px;
-        }
-
-        .timeline-item:nth-child(even) .timeline-dot {
-            left: -10px;
-        }
-
-        @media (max-width: 768px) {
-            .timeline::before {
-                left: 40px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 80px;
-                padding-right: 0;
-            }
-
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-
-            .timeline-dot {
-                left: 30px;
-            }
-
-            .timeline-item:nth-child(odd) .timeline-dot {
-                right: auto;
-                left: 30px;
-            }
-
-            .timeline-item:nth-child(even) .timeline-content::after,
-            .timeline-item:nth-child(odd) .timeline-content::after {
-                left: -10px;
-                right: auto;
-                box-shadow: -4px 4px 6px rgba(0, 0, 0, 0.05);
-            }
-        }
-
-        .cta-section {
-            background-color: white;
-            border-radius: 10px;
-            padding: 3rem;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            margin-top: 4rem;
-        }
-
-        .cta-title {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-
-        .cta-text {
-            color: var(--gray-color);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            font-size: 1.1rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .cta-button:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
+        .lang-switcher {
+            padding: 8px 16px;
+            background-color: #f1f5f9;
+            border-radius: 4px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -398,16 +125,15 @@
                 <li><a href="/contact/" class="nav-link">문의하기</a></li>
                 <li><a href="/search/" class="nav-link">검색</a></li>
             </ul>
-            <div class="lang-switcher" id="langSwitcher">
+            <div class="lang-switcher" id="langSwitcher" onclick="toggleLanguage()">
                 <span id="currentLang">한국어</span>
-                <i class="fas fa-chevron-down"></i>
             </div>
         </div>
     </header>
 
     <main class="main">
         <div class="container">
-            <div class="about-content-ko">
+            <div id="ko-content">
                 <div class="about-header">
                     <h1>NewsLens 소개</h1>
                     <p>철학적, 과학적 사고를 바탕으로 세상을 바라보는 새로운 관점을 제시합니다.</p>
@@ -423,100 +149,14 @@
 
                 <div class="about-section">
                     <h2>우리의 가치</h2>
-                    <div class="about-grid">
-                        <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <h3 class="value-title">비판적 사고</h3>
-                            <p class="value-description">기존의 시각에 의문을 제기하고, 다양한 관점에서 분석하며, 깊이 있는 이해를 추구합니다.</p>
-                        </div>
-
-                        <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-flask"></i>
-                            </div>
-                            <h3 class="value-title">과학적 엄밀함</h3>
-                            <p class="value-description">모든 분석은 과학적 방법론과 증거에 기반하여, 검증 가능하고 신뢰할 수 있는 정보를 제공합니다.</p>
-                        </div>
-
-                        <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-balance-scale"></i>
-                            </div>
-                            <h3 class="value-title">균형 잡힌 시각</h3>
-                            <p class="value-description">다양한 관점을 존중하고, 편향 없이 균형 잡힌 분석을 통해 독자들의 폭넓은 이해를 돕습니다.</p>
-                        </div>
-
-                        <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-lightbulb"></i>
-                            </div>
-                            <h3 class="value-title">창의적 통합</h3>
-                            <p class="value-description">다양한 학문 분야를 넘나들며, 새로운 통찰과 관점을 제시하는 창의적 분석을 추구합니다.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-section">
-                    <h2>우리의 여정</h2>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">2021년 1월</div>
-                                <h3>NewsLens 설립</h3>
-                                <p>철학적, 과학적 사고를 바탕으로 한 뉴스 분석 플랫폼으로서 NewsLens가 시작되었습니다.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">2021년 6월</div>
-                                <h3>카테고리 확장</h3>
-                                <p>철학, 과학, 기술, 사회, 문화, 환경 등 다양한 분야로 분석 범위를 확장했습니다.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">2022년 3월</div>
-                                <h3>다국어 서비스 시작</h3>
-                                <p>한국어와 영어로 콘텐츠를 제공하기 시작하여, 더 넓은 독자층에게 접근할 수 있게 되었습니다.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">2023년 1월</div>
-                                <h3>전문 필진 구성</h3>
-                                <p>다양한 분야의 전문가들이 참여하는 필진을 구성하여, 더욱 깊이 있는 분석을 제공하게 되었습니다.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">2023년 12월</div>
-                                <h3>플랫폼 리뉴얼</h3>
-                                <p>더 나은 사용자 경험과 접근성을 위해 웹사이트를 전면 개편하였습니다.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cta-section">
-                    <h2 class="cta-title">함께 세상을 바라보세요</h2>
-                    <p class="cta-text">NewsLens와 함께 철학적, 과학적 사고로 세상을 깊이 있게 바라보는 여정에 동참해보세요. 더 깊은 통찰과 이해가 여러분을 기다립니다.
-                    </p>
-                    <a href="/contact/" class="cta-button">문의하기</a>
+                    <p><strong>비판적 사고</strong> - 기존의 시각에 의문을 제기하고, 다양한 관점에서 분석하며, 깊이 있는 이해를 추구합니다.</p>
+                    <p><strong>과학적 엄밀함</strong> - 모든 분석은 과학적 방법론과 증거에 기반하여, 검증 가능하고 신뢰할 수 있는 정보를 제공합니다.</p>
+                    <p><strong>균형 잡힌 시각</strong> - 다양한 관점을 존중하고, 편향 없이 균형 잡힌 분석을 통해 독자들의 폭넓은 이해를 돕습니다.</p>
+                    <p><strong>창의적 통합</strong> - 다양한 학문 분야를 넘나들며, 새로운 통찰과 관점을 제시하는 창의적 분석을 추구합니다.</p>
                 </div>
             </div>
 
-            <div class="about-content-en" style="display: none;">
+            <div id="en-content" style="display: none;">
                 <div class="about-header">
                     <h1>About NewsLens</h1>
                     <p>Offering new perspectives on the world through philosophical and scientific thinking.</p>
@@ -535,105 +175,14 @@
 
                 <div class="about-section">
                     <h2>Our Values</h2>
-                    <div class="about-grid">
-                        <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <h3 class="value-title">Critical Thinking</h3>
-                            <p class="value-description">We question existing perspectives, analyze from various angles,
-                                and pursue deep understanding.</p>
-                        </div>
-
-                        <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-flask"></i>
-                            </div>
-                            <h3 class="value-title">Scientific Rigor</h3>
-                            <p class="value-description">All analyses are based on scientific methodology and evidence,
-                                providing verifiable and reliable information.</p>
-                        </div>
-
-                        <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-balance-scale"></i>
-                            </div>
-                            <h3 class="value-title">Balanced Perspective</h3>
-                            <p class="value-description">We respect diverse viewpoints and help readers gain broad
-                                understanding through unbiased, balanced analysis.</p>
-                        </div>
-
-                        <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-lightbulb"></i>
-                            </div>
-                            <h3 class="value-title">Creative Integration</h3>
-                            <p class="value-description">We pursue creative analysis that presents new insights and
-                                perspectives by crossing different academic disciplines.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-section">
-                    <h2>Our Journey</h2>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">January 2021</div>
-                                <h3>NewsLens Established</h3>
-                                <p>NewsLens was launched as a news analysis platform based on philosophical and
-                                    scientific thinking.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">June 2021</div>
-                                <h3>Category Expansion</h3>
-                                <p>We expanded our analysis scope to various fields including philosophy, science,
-                                    technology, society, culture, and environment.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">March 2022</div>
-                                <h3>Multilingual Service</h3>
-                                <p>We began providing content in both Korean and English, allowing us to reach a wider
-                                    audience.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">January 2023</div>
-                                <h3>Expert Writers Team</h3>
-                                <p>We formed a team of expert writers from various fields to provide even deeper
-                                    analysis.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">December 2023</div>
-                                <h3>Platform Renewal</h3>
-                                <p>We completely redesigned our website for better user experience and accessibility.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cta-section">
-                    <h2 class="cta-title">View the World Together</h2>
-                    <p class="cta-text">Join the journey with NewsLens to look at the world deeply through philosophical
-                        and scientific thinking. Deeper insights and understanding await you.</p>
-                    <a href="/contact/?lang=en" class="cta-button">Contact Us</a>
+                    <p><strong>Critical Thinking</strong> - We question existing perspectives, analyze from various
+                        angles, and pursue deep understanding.</p>
+                    <p><strong>Scientific Rigor</strong> - All analyses are based on scientific methodology and
+                        evidence, providing verifiable and reliable information.</p>
+                    <p><strong>Balanced Perspective</strong> - We respect diverse viewpoints and help readers gain broad
+                        understanding through unbiased, balanced analysis.</p>
+                    <p><strong>Creative Integration</strong> - We pursue creative analysis that presents new insights
+                        and perspectives by crossing different academic disciplines.</p>
                 </div>
             </div>
         </div>
@@ -641,63 +190,36 @@
 
     <footer class="footer">
         <div class="container footer-container">
-            <div class="footer-section">
+            <div>
                 <h3>NewsLens</h3>
                 <p>철학적, 과학적 사고로 세상을 바라보는 블로그</p>
             </div>
-            <div class="footer-section">
-                <h3>페이지</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="/">홈</a></li>
-                    <li class="footer-link"><a href="/categories/">카테고리</a></li>
-                    <li class="footer-link"><a href="/popular/">인기글</a></li>
-                    <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
-                    <li class="footer-link"><a href="/authors/">필자소개</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>연락처</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="/contact/">문의하기</a></li>
-                    <li class="footer-link"><a href="#">뉴스레터</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2023 NewsLens. All rights reserved.
         </div>
     </footer>
 
     <script>
-        // 언어 전환 기능
+        // URL에서 언어 파라미터 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+
+        // 페이지 로드 시 언어 설정
         document.addEventListener('DOMContentLoaded', function () {
-            const langSwitcher = document.getElementById('langSwitcher');
-            const currentLang = document.getElementById('currentLang');
-            const koContent = document.querySelector('.about-content-ko');
-            const enContent = document.querySelector('.about-content-en');
-
-            // URL 파라미터에서 언어 확인
-            const urlParams = new URLSearchParams(window.location.search);
-            const langParam = urlParams.get('lang');
-
-            // 언어 파라미터에 따라 콘텐츠 표시
             if (langParam === 'en') {
-                koContent.style.display = 'none';
-                enContent.style.display = 'block';
-                currentLang.textContent = 'English';
+                document.getElementById('ko-content').style.display = 'none';
+                document.getElementById('en-content').style.display = 'block';
+                document.getElementById('currentLang').textContent = 'English';
             }
-
-            // 언어 전환 클릭 이벤트
-            langSwitcher.addEventListener('click', function () {
-                if (currentLang.textContent === '한국어') {
-                    // 영어로 전환
-                    window.location.href = '?lang=en';
-                } else {
-                    // 한국어로 전환
-                    window.location.href = '/about/';
-                }
-            });
         });
+
+        // 언어 전환 함수
+        function toggleLanguage() {
+            const currentLang = document.getElementById('currentLang').textContent;
+            if (currentLang === '한국어') {
+                window.location.href = '?lang=en';
+            } else {
+                window.location.href = '/about/';
+            }
+        }
     </script>
 </body>
 
