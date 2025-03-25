@@ -871,7 +871,8 @@
     <!-- 푸터 -->
     <footer>
         <div class="container">
-            <div class="footer-content">
+            <!-- 한국어 푸터 -->
+            <div class="footer-content" id="footer-ko">
                 <div class="footer-brand">
                     <div class="footer-logo">NewsLens</div>
                     <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
@@ -893,6 +894,7 @@
                     <ul class="footer-links">
                         <li class="footer-link"><a href="/about/">소개</a></li>
                         <li class="footer-link"><a href="/authors/">필자소개</a></li>
+                        <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
                         <li class="footer-link"><a href="/contact/">문의</a></li>
                         <li class="footer-link"><a href="/privacy/">개인정보처리방침</a></li>
                         <li class="footer-link"><a href="/terms/">이용약관</a></li>
@@ -903,6 +905,47 @@
                     <h4 class="footer-links-title">연락처</h4>
                     <ul class="footer-links">
                         <li class="footer-link"><a href="/contact/">문의는 '문의' 메뉴를 이용해 주세요</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 영어 푸터 -->
+            <div class="footer-content" id="footer-en" style="display: none;">
+                <div class="footer-brand">
+                    <div class="footer-logo">NewsLens</div>
+                    <p class="footer-description">A blog that views the world through philosophical and scientific
+                        thinking. We provide in-depth analysis and new perspectives on various topics.</p>
+                </div>
+
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">Categories</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/categories/?category=philosophy&lang=en">Philosophy</a></li>
+                        <li class="footer-link"><a href="/categories/?category=science&lang=en">Science</a></li>
+                        <li class="footer-link"><a href="/categories/?category=society&lang=en">Society/Politics</a>
+                        </li>
+                        <li class="footer-link"><a href="/categories/?category=technology&lang=en">Technology</a></li>
+                        <li class="footer-link"><a href="/categories/?category=culture&lang=en">Culture/Arts</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">Information</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/about/?lang=en">About</a></li>
+                        <li class="footer-link"><a href="/authors/?lang=en">Authors</a></li>
+                        <li class="footer-link"><a href="/methodology/?lang=en">Methodology</a></li>
+                        <li class="footer-link"><a href="/contact/?lang=en">Contact</a></li>
+                        <li class="footer-link"><a href="/privacy/?lang=en">Privacy Policy</a></li>
+                        <li class="footer-link"><a href="/terms/?lang=en">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">Contact</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/contact/?lang=en">Please use the 'Contact' menu for
+                                inquiries</a></li>
                     </ul>
                 </div>
             </div>
@@ -932,6 +975,8 @@
             const enContent = document.getElementById('en-content');
             const featuresKo = document.getElementById('features-ko');
             const featuresEn = document.getElementById('features-en');
+            const footerKo = document.getElementById('footer-ko');
+            const footerEn = document.getElementById('footer-en');
 
             // URL 파라미터에서 언어 확인
             const urlParams = new URLSearchParams(window.location.search);
@@ -939,13 +984,29 @@
 
             // 언어 파라미터에 따라 콘텐츠 표시
             if (langParam === 'en') {
+                // 영어 콘텐츠 표시
                 koContent.style.display = 'none';
                 enContent.style.display = 'flex';
                 featuresKo.style.display = 'none';
                 featuresEn.style.display = 'block';
+                footerKo.style.display = 'none';
+                footerEn.style.display = 'grid';
                 currentLang.textContent = 'English';
                 document.title = 'NewsLens - Philosophical and Scientific Analysis of Current Affairs';
                 document.documentElement.lang = 'en';
+                langSwitcher.href = '/'; // 한국어로 전환
+            } else {
+                // 한국어 콘텐츠 표시
+                koContent.style.display = 'flex';
+                enContent.style.display = 'none';
+                featuresKo.style.display = 'block';
+                featuresEn.style.display = 'none';
+                footerKo.style.display = 'grid';
+                footerEn.style.display = 'none';
+                currentLang.textContent = '한국어';
+                document.title = 'NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로그';
+                document.documentElement.lang = 'ko';
+                langSwitcher.href = '/?lang=en'; // 영어로 전환
             }
         });
     </script>
