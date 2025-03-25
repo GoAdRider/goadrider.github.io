@@ -44,14 +44,21 @@
             padding: 0 1rem;
         }
 
+        .page-title {
+            margin: 2rem 0;
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--text-color);
+        }
+
         /* Main Content Styles */
         .main-content {
             padding: 6rem 0 3rem;
         }
 
-        .popular-posts {
+        .posts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2rem;
         }
 
@@ -59,29 +66,39 @@
             background-color: var(--light-color);
             border-radius: 8px;
             overflow: hidden;
-            transition: var(--transition);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
         }
 
         .post-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .post-image {
-            width: 100%;
             height: 200px;
-            object-fit: cover;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
         }
 
         .post-content {
             padding: 1.5rem;
         }
 
+        .post-category {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
         .post-title {
             font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             color: var(--text-color);
         }
 
@@ -94,162 +111,605 @@
         .post-meta {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             color: var(--text-color);
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
-        .post-date {
+        .read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: #2563eb;
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            margin-bottom: 2rem;
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--light-color);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-color);
+        }
+
+        .filter-button.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .filter-button:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .sort-select {
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+            background-color: var(--light-color);
+            color: var(--text-color);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
             gap: 0.5rem;
         }
 
-        .post-views {
+        .pagination-link {
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 0.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .pagination-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .pagination-link:hover {
+            background-color: var(--primary-color);
+            color: white;
         }
 
         @media (max-width: 768px) {
-            .popular-posts {
+            .posts-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .filter-controls {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
 
 <body>
-    {% include header_en.html %}
+    <!-- Navigation Bar -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a href="/en/" class="logo">NewsLens</a>
+                </div>
+                <div class="navbar-menu">
+                    <ul class="nav-links">
+                        <li><a href="/en/" class="nav-link">Home</a></li>
+                        <li><a href="/en/categories/" class="nav-link">Categories</a></li>
+                        <li><a href="/en/popular/" class="nav-link active">Popular</a></li>
+                        <li><a href="/en/about/" class="nav-link">About</a></li>
+                        <li><a href="/en/contact/" class="nav-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="navbar-actions">
+                    <button class="language-switcher">English</button>
+                    <button class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <style>
+        /* Header Styles */
+        .header {
+            background-color: var(--background-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            padding: 1rem 0;
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-brand .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .language-switcher,
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .language-switcher:hover,
+        .theme-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-color);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        @media (max-width: 768px) {
+
+            .navbar-menu,
+            .navbar-actions {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .navbar-menu.active {
+                display: block;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--background-color);
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .nav-link {
+                padding: 0.5rem 0;
+            }
+
+            .navbar-actions.active {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navbarMenu = document.querySelector('.navbar-menu');
+            const navbarActions = document.querySelector('.navbar-actions');
+
+            mobileMenuToggle.addEventListener('click', function () {
+                navbarMenu.classList.toggle('active');
+                navbarActions.classList.toggle('active');
+                this.classList.toggle('active');
+            });
+
+            // Theme toggle functionality
+            const themeToggle = document.querySelector('.theme-toggle');
+            const htmlElement = document.documentElement;
+
+            themeToggle.addEventListener('click', function () {
+                htmlElement.classList.toggle('dark-theme');
+                const isDarkTheme = htmlElement.classList.contains('dark-theme');
+                localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+
+                // Icon change
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-moon');
+                icon.classList.toggle('fa-sun');
+            });
+
+            // Apply saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                htmlElement.classList.add('dark-theme');
+                themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+    </script>
 
     <main class="main-content">
         <div class="container">
-            <div class="popular-posts">
-                <!-- Popular Posts Cards -->
-                <article class="post-card">
-                    <img src="/assets/images/post1.jpg" alt="Post Image" class="post-image">
+            <h1 class="page-title">Popular Posts</h1>
+
+            <div class="filter-controls">
+                <div class="filter-buttons">
+                    <button class="filter-button active" data-category="all">All</button>
+                    <button class="filter-button" data-category="philosophy">Philosophy</button>
+                    <button class="filter-button" data-category="science">Science</button>
+                    <button class="filter-button" data-category="society">Society</button>
+                    <button class="filter-button" data-category="technology">Technology</button>
+                    <button class="filter-button" data-category="culture">Culture</button>
+                </div>
+                <select class="sort-select">
+                    <option value="recent">Most Recent</option>
+                    <option value="views" selected>Most Views</option>
+                    <option value="comments">Most Comments</option>
+                </select>
+            </div>
+
+            <div class="posts-grid">
+                <!-- Post 1 -->
+                <article class="post-card" data-category="philosophy">
+                    <div class="post-image"
+                        style="background-image: url('https://source.unsplash.com/random/600x400?philosophy');"></div>
                     <div class="post-content">
-                        <h2 class="post-title">The Intersection of AI and Philosophy: Exploring the Nature of
-                            Consciousness</h2>
-                        <p class="post-excerpt">Exploring how modern AI technology developments provide new insights
-                            into philosophical questions.</p>
+                        <span class="post-category">Philosophy</span>
+                        <h2 class="post-title">The Illusion of Self: Modern Perspectives on Personal Identity</h2>
+                        <p class="post-excerpt">Exploring how contemporary philosophy challenges traditional concepts of
+                            the self and personal identity in an interconnected world.</p>
                         <div class="post-meta">
-                            <div class="post-date">
-                                <i class="far fa-calendar"></i>
-                                <span>2024.01.15</span>
-                            </div>
-                            <div class="post-views">
-                                <i class="far fa-eye"></i>
-                                <span>2,547</span>
-                            </div>
+                            <span>July 20, 2023</span>
+                            <span>15 min read</span>
                         </div>
+                        <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
 
-                <article class="post-card">
-                    <img src="/assets/images/post2.jpg" alt="Post Image" class="post-image">
+                <!-- Post 2 -->
+                <article class="post-card" data-category="science">
+                    <div class="post-image"
+                        style="background-image: url('https://source.unsplash.com/random/600x400?physics');"></div>
                     <div class="post-content">
-                        <h2 class="post-title">Quantum Mechanics and the Nature of Reality: Beyond the Copenhagen
-                            Interpretation</h2>
-                        <p class="post-excerpt">Analyzing how various interpretations of quantum mechanics influence our
-                            understanding of reality.</p>
+                        <span class="post-category">Science</span>
+                        <h2 class="post-title">Quantum Mechanics and the Nature of Reality</h2>
+                        <p class="post-excerpt">How quantum physics challenges our fundamental understanding of reality
+                            and consciousness.</p>
                         <div class="post-meta">
-                            <div class="post-date">
-                                <i class="far fa-calendar"></i>
-                                <span>2024.01.20</span>
-                            </div>
-                            <div class="post-views">
-                                <i class="far fa-eye"></i>
-                                <span>2,103</span>
-                            </div>
+                            <span>August 15, 2023</span>
+                            <span>12 min read</span>
                         </div>
+                        <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
 
-                <article class="post-card">
-                    <img src="/assets/images/post3.jpg" alt="Post Image" class="post-image">
+                <!-- Post 3 -->
+                <article class="post-card" data-category="society">
+                    <div class="post-image"
+                        style="background-image: url('https://source.unsplash.com/random/600x400?society');"></div>
                     <div class="post-content">
-                        <h2 class="post-title">Democracy in the Digital Age: The New Relationship Between Technology and
-                            Politics</h2>
-                        <p class="post-excerpt">Examining the impact of social media and AI on modern democracy and
-                            future prospects.</p>
+                        <span class="post-category">Society</span>
+                        <h2 class="post-title">The Ethical Implications of Artificial Intelligence</h2>
+                        <p class="post-excerpt">Examining the moral and social consequences of increasingly autonomous
+                            AI systems in everyday life.</p>
                         <div class="post-meta">
-                            <div class="post-date">
-                                <i class="far fa-calendar"></i>
-                                <span>2024.01.25</span>
-                            </div>
-                            <div class="post-views">
-                                <i class="far fa-eye"></i>
-                                <span>1,892</span>
-                            </div>
+                            <span>September 5, 2023</span>
+                            <span>18 min read</span>
                         </div>
+                        <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
 
-                <article class="post-card">
-                    <img src="/assets/images/post4.jpg" alt="Post Image" class="post-image">
+                <!-- Post 4 -->
+                <article class="post-card" data-category="technology">
+                    <div class="post-image"
+                        style="background-image: url('https://source.unsplash.com/random/600x400?technology');"></div>
                     <div class="post-content">
-                        <h2 class="post-title">The Fusion of Modern Art and Technology: How NFTs are Changing the Future
-                            of Art</h2>
-                        <p class="post-excerpt">Exploring the revolutionary changes blockchain technology brings to art
-                            creation and consumption.</p>
+                        <span class="post-category">Technology</span>
+                        <h2 class="post-title">The Evolution of Human-Computer Interaction</h2>
+                        <p class="post-excerpt">From command-line interfaces to brain-computer interfaces: how our
+                            relationship with technology continues to transform.</p>
                         <div class="post-meta">
-                            <div class="post-date">
-                                <i class="far fa-calendar"></i>
-                                <span>2024.01.30</span>
-                            </div>
-                            <div class="post-views">
-                                <i class="far fa-eye"></i>
-                                <span>1,756</span>
-                            </div>
+                            <span>October 12, 2023</span>
+                            <span>14 min read</span>
                         </div>
+                        <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
 
-                <article class="post-card">
-                    <img src="/assets/images/post5.jpg" alt="Post Image" class="post-image">
+                <!-- Post 5 -->
+                <article class="post-card" data-category="culture">
+                    <div class="post-image"
+                        style="background-image: url('https://source.unsplash.com/random/600x400?art');"></div>
                     <div class="post-content">
-                        <h2 class="post-title">Climate Crisis and Science Technology: Innovation for a Sustainable
-                            Future</h2>
-                        <p class="post-excerpt">Analyzing the latest science and technology trends in climate change
-                            response and their effectiveness.</p>
+                        <span class="post-category">Culture</span>
+                        <h2 class="post-title">Digital Art and the Question of Authenticity</h2>
+                        <p class="post-excerpt">How NFTs and digital art are challenging traditional concepts of
+                            ownership, value, and artistic expression.</p>
                         <div class="post-meta">
-                            <div class="post-date">
-                                <i class="far fa-calendar"></i>
-                                <span>2024.02.05</span>
-                            </div>
-                            <div class="post-views">
-                                <i class="far fa-eye"></i>
-                                <span>1,634</span>
-                            </div>
+                            <span>November 8, 2023</span>
+                            <span>10 min read</span>
                         </div>
+                        <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
 
-                <article class="post-card">
-                    <img src="/assets/images/post6.jpg" alt="Post Image" class="post-image">
+                <!-- Post 6 -->
+                <article class="post-card" data-category="philosophy">
+                    <div class="post-image"
+                        style="background-image: url('https://source.unsplash.com/random/600x400?ethics');"></div>
                     <div class="post-content">
-                        <h2 class="post-title">Neuroscience and Consciousness: The Neurobiological Origins of Self</h2>
-                        <p class="post-excerpt">Introducing the biological mechanisms of consciousness and self revealed
-                            by the latest brain science research.</p>
+                        <span class="post-category">Philosophy</span>
+                        <h2 class="post-title">The Ethics of Genetic Engineering</h2>
+                        <p class="post-excerpt">Philosophical perspectives on human enhancement, designer babies, and
+                            the future of the human species.</p>
                         <div class="post-meta">
-                            <div class="post-date">
-                                <i class="far fa-calendar"></i>
-                                <span>2024.02.10</span>
-                            </div>
-                            <div class="post-views">
-                                <i class="far fa-eye"></i>
-                                <span>1,521</span>
-                            </div>
+                            <span>December 3, 2023</span>
+                            <span>16 min read</span>
                         </div>
+                        <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
+            </div>
+
+            <div class="pagination">
+                <a href="#" class="pagination-link active">1</a>
+                <a href="#" class="pagination-link">2</a>
+                <a href="#" class="pagination-link">3</a>
+                <a href="#" class="pagination-link">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
             </div>
         </div>
     </main>
 
-    {% include footer_en.html %}
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">NewsLens</div>
+                    <p class="footer-description">A blog that views the world through philosophical and scientific
+                        thinking. We provide in-depth analysis and new perspectives on various topics.</p>
+                </div>
+
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">Categories</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/en/categories/?category=philosophy">Philosophy</a></li>
+                        <li class="footer-link"><a href="/en/categories/?category=science">Science</a></li>
+                        <li class="footer-link"><a href="/en/categories/?category=society">Society/Politics</a></li>
+                        <li class="footer-link"><a href="/en/categories/?category=technology">Technology</a></li>
+                        <li class="footer-link"><a href="/en/categories/?category=culture">Culture/Arts</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">Information</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/en/about/">About</a></li>
+                        <li class="footer-link"><a href="/en/authors/">Authors</a></li>
+                        <li class="footer-link"><a href="/en/methodology/">Methodology</a></li>
+                        <li class="footer-link"><a href="/en/contact/">Contact</a></li>
+                        <li class="footer-link"><a href="/en/privacy/">Privacy Policy</a></li>
+                        <li class="footer-link"><a href="/en/terms/">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">Contact</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/en/contact/">Please use 'Contact' menu for inquiries</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2024 NewsLens. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        /* Footer Styles */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            max-width: 400px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-description {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-links-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-link {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-link a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-link a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+        }
+
+        .copyright p {
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Category filter functionality
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const postCards = document.querySelectorAll('.post-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    const category = this.getAttribute('data-category');
+
+                    // Show/hide posts based on category
+                    postCards.forEach(card => {
+                        if (category === 'all' || card.getAttribute('data-category') === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
