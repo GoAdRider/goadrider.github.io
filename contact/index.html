@@ -41,7 +41,159 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 2rem;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2563eb;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: #fb7185;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #2563eb;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #2563eb;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .language-switcher:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .language-switcher i {
+            color: #2563eb;
+        }
+
+        .search-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2563eb;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .search-button:hover {
+            background-color: #1e40af;
+            transform: scale(1.05);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+
+            nav,
+            .header-actions {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            nav.active,
+            .header-actions.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            nav.active {
+                gap: 1rem;
+            }
         }
 
         /* 메인 콘텐츠 스타일 */
@@ -122,35 +274,36 @@
 </head>
 
 <body>
-    <!-- 네비게이션 바 -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="container">
-                <div class="navbar-brand">
-                    <a href="/" class="logo">NewsLens</a>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <a href="/" class="logo">
+                        <i class="fas fa-glasses"></i>
+                        <span>NewsLens</span>
+                    </a>
                 </div>
-                <div class="navbar-menu">
-                    <ul class="nav-links">
-                        <li><a href="/" class="nav-link">홈</a></li>
-                        <li><a href="/categories/" class="nav-link">카테고리</a></li>
-                        <li><a href="/popular/" class="nav-link">인기 글</a></li>
-                        <li><a href="/about/" class="nav-link">소개</a></li>
-                        <li><a href="/contact/" class="nav-link">문의</a></li>
-                    </ul>
+                <nav>
+                    <a href="/">홈</a>
+                    <a href="/categories/">카테고리</a>
+                    <a href="/popular/">인기 글</a>
+                    <a href="/about/">소개</a>
+                    <a href="/contact/" class="active">문의</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="/en/contact/" class="language-switcher" id="langSwitcher">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">한국어</span>
+                    </a>
+                    <a href="/search/" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </a>
                 </div>
-                <div class="navbar-actions">
-                    <button class="language-switcher">한국어</button>
-                    <button class="theme-toggle">
-                        <i class="fas fa-moon"></i>
-                    </button>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
                 </div>
-                <button class="mobile-menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
             </div>
-        </nav>
+        </div>
     </header>
 
     <style>

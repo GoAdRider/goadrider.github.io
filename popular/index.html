@@ -390,35 +390,36 @@
 </head>
 
 <body>
-    <!-- Navigation Bar -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="container">
-                <div class="navbar-brand">
-                    <a href="/" class="logo">NewsLens</a>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <a href="/" class="logo">
+                        <i class="fas fa-glasses"></i>
+                        <span>NewsLens</span>
+                    </a>
                 </div>
-                <div class="navbar-menu">
-                    <ul class="nav-links">
-                        <li><a href="/" class="nav-link">홈</a></li>
-                        <li><a href="/categories/" class="nav-link">카테고리</a></li>
-                        <li><a href="/popular/" class="nav-link active">인기 글</a></li>
-                        <li><a href="/about/" class="nav-link">소개</a></li>
-                        <li><a href="/contact/" class="nav-link">문의</a></li>
-                    </ul>
+                <nav>
+                    <a href="/">홈</a>
+                    <a href="/categories/">카테고리</a>
+                    <a href="/popular/" class="active">인기 글</a>
+                    <a href="/about/">소개</a>
+                    <a href="/contact/">문의</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="/en/popular/" class="language-switcher" id="langSwitcher">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">한국어</span>
+                    </a>
+                    <a href="/search/" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </a>
                 </div>
-                <div class="navbar-actions">
-                    <button class="language-switcher">한국어</button>
-                    <button class="theme-toggle">
-                        <i class="fas fa-moon"></i>
-                    </button>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
                 </div>
-                <button class="mobile-menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
             </div>
-        </nav>
+        </div>
     </header>
 
     <main class="main">
@@ -725,37 +726,43 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-            const navbarMenu = document.querySelector('.navbar-menu');
-            const navbarActions = document.querySelector('.navbar-actions');
+            // 모바일 메뉴 토글
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const nav = document.querySelector('nav');
+            const headerActions = document.querySelector('.header-actions');
 
-            mobileMenuToggle.addEventListener('click', function () {
-                navbarMenu.classList.toggle('active');
-                navbarActions.classList.toggle('active');
-                this.classList.toggle('active');
+            mobileMenu.addEventListener('click', function () {
+                nav.classList.toggle('active');
+                headerActions.classList.toggle('active');
             });
 
-            // Theme toggle functionality
-            const themeToggle = document.querySelector('.theme-toggle');
-            const htmlElement = document.documentElement;
+            // 언어 전환 기능
+            const langSwitcher = document.getElementById('langSwitcher');
+            const currentLang = document.getElementById('currentLang');
+            const koContent = document.querySelector('.popular-content-ko');
+            const enContent = document.querySelector('.popular-content-en');
 
-            themeToggle.addEventListener('click', function () {
-                htmlElement.classList.toggle('dark-theme');
-                const isDarkTheme = htmlElement.classList.contains('dark-theme');
-                localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+            // URL 파라미터에서 언어 확인
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
 
-                // Icon change
-                const icon = this.querySelector('i');
-                icon.classList.toggle('fa-moon');
-                icon.classList.toggle('fa-sun');
-            });
-
-            // Apply saved theme
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                htmlElement.classList.add('dark-theme');
-                themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+            // 언어 파라미터에 따라 콘텐츠 표시
+            if (langParam === 'en') {
+                koContent.style.display = 'none';
+                enContent.style.display = 'block';
+                currentLang.textContent = 'English';
             }
+
+            // 필터 버튼 클릭 이벤트
+            const filterButtons = document.querySelectorAll('.filter-button');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    // 모든 버튼에서 active 클래스 제거
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // 클릭한 버튼에 active 클래스 추가
+                    this.classList.add('active');
+                });
+            });
         });
     </script>
 </body>
