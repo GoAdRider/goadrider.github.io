@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Pretendard', 'Arial', sans-serif;
             line-height: 1.7;
             color: #1e293b;
             background-color: #f8fafc;
@@ -22,19 +22,26 @@
             padding: 0 2rem;
         }
 
-        .header {
-            padding: 1.5rem 0;
+        /* 헤더 스타일 */
+        header {
             background-color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
+            padding: 1rem 0;
         }
 
-        .header-container {
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .logo {
@@ -42,25 +49,101 @@
             font-weight: 700;
             color: #2563eb;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .nav-menu {
+        .logo i {
+            color: #fb7185;
+        }
+
+        nav {
             display: flex;
-            list-style: none;
             gap: 2rem;
         }
 
-        .nav-link {
-            color: #1e293b;
+        nav a {
+            color: #64748b;
             text-decoration: none;
             font-weight: 500;
+            font-size: 1.05rem;
             transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-link:hover {
+        nav a:hover {
             color: #2563eb;
         }
 
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #2563eb;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .language-switcher:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .language-switcher i {
+            color: #2563eb;
+        }
+
+        .search-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2563eb;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .search-button:hover {
+            background-color: #1e40af;
+            transform: scale(1.05);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* 소개 페이지 스타일 */
         .main {
             padding: 4rem 0;
             min-height: calc(100vh - 200px);
@@ -91,42 +174,158 @@
             font-size: 1.05rem;
         }
 
-        .footer {
+        /* 푸터 스타일 */
+        footer {
             background-color: #1e293b;
             color: white;
-            padding: 3rem 0;
+            padding: 4rem 0 2rem;
         }
 
-        .footer-container {
+        .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
-        .lang-switcher {
-            padding: 8px 16px;
-            background-color: #f1f5f9;
-            border-radius: 4px;
-            cursor: pointer;
+        .footer-brand {
+            max-width: 350px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .footer-links-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-link {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-link a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link a:hover {
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid #334155;
+            padding-top: 2rem;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* 폰트 */
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 400;
+            font-display: swap;
+            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-regular.woff2) format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 500;
+            font-display: swap;
+            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-medium.woff2) format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 600;
+            font-display: swap;
+            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-semibold.woff2) format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 700;
+            font-display: swap;
+            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-bold.woff2) format('woff2');
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            nav,
+            .header-actions {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
-    <header class="header">
-        <div class="container header-container">
-            <a href="/" class="logo">NewsLens</a>
-            <ul class="nav-menu">
-                <li><a href="/" class="nav-link">홈</a></li>
-                <li><a href="/categories/" class="nav-link">카테고리</a></li>
-                <li><a href="/popular/" class="nav-link">인기글</a></li>
-                <li><a href="/methodology/" class="nav-link">분석방법론</a></li>
-                <li><a href="/authors/" class="nav-link">필자소개</a></li>
-                <li><a href="/contact/" class="nav-link">문의하기</a></li>
-                <li><a href="/search/" class="nav-link">검색</a></li>
-            </ul>
-            <div class="lang-switcher" id="langSwitcher" onclick="toggleLanguage()">
-                <span id="currentLang">한국어</span>
+    <!-- 헤더 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <a href="/" class="logo">
+                        <i class="fas fa-brain"></i>
+                        NewsLens
+                    </a>
+                </div>
+
+                <nav>
+                    <a href="/">홈</a>
+                    <a href="/categories/">카테고리</a>
+                    <a href="/popular/">인기 글</a>
+                    <a href="/about/">소개</a>
+                    <a href="/contact/">문의</a>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="/about/?lang=en" class="language-switcher" id="langSwitcher">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">English</span>
+                    </a>
+
+                    <a href="/search/" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </div>
+
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </div>
     </header>
@@ -188,11 +387,47 @@
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container footer-container">
-            <div>
-                <h3>NewsLens</h3>
-                <p>철학적, 과학적 사고로 세상을 바라보는 블로그</p>
+    <!-- 푸터 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">NewsLens</div>
+                    <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
+                </div>
+
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">카테고리</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">철학</a></li>
+                        <li class="footer-link"><a href="#">과학</a></li>
+                        <li class="footer-link"><a href="#">사회/정치</a></li>
+                        <li class="footer-link"><a href="#">기술</a></li>
+                        <li class="footer-link"><a href="#">문화/예술</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">정보</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/about/">소개</a></li>
+                        <li class="footer-link"><a href="/authors/">필자 소개</a></li>
+                        <li class="footer-link"><a href="/contact/">문의하기</a></li>
+                        <li class="footer-link"><a href="#">개인정보처리방침</a></li>
+                        <li class="footer-link"><a href="#">이용약관</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">연락처</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">문의는 본문 내 '문의하기' 메뉴를 이용해 주세요</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2024 NewsLens. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -207,19 +442,13 @@
             if (langParam === 'en') {
                 document.getElementById('ko-content').style.display = 'none';
                 document.getElementById('en-content').style.display = 'block';
+                document.getElementById('currentLang').textContent = '한국어';
+                document.getElementById('langSwitcher').href = '/about/';
+            } else {
                 document.getElementById('currentLang').textContent = 'English';
+                document.getElementById('langSwitcher').href = '/about/?lang=en';
             }
         });
-
-        // 언어 전환 함수
-        function toggleLanguage() {
-            const currentLang = document.getElementById('currentLang').textContent;
-            if (currentLang === '한국어') {
-                window.location.href = '?lang=en';
-            } else {
-                window.location.href = '/about/';
-            }
-        }
     </script>
 </body>
 

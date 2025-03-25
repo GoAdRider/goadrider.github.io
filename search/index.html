@@ -337,21 +337,38 @@
 </head>
 
 <body>
-    <header class="header">
-        <div class="container header-container">
-            <a href="/" class="logo">NewsLens</a>
-            <ul class="nav-menu">
-                <li><a href="/" class="nav-link">홈</a></li>
-                <li><a href="/categories/" class="nav-link">카테고리</a></li>
-                <li><a href="/popular/" class="nav-link">인기글</a></li>
-                <li><a href="/methodology/" class="nav-link">분석방법론</a></li>
-                <li><a href="/authors/" class="nav-link">필자소개</a></li>
-                <li><a href="/contact/" class="nav-link">문의하기</a></li>
-                <li><a href="/search/" class="nav-link">검색</a></li>
-            </ul>
-            <div class="lang-switcher" id="langSwitcher">
-                <span id="currentLang">한국어</span>
-                <i class="fas fa-chevron-down"></i>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <a href="/" class="logo">
+                        <i class="fas fa-brain"></i>
+                        NewsLens
+                    </a>
+                </div>
+
+                <nav>
+                    <a href="/">홈</a>
+                    <a href="/categories/">카테고리</a>
+                    <a href="/popular/">인기 글</a>
+                    <a href="/about/">소개</a>
+                    <a href="/contact/">문의</a>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="/search/?lang=en" class="language-switcher" id="langSwitcher">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">English</span>
+                    </a>
+
+                    <a href="/search/" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </div>
+
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </div>
     </header>
