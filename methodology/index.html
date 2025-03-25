@@ -5,16 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>분석방법론 - NewsLens</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #fb7185;
+            --primary-color: #3b82f6;
             --dark-color: #1e293b;
-            --light-color: #f8fafc;
-            --gray-color: #64748b;
+            --light-color: #f1f5f9;
+            --background-color: #ffffff;
+            --text-color: #1e293b;
             --transition: all 0.3s ease;
+        }
+
+        /* 다크 테마 */
+        .dark-theme {
+            --background-color: #1e293b;
+            --text-color: #f1f5f9;
+            --dark-color: #0f172a;
+            --light-color: #334155;
         }
 
         * {
@@ -24,479 +31,179 @@
         }
 
         body {
-            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-            line-height: 1.7;
-            color: var(--dark-color);
-            background-color: var(--light-color);
+            font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1rem;
         }
 
-        /* 헤더 */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
-            padding: 1.2rem 0;
+        /* 메인 콘텐츠 스타일 */
+        .main-content {
+            padding: 6rem 0 3rem;
         }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .methodology-container {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            color: var(--accent-color);
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: var(--gray-color);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        nav a:hover {
-            color: var(--primary-color);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-color);
-            transition: var(--transition);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .language-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .language-switcher:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-        }
-
-        .language-switcher i {
-            color: var(--primary-color);
-        }
-
-        .search-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            color: white;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-
-        .search-button:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.05);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-
-            nav,
-            .header-actions {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-        }
-
-        /* Footer 스타일 */
-        .footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 3rem 0;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 2rem;
+        .methodology-header {
             margin-bottom: 2rem;
-        }
-
-        .footer-brand {
-            max-width: 400px;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .footer-description {
-            color: #94a3b8;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .footer-links-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1.2rem;
-            color: white;
-        }
-
-        .footer-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-link {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-link a {
-            color: #94a3b8;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-link a:hover {
-            color: white;
-        }
-
-        .copyright {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #334155;
         }
 
-        .copyright p {
-            color: #94a3b8;
-            margin: 0;
+        .methodology-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
         }
 
-        /* 반응형 스타일 */
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
-            }
+        .methodology-header p {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+
+        .methodology-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: var(--light-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .methodology-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .methodology-section p {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .methodology-list {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .methodology-list li {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .methodology-quote {
+            font-style: italic;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            color: var(--text-color);
+            opacity: 0.8;
         }
 
         @media (max-width: 768px) {
-            .footer-content {
-                grid-template-columns: 1fr;
+            .methodology-header h1 {
+                font-size: 2rem;
+            }
+
+            .methodology-section {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <header>
+    {% include header.html %}
+
+    <main class="main-content">
         <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <a href="/" class="logo">
-                        <i class="fas fa-brain"></i>
-                        NewsLens
-                    </a>
+            <div class="methodology-container">
+                <div class="methodology-header">
+                    <h1>분석방법론</h1>
+                    <p>NewsLens가 철학적, 과학적 토대 위에서 다양한 사회 현상을 분석하는 방법론을 소개합니다.</p>
                 </div>
 
-                <nav>
-                    <a href="/">홈</a>
-                    <a href="/categories/">카테고리</a>
-                    <a href="/popular/">인기 글</a>
-                    <a href="/about/">소개</a>
-                    <a href="/contact/">문의</a>
-                </nav>
-
-                <div class="header-actions">
-                    <a href="/methodology/?lang=en" class="language-switcher" id="langSwitcher">
-                        <i class="fas fa-globe"></i>
-                        <span id="currentLang">English</span>
-                    </a>
-
-                    <a href="/search/" class="search-button">
-                        <i class="fas fa-search"></i>
-                    </a>
+                <div class="methodology-section">
+                    <h2>철학적 분석 프레임워크</h2>
+                    <p>NewsLens는 다음과 같은 철학적 관점을 기반으로 현상을 분석합니다:</p>
+                    <ul class="methodology-list">
+                        <li><strong>현상학적 접근:</strong> 경험의 본질과 구조에 초점을 맞추어, 현상 자체가 의식에 어떻게 나타나는지 탐구합니다.</li>
+                        <li><strong>해석학적 방법:</strong> 텍스트, 담론, 사회적 실천을 맥락 속에서 해석하고 의미를 추출합니다.</li>
+                        <li><strong>분석철학적 접근:</strong> 개념과 논변의 명확성, 정확성, 일관성을 검증하며 언어적 명료화를 추구합니다.</li>
+                        <li><strong>변증법적 사고:</strong> 대립되는 관점들 사이의 긴장과 통합을 통해 더 높은 수준의 이해를 도모합니다.</li>
+                    </ul>
+                    <p>이러한 다양한 철학적 방법론을 상호보완적으로 활용하여 복잡한 현상에 대한 다층적 이해를 추구합니다.</p>
+                    <div class="methodology-quote">
+                        "철학의 핵심은 당연시되는 것을 문제화하는 데 있다." - 미셸 푸코
+                    </div>
                 </div>
 
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
+                <div class="methodology-section">
+                    <h2>과학적 접근 방법</h2>
+                    <p>NewsLens는 철학적 성찰과 함께 다음과 같은 과학적 방법론을 통합합니다:</p>
+                    <ul class="methodology-list">
+                        <li><strong>증거 기반 분석:</strong> 검증 가능한 데이터와 실증적 연구 결과를 기반으로 주장을 전개합니다.</li>
+                        <li><strong>학제간 접근:</strong> 물리학, 생물학, 인지과학, 사회과학 등 다양한 학문 분야의 통찰을 통합합니다.</li>
+                        <li><strong>모델 기반 사고:</strong> 복잡한 현상을 이해하기 위한 설명적, 예측적 모델을 개발하고 검증합니다.</li>
+                        <li><strong>시스템 사고:</strong> 부분들이 상호작용하는 방식이 전체의 행동과 속성을 결정하는 복잡계 관점을 적용합니다.</li>
+                    </ul>
+                    <p>이러한 과학적 접근을 통해 객관적 타당성을 확보하고, 경험적으로 검증 가능한 분석을 제공합니다.</p>
                 </div>
-            </div>
-        </div>
-    </header>
 
-    <main class="main">
-        <div class="container">
-            <div class="methodology-content-ko">
-                <h1>분석 방법론</h1>
+                <div class="methodology-section">
+                    <h2>사회-문화적 맥락화</h2>
+                    <p>모든 현상은 특정한 사회-문화적 맥락 속에서 발생하고 의미를 얻습니다. NewsLens는 다음과 같은 맥락적 요소를 고려합니다:</p>
+                    <ul class="methodology-list">
+                        <li><strong>역사적 맥락:</strong> 현재의 현상이 어떻게 역사적 과정 속에서 형성되었는지 추적합니다.</li>
+                        <li><strong>문화적 영향:</strong> 문화적 규범, 가치, 관행이 현상에 미치는 영향을 분석합니다.</li>
+                        <li><strong>권력 관계:</strong> 사회적 권력 구조와 불평등이 현상의 형성과 해석에 미치는 영향을 고려합니다.</li>
+                        <li><strong>담론 분석:</strong> 현상을 둘러싼 언어와 담론이 어떻게 현실을 구성하고 반영하는지 검토합니다.</li>
+                    </ul>
+                    <p>이러한 맥락화 작업을 통해 현상에 대한 더 풍부하고 뉘앙스 있는 이해를 제공합니다.</p>
+                </div>
 
-                <p>NewsLens는 최신 뉴스와 시사 이슈를 철학적, 과학적 관점에서 분석합니다. 여기서는 저희가 사용하는 방법론과 분석 과정에 대해 설명합니다.</p>
+                <div class="methodology-section">
+                    <h2>방법론적 다원주의</h2>
+                    <p>NewsLens는 어떤 단일한 방법론이나 이론적 틀이 모든 복잡한
+                        현상을 완전히 설명할 수 있다는 관점을 거부합니다. 대신, 다음과 같은 방법론적 다원주의를 채택합니다:</p>
+                    <ul class="methodology-list">
+                        <li><strong>상호보완적 접근:</strong> 다양한 방법론과 이론적 관점이 서로를 보완하도록 통합합니다.</li>
+                        <li><strong>방법론적 삼각측량:</strong> 여러 방법과 자료원을 활용하여 결론의 신뢰성을 강화합니다.</li>
+                        <li><strong>맥락 특수성 인정:</strong> 특정 맥락과 문제에 가장 적합한 방법론을 유연하게 선택합니다.</li>
+                        <li><strong>메타이론적 성찰:</strong> 각 방법론의 한계와 전제에 대한 비판적 인식을 유지합니다.</li>
+                    </ul>
+                    <p>이러한 방법론적 다원주의를 통해 현상의 다양한 측면을 포착하고, 단일 관점의 한계를 극복하고자 합니다.</p>
+                    <div class="methodology-quote">
+                        "복잡한 문제에 대한 단순한 해답은 거의 항상 잘못되었다." - H.L. 멘켄
+                    </div>
+                </div>
 
-                <h2>분석 원칙</h2>
-
-                <ul>
-                    <li><strong>객관성과 통찰력의 균형</strong>: 사실에 기반하되, 그 이면의 의미와 함의를 탐구합니다.</li>
-                    <li><strong>다층적 접근</strong>: 하나의 이슈를 정치적, 사회적, 철학적, 과학적 다양한 측면에서 고찰합니다.</li>
-                    <li><strong>비판적 사고</strong>: 자명해 보이는 전제와 주장에도 비판적 질문을 던집니다.</li>
-                    <li><strong>역사적 맥락</strong>: 시사 이슈를 역사적 맥락 속에서 이해하고자 합니다.</li>
-                </ul>
-
-                <h2>분석 과정</h2>
-
-                <h3>1. 뉴스 선정</h3>
-                <p>사회적 중요성, 철학적 함의, 과학적 관련성을 고려하여 분석할 뉴스를 선정합니다. 단순한 일회성 사건보다는 지속적인 관심이 필요한 주제에 집중합니다.</p>
-
-                <h3>2. 다각적 자료 수집</h3>
-                <p>다양한 언론사의 보도, 관련 연구 자료, 학술 문헌 등을 종합적으로 검토합니다. 특히 상반된 입장을 대표하는 자료들을 균형 있게 수집합니다.</p>
-
-                <h3>3. 철학적·과학적 분석</h3>
-                <p>수집한 자료를 바탕으로 다음과 같은 분석을 진행합니다:</p>
-                <ul>
-                    <li>사실과 가치 판단의 구분</li>
-                    <li>논증 구조와 타당성 검토</li>
-                    <li>개념적 명확성 평가</li>
-                    <li>기저에 깔린 철학적 가정 탐색</li>
-                    <li>과학적 근거의 신뢰성 검증</li>
-                </ul>
-
-                <h3>4. 통합적 해석</h3>
-                <p>다양한 관점을 종합하여 균형 있는 결론을 도출하고, 더 깊은 질문을 제시합니다. 독자들이 자신의 사고를 확장할 수 있도록 다양한 사고 실험과 참고 자료를 제공합니다.</p>
-
-                <h2>글쓰기 스타일</h2>
-
-                <p>NewsLens의 모든
-                    글은 다음과 같은 원칙에 따라 작성됩니다:</p>
-
-                <ul>
-                    <li><strong>명확성</strong>: 복잡한 개념도 쉽고 정확하게 전달하고자 합니다.</li>
-                    <li><strong>진지함</strong>: 가볍게 소비되는 콘텐츠가 아닌, 깊은 사고를 자극하는 글을 지향합니다.</li>
-                    <li><strong>열린 결론</strong>: 단정적 결론보다는 다양한 가능성을 열어두는 방식으로 글을 마무리합니다.</li>
-                    <li><strong>참여 유도</strong>: 독자가 함께 생각해볼 수 있는 질문을 제시합니다.</li>
-                </ul>
-
-                <h2>피드백과 개선</h2>
-
-                <p>저희의 분석 방법론은 고정된 것이 아닙니다. 독자 여러분의 피드백과 비판을 통해 지속적으로 개선해 나가고자 합니다. 분석 방법이나 접근 방식에 대한 의견이 있으시면 언제든지
-                    '문의하기' 페이지를 통해 알려주세요.</p>
-            </div>
-
-            <div class="methodology-content-en" style="display: none;">
-                <h1>Analysis Methodology</h1>
-
-                <p>NewsLens analyzes the latest news and current issues from philosophical and scientific perspectives.
-                    Here, we explain our methodology and analysis process.</p>
-
-                <h2>Analysis Principles</h2>
-
-                <ul>
-                    <li><strong>Balance of Objectivity and Insight</strong>: Based on facts, but exploring the
-                        underlying meaning and implications.</li>
-                    <li><strong>Multi-layered Approach</strong>: Examining an issue from various aspects including
-                        political, social, philosophical, and scientific perspectives.</li>
-                    <li><strong>Critical Thinking</strong>: Asking critical questions even to seemingly self-evident
-                        premises and claims.</li>
-                    <li><strong>Historical Context</strong>: Understanding current issues within their historical
-                        context.</li>
-                </ul>
-
-                <h2>Analysis Process</h2>
-
-                <h3>1. News Selection</h3>
-                <p>We select news for analysis considering social importance, philosophical implications, and scientific
-                    relevance. We focus on topics that require ongoing attention rather than one-time events.</p>
-
-                <h3>2. Diverse Data Collection</h3>
-                <p>We comprehensively review reports from various media outlets, related research materials, and
-                    academic literature. We especially collect materials representing opposing positions in a balanced
-                    way.</p>
-
-                <h3>3. Philosophical and Scientific Analysis</h3>
-                <p>Based on the collected materials, we conduct the following analyses:</p>
-                <ul>
-                    <li>Distinction between facts and value judgments</li>
-                    <li>Examination of argument structure and validity</li>
-                    <li>Assessment of conceptual clarity</li>
-                    <li>Exploration of underlying philosophical assumptions</li>
-                    <li>Verification of the reliability of scientific evidence</li>
-                </ul>
-
-                <h3>4. Integrated Interpretation</h3>
-                <p>We derive balanced conclusions by integrating various perspectives and present deeper questions. We
-                    provide various thought experiments and reference materials to help readers expand their thinking.
-                </p>
-
-                <h2>Writing Style</h2>
-
-                <p>All NewsLens articles are written according to the following principles:</p>
-
-                <ul>
-                    <li><strong>Clarity</strong>: We aim to convey complex concepts in a simple and accurate manner.
-                    </li>
-                    <li><strong>Seriousness</strong>: We aim for writing that stimulates deep thinking, not content that
-                        is consumed lightly.</li>
-                    <li><strong>Open Conclusions</strong>: We conclude our articles by opening up various possibilities
-                        rather than making definitive conclusions.</li>
-                    <li><strong>Encouraging Participation</strong>: We present questions that readers can think about
-                        together.</li>
-                </ul>
-
-                <h2>Feedback and Improvement</h2>
-
-                <p>Our analysis methodology is not fixed. We aim to continuously improve through feedback and criticism
-                    from our readers. If you have any opinions about our analysis methods or approaches, please let us
-                    know through the 'Contact' page.</p>
+                <div class="methodology-section">
+                    <h2>윤리적 고려사항</h2>
+                    <p>NewsLens의 분석은 다음과 같은 윤리적 원칙에 기반합니다:</p>
+                    <ul class="methodology-list">
+                        <li><strong>지적 정직성:</strong> 증거와 논리에 충실하며, 불확실성과 한계를 투명하게 인정합니다.</li>
+                        <li><strong>다양한 관점 존중:</strong> 다양한 시각과 입장을 공정하게 다루고자 노력합니다.</li>
+                        <li><strong>사회적 책임:</strong> 분석이 사회에 미칠 수 있는 영향과 함의를 고려합니다.</li>
+                        <li><strong>반성적 실천:</strong> 자신의 전제와 편향에 대해 지속적으로 성찰하고 검토합니다.</li>
+                    </ul>
+                    <p>이러한 윤리적 원칙은 단순히 부가적인 고려사항이 아니라, NewsLens 분석 방법론의 핵심적 구성요소입니다.</p>
+                </div>
             </div>
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">카테고리</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy">철학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science">과학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society">사회/정치</a></li>
-                        <li class="footer-link"><a href="/categories/?category=technology">기술</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture">문화/예술</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">정보</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/">소개</a></li>
-                        <li class="footer-link"><a href="/authors/">필자 소개</a></li>
-                        <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
-                        <li class="footer-link"><a href="/contact/">문의하기</a></li>
-                        <li class="footer-link"><a href="#">개인정보처리방침</a></li>
-                        <li class="footer-link"><a href="#">이용약관</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">연락처</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/">문의는 '문의하기' 메뉴를 이용해 주세요</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2024 NewsLens. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // 언어 전환 기능
-        document.addEventListener('DOMContentLoaded', function () {
-            const langSwitcher = document.getElementById('langSwitcher');
-            const currentLang = document.getElementById('currentLang');
-            const koContent = document.querySelector('.methodology-content-ko');
-            const enContent = document.querySelector('.methodology-content-en');
-
-            // URL 파라미터에서 언어 확인
-            const urlParams = new URLSearchParams(window.location.search);
-            const langParam = urlParams.get('lang');
-
-            // 언어 파라미터에 따라 콘텐츠 표시
-            if (langParam === 'en') {
-                koContent.style.display = 'none';
-                enContent.style.display = 'block';
-                currentLang.textContent = 'English';
-            }
-
-            // 언어 전환 클릭 이벤트
-            langSwitcher.addEventListener('click', function () {
-                if (currentLang.textContent === '한국어') {
-                    // 영어로 전환
-                    window.location.href = '?lang=en';
-                } else {
-                    // 한국어로 전환
-                    window.location.href = '/methodology/';
-                }
-            });
-        });
-    </script>
+    {% include footer.html %}
 </body>
 
 </html>

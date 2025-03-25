@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Posts - NewsLens</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --dark-color: #1e293b;
+            --light-color: #f1f5f9;
+            --danger-color: #ef4444;
+            --background-color: #ffffff;
+            --text-color: #1e293b;
+            --transition: all 0.3s ease;
+        }
+
+        /* Dark Theme */
+        .dark-theme {
+            --background-color: #1e293b;
+            --text-color: #f1f5f9;
+            --dark-color: #0f172a;
+            --light-color: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            padding: 6rem 0 3rem;
+        }
+
+        .popular-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .post-card {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .post-excerpt {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-color);
+            opacity: 0.6;
+        }
+
+        .post-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .post-views {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .popular-posts {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% include header_en.html %}
+
+    <main class="main-content">
+        <div class="container">
+            <div class="popular-posts">
+                <!-- Popular Posts Cards -->
+                <article class="post-card">
+                    <img src="/assets/images/post1.jpg" alt="Post Image" class="post-image">
+                    <div class="post-content">
+                        <h2 class="post-title">The Intersection of AI and Philosophy: Exploring the Nature of
+                            Consciousness</h2>
+                        <p class="post-excerpt">Exploring how modern AI technology developments provide new insights
+                            into philosophical questions.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>2024.01.15</span>
+                            </div>
+                            <div class="post-views">
+                                <i class="far fa-eye"></i>
+                                <span>2,547</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <img src="/assets/images/post2.jpg" alt="Post Image" class="post-image">
+                    <div class="post-content">
+                        <h2 class="post-title">Quantum Mechanics and the Nature of Reality: Beyond the Copenhagen
+                            Interpretation</h2>
+                        <p class="post-excerpt">Analyzing how various interpretations of quantum mechanics influence our
+                            understanding of reality.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>2024.01.20</span>
+                            </div>
+                            <div class="post-views">
+                                <i class="far fa-eye"></i>
+                                <span>2,103</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <img src="/assets/images/post3.jpg" alt="Post Image" class="post-image">
+                    <div class="post-content">
+                        <h2 class="post-title">Democracy in the Digital Age: The New Relationship Between Technology and
+                            Politics</h2>
+                        <p class="post-excerpt">Examining the impact of social media and AI on modern democracy and
+                            future prospects.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>2024.01.25</span>
+                            </div>
+                            <div class="post-views">
+                                <i class="far fa-eye"></i>
+                                <span>1,892</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <img src="/assets/images/post4.jpg" alt="Post Image" class="post-image">
+                    <div class="post-content">
+                        <h2 class="post-title">The Fusion of Modern Art and Technology: How NFTs are Changing the Future
+                            of Art</h2>
+                        <p class="post-excerpt">Exploring the revolutionary changes blockchain technology brings to art
+                            creation and consumption.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>2024.01.30</span>
+                            </div>
+                            <div class="post-views">
+                                <i class="far fa-eye"></i>
+                                <span>1,756</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <img src="/assets/images/post5.jpg" alt="Post Image" class="post-image">
+                    <div class="post-content">
+                        <h2 class="post-title">Climate Crisis and Science Technology: Innovation for a Sustainable
+                            Future</h2>
+                        <p class="post-excerpt">Analyzing the latest science and technology trends in climate change
+                            response and their effectiveness.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>2024.02.05</span>
+                            </div>
+                            <div class="post-views">
+                                <i class="far fa-eye"></i>
+                                <span>1,634</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <img src="/assets/images/post6.jpg" alt="Post Image" class="post-image">
+                    <div class="post-content">
+                        <h2 class="post-title">Neuroscience and Consciousness: The Neurobiological Origins of Self</h2>
+                        <p class="post-excerpt">Introducing the biological mechanisms of consciousness and self revealed
+                            by the latest brain science research.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>2024.02.10</span>
+                            </div>
+                            <div class="post-views">
+                                <i class="far fa-eye"></i>
+                                <span>1,521</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    {% include footer_en.html %}
+</body>
+
+</html>
