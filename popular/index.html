@@ -176,37 +176,51 @@
 
         /* Footer 스타일 */
         .footer {
-            background-color: #333;
+            background-color: var(--dark-color);
             color: white;
             padding: 3rem 0;
-            margin-top: 3rem;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .footer-brand .footer-logo {
-            font-size: 1.8rem;
-            font-weight: bold;
+        .footer-brand {
+            max-width: 400px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
+            color: white;
         }
 
         .footer-description {
+            color: #94a3b8;
             line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links-container {
+            display: flex;
+            flex-direction: column;
         }
 
         .footer-links-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: white;
         }
 
         .footer-links {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
 
         .footer-link {
@@ -214,41 +228,37 @@
         }
 
         .footer-link a {
-            color: #ddd;
+            color: #94a3b8;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: var(--transition);
         }
 
         .footer-link a:hover {
             color: white;
-            text-decoration: underline;
         }
 
         .copyright {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
         }
 
-        /* 반응형 푸터 */
-        @media (max-width: 992px) {
+        .copyright p {
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 1024px) {
             .footer-content {
                 grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-brand {
-                grid-column: span 2;
+                gap: 2rem;
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 768px) {
             .footer-content {
                 grid-template-columns: 1fr;
-            }
-
-            .footer-brand {
-                grid-column: span 1;
             }
         }
 

@@ -149,39 +149,47 @@
             min-height: calc(100vh - 200px);
         }
 
-        /* 푸터 스타일 */
-        footer {
-            background-color: #1e293b;
+        /* Footer 스타일 */
+        .footer {
+            background-color: var(--dark-color);
             color: white;
-            padding: 4rem 0 2rem;
+            padding: 3rem 0;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
         .footer-brand {
-            max-width: 350px;
+            max-width: 400px;
         }
 
         .footer-logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
+            color: white;
         }
 
         .footer-description {
-            color: #cbd5e1;
+            color: #94a3b8;
             line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links-container {
+            display: flex;
+            flex-direction: column;
         }
 
         .footer-links-title {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: white;
         }
 
         .footer-links {
@@ -195,9 +203,9 @@
         }
 
         .footer-link a {
-            color: #cbd5e1;
+            color: #94a3b8;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .footer-link a:hover {
@@ -205,11 +213,14 @@
         }
 
         .copyright {
-            border-top: 1px solid #334155;
-            padding-top: 2rem;
             text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+        }
+
+        .copyright p {
             color: #94a3b8;
-            font-size: 0.9rem;
+            margin: 0;
         }
 
         /* 검색 페이지 스타일 */
