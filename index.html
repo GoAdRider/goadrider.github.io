@@ -453,50 +453,39 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
         }
 
-        /* 푸터 */
-        footer {
-            background-color: white;
-            padding: 4rem 0 2rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        /* 푸터 스타일 */
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 4rem;
+            gap: 2rem;
         }
 
-        .footer-brand {
-            max-width: 300px;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
+        .footer-brand .footer-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
             margin-bottom: 1rem;
-            display: inline-block;
         }
 
         .footer-description {
-            color: var(--gray-color);
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
             line-height: 1.6;
         }
 
-        .footer-links-container {
-            max-width: 300px;
-        }
-
         .footer-links-title {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
         .footer-links {
             list-style: none;
+            padding: 0;
         }
 
         .footer-link {
@@ -504,92 +493,41 @@
         }
 
         .footer-link a {
-            color: var(--gray-color);
+            color: #ddd;
             text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.95rem;
+            transition: color 0.3s;
         }
 
         .footer-link a:hover {
-            color: var(--primary-color);
-            padding-left: 5px;
+            color: white;
+            text-decoration: underline;
         }
 
         .copyright {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
-            padding-top: 2rem;
-            margin-top: 4rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            color: var(--gray-color);
-            font-size: 0.9rem;
         }
 
-        /* 반응형 디자인 */
-        @media (max-width: 1024px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-
+        /* 반응형 푸터 */
+        @media (max-width: 992px) {
             .footer-content {
                 grid-template-columns: 1fr 1fr;
-                gap: 3rem;
+            }
+
+            .footer-brand {
+                grid-column: span 2;
             }
         }
 
-        @media (max-width: 768px) {
-
-            nav,
-            .header-actions {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .hero-text {
-                order: 1;
-            }
-
-            .hero-image {
-                order: 0;
-                margin-bottom: 2rem;
-            }
-
-            .cta-buttons {
-                justify-content: center;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-            }
-
-            .posts-grid {
-                grid-template-columns: 1fr;
-            }
-
+        @media (max-width: 576px) {
             .footer-content {
                 grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 2.5rem;
             }
 
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
+            .footer-brand {
+                grid-column: span 1;
             }
         }
 
@@ -869,7 +807,7 @@
     </section>
 
     <!-- 푸터 -->
-    <footer>
+    <footer class="footer">
         <div class="container">
             <!-- 한국어 푸터 -->
             <div class="footer-content" id="footer-ko">
@@ -893,9 +831,9 @@
                     <h4 class="footer-links-title">정보</h4>
                     <ul class="footer-links">
                         <li class="footer-link"><a href="/about/">소개</a></li>
-                        <li class="footer-link"><a href="/authors/">필자소개</a></li>
+                        <li class="footer-link"><a href="/authors/">필자 소개</a></li>
                         <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
-                        <li class="footer-link"><a href="/contact/">문의</a></li>
+                        <li class="footer-link"><a href="/contact/">문의하기</a></li>
                         <li class="footer-link"><a href="/privacy/">개인정보처리방침</a></li>
                         <li class="footer-link"><a href="/terms/">이용약관</a></li>
                     </ul>
@@ -904,7 +842,7 @@
                 <div class="footer-links-container">
                     <h4 class="footer-links-title">연락처</h4>
                     <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/">문의는 '문의' 메뉴를 이용해 주세요</a></li>
+                        <li class="footer-link"><a href="/contact/">문의는 '문의하기' 메뉴를 이용해 주세요</a></li>
                     </ul>
                 </div>
             </div>

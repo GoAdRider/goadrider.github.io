@@ -176,51 +176,37 @@
 
         /* Footer 스타일 */
         .footer {
-            background-color: var(--dark-color);
+            background-color: #333;
             color: white;
             padding: 3rem 0;
+            margin-top: 3rem;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 2rem;
-            margin-bottom: 2rem;
         }
 
-        .footer-brand {
-            max-width: 400px;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .footer-brand .footer-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
             margin-bottom: 1rem;
-            color: white;
         }
 
         .footer-description {
-            color: #94a3b8;
             line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links-container {
-            display: flex;
-            flex-direction: column;
         }
 
         .footer-links-title {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
             font-weight: 600;
-            margin-bottom: 1.2rem;
-            color: white;
         }
 
         .footer-links {
             list-style: none;
             padding: 0;
-            margin: 0;
         }
 
         .footer-link {
@@ -228,37 +214,41 @@
         }
 
         .footer-link a {
-            color: #94a3b8;
+            color: #ddd;
             text-decoration: none;
-            transition: var(--transition);
+            transition: color 0.3s;
         }
 
         .footer-link a:hover {
             color: white;
+            text-decoration: underline;
         }
 
         .copyright {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #334155;
         }
 
-        .copyright p {
-            color: #94a3b8;
-            margin: 0;
-        }
-
-        /* 반응형 스타일 */
-        @media (max-width: 1024px) {
+        /* 반응형 푸터 */
+        @media (max-width: 992px) {
             .footer-content {
                 grid-template-columns: 1fr 1fr;
-                gap: 2rem;
+            }
+
+            .footer-brand {
+                grid-column: span 2;
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 576px) {
             .footer-content {
                 grid-template-columns: 1fr;
+            }
+
+            .footer-brand {
+                grid-column: span 1;
             }
         }
 
@@ -678,102 +668,89 @@
         </div>
     </main>
 
-    <!-- 한국어 푸터 -->
-    <footer id="footer-ko" class="footer">
+    <!-- 푸터 -->
+    <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>NewsLens</h3>
-                    <p>철학적, 과학적 사고를 통해 현대 사회의 다양한 이슈를 분석하는 블로그입니다.</p>
+            <!-- 한국어 푸터 -->
+            <div class="footer-content" id="footer-ko">
+                <div class="footer-brand">
+                    <div class="footer-logo">NewsLens</div>
+                    <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
                 </div>
 
-                <div class="footer-section">
-                    <h3>카테고리</h3>
-                    <ul>
-                        <li><a href="/categories/?category=philosophy">철학</a></li>
-                        <li><a href="/categories/?category=science">과학</a></li>
-                        <li><a href="/categories/?category=society">사회/정치</a></li>
-                        <li><a href="/categories/?category=technology">기술</a></li>
-                        <li><a href="/categories/?category=culture">문화/예술</a></li>
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">카테고리</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/categories/?category=philosophy">철학</a></li>
+                        <li class="footer-link"><a href="/categories/?category=science">과학</a></li>
+                        <li class="footer-link"><a href="/categories/?category=society">사회/정치</a></li>
+                        <li class="footer-link"><a href="/categories/?category=technology">기술</a></li>
+                        <li class="footer-link"><a href="/categories/?category=culture">문화/예술</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-section">
-                    <h3>정보</h3>
-                    <ul>
-                        <li><a href="/about/">소개</a></li>
-                        <li><a href="/about/#authors">필진 소개</a></li>
-                        <li><a href="/methodology/">분석방법론</a></li>
-                        <li><a href="/contact/">문의하기</a></li>
-                        <li><a href="/privacy/">개인정보처리방침</a></li>
-                        <li><a href="/terms/">이용약관</a></li>
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">정보</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/about/">소개</a></li>
+                        <li class="footer-link"><a href="/authors/">필자 소개</a></li>
+                        <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
+                        <li class="footer-link"><a href="/contact/">문의하기</a></li>
+                        <li class="footer-link"><a href="/privacy/">개인정보처리방침</a></li>
+                        <li class="footer-link"><a href="/terms/">이용약관</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-section">
-                    <h3>연락처</h3>
-                    <p>contact@newslens.kr</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">연락처</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/contact/">문의는 '문의하기' 메뉴를 이용해 주세요</a></li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2024 NewsLens. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- 영어 푸터 -->
-    <footer id="footer-en" class="footer" style="display: none;">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>NewsLens</h3>
-                    <p>A blog analyzing various issues in modern society through philosophical and scientific thinking.
-                    </p>
+            <!-- 영어 푸터 -->
+            <div class="footer-content" id="footer-en" style="display: none;">
+                <div class="footer-brand">
+                    <div class="footer-logo">NewsLens</div>
+                    <p class="footer-description">A blog that views the world through philosophical and scientific
+                        thinking. We provide in-depth analysis and new perspectives on various topics.</p>
                 </div>
 
-                <div class="footer-section">
-                    <h3>Categories</h3>
-                    <ul>
-                        <li><a href="/categories/?category=philosophy&lang=en">Philosophy</a></li>
-                        <li><a href="/categories/?category=science&lang=en">Science</a></li>
-                        <li><a href="/categories/?category=society&lang=en">Society/Politics</a></li>
-                        <li><a href="/categories/?category=technology&lang=en">Technology</a></li>
-                        <li><a href="/categories/?category=culture&lang=en">Culture/Arts</a></li>
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">Categories</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/categories/?category=philosophy&lang=en">Philosophy</a></li>
+                        <li class="footer-link"><a href="/categories/?category=science&lang=en">Science</a></li>
+                        <li class="footer-link"><a href="/categories/?category=society&lang=en">Society/Politics</a>
+                        </li>
+                        <li class="footer-link"><a href="/categories/?category=technology&lang=en">Technology</a></li>
+                        <li class="footer-link"><a href="/categories/?category=culture&lang=en">Culture/Arts</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-section">
-                    <h3>Information</h3>
-                    <ul>
-                        <li><a href="/about/?lang=en">About</a></li>
-                        <li><a href="/about/?lang=en#authors">Authors</a></li>
-                        <li><a href="/methodology/?lang=en">Methodology</a></li>
-                        <li><a href="/contact/?lang=en">Contact</a></li>
-                        <li><a href="/privacy/?lang=en">Privacy Policy</a></li>
-                        <li><a href="/terms/?lang=en">Terms of Service</a></li>
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">Information</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/about/?lang=en">About</a></li>
+                        <li class="footer-link"><a href="/authors/?lang=en">Authors</a></li>
+                        <li class="footer-link"><a href="/methodology/?lang=en">Methodology</a></li>
+                        <li class="footer-link"><a href="/contact/?lang=en">Contact</a></li>
+                        <li class="footer-link"><a href="/privacy/?lang=en">Privacy Policy</a></li>
+                        <li class="footer-link"><a href="/terms/?lang=en">Terms of Service</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p>contact@newslens.kr</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
+                <div class="footer-links-container">
+                    <h4 class="footer-links-title">Contact</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="/contact/?lang=en">Please use the 'Contact' menu for
+                                inquiries</a></li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="footer-bottom">
+            <div class="copyright">
                 <p>&copy; 2024 NewsLens. All rights reserved.</p>
             </div>
         </div>
