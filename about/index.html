@@ -174,81 +174,88 @@
             font-size: 1.05rem;
         }
 
-        /* 푸터 스타일 */
+        /* Footer 스타일 */
         .footer {
-            background-color: #333;
+            background-color: var(--dark-color);
             color: white;
             padding: 3rem 0;
-            margin-top: 3rem;
+            margin-top: 4rem;
         }
 
         .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            display: grid !important;
+            grid-template-columns: 2fr 1fr 1fr 1fr !important;
             gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .footer-brand .footer-logo {
+        .footer-brand {
+            max-width: 400px;
+        }
+
+        .footer-logo {
             font-size: 1.8rem;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 1rem;
+            color: white;
         }
 
         .footer-description {
+            color: #cbd5e1;
             line-height: 1.6;
         }
 
+        .footer-links-container {
+            display: flex;
+            flex-direction: column;
+        }
+
         .footer-links-title {
-            font-size: 1.2rem;
+            color: white;
+            font-size: 1.1rem;
             margin-bottom: 1rem;
-            font-weight: 600;
         }
 
         .footer-links {
             list-style: none;
-            padding: 0;
         }
 
         .footer-link {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .footer-link a {
-            color: #ddd;
+            color: #cbd5e1;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: var(--transition);
         }
 
         .footer-link a:hover {
             color: white;
-            text-decoration: underline;
         }
 
         .copyright {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
         }
 
-        /* 반응형 푸터 */
-        @media (max-width: 992px) {
+        @media (max-width: 1024px) {
             .footer-content {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr !important;
             }
 
             .footer-brand {
-                grid-column: span 2;
+                grid-column: 1 / -1;
+                max-width: none;
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 768px) {
             .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-brand {
-                grid-column: span 1;
+                grid-template-columns: 1fr !important;
+                gap: 2rem;
             }
         }
 
@@ -466,42 +473,33 @@
     </footer>
 
     <script>
-        // URL에서 언어 파라미터 확인
-        const urlParams = new URLSearchParams(window.location.search);
-        const langParam = urlParams.get('lang');
-
-        // 페이지 로드 시 언어 설정
         document.addEventListener('DOMContentLoaded', function () {
+            // 언어 전환 기능
+            const langSwitcher = document.getElementById('langSwitcher');
+            const currentLang = document.getElementById('currentLang');
             const footerKo = document.getElementById('footer-ko');
             const footerEn = document.getElementById('footer-en');
 
-            if (langParam === 'en') {
-                document.getElementById('ko-content').style.display = 'none';
-                document.getElementById('en-content').style.display = 'block';
-                footerKo.style.display = 'none';
-                footerEn.style.display = 'block';
-                document.getElementById('currentLang').textContent = '한국어';
-                document.getElementById('langSwitcher').href = '/about/';
-            } else {
-                document.getElementById('ko-content').style.display = 'block';
-                document.getElementById('en-content').style.display = 'none';
-                footerKo.style.display = 'block';
-                footerEn.style.display = 'none';
-                document.getElementById('currentLang').textContent = 'English';
-                document.getElementById('langSwitcher').href = '/about/?lang=en';
-            }
+            // URL 파라미터에서 언어 확인
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
 
-            // 언어 전환 클릭 이벤트
-            document.getElementById('langSwitcher').addEventListener('click', function (e) {
-                e.preventDefault();
-                if (langParam === 'en') {
-                    // 한국어로 전환
-                    window.location.href = '/about/';
-                } else {
-                    // 영어로 전환
-                    window.location.href = '/about/?lang=en';
-                }
-            });
+            // 언어 파라미터에 따라 콘텐츠 표시
+            if (langParam === 'en') {
+                // 영어 콘텐츠 표시
+                footerKo.style.display = 'none';
+                footerEn.style.display = 'grid';
+                currentLang.textContent = 'English';
+                document.documentElement.lang = 'en';
+                langSwitcher.href = window.location.pathname; // 한국어로 전환
+            } else {
+                // 한국어 콘텐츠 표시
+                footerKo.style.display = 'grid';
+                footerEn.style.display = 'none';
+                currentLang.textContent = '한국어';
+                document.documentElement.lang = 'ko';
+                langSwitcher.href = window.location.pathname + '?lang=en'; // 영어로 전환
+            }
         });
     </script>
 </body>

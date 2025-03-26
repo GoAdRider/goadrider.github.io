@@ -179,11 +179,12 @@
             background-color: var(--dark-color);
             color: white;
             padding: 3rem 0;
+            margin-top: 4rem;
         }
 
         .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            display: grid !important;
+            grid-template-columns: 2fr 1fr 1fr 1fr !important;
             gap: 2rem;
             margin-bottom: 2rem;
         }
@@ -193,16 +194,15 @@
         }
 
         .footer-logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 1rem;
             color: white;
         }
 
         .footer-description {
-            color: #94a3b8;
+            color: #cbd5e1;
             line-height: 1.6;
-            margin-bottom: 1.5rem;
         }
 
         .footer-links-container {
@@ -211,24 +211,21 @@
         }
 
         .footer-links-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1.2rem;
             color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
         }
 
         .footer-links {
             list-style: none;
-            padding: 0;
-            margin: 0;
         }
 
         .footer-link {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .footer-link a {
-            color: #94a3b8;
+            color: #cbd5e1;
             text-decoration: none;
             transition: var(--transition);
         }
@@ -240,25 +237,25 @@
         .copyright {
             text-align: center;
             padding-top: 2rem;
-            border-top: 1px solid #334155;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
         }
 
-        .copyright p {
-            color: #94a3b8;
-            margin: 0;
-        }
-
-        /* 반응형 스타일 */
         @media (max-width: 1024px) {
             .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
+                grid-template-columns: 1fr 1fr !important;
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+                max-width: none;
             }
         }
 
         @media (max-width: 768px) {
             .footer-content {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
+                gap: 2rem;
             }
         }
 
