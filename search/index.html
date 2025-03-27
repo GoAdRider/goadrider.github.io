@@ -1,444 +1,224 @@
-<!DOCTYPE html>
-<html lang="ko">
+---
+layout: default
+title: 검색 - NewsLens
+permalink: /search/
+---
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title">검색</h1>
+        <p class="page-description">NewsLens의 콘텐츠를 검색하여 다양한 주제에 대한 심층 분석을 찾아보세요.</p>
+    </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>검색 - NewsLens</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #fb7185;
-            --dark-color: #1e293b;
-            --light-color: #f8fafc;
-            --gray-color: #64748b;
-            --transition: all 0.3s ease;
-        }
+    <div class="search-section">
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="검색어를 입력하세요..." autocomplete="off">
+            <button class="search-button" id="searchButton">
+                <i class="fas fa-search"></i> 검색
+            </button>
+        </div>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        <div class="search-filters">
+            <span class="filter-option active" data-filter="all">전체</span>
+            <span class="filter-option" data-filter="philosophy">철학</span>
+            <span class="filter-option" data-filter="science">과학</span>
+            <span class="filter-option" data-filter="society">사회/정치</span>
+            <span class="filter-option" data-filter="technology">기술</span>
+            <span class="filter-option" data-filter="culture">문화/예술</span>
+        </div>
 
-        body {
-            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-            line-height: 1.7;
-            color: var(--dark-color);
-            background-color: var(--light-color);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* 메인 콘텐츠 스타일 */
-        .main {
-            padding: 4rem 0;
-            min-height: calc(100vh - 200px);
-        }
-
-        .page-header {
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        .page-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-
-        .page-description {
-            font-size: 1.1rem;
-            color: var(--gray-color);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* 검색 스타일 */
-        .search-section {
-            max-width: 800px;
-            margin: 0 auto 4rem;
-        }
-
-        .search-box {
-            display: flex;
-            margin-bottom: 2rem;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            border: 2px solid rgba(0, 0, 0, 0.1);
-            border-right: none;
-            border-radius: 50px 0 0 50px;
-            font-size: 1.1rem;
-            font-family: inherit;
-            transition: var(--transition);
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .search-button {
-            padding: 1rem 2rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 0 50px 50px 0;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .search-button:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .search-filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .filter-option {
-            padding: 0.5rem 1rem;
-            background-color: white;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .filter-option:hover,
-        .filter-option.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .search-results {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
-        }
-
-        .result-count {
-            margin-bottom: 1.5rem;
-            color: var(--gray-color);
-            font-size: 1.1rem;
-        }
-
-        .result-item {
-            padding: 1.5rem 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .result-item:last-child {
-            border-bottom: none;
-        }
-
-        .result-category {
-            display: inline-block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 0.3rem;
-        }
-
-        .result-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
-        }
-
-        .result-title a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
-        }
-
-        .result-title a:hover {
-            color: var(--primary-color);
-        }
-
-        .result-excerpt {
-            margin-bottom: 1rem;
-            color: var(--gray-color);
-            line-height: 1.6;
-        }
-
-        .result-meta {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: var(--gray-color);
-            font-size: 0.9rem;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 2rem;
-        }
-
-        .page-item {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: white;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .page-item:hover,
-        .page-item.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 3rem 0;
-        }
-
-        .no-results i {
-            font-size: 3rem;
-            color: var(--gray-color);
-            margin-bottom: 1rem;
-        }
-
-        .no-results h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-
-        .no-results p {
-            color: var(--gray-color);
-            margin-bottom: 1.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .search-box {
-                flex-direction: column;
-            }
-
-            .search-input {
-                border-radius: 50px;
-                border-right: 2px solid rgba(0, 0, 0, 0.1);
-                margin-bottom: 1rem;
-            }
-
-            .search-button {
-                border-radius: 50px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <!-- 헤더 포함 -->
-    {% include header.html %}
-
-    <main class="main">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">검색</h1>
-                <p class="page-description">NewsLens의 다양한 컨텐츠를 검색해보세요.</p>
+        <div class="search-results" id="searchResults">
+            <!-- 검색 결과가 없을 때 -->
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>검색 결과가 없습니다</h3>
+                <p>다른 검색어를 입력하거나 필터를 변경해보세요.</p>
             </div>
 
-            <div class="search-section">
-                <form class="search-form">
-                    <div class="search-box">
-                        <input type="text" class="search-input" placeholder="검색어를 입력하세요..." aria-label="Search term">
-                        <button type="submit" class="search-button">
-                            <i class="fas fa-search"></i> 검색
-                        </button>
-                    </div>
-
-                    <div class="search-filters">
-                        <div class="filter-option active">전체</div>
-                        <div class="filter-option">철학</div>
-                        <div class="filter-option">과학</div>
-                        <div class="filter-option">사회/정치</div>
-                        <div class="filter-option">기술</div>
-                        <div class="filter-option">문화/예술</div>
-                    </div>
-                </form>
-
-                <!-- 검색 결과 섹션 -->
-                <div class="search-results">
-                    <div class="result-count">검색 결과: <strong>23</strong>개</div>
-
-                    <!-- 검색 결과 아이템 -->
-                    <div class="result-item">
-                        <span class="result-category">철학</span>
-                        <h3 class="result-title"><a href="#">현대 사회에서 철학의 역할: 실용적 지혜의 회복</a></h3>
-                        <p class="result-excerpt">빠르게 변화하는 현대 사회에서 철학이 어떻게 실용적인 지혜를 제공하고 사회 문제 해결에 기여할 수 있는지 탐구합니다.</p>
-                        <div class="result-meta">
-                            <span><i class="far fa-calendar"></i> 2024.07.15</span>
-                            <span><i class="far fa-eye"></i> 847</span>
-                        </div>
-                    </div>
-
-                    <div class="result-item">
-                        <span class="result-category">과학/철학</span>
-                        <h3 class="result-title"><a href="#">양자역학과 의식: 현실을 바라보는 새로운 관점</a></h3>
-                        <p class="result-excerpt">양자역학의 기이한 현상들이 의식과 현실 인식에 미치는 영향에 대한 과학적, 철학적 고찰입니다.</p>
-                        <div class="result-meta">
-                            <span><i class="far fa-calendar"></i> 2024.06.28</span>
-                            <span><i class="far fa-eye"></i> 2,103</span>
-                        </div>
-                    </div>
-
-                    <div class="result-item">
-                        <span class="result-category">기술/철학</span>
-                        <h3 class="result-title"><a href="#">AI 시대의 새로운 윤리적 패러다임: 인간과 기계의 공존</a></h3>
-                        <p class="result-excerpt">인공지능 기술이 일상화되면서 새롭게 등장하는 윤리적 문제들과 이에 대한 철학적 접근법을 살펴봅니다.</p>
-                        <div class="result-meta">
-                            <span><i class="far fa-calendar"></i> 2024.08.02</span>
-                            <span><i class="far fa-eye"></i> 2,547</span>
-                        </div>
-                    </div>
-
-                    <div class="result-item">
-                        <span class="result-category">철학</span>
-                        <h3 class="result-title"><a href="#">실존주의와 현대인의 삶: 불확실성 시대의 자아 발견</a></h3>
-                        <p class="result-excerpt">불확실성이 지배하는 현대 사회에서 실존주의 철학이 어떻게 개인의 자아 정체성과 의미 찾기에 도움을 줄 수 있는지 탐색합니다.
-                        </p>
-                        <div class="result-meta">
-                            <span><i class="far fa-calendar"></i> 2024.05.19</span>
-                            <span><i class="far fa-eye"></i> 1,235</span>
-                        </div>
-                    </div>
-
-                    <div class="result-item">
-                        <span class="result-category">철학/심리학</span>
-                        <h3 class="result-title"><a href="#">마음의 철학: 인지과학과 현상학의 대화</a></h3>
-                        <p class="result-excerpt">마음의 본질에 대한 철학적 질문들이 현대 인지과학의 발견들과 어떻게 상호작용하며 새로운 통찰을 제공하는지 알아봅니다.</p>
-                        <div class="result-meta">
-                            <span><i class="far fa-calendar"></i> 2024.07.03</span>
-                            <span><i class="far fa-eye"></i> 967</span>
-                        </div>
-                    </div>
-
-                    <!-- 페이지네이션 -->
-                    <div class="pagination">
-                        <div class="page-item active">1</div>
-                        <div class="page-item">2</div>
-                        <div class="page-item">3</div>
-                        <div class="page-item">4</div>
-                        <div class="page-item">5</div>
-                        <div class="page-item"><i class="fas fa-chevron-right"></i></div>
-                    </div>
+            <!-- 검색 결과가 있을 때 (기본적으로 숨김) -->
+            <div class="results-content" style="display: none;">
+                <div class="result-count">
+                    '<span id="searchTerm"></span>'에 대한 검색 결과 <span id="resultCount"></span>건
                 </div>
 
-                <!-- 결과 없음 상태 (기본적으로 숨김) -->
-                <div class="search-results no-results" style="display: none;">
-                    <i class="fas fa-search"></i>
-                    <h3>검색 결과가 없습니다</h3>
-                    <p>다른 검색어를 입력하거나 필터를 변경해 보세요.</p>
+                <div class="result-list">
+                    <!-- 여기에 검색 결과 항목들이 동적으로 추가됩니다 -->
+                </div>
+
+                <div class="pagination">
+                    <!-- 페이지네이션 버튼들이 동적으로 추가됩니다 -->
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</div>
 
-    <!-- 푸터 포함 -->
-    {% include footer.html %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // URL 파라미터에서 언어 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const searchParam = urlParams.get('q');
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // 검색 폼 제출 이벤트
-            const searchForm = document.querySelector('.search-form');
-            const searchInput = document.querySelector('.search-input');
-            const searchResults = document.querySelector('.search-results');
-            const noResults = document.querySelector('.no-results');
+        // 언어 파라미터에 따라 UI 텍스트 변경
+        if (langParam === 'en') {
+            document.querySelector('.page-title').textContent = 'Search';
+            document.querySelector('.page-description').textContent = 'Search NewsLens content to find in-depth analysis on various topics.';
+            document.getElementById('searchInput').placeholder = 'Enter search term...';
+            document.querySelector('.search-button').innerHTML = '<i class="fas fa-search"></i> Search';
+            document.querySelector('.filter-option[data-filter="all"]').textContent = 'All';
+            document.querySelector('.filter-option[data-filter="philosophy"]').textContent = 'Philosophy';
+            document.querySelector('.filter-option[data-filter="science"]').textContent = 'Science';
+            document.querySelector('.filter-option[data-filter="society"]').textContent = 'Society/Politics';
+            document.querySelector('.filter-option[data-filter="technology"]').textContent = 'Technology';
+            document.querySelector('.filter-option[data-filter="culture"]').textContent = 'Culture/Arts';
+            document.querySelector('.no-results h3').textContent = 'No results found';
+            document.querySelector('.no-results p').textContent = 'Try different search terms or change filters.';
+        }
 
-            searchForm.addEventListener('submit', function (e) {
-                e.preventDefault();
+        // URL에서 검색어 가져오기 (있을 경우)
+        if (searchParam) {
+            document.getElementById('searchInput').value = searchParam;
+            performSearch(searchParam);
+        }
 
-                const searchTerm = searchInput.value.trim();
-
-                // 실제 구현에서는 여기서 검색 API 호출 등의 로직이 들어갈 수 있음
-                // 지금은 예시로 검색어가 비어있으면 "결과 없음" 표시
-                if (!searchTerm) {
-                    searchResults.style.display = 'none';
-                    noResults.style.display = 'block';
-                } else {
-                    searchResults.style.display = 'block';
-                    noResults.style.display = 'none';
-
-                    // 검색 결과 개수 업데이트 (예시)
-                    document.querySelector('.result-count').innerHTML = `검색 결과: <strong>23</strong>개 (<em>${searchTerm}</em>)`;
-                }
-            });
-
-            // 필터 옵션 선택 이벤트
-            const filterOptions = document.querySelectorAll('.filter-option');
-
-            filterOptions.forEach(option => {
-                option.addEventListener('click', function () {
-                    filterOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-
-                    // 실제 구현에서는 여기서 필터링 로직이 들어갈 수 있음
-                });
-            });
-
-            // 페이지네이션 이벤트
-            const pageItems = document.querySelectorAll('.page-item');
-
-            pageItems.forEach(item => {
-                item.addEventListener('click', function () {
-                    pageItems.forEach(pi => pi.classList.remove('active'));
-                    this.classList.add('active');
-
-                    // 실제 구현에서는 여기서 페이지 전환 로직이 들어갈 수 있음
-                });
-            });
-
-            // URL 파라미터에서 언어 확인
-            const urlParams = new URLSearchParams(window.location.search);
-            const langParam = urlParams.get('lang');
-            const langSwitcher = document.getElementById('langSwitcher');
-            const currentLang = document.getElementById('currentLang');
-
-            // 언어 파라미터에 따라 콘텐츠 표시
-            if (langParam === 'en') {
-                // 영어 콘텐츠 표시
-                currentLang.textContent = 'English';
-                document.documentElement.lang = 'en';
-                document.querySelector('.page-title').textContent = 'Search';
-                document.querySelector('.page-description').textContent = 'Search through the diverse content of NewsLens.';
-                document.querySelector('.search-input').placeholder = 'Enter search terms...';
-                document.querySelector('.search-button').innerHTML = '<i class="fas fa-search"></i> Search';
-                // 필요한 경우 다른 텍스트 요소들도 영어로 변경
-                langSwitcher.href = window.location.pathname; // 한국어로 전환
-            } else {
-                // 한국어 콘텐츠 표시
-                currentLang.textContent = '한국어';
-                document.documentElement.lang = 'ko';
-                langSwitcher.href = window.location.pathname + '?lang=en'; // 영어로 전환
+        // 검색 버튼 클릭 이벤트
+        document.getElementById('searchButton').addEventListener('click', function () {
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            if (searchTerm) {
+                performSearch(searchTerm);
             }
         });
-    </script>
-</body>
 
-</html>
+        // 검색창에서 엔터 키 이벤트
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const searchTerm = document.getElementById('searchInput').value.trim();
+                if (searchTerm) {
+                    performSearch(searchTerm);
+                }
+            }
+        });
+
+        // 필터 클릭 이벤트
+        document.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', function () {
+                document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+
+                // 현재 검색어가 있으면 필터와 함께 재검색
+                const searchTerm = document.getElementById('searchInput').value.trim();
+                if (searchTerm) {
+                    performSearch(searchTerm);
+                }
+            });
+        });
+
+        // 검색 수행 함수
+        function performSearch(searchTerm) {
+            // 실제 구현에서는 서버에 검색 요청을 보내야 합니다.
+            // 여기서는 예시로 가상의 검색 결과를 표시합니다.
+
+            // 선택된 필터 가져오기
+            const activeFilter = document.querySelector('.filter-option.active').getAttribute('data-filter');
+
+            // 가상의 검색 결과 (실제로는 서버에서 받아와야 함)
+            const sampleResults = [
+                {
+                    category: 'philosophy',
+                    title: '진리의 본질: 현대 인식론의 도전',
+                    excerpt: '포스트 진리 시대에 객관적 진리의 개념이 어떻게 도전받고 있는지 현대 인식론의 관점에서 분석합니다.',
+                    date: '2023.12.10',
+                    url: '#'
+                },
+                {
+                    category: 'science',
+                    title: '다중우주론: 양자역학의 철학적 함의',
+                    excerpt: '양자역학의 다중우주 해석이 가진 철학적 의미와 현실에 대한 우리의 이해에 미치는 영향을 탐구합니다.',
+                    date: '2023.11.28',
+                    url: '#'
+                },
+                {
+                    category: 'technology',
+                    title: '인공지능과 의식: 기계가 의식을 가질 수 있는가?',
+                    excerpt: '인공지능 시스템이 인간과 같은 의식이나 자아를 가질 수 있는지에 대한 철학적, 과학적 관점을 분석합니다.',
+                    date: '2023.11.15',
+                    url: '#'
+                }
+            ];
+
+            // 필터에 따라 결과 필터링
+            let filteredResults = sampleResults;
+            if (activeFilter !== 'all') {
+                filteredResults = sampleResults.filter(result => result.category === activeFilter);
+            }
+
+            // 결과 표시
+            updateSearchResults(searchTerm, filteredResults);
+        }
+
+        // 검색 결과 업데이트 함수
+        function updateSearchResults(searchTerm, results) {
+            const noResultsEl = document.querySelector('.no-results');
+            const resultsContentEl = document.querySelector('.results-content');
+            const resultListEl = document.querySelector('.result-list');
+
+            // 검색어와 결과 수 표시
+            document.getElementById('searchTerm').textContent = searchTerm;
+            document.getElementById('resultCount').textContent = results.length;
+
+            // 결과 목록 비우기
+            resultListEl.innerHTML = '';
+
+            if (results.length === 0) {
+                noResultsEl.style.display = 'block';
+                resultsContentEl.style.display = 'none';
+                return;
+            }
+
+            // 결과가 있으면 표시
+            noResultsEl.style.display = 'none';
+            resultsContentEl.style.display = 'block';
+
+            // 결과 항목 추가
+            results.forEach(result => {
+                const categoryName = langParam === 'en' ? getCategoryNameInEnglish(result.category) : getCategoryNameInKorean(result.category);
+
+                const resultItemEl = document.createElement('div');
+                resultItemEl.className = 'result-item';
+                resultItemEl.innerHTML = `
+                    <span class="result-category">${categoryName}</span>
+                    <h3 class="result-title"><a href="${result.url}">${result.title}</a></h3>
+                    <p class="result-excerpt">${result.excerpt}</p>
+                    <div class="result-meta">
+                        <span class="result-date">${result.date}</span>
+                    </div>
+                `;
+
+                resultListEl.appendChild(resultItemEl);
+            });
+        }
+
+        // 카테고리 이름 변환 함수들
+        function getCategoryNameInKorean(category) {
+            const categories = {
+                'philosophy': '철학',
+                'science': '과학',
+                'society': '사회/정치',
+                'technology': '기술',
+                'culture': '문화/예술'
+            };
+            return categories[category] || category;
+        }
+
+        function getCategoryNameInEnglish(category) {
+            const categories = {
+                'philosophy': 'Philosophy',
+                'science': 'Science',
+                'society': 'Society/Politics',
+                'technology': 'Technology',
+                'culture': 'Culture/Arts'
+            };
+            return categories[category] || category;
+        }
+    });
+</script>

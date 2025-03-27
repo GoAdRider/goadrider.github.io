@@ -1,633 +1,132 @@
-<!DOCTYPE html>
-<html lang="ko">
+---
+layout: default
+title: 필자 소개 - NewsLens
+permalink: /authors/
+---
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title">필자 소개</h1>
+        <p class="page-description">NewsLens의 콘텐츠를 만들어가는 필진들을 소개합니다. 다양한 분야의 전문가들이 심층적인 분석과 통찰을 제공합니다.</p>
+    </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>필자 소개 - NewsLens</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #fb7185;
-            --dark-color: #1e293b;
-            --light-color: #f8fafc;
-            --gray-color: #64748b;
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-            line-height: 1.7;
-            color: var(--dark-color);
-            background-color: var(--light-color);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* 헤더 스타일 - 공통 */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #2563eb;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            color: #fb7185;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #64748b;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a:hover,
-        nav a.active {
-            color: #2563eb;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #2563eb;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover::after,
-        nav a.active::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .language-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .language-switcher:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-        }
-
-        .language-switcher i {
-            color: #2563eb;
-        }
-
-        .search-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #2563eb;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .search-button:hover {
-            background-color: #1e40af;
-            transform: scale(1.05);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* 메인 콘텐츠 스타일 */
-        .main {
-            padding: 4rem 0;
-            min-height: calc(100vh - 200px);
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .page-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-
-        .page-description {
-            font-size: 1.1rem;
-            color: var(--gray-color);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* 필자 카드 스타일 */
-        .authors-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .author-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .author-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .author-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-
-        .author-info {
-            padding: 1.5rem;
-        }
-
-        .author-name {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
-        }
-
-        .author-title {
-            font-size: 1rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .author-bio {
-            color: var(--gray-color);
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .author-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .author-link {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .author-link:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        /* 푸터 스타일 - 공통 */
-        .footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 3rem 0;
-            margin-top: 3rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-brand {
-            max-width: 400px;
-        }
-
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .footer-description {
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-        .footer-links-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .footer-links-title {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-link a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-link a:hover {
-            color: white;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-        }
-
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-brand {
-                grid-column: 1 / -1;
-                max-width: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            nav,
-            .header-actions {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            nav.active,
-            .header-actions.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: white;
-                padding: 1rem;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            nav.active {
-                gap: 1rem;
-            }
-
-            .authors-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <!-- 헤더 시작 -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <a href="/" class="logo">
-                        <i class="fas fa-brain"></i>
-                        <span>NewsLens</span>
-                    </a>
-                </div>
-
-                <nav>
-                    <a href="/">홈</a>
-                    <a href="/categories/">카테고리</a>
-                    <a href="/popular/">인기 글</a>
-                    <a href="/about/">소개</a>
-                    <a href="/contact/">문의</a>
-                </nav>
-
-                <div class="header-actions">
-                    <a href="/authors/?lang=en" class="language-switcher" id="langSwitcher">
-                        <i class="fas fa-globe"></i>
-                        <span id="currentLang">한국어</span>
-                    </a>
-
-                    <a href="/search/" class="search-button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </div>
-
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
+    <div class="authors-grid">
+        <!-- 한국어 필자 카드 -->
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1603575448878-868a20723f5d?q=80&w=1470&auto=format&fit=crop"
+                alt="이지원 교수" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">이지원 교수</h2>
+                <div class="author-title">철학 / 윤리학 전문가</div>
+                <p class="author-bio">서울대학교 철학과 교수로, 인공지능 윤리와 기술철학을 중심으로 연구합니다. 현대 기술의 발전이 가져오는 윤리적, 사회적 변화에 대한 심층적인 분석을
+                    제공합니다.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
                 </div>
             </div>
         </div>
-    </header>
-    <!-- 헤더 끝 -->
 
-    <main class="main">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">필자 소개</h1>
-                <p class="page-description">NewsLens를 함께 만들어가는 필진을 소개합니다.</p>
-            </div>
-
-            <div class="authors-grid">
-                <!-- 필진 1 -->
-                <div class="author-card">
-                    <img src="/assets/images/author-1.jpg" alt="김철학" class="author-image">
-                    <div class="author-info">
-                        <h3 class="author-name">김철학</h3>
-                        <p class="author-title">철학 전문 필진</p>
-                        <p class="author-bio">서울대학교 철학과 박사. 현대 철학과 윤리학 분야에서 다수의 논문을 발표하였으며, 현재는 철학적 관점에서 현대 사회 이슈를
-                            분석합니다.</p>
-                        <div class="author-links">
-                            <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="author-link"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 필진 2 -->
-                <div class="author-card">
-                    <img src="/assets/images/author-2.jpg" alt="이과학" class="author-image">
-                    <div class="author-info">
-                        <h3 class="author-name">이과학</h3>
-                        <p class="author-title">과학 전문 필진</p>
-                        <p class="author-bio">KAIST 물리학 박사. 양자역학과 우주물리학 분야에서 연구 활동을 하고 있으며, 복잡한 과학 개념을 대중에게 쉽게 전달하는 데
-                            관심이 있습니다.</p>
-                        <div class="author-links">
-                            <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="author-link"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 필진 3 -->
-                <div class="author-card">
-                    <img src="/assets/images/author-3.jpg" alt="박사회" class="author-image">
-                    <div class="author-info">
-                        <h3 class="author-name">박사회</h3>
-                        <p class="author-title">사회/정치 전문 필진</p>
-                        <p class="author-bio">연세대학교 사회학 박사. 현대 사회 구조와 정치적 동향을 연구하며, 사회학적 관점에서 국내외 정치 현상을 분석합니다.</p>
-                        <div class="author-links">
-                            <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="author-link"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 필진 4 -->
-                <div class="author-card">
-                    <img src="/assets/images/author-4.jpg" alt="최기술" class="author-image">
-                    <div class="author-info">
-                        <h3 class="author-name">최기술</h3>
-                        <p class="author-title">기술 전문 필진</p>
-                        <p class="author-bio">포항공대 컴퓨터공학 박사. 인공지능과 로보틱스 분야의 전문가로, 최신 기술 트렌드와 그 사회적 영향에 대해 분석합니다.</p>
-                        <div class="author-links">
-                            <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="author-link"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 필진 5 -->
-                <div class="author-card">
-                    <img src="/assets/images/author-5.jpg" alt="정문화" class="author-image">
-                    <div class="author-info">
-                        <h3 class="author-name">정문화</h3>
-                        <p class="author-title">문화/예술 전문 필진</p>
-                        <p class="author-bio">홍익대학교 미학 박사. 현대 예술과 대중문화 현상을 연구하며, 문화적 관점에서 사회 현상을 분석합니다.</p>
-                        <div class="author-links">
-                            <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="author-link"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1522&auto=format&fit=crop"
+                alt="김민지 연구원" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">김민지 연구원</h2>
+                <div class="author-title">인지과학 / 뇌과학 전문가</div>
+                <p class="author-bio">KAIST 인지뇌과학 연구소 선임연구원으로, 인간의 의식과 인지 과정에 대한 연구를 수행합니다. 최신 뇌과학 연구를 바탕으로 의식의 본질과 인지
+                    현상에 대한 통찰을 제공합니다.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
                 </div>
             </div>
         </div>
-    </main>
 
-    <!-- 푸터 시작 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content" id="footer-ko">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=1448&auto=format&fit=crop"
+                alt="박준호 대표" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">박준호 대표</h2>
+                <div class="author-title">기술 / AI 전문가</div>
+                <p class="author-bio">AI 스타트업 'DeepThink'의 창업자이자 CEO로, 인공지능 기술 발전과 산업 적용에 관한 전문성을 가지고 있습니다. 기술의 실제 적용과 그
+                    사회적 영향에 대한 분석을 제공합니다.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
                 </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">카테고리</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy">철학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science">과학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society">사회/정치</a></li>
-                        <li class="footer-link"><a href="/categories/?category=technology">기술</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture">문화/예술</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">정보</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/">소개</a></li>
-                        <li class="footer-link"><a href="/authors/">필자 소개</a></li>
-                        <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
-                        <li class="footer-link"><a href="/contact/">문의하기</a></li>
-                        <li class="footer-link"><a href="/privacy/">개인정보처리방침</a></li>
-                        <li class="footer-link"><a href="/terms/">이용약관</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">연락처</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/">문의는 '문의하기' 메뉴를 이용해 주세요</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-content" id="footer-en" style="display: none;">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">A blog that views the world through philosophical and scientific
-                        thinking. We provide in-depth analysis and new perspectives on various topics.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Categories</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy&lang=en">Philosophy</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science&lang=en">Science</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society&lang=en">Society/Politics</a>
-                        </li>
-                        <li class="footer-link"><a href="/categories/?category=technology&lang=en">Technology</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture&lang=en">Culture/Arts</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Information</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/?lang=en">About</a></li>
-                        <li class="footer-link"><a href="/authors/?lang=en">Authors</a></li>
-                        <li class="footer-link"><a href="/methodology/?lang=en">Methodology</a></li>
-                        <li class="footer-link"><a href="/contact/?lang=en">Contact</a></li>
-                        <li class="footer-link"><a href="/privacy/?lang=en">Privacy Policy</a></li>
-                        <li class="footer-link"><a href="/terms/?lang=en">Terms of Service</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Contact</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/?lang=en">Please use the 'Contact' menu for
-                                inquiries</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2024 NewsLens. All rights reserved.</p>
             </div>
         </div>
-    </footer>
-    <!-- 푸터 끝 -->
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // 모바일 메뉴 토글
-            const mobileMenu = document.querySelector('.mobile-menu');
-            const nav = document.querySelector('nav');
-            const headerActions = document.querySelector('.header-actions');
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1476&auto=format&fit=crop"
+                alt="최수연 교수" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">최수연 교수</h2>
+                <div class="author-title">사회학 / 미디어 전문가</div>
+                <p class="author-bio">연세대학교 사회학과 교수로, 디지털 미디어와 사회 변화의 관계에 대해 연구합니다. 소셜미디어와 디지털 플랫폼이 현대 사회에 미치는 영향을 다양한
+                    이론적 관점에서 분석합니다.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+        </div>
 
-            mobileMenu.addEventListener('click', function () {
-                nav.classList.toggle('active');
-                headerActions.classList.toggle('active');
-            });
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1374&auto=format&fit=crop"
+                alt="정태영 박사" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">정태영 박사</h2>
+                <div class="author-title">물리학 / 우주론 전문가</div>
+                <p class="author-bio">한국천문연구원 선임연구원으로, 우주론과 양자물리학 분야의 전문가입니다. 최신 물리학 이론과 발견을 일반 독자들도 이해할 수 있도록 쉽고 명확하게
+                    설명합니다.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+        </div>
 
-            // URL 파라미터에서 언어 확인
-            const urlParams = new URLSearchParams(window.location.search);
-            const langParam = urlParams.get('lang');
-            const langSwitcher = document.getElementById('langSwitcher');
-            const currentLang = document.getElementById('currentLang');
-            const footerKo = document.getElementById('footer-ko');
-            const footerEn = document.getElementById('footer-en');
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?q=80&w=1470&auto=format&fit=crop"
+                alt="한소희 작가" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">한소희 작가</h2>
+                <div class="author-title">문화 / 예술 평론가</div>
+                <p class="author-bio">독립 문화평론가이자 작가로, 현대 예술과 디지털 문화의 교차점에 대해 탐구합니다. 특히 AI 예술과 새로운 미디어 아트의 철학적, 미학적 의미에
+                    대한 깊이 있는 분석을 제공합니다.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            // 언어 파라미터에 따라 콘텐츠 표시
-            if (langParam === 'en') {
-                // 영어 콘텐츠 표시
-                footerKo.style.display = 'none';
-                footerEn.style.display = 'grid';
-                currentLang.textContent = 'English';
-                document.documentElement.lang = 'en';
-                document.querySelector('.page-title').textContent = 'Authors';
-                document.querySelector('.page-description').textContent = 'Meet the authors who contribute to NewsLens.';
-                langSwitcher.href = '/authors/'; // 한국어로 전환
-            } else {
-                // 한국어 콘텐츠 표시
-                footerKo.style.display = 'grid';
-                footerEn.style.display = 'none';
-                currentLang.textContent = '한국어';
-                document.documentElement.lang = 'ko';
-                langSwitcher.href = '/authors/?lang=en'; // 영어로 전환
-            }
-        });
-    </script>
-</body>
+    <div class="authors-grid" style="display: none;" id="authors-en">
+        <!-- 영어 필자 카드 (비슷한 구조로 영어 콘텐츠 추가) -->
+        <!-- ... 영어 버전 콘텐츠 ... -->
+    </div>
+</div>
 
-</html>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // URL 파라미터에서 언어 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+
+        // 언어 파라미터에 따라 콘텐츠 표시
+        if (langParam === 'en') {
+            // 영어 콘텐츠 표시
+            document.querySelector('.page-title').textContent = 'Authors';
+            document.querySelector('.page-description').textContent = 'Meet the writers who create content for NewsLens. Experts from various fields provide in-depth analysis and insights.';
+            document.getElementById('authors-en').style.display = 'grid';
+            document.querySelector('.authors-grid:not(#authors-en)').style.display = 'none';
+        }
+    });
+</script>

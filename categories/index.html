@@ -1,753 +1,195 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>카테고리 - NewsLens</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #fb7185;
-            --dark-color: #1e293b;
-            --light-color: #f8fafc;
-            --gray-color: #64748b;
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-            line-height: 1.7;
-            color: var(--dark-color);
-            background-color: var(--light-color);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* 헤더 스타일 - 공통 */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #2563eb;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            color: #fb7185;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #64748b;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a:hover,
-        nav a.active {
-            color: #2563eb;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #2563eb;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover::after,
-        nav a.active::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .language-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .language-switcher:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-        }
-
-        .language-switcher i {
-            color: #2563eb;
-        }
-
-        .search-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #2563eb;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .search-button:hover {
-            background-color: #1e40af;
-            transform: scale(1.05);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* 메인 콘텐츠 스타일 */
-        .main {
-            padding: 4rem 0;
-            min-height: calc(100vh - 200px);
-        }
-
-        .page-header {
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        .page-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-
-        .page-description {
-            font-size: 1.1rem;
-            color: var(--gray-color);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* 카테고리 섹션 스타일 */
-        .categories-section {
-            margin-bottom: 4rem;
-        }
-
-        .category-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            justify-content: center;
-        }
-
-        .category-tab {
-            padding: 0.8rem 1.5rem;
-            background-color: white;
-            color: var(--dark-color);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .category-tab:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-        }
-
-        .category-tab.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-            gap: 2rem;
-        }
-
-        .post-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .post-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .post-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .post-content {
-            padding: 1.5rem;
-        }
-
-        .post-category {
-            display: inline-block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .post-title {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-            line-height: 1.4;
-        }
-
-        .post-excerpt {
-            color: var(--gray-color);
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .post-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-
-        .post-date {
-            color: var(--gray-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .read-more {
-            color: var(--primary-color);
-            font-weight: 500;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .read-more:hover {
-            color: var(--secondary-color);
-        }
-
-        /* 푸터 스타일 - 공통 */
-        .footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 3rem 0;
-            margin-top: 3rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-brand {
-            max-width: 400px;
-        }
-
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .footer-description {
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-        .footer-links-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .footer-links-title {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-link a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-link a:hover {
-            color: white;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-        }
-
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-brand {
-                grid-column: 1 / -1;
-                max-width: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            nav,
-            .header-actions {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            nav.active,
-            .header-actions.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: white;
-                padding: 1rem;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            nav.active {
-                gap: 1rem;
-            }
-
-            .posts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <!-- 헤더 시작 -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <a href="/" class="logo">
-                        <i class="fas fa-brain"></i>
-                        <span>NewsLens</span>
-                    </a>
-                </div>
-
-                <nav>
-                    <a href="/">홈</a>
-                    <a href="/categories/" class="active">카테고리</a>
-                    <a href="/popular/">인기 글</a>
-                    <a href="/about/">소개</a>
-                    <a href="/contact/">문의</a>
-                </nav>
-
-                <div class="header-actions">
-                    <a href="/categories/?lang=en" class="language-switcher" id="langSwitcher">
-                        <i class="fas fa-globe"></i>
-                        <span id="currentLang">한국어</span>
-                    </a>
-
-                    <a href="/search/" class="search-button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </div>
-
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
+---
+layout: default
+title: 카테고리 - NewsLens
+permalink: /categories/
+---
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title">카테고리</h1>
+        <p class="page-description">관심 있는 주제의 분석 콘텐츠를 찾아보세요. 철학, 과학, 사회, 기술, 문화 등 다양한 분야의 심층 분석을 제공합니다.</p>
+    </div>
+
+    <div class="categories-section">
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="all">전체</button>
+            <button class="category-tab" data-category="philosophy">철학</button>
+            <button class="category-tab" data-category="science">과학</button>
+            <button class="category-tab" data-category="society">사회/정치</button>
+            <button class="category-tab" data-category="technology">기술</button>
+            <button class="category-tab" data-category="culture">문화/예술</button>
         </div>
-    </header>
-    <!-- 헤더 끝 -->
 
-    <main class="main">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">카테고리</h1>
-                <p class="page-description">관심 있는 주제별로 NewsLens의 콘텐츠를 탐색해보세요.</p>
+        <div class="posts-grid" id="allPosts">
+            <!-- 철학 카테고리 포스트 -->
+            <div class="post-card" data-category="philosophy">
+                <img src="https://images.unsplash.com/photo-1509475826633-fed577a2c71b?q=80&w=600&auto=format&fit=crop"
+                    alt="진리의 본질" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">철학</span>
+                    <h3 class="post-title">진리의 본질: 현대 인식론의 도전</h3>
+                    <p class="post-excerpt">포스트 진리 시대에 객관적 진리의 개념이 어떻게 도전받고 있는지 현대 인식론의 관점에서 분석합니다.</p>
+                    <div class="post-meta">
+                        <span class="post-date">2023.12.10</span>
+                        <div class="post-stats">
+                            <span class="post-views"><i class="fas fa-eye"></i> 1,542</span>
+                            <span class="post-comments"><i class="fas fa-comment"></i> 23</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="categories-section">
-                <div class="category-tabs">
-                    <button class="category-tab active" data-category="all">전체</button>
-                    <button class="category-tab" data-category="philosophy">철학</button>
-                    <button class="category-tab" data-category="science">과학</button>
-                    <button class="category-tab" data-category="society">사회/정치</button>
-                    <button class="category-tab" data-category="technology">기술</button>
-                    <button class="category-tab" data-category="culture">문화/예술</button>
+            <!-- 과학 카테고리 포스트 -->
+            <div class="post-card" data-category="science">
+                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=600&auto=format&fit=crop"
+                    alt="다중우주론" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">과학</span>
+                    <h3 class="post-title">다중우주론: 양자역학의 철학적 함의</h3>
+                    <p class="post-excerpt">양자역학의 다중우주 해석이 가진 철학적 의미와 현실에 대한 우리의 이해에 미치는 영향을 탐구합니다.</p>
+                    <div class="post-meta">
+                        <span class="post-date">2023.11.28</span>
+                        <div class="post-stats">
+                            <span class="post-views"><i class="fas fa-eye"></i> 2,031</span>
+                            <span class="post-comments"><i class="fas fa-comment"></i> 41</span>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <div class="posts-grid">
-                    <!-- 철학 카테고리 포스트 -->
-                    <div class="post-card" data-category="philosophy">
-                        <img src="https://images.unsplash.com/photo-1510935813936-763eb6fbc6b4?auto=format&fit=crop&q=80"
-                            alt="철학적 사고의 중요성" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">철학</span>
-                            <h3 class="post-title"><a href="#" class="read-more">현대 사회에서 철학적 사고의 중요성</a></h3>
-                            <p class="post-excerpt">디지털 시대에 비판적 사고와 철학적 성찰이 왜 더욱 중요해졌는지, 그리고 이를 어떻게 일상에 적용할 수 있는지
-                                탐구합니다.</p>
-                            <div class="post-meta">
-                                <span class="post-date"><i class="far fa-calendar-alt"></i> 2023년 10월 15일</span>
-                                <a href="#" class="read-more">더 보기</a>
-                            </div>
+            <!-- 사회 카테고리 포스트 -->
+            <div class="post-card" data-category="society">
+                <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?q=80&w=600&auto=format&fit=crop"
+                    alt="디지털 감시사회" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">사회/정치</span>
+                    <h3 class="post-title">디지털 감시사회: 자유와 안전의 균형</h3>
+                    <p class="post-excerpt">현대 디지털 감시 기술이 가져온 사회적 변화와 개인의 자유, 그리고 안전 사이의 균형에 대해 고찰합니다.</p>
+                    <div class="post-meta">
+                        <span class="post-date">2023.12.05</span>
+                        <div class="post-stats">
+                            <span class="post-views"><i class="fas fa-eye"></i> 1,876</span>
+                            <span class="post-comments"><i class="fas fa-comment"></i> 37</span>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- 과학 카테고리 포스트 -->
-                    <div class="post-card" data-category="science">
-                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80"
-                            alt="현대 물리학의 철학적 함의" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">과학</span>
-                            <h3 class="post-title"><a href="#" class="read-more">현대 물리학의 철학적 함의: 양자역학과 상대성이론</a>
-                            </h3>
-                            <p class="post-excerpt">양자역학과 상대성이론이 우리의 현실 인식과 철학적 세계관에 어떤 영향을 미치는지 분석합니다.</p>
-                            <div class="post-meta">
-                                <span class="post-date"><i class="far fa-calendar-alt"></i> 2023년 10월 10일</span>
-                                <a href="#" class="read-more">더 보기</a>
-                            </div>
+            <!-- 기술 카테고리 포스트 -->
+            <div class="post-card" data-category="technology">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600&auto=format&fit=crop"
+                    alt="AI 의식" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">기술</span>
+                    <h3 class="post-title">인공지능과 의식: 기계가 의식을 가질 수 있는가?</h3>
+                    <p class="post-excerpt">인공지능 시스템이 인간과 같은 의식이나 자아를 가질 수 있는지에 대한 철학적, 과학적 관점을 분석합니다.</p>
+                    <div class="post-meta">
+                        <span class="post-date">2023.11.15</span>
+                        <div class="post-stats">
+                            <span class="post-views"><i class="fas fa-eye"></i> 2,387</span>
+                            <span class="post-comments"><i class="fas fa-comment"></i> 52</span>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- 사회/정치 카테고리 포스트 -->
-                    <div class="post-card" data-category="society">
-                        <img src="https://images.unsplash.com/photo-1503429134808-fdf7e2080477?auto=format&fit=crop&q=80"
-                            alt="디지털 민주주의" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">사회/정치</span>
-                            <h3 class="post-title"><a href="#" class="read-more">디지털 시대의 민주주의: 도전과 기회</a></h3>
-                            <p class="post-excerpt">소셜 미디어와 디지털 기술이 민주주의 제도와 시민 참여에 미치는 영향을 탐구합니다.</p>
-                            <div class="post-meta">
-                                <span class="post-date"><i class="far fa-calendar-alt"></i> 2023년 10월 5일</span>
-                                <a href="#" class="read-more">더 보기</a>
-                            </div>
+            <!-- 문화 카테고리 포스트 -->
+            <div class="post-card" data-category="culture">
+                <img src="https://images.unsplash.com/photo-1607893378714-007fd47c8719?q=80&w=600&auto=format&fit=crop"
+                    alt="포스트휴먼 예술" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">문화/예술</span>
+                    <h3 class="post-title">포스트휴먼 예술: 기술과 예술의 경계 허물기</h3>
+                    <p class="post-excerpt">포스트휴먼 시대의 예술이 인간과 기계, 자연과 인공물 사이의 경계를 어떻게 재구성하는지 탐구합니다.</p>
+                    <div class="post-meta">
+                        <span class="post-date">2023.10.30</span>
+                        <div class="post-stats">
+                            <span class="post-views"><i class="fas fa-eye"></i> 1,654</span>
+                            <span class="post-comments"><i class="fas fa-comment"></i> 29</span>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- 기술 카테고리 포스트 -->
-                    <div class="post-card" data-category="technology">
-                        <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&q=80"
-                            alt="AI와 윤리" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">기술</span>
-                            <h3 class="post-title"><a href="#" class="read-more">인공지능과 윤리: 기술 발전의 철학적 과제</a></h3>
-                            <p class="post-excerpt">인공지능 기술의 발전이 제기하는 윤리적, 철학적 질문들과 이에 대한 대응 방안을 논의합니다.</p>
-                            <div class="post-meta">
-                                <span class="post-date"><i class="far fa-calendar-alt"></i> 2023년 9월 28일</span>
-                                <a href="#" class="read-more">더 보기</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 문화/예술 카테고리 포스트 -->
-                    <div class="post-card" data-category="culture">
-                        <img src="https://images.unsplash.com/photo-1507643179773-3e975d7ac515?auto=format&fit=crop&q=80"
-                            alt="현대 예술과 철학" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">문화/예술</span>
-                            <h3 class="post-title"><a href="#" class="read-more">현대 예술과 철학의 교차점: 미학적 관점</a></h3>
-                            <p class="post-excerpt">현대 예술 작품들이 어떻게 철학적 질문을 제기하고 사회적 담론에 기여하는지 살펴봅니다.</p>
-                            <div class="post-meta">
-                                <span class="post-date"><i class="far fa-calendar-alt"></i> 2023년 9월 22일</span>
-                                <a href="#" class="read-more">더 보기</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 추가 포스트들 -->
-                    <div class="post-card" data-category="philosophy">
-                        <img src="https://images.unsplash.com/photo-1583468982228-19f19164aee1?auto=format&fit=crop&q=80"
-                            alt="실존주의" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">철학</span>
-                            <h3 class="post-title"><a href="#" class="read-more">실존주의와 현대인의 삶: 사르트르와 카뮈의 관점</a>
-                            </h3>
-                            <p class="post-excerpt">실존주의 철학이 현대인의 정체성, 자유, 책임에 관한 이해에 어떤 통찰을 제공하는지 분석합니다.</p>
-                            <div class="post-meta">
-                                <span class="post-date"><i class="far fa-calendar-alt"></i> 2023년 9월 15일</span>
-                                <a href="#" class="read-more">더 보기</a>
-                            </div>
+            <!-- 철학 카테고리 포스트 -->
+            <div class="post-card" data-category="philosophy">
+                <img src="https://images.unsplash.com/photo-1610015457681-4fe5a625890a?q=80&w=600&auto=format&fit=crop"
+                    alt="인간조건" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">철학</span>
+                    <h3 class="post-title">한나 아렌트와 현대 사회: 인간 조건의 재검토</h3>
+                    <p class="post-excerpt">한나 아렌트의 철학적 통찰이 현대 사회의 노동, 작업, 그리고 행위의 개념에 어떤 의미를 가지는지 분석합니다.</p>
+                    <div class="post-meta">
+                        <span class="post-date">2023.09.25</span>
+                        <div class="post-stats">
+                            <span class="post-views"><i class="fas fa-eye"></i> 1,321</span>
+                            <span class="post-comments"><i class="fas fa-comment"></i> 18</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</div>
 
-    <!-- 푸터 시작 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content" id="footer-ko">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
-                </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 카테고리 탭 기능
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const postCards = document.querySelectorAll('.post-card');
 
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">카테고리</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy">철학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science">과학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society">사회/정치</a></li>
-                        <li class="footer-link"><a href="/categories/?category=technology">기술</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture">문화/예술</a></li>
-                    </ul>
-                </div>
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                // 모든 탭에서 active 클래스 제거
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                // 클릭한 탭에 active 클래스 추가
+                this.classList.add('active');
 
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">정보</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/">소개</a></li>
-                        <li class="footer-link"><a href="/authors/">필자 소개</a></li>
-                        <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
-                        <li class="footer-link"><a href="/contact/">문의하기</a></li>
-                        <li class="footer-link"><a href="/privacy/">개인정보처리방침</a></li>
-                        <li class="footer-link"><a href="/terms/">이용약관</a></li>
-                    </ul>
-                </div>
+                const category = this.getAttribute('data-category');
 
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">연락처</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/">문의는 '문의하기' 메뉴를 이용해 주세요</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-content" id="footer-en" style="display: none;">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">A blog that views the world through philosophical and scientific
-                        thinking. We provide in-depth analysis and new perspectives on various topics.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Categories</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy&lang=en">Philosophy</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science&lang=en">Science</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society&lang=en">Society/Politics</a>
-                        </li>
-                        <li class="footer-link"><a href="/categories/?category=technology&lang=en">Technology</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture&lang=en">Culture/Arts</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Information</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/?lang=en">About</a></li>
-                        <li class="footer-link"><a href="/authors/?lang=en">Authors</a></li>
-                        <li class="footer-link"><a href="/methodology/?lang=en">Methodology</a></li>
-                        <li class="footer-link"><a href="/contact/?lang=en">Contact</a></li>
-                        <li class="footer-link"><a href="/privacy/?lang=en">Privacy Policy</a></li>
-                        <li class="footer-link"><a href="/terms/?lang=en">Terms of Service</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Contact</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/?lang=en">Please use the 'Contact' menu for
-                                inquiries</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2024 NewsLens. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-    <!-- 푸터 끝 -->
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // 모바일 메뉴 토글
-            const mobileMenu = document.querySelector('.mobile-menu');
-            const nav = document.querySelector('nav');
-            const headerActions = document.querySelector('.header-actions');
-
-            mobileMenu.addEventListener('click', function () {
-                nav.classList.toggle('active');
-                headerActions.classList.toggle('active');
-            });
-
-            // 카테고리 필터링
-            const categoryTabs = document.querySelectorAll('.category-tab');
-            const postCards = document.querySelectorAll('.post-card');
-
-            categoryTabs.forEach(tab => {
-                tab.addEventListener('click', function () {
-                    // 활성 탭 변경
-                    categoryTabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-
-                    // 카테고리별 포스트 필터링
-                    const category = this.getAttribute('data-category');
-
+                // 선택한 카테고리에 따라 포스트 표시/숨김
+                if (category === 'all') {
+                    postCards.forEach(card => card.style.display = 'block');
+                } else {
                     postCards.forEach(card => {
-                        if (category === 'all' || card.getAttribute('data-category') === category) {
+                        if (card.getAttribute('data-category') === category) {
                             card.style.display = 'block';
                         } else {
                             card.style.display = 'none';
                         }
                     });
-                });
+                }
             });
-
-            // URL 파라미터에서 언어 및 카테고리 확인
-            const urlParams = new URLSearchParams(window.location.search);
-            const langParam = urlParams.get('lang');
-            const categoryParam = urlParams.get('category');
-            const langSwitcher = document.getElementById('langSwitcher');
-            const currentLang = document.getElementById('currentLang');
-            const footerKo = document.getElementById('footer-ko');
-            const footerEn = document.getElementById('footer-en');
-
-            // 카테고리 파라미터 처리
-            if (categoryParam) {
-                categoryTabs.forEach(tab => {
-                    if (tab.getAttribute('data-category') === categoryParam) {
-                        tab.click();
-                    }
-                });
-            }
-
-            // 언어 파라미터에 따라 콘텐츠 표시
-            if (langParam === 'en') {
-                // 영어 콘텐츠 표시
-                footerKo.style.display = 'none';
-                footerEn.style.display = 'grid';
-                currentLang.textContent = 'English';
-                document.documentElement.lang = 'en';
-                document.querySelector('.page-title').textContent = 'Categories';
-                document.querySelector('.page-description').textContent = 'Explore NewsLens content by topics of interest.';
-
-                // 카테고리 탭 영어로 변경
-                document.querySelector('[data-category="all"]').textContent = 'All';
-                document.querySelector('[data-category="philosophy"]').textContent = 'Philosophy';
-                document.querySelector('[data-category="science"]').textContent = 'Science';
-                document.querySelector('[data-category="society"]').textContent = 'Society/Politics';
-                document.querySelector('[data-category="technology"]').textContent = 'Technology';
-                document.querySelector('[data-category="culture"]').textContent = 'Culture/Arts';
-
-                // 더 보기 버튼 영어로 변경
-                document.querySelectorAll('.read-more').forEach(button => {
-                    if (button.textContent === '더 보기') {
-                        button.textContent = 'Read More';
-                    }
-                });
-
-                // 링크 변경
-                let langUrl = new URL(window.location.href);
-                langUrl.searchParams.delete('lang');
-                langSwitcher.href = langUrl.toString(); // 한국어로 전환
-            } else {
-                // 한국어 콘텐츠 표시
-                footerKo.style.display = 'grid';
-                footerEn.style.display = 'none';
-                currentLang.textContent = '한국어';
-                document.documentElement.lang = 'ko';
-
-                // 링크 변경
-                let langUrl = new URL(window.location.href);
-                langUrl.searchParams.set('lang', 'en');
-                langSwitcher.href = langUrl.toString(); // 영어로 전환
-            }
         });
-    </script>
-</body>
 
-</html>
+        // URL 파라미터에서 언어 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const categoryParam = urlParams.get('category');
+
+        // 카테고리 파라미터가 있으면 해당 카테고리 탭 활성화
+        if (categoryParam) {
+            const categoryTab = document.querySelector(`.category-tab[data-category="${categoryParam}"]`);
+            if (categoryTab) {
+                categoryTab.click();
+            }
+        }
+
+        // 언어 파라미터에 따라 콘텐츠 표시
+        if (langParam === 'en') {
+            // 영어 콘텐츠 표시
+            document.querySelector('.page-title').textContent = 'Categories';
+            document.querySelector('.page-description').textContent = 'Find analysis content on topics of interest. We provide in-depth analysis in various fields such as philosophy, science, society, technology, and culture.';
+
+            // 카테고리 탭 영어로 변경
+            document.querySelector('.category-tab[data-category="all"]').textContent = 'All';
+            document.querySelector('.category-tab[data-category="philosophy"]').textContent = 'Philosophy';
+            document.querySelector('.category-tab[data-category="science"]').textContent = 'Science';
+            document.querySelector('.category-tab[data-category="society"]').textContent = 'Society/Politics';
+            document.querySelector('.category-tab[data-category="technology"]').textContent = 'Technology';
+            document.querySelector('.category-tab[data-category="culture"]').textContent = 'Culture/Arts';
+
+            // 영어 버전 포스트 카드 컨텐츠로 변경 (예시)
+            // 이 부분은 실제 데이터나 CMS와 연동하여 구현해야 합니다
+        }
+    });
+</script>
