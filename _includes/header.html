@@ -20,7 +20,7 @@
             <div class="header-actions">
                 <div class="language-switcher" id="language-switcher">
                     <i class="fas fa-globe"></i>
-                    <span id="current-lang">한국어</span>
+                    <span id="current-lang" data-ko="한국어" data-en="English">한국어</span>
                 </div>
 
                 <a href="/search/" class="search-button">
@@ -192,83 +192,65 @@
         const mobileMenu = document.querySelector('.mobile-menu');
         const nav = document.querySelector('nav');
         const headerActions = document.querySelector('.header-actions');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const currentLang = document.getElementById('current-lang');
+        const languageSwitcher = document.getElementById('language-switcher');
 
         mobileMenu.addEventListener('click', function () {
             nav.classList.toggle('active');
             headerActions.classList.toggle('active');
         });
 
-        // 언어 토글 기능 개선
-        const languageSwitcher = document.getElementById('language-switcher');
-        const currentLang = document.getElementById('current-lang');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        // URL에서 언어 파라미터 확인
-        const urlParams = new URLSearchParams(window.location.search);
-        const langParam = urlParams.get('lang');
-
-        // localStorage에서 저장된 언어 설정 확인
-        let preferredLanguage = localStorage.getItem('preferred_language');
-
-        // URL 파라미터가 있으면 그 값을 우선적으로 사용
-        if (langParam) {
-            preferredLanguage = langParam;
-            localStorage.setItem('preferred_language', preferredLanguage);
-        }
-
-        // 네비게이션 메뉴 언어 업데이트 함수
-        function updateNavLanguage(lang) {
+        // 언어 변경 함수
+        function updateHeaderLanguage(lang) {
+            // 네비게이션 링크 텍스트 업데이트
             navLinks.forEach(link => {
                 link.textContent = link.getAttribute(`data-${lang}`);
+                // URL에 언어 파라미터 추가
+                const href = link.getAttribute('href');
+                const baseUrl = href.split('?')[0];
+                const params = new URLSearchParams(href.split('?')[1] || '');
+                params.set('lang', lang);
+                link.href = `${baseUrl}?${params.toString()}`;
             });
+
+            // 현재 언어 표시 업데이트
+            currentLang.textContent = currentLang.getAttribute(`data-${lang}`);
         }
 
-        // 초기 언어 설정 적용
-        if (preferredLanguage === 'en') {
-            currentLang.textContent = 'English';
-            updateNavLanguage('en');
-        } else {
-            currentLang.textContent = '한국어';
-            updateNavLanguage('ko');
-        }
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateHeaderLanguage(e.detail.language);
+        });
 
-        // 언어 변경 이벤트 핸들러
+        // 초기 언어 설정
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
+
+        // 초기 언어 적용
+        updateHeaderLanguage(initialLang);
+
+        // 언어 스위처 클릭 이벤트
         languageSwitcher.addEventListener('click', function () {
-            let newLang;
+            const currentLanguage = localStorage.getItem('preferred_language') || 'ko';
+            const newLanguage = currentLanguage === 'en' ? 'ko' : 'en';
 
-            // 현재 설정된 언어 확인 및 전환
-            if (preferredLanguage === 'en') {
-                newLang = 'ko';
-                currentLang.textContent = '한국어';
-            } else {
-                newLang = 'en';
-                currentLang.textContent = 'English';
-            }
+            // 언어 설정 저장
+            localStorage.setItem('preferred_language', newLanguage);
 
-            // 네비게이션 메뉴 언어 업데이트
-            updateNavLanguage(newLang);
-
-            // 새 언어 설정 저장
-            preferredLanguage = newLang;
-            localStorage.setItem('preferred_language', preferredLanguage);
-
-            // 현재 페이지에 언어 변경 이벤트 발생시키기
+            // 언어 변경 이벤트 발생
             window.dispatchEvent(new CustomEvent('languageChange', {
                 detail: {
-                    language: newLang
+                    language: newLanguage
                 }
             }));
 
-            // 현재 URL에 언어 파라미터 추가/변경하여 페이지 새로고침하지 않고 URL 업데이트
+            // URL 업데이트
             const url = new URL(window.location);
-            url.searchParams.set('lang', newLang);
+            url.searchParams.set('lang', newLanguage);
             window.history.pushState({}, '', url);
-        });
-
-        // 언어 변경 이벤트 리스너 추가
-        window.addEventListener('languageChange', function (e) {
-            const newLang = e.detail.language;
-            updateNavLanguage(newLang);
         });
     });
 </script>
