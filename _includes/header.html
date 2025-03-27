@@ -10,11 +10,11 @@
             </div>
 
             <nav>
-                <a href="/" class="nav-link">홈</a>
-                <a href="/categories/" class="nav-link">카테고리</a>
-                <a href="/popular/" class="nav-link">인기 글</a>
-                <a href="/about/" class="nav-link">소개</a>
-                <a href="/contact/" class="nav-link">문의</a>
+                <a href="/" class="nav-link" data-ko="홈" data-en="Home">홈</a>
+                <a href="/categories/" class="nav-link" data-ko="카테고리" data-en="Categories">카테고리</a>
+                <a href="/popular/" class="nav-link" data-ko="인기 글" data-en="Popular">인기 글</a>
+                <a href="/about/" class="nav-link" data-ko="소개" data-en="About">소개</a>
+                <a href="/contact/" class="nav-link" data-ko="문의" data-en="Contact">문의</a>
             </nav>
 
             <div class="header-actions">
@@ -201,6 +201,7 @@
         // 언어 토글 기능 개선
         const languageSwitcher = document.getElementById('language-switcher');
         const currentLang = document.getElementById('current-lang');
+        const navLinks = document.querySelectorAll('.nav-link');
 
         // URL에서 언어 파라미터 확인
         const urlParams = new URLSearchParams(window.location.search);
@@ -215,11 +216,20 @@
             localStorage.setItem('preferred_language', preferredLanguage);
         }
 
-        // 언어 설정에 따라 현재 언어 표시 업데이트
+        // 네비게이션 메뉴 언어 업데이트 함수
+        function updateNavLanguage(lang) {
+            navLinks.forEach(link => {
+                link.textContent = link.getAttribute(`data-${lang}`);
+            });
+        }
+
+        // 초기 언어 설정 적용
         if (preferredLanguage === 'en') {
             currentLang.textContent = 'English';
+            updateNavLanguage('en');
         } else {
             currentLang.textContent = '한국어';
+            updateNavLanguage('ko');
         }
 
         // 언어 변경 이벤트 핸들러
@@ -234,6 +244,9 @@
                 newLang = 'en';
                 currentLang.textContent = 'English';
             }
+
+            // 네비게이션 메뉴 언어 업데이트
+            updateNavLanguage(newLang);
 
             // 새 언어 설정 저장
             preferredLanguage = newLang;
@@ -250,6 +263,12 @@
             const url = new URL(window.location);
             url.searchParams.set('lang', newLang);
             window.history.pushState({}, '', url);
+        });
+
+        // 언어 변경 이벤트 리스너 추가
+        window.addEventListener('languageChange', function (e) {
+            const newLang = e.detail.language;
+            updateNavLanguage(newLang);
         });
     });
 </script>
