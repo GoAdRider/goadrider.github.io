@@ -7,13 +7,27 @@
     <title>카테고리 - NewsLens</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Pretendard', 'Arial', sans-serif;
-            line-height: 1.7;
-            color: #1e293b;
-            background-color: #f8fafc;
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #fb7185;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --gray-color: #64748b;
+            --transition: all 0.3s ease;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: var(--dark-color);
+            background-color: var(--light-color);
         }
 
         .container {
@@ -22,636 +36,337 @@
             padding: 0 2rem;
         }
 
-        /* 헤더 스타일 */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #2563eb;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            color: #fb7185;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #64748b;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a:hover {
-            color: #2563eb;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #2563eb;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .language-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .language-switcher:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-        }
-
-        .language-switcher i {
-            color: #2563eb;
-        }
-
-        .search-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #2563eb;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .search-button:hover {
-            background-color: #1e40af;
-            transform: scale(1.05);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
         /* 메인 콘텐츠 스타일 */
         .main {
             padding: 4rem 0;
             min-height: calc(100vh - 200px);
         }
 
-        /* Footer 스타일 */
-        .footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 3rem 0;
-            margin-top: 4rem;
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
         }
 
-        .footer-content {
-            display: grid !important;
-            grid-template-columns: 2fr 1fr 1fr 1fr !important;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-brand {
-            max-width: 400px;
-        }
-
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
+        .page-title {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: white;
+            color: var(--dark-color);
         }
 
-        .footer-description {
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-        .footer-links-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .footer-links-title {
-            color: white;
+        .page-description {
             font-size: 1.1rem;
-            margin-bottom: 1rem;
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto;
         }
 
-        .footer-links {
-            list-style: none;
+        /* 카테고리 섹션 스타일 */
+        .categories-section {
+            margin-bottom: 4rem;
         }
 
-        .footer-link {
-            margin-bottom: 0.5rem;
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
         }
 
-        .footer-link a {
-            color: #cbd5e1;
-            text-decoration: none;
+        .category-tab {
+            padding: 0.8rem 1.5rem;
+            background-color: white;
+            color: var(--dark-color);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
             transition: var(--transition);
         }
 
-        .footer-link a:hover {
+        .category-tab:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .category-tab.active {
+            background-color: var(--primary-color);
             color: white;
+            border-color: var(--primary-color);
         }
 
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-        }
-
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr !important;
-            }
-
-            .footer-brand {
-                grid-column: 1 / -1;
-                max-width: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .footer-content {
-                grid-template-columns: 1fr !important;
-                gap: 2rem;
-            }
-        }
-
-        /* 카테고리 스타일 */
-        .categories-container {
+        .posts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
         }
 
-        .category-card {
+        .post-card {
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
-        .category-card:hover {
+        .post-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .category-image {
+        .post-image {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
         }
 
-        .category-content {
+        .post-content {
             padding: 1.5rem;
         }
 
-        .category-title {
-            font-size: 1.5rem;
+        .post-category {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-color);
             margin-bottom: 0.5rem;
-            color: #1e293b;
         }
 
-        .category-description {
-            color: #64748b;
+        .post-title {
+            font-size: 1.3rem;
             margin-bottom: 1rem;
+            color: var(--dark-color);
+            line-height: 1.4;
         }
 
-        .category-meta {
+        .post-excerpt {
+            color: var(--gray-color);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .post-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 0.9rem;
-            color: #64748b;
         }
 
-        .category-count {
-            background-color: #2563eb;
-            color: white;
-            padding: 0.2rem 0.5rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .post-date {
+            color: var(--gray-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        /* 폰트 */
-        @font-face {
-            font-family: 'Pretendard';
-            font-weight: 400;
-            font-display: swap;
-            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-regular.woff2) format('woff2');
-        }
-
-        @font-face {
-            font-family: 'Pretendard';
+        .read-more {
+            color: var(--primary-color);
             font-weight: 500;
-            font-display: swap;
-            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-medium.woff2) format('woff2');
+            text-decoration: none;
+            transition: var(--transition);
         }
 
-        @font-face {
-            font-family: 'Pretendard';
-            font-weight: 600;
-            font-display: swap;
-            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-semibold.woff2) format('woff2');
+        .read-more:hover {
+            color: var(--secondary-color);
         }
 
-        @font-face {
-            font-family: 'Pretendard';
-            font-weight: 700;
-            font-display: swap;
-            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-bold.woff2) format('woff2');
+        @media (max-width: 768px) {
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <a href="/" class="logo">
-                        <i class="fas fa-brain"></i>
-                        NewsLens
-                    </a>
-                </div>
-
-                <nav>
-                    <a href="/">홈</a>
-                    <a href="/categories/">카테고리</a>
-                    <a href="/popular/">인기 글</a>
-                    <a href="/about/">소개</a>
-                    <a href="/contact/">문의</a>
-                </nav>
-
-                <div class="header-actions">
-                    <a href="/categories/?lang=en" class="language-switcher" id="langSwitcher">
-                        <i class="fas fa-globe"></i>
-                        <span id="currentLang">English</span>
-                    </a>
-
-                    <a href="/search/" class="search-button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </div>
-
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- 헤더 포함 -->
+    {% include header.html %}
 
     <main class="main">
         <div class="container">
-            <div class="categories-content-ko">
-                <h1>카테고리</h1>
-                <p>NewsLens의 모든 글은 다음과 같은 카테고리로 분류됩니다. 관심 있는 주제를 선택하여 해당 분야의 분석 글을 읽어보세요.</p>
-
-                <div class="categories-container">
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop"
-                            alt="철학" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">철학</h2>
-                            <p class="category-description">현대 사회와 기술에 대한 철학적 사고와 담론</p>
-                            <div class="category-meta">
-                                <span>최근 업데이트: 2023.12.20</span>
-                                <span class="category-count">24</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1614935151651-0bea6508db6b?q=80&w=600&auto=format&fit=crop"
-                            alt="과학" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">과학</h2>
-                            <p class="category-description">최신 과학 연구와 발견에 대한 심층적 분석</p>
-                            <div class="category-meta">
-                                <span>최근 업데이트: 2023.12.18</span>
-                                <span class="category-count">31</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop"
-                            alt="기술" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">기술</h2>
-                            <p class="category-description">인공지능, 빅데이터, 로봇공학 등 첨단 기술의 사회적 영향</p>
-                            <div class="category-meta">
-                                <span>최근 업데이트: 2023.12.15</span>
-                                <span class="category-count">18</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1525092029632-cb75fe5dd776?q=80&w=600&auto=format&fit=crop"
-                            alt="사회" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">사회</h2>
-                            <p class="category-description">현대 사회 이슈와 변화에 대한 분석</p>
-                            <div class="category-meta">
-                                <span>최근 업데이트: 2023.12.10</span>
-                                <span class="category-count">27</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1520695625556-c2a7baa771c6?q=80&w=600&auto=format&fit=crop"
-                            alt="문화" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">문화</h2>
-                            <p class="category-description">현대 문화 현상과 예술에 대한 철학적 고찰</p>
-                            <div class="category-meta">
-                                <span>최근 업데이트: 2023.12.05</span>
-                                <span class="category-count">15</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?q=80&w=600&auto=format&fit=crop"
-                            alt="환경" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">환경</h2>
-                            <p class="category-description">환경 위기와 지속 가능성에 관한 깊이 있는 논의</p>
-                            <div class="category-meta">
-                                <span>최근 업데이트: 2023.12.01</span>
-                                <span class="category-count">12</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+            <div class="page-header">
+                <h1 class="page-title">카테고리</h1>
+                <p class="page-description">관심 있는 주제별로 NewsLens의 콘텐츠를 탐색해보세요.</p>
             </div>
 
-            <div class="categories-content-en" style="display: none;">
-                <h1>Categories</h1>
-                <p>All NewsLens articles are classified into the following categories. Select a topic of interest to
-                    read analytical articles in that field.</p>
+            <div class="categories-section">
+                <div class="category-tabs">
+                    <button class="category-tab active" data-category="all">전체</button>
+                    <button class="category-tab" data-category="philosophy">철학</button>
+                    <button class="category-tab" data-category="science">과학</button>
+                    <button class="category-tab" data-category="society">사회/정치</button>
+                    <button class="category-tab" data-category="technology">기술</button>
+                    <button class="category-tab" data-category="culture">문화/예술</button>
+                </div>
 
-                <div class="categories-container">
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop"
-                            alt="Philosophy" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">Philosophy</h2>
-                            <p class="category-description">Philosophical thinking and discourse on modern society and
-                                technology</p>
-                            <div class="category-meta">
-                                <span>Last update: 2023.12.20</span>
-                                <span class="category-count">24</span>
+                <div class="posts-grid">
+                    <!-- 철학 카테고리 -->
+                    <div class="post-card" data-category="philosophy">
+                        <img src="https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=500&auto=format&fit=crop"
+                            alt="현대 윤리학" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category">철학</span>
+                            <h3 class="post-title">현대 윤리학의 딜레마와 AI 시대의 도덕적 판단</h3>
+                            <p class="post-excerpt">인공지능의 발전에 따라 새롭게 제기되는 윤리적 문제들과 현대 윤리학의 한계를 살펴봅니다.</p>
+                            <div class="post-meta">
+                                <div class="post-date">
+                                    <i class="far fa-calendar"></i>
+                                    <span>2024.08.15</span>
+                                </div>
+                                <a href="#" class="read-more">자세히 보기</a>
                             </div>
                         </div>
-                    </a>
+                    </div>
 
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1614935151651-0bea6508db6b?q=80&w=600&auto=format&fit=crop"
-                            alt="Science" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">Science</h2>
-                            <p class="category-description">In-depth analysis of latest scientific research and
-                                discoveries</p>
-                            <div class="category-meta">
-                                <span>Last update: 2023.12.18</span>
-                                <span class="category-count">31</span>
+                    <!-- 과학 카테고리 -->
+                    <div class="post-card" data-category="science">
+                        <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=500&auto=format&fit=crop"
+                            alt="양자역학" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category">과학</span>
+                            <h3 class="post-title">양자역학과 현실 인식의 철학적 함의</h3>
+                            <p class="post-excerpt">양자역학의 기이한 현상들이 우리의 현실 인식과 철학적 세계관에 미치는 영향을 탐구합니다.</p>
+                            <div class="post-meta">
+                                <div class="post-date">
+                                    <i class="far fa-calendar"></i>
+                                    <span>2024.07.12</span>
+                                </div>
+                                <a href="#" class="read-more">자세히 보기</a>
                             </div>
                         </div>
-                    </a>
+                    </div>
 
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop"
-                            alt="Technology" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">Technology</h2>
-                            <p class="category-description">Social impact of cutting-edge technologies such as AI, big
-                                data, and robotics</p>
-                            <div class="category-meta">
-                                <span>Last update: 2023.12.15</span>
-                                <span class="category-count">18</span>
+                    <!-- 사회/정치 카테고리 -->
+                    <div class="post-card" data-category="society">
+                        <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=500&auto=format&fit=crop"
+                            alt="현대 민주주의" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category">사회/정치</span>
+                            <h3 class="post-title">현대 민주주의의 위기와 해결책 모색</h3>
+                            <p class="post-excerpt">전 세계적으로 나타나는 민주주의 위기 현상을 분석하고 철학과 정치학의 관점에서 대안을 모색합니다.</p>
+                            <div class="post-meta">
+                                <div class="post-date">
+                                    <i class="far fa-calendar"></i>
+                                    <span>2024.07.25</span>
+                                </div>
+                                <a href="#" class="read-more">자세히 보기</a>
                             </div>
                         </div>
-                    </a>
+                    </div>
 
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1525092029632-cb75fe5dd776?q=80&w=600&auto=format&fit=crop"
-                            alt="Society" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">Society</h2>
-                            <p class="category-description">Analysis of modern social issues and changes</p>
-                            <div class="category-meta">
-                                <span>Last update: 2023.12.10</span>
-                                <span class="category-count">27</span>
+                    <!-- 기술 카테고리 -->
+                    <div class="post-card" data-category="technology">
+                        <img src="https://images.unsplash.com/photo-1546776310-eef45dd6d63c?q=80&w=500&auto=format&fit=crop"
+                            alt="AI 윤리" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category">기술</span>
+                            <h3 class="post-title">인공지능 시대의 윤리적 과제와 철학적 접근</h3>
+                            <p class="post-excerpt">급속도로 발전하는 인공지능 기술이 가져오는 윤리적 문제와 이에 대한 철학적 고찰을 담았습니다.</p>
+                            <div class="post-meta">
+                                <div class="post-date">
+                                    <i class="far fa-calendar"></i>
+                                    <span>2024.08.10</span>
+                                </div>
+                                <a href="#" class="read-more">자세히 보기</a>
                             </div>
                         </div>
-                    </a>
+                    </div>
 
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1520695625556-c2a7baa771c6?q=80&w=600&auto=format&fit=crop"
-                            alt="Culture" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">Culture</h2>
-                            <p class="category-description">Philosophical reflections on modern cultural phenomena and
-                                art</p>
-                            <div class="category-meta">
-                                <span>Last update: 2023.12.05</span>
-                                <span class="category-count">15</span>
+                    <!-- 문화/예술 카테고리 -->
+                    <div class="post-card" data-category="culture">
+                        <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=500&auto=format&fit=crop"
+                            alt="현대 예술" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category">문화/예술</span>
+                            <h3 class="post-title">현대 예술의 철학적 의미와 사회적 역할</h3>
+                            <p class="post-excerpt">현대 예술 작품들이 던지는 철학적 질문과 예술이 사회에서 수행하는 역할에 대해 고찰합니다.</p>
+                            <div class="post-meta">
+                                <div class="post-date">
+                                    <i class="far fa-calendar"></i>
+                                    <span>2024.06.28</span>
+                                </div>
+                                <a href="#" class="read-more">자세히 보기</a>
                             </div>
                         </div>
-                    </a>
+                    </div>
 
-                    <a href="#" class="category-card">
-                        <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?q=80&w=600&auto=format&fit=crop"
-                            alt="Environment" class="category-image">
-                        <div class="category-content">
-                            <h2 class="category-title">Environment</h2>
-                            <p class="category-description">In-depth discussions on environmental crisis and
-                                sustainability</p>
-                            <div class="category-meta">
-                                <span>Last update: 2023.12.01</span>
-                                <span class="category-count">12</span>
+                    <!-- 철학 카테고리 -->
+                    <div class="post-card" data-category="philosophy">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=500&auto=format&fit=crop"
+                            alt="인지과학" class="post-image">
+                        <div class="post-content">
+                            <span class="post-category">철학</span>
+                            <h3 class="post-title">인지과학과 마음의 철학: 의식의 본질에 관한 탐구</h3>
+                            <p class="post-excerpt">인지과학의 최신 연구 결과와 마음의 철학적 질문들이 만나는 지점에서 의식의 본질을 탐구합니다.</p>
+                            <div class="post-meta">
+                                <div class="post-date">
+                                    <i class="far fa-calendar"></i>
+                                    <span>2024.06.15</span>
+                                </div>
+                                <a href="#" class="read-more">자세히 보기</a>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- 푸터 -->
-    <footer class="footer">
-        <div class="container">
-            <!-- 한국어 푸터 -->
-            <div class="footer-content" id="footer-ko">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">카테고리</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy">철학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science">과학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society">사회/정치</a></li>
-                        <li class="footer-link"><a href="/categories/?category=technology">기술</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture">문화/예술</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">정보</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/">소개</a></li>
-                        <li class="footer-link"><a href="/authors/">필자 소개</a></li>
-                        <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
-                        <li class="footer-link"><a href="/contact/">문의하기</a></li>
-                        <li class="footer-link"><a href="/privacy/">개인정보처리방침</a></li>
-                        <li class="footer-link"><a href="/terms/">이용약관</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">연락처</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/">문의는 '문의하기' 메뉴를 이용해 주세요</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 영어 푸터 -->
-            <div class="footer-content" id="footer-en" style="display: none;">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">A blog that views the world through philosophical and scientific
-                        thinking. We provide in-depth analysis and new perspectives on various topics.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Categories</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy&lang=en">Philosophy</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science&lang=en">Science</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society&lang=en">Society/Politics</a>
-                        </li>
-                        <li class="footer-link"><a href="/categories/?category=technology&lang=en">Technology</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture&lang=en">Culture/Arts</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Information</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/?lang=en">About</a></li>
-                        <li class="footer-link"><a href="/authors/?lang=en">Authors</a></li>
-                        <li class="footer-link"><a href="/methodology/?lang=en">Methodology</a></li>
-                        <li class="footer-link"><a href="/contact/?lang=en">Contact</a></li>
-                        <li class="footer-link"><a href="/privacy/?lang=en">Privacy Policy</a></li>
-                        <li class="footer-link"><a href="/terms/?lang=en">Terms of Service</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Contact</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/?lang=en">Please use the 'Contact' menu for
-                                inquiries</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2024 NewsLens. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- 푸터 포함 -->
+    {% include footer.html %}
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const langSwitcher = document.getElementById('langSwitcher');
-            const currentLang = document.getElementById('currentLang');
-            const footerKo = document.getElementById('footer-ko');
-            const footerEn = document.getElementById('footer-en');
+            // 카테고리 필터링 기능
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const postCards = document.querySelectorAll('.post-card');
+
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 활성 탭 변경
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    // 선택된 카테고리
+                    const selectedCategory = tab.dataset.category;
+
+                    // 포스트 필터링
+                    postCards.forEach(card => {
+                        if (selectedCategory === 'all' || card.dataset.category === selectedCategory) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
 
             // URL 파라미터에서 언어 확인
             const urlParams = new URLSearchParams(window.location.search);
             const langParam = urlParams.get('lang');
+            const categoryParam = urlParams.get('category');
+            const langSwitcher = document.getElementById('langSwitcher');
+            const currentLang = document.getElementById('currentLang');
 
             // 언어 파라미터에 따라 콘텐츠 표시
             if (langParam === 'en') {
-                footerKo.style.display = 'none';
-                footerEn.style.display = 'grid';
+                // 영어 콘텐츠 표시
                 currentLang.textContent = 'English';
                 document.documentElement.lang = 'en';
                 langSwitcher.href = window.location.pathname; // 한국어로 전환
             } else {
-                footerKo.style.display = 'grid';
-                footerEn.style.display = 'none';
+                // 한국어 콘텐츠 표시
                 currentLang.textContent = '한국어';
                 document.documentElement.lang = 'ko';
                 langSwitcher.href = window.location.pathname + '?lang=en'; // 영어로 전환
+            }
+
+            // URL에서 카테고리 파라미터가 있으면 해당 탭 활성화
+            if (categoryParam) {
+                const categoryTab = document.querySelector(`.category-tab[data-category="${categoryParam}"]`);
+                if (categoryTab) {
+                    categoryTab.click();
+                }
             }
         });
     </script>

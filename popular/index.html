@@ -183,8 +183,8 @@
         }
 
         .footer-content {
-            display: grid !important;
-            grid-template-columns: 2fr 1fr 1fr 1fr !important;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 2rem;
             margin-bottom: 2rem;
         }
@@ -243,7 +243,7 @@
 
         @media (max-width: 1024px) {
             .footer-content {
-                grid-template-columns: 1fr 1fr !important;
+                grid-template-columns: 1fr 1fr;
             }
 
             .footer-brand {
@@ -254,7 +254,7 @@
 
         @media (max-width: 768px) {
             .footer-content {
-                grid-template-columns: 1fr !important;
+                grid-template-columns: 1fr;
                 gap: 2rem;
             }
         }
@@ -387,37 +387,8 @@
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <a href="/" class="logo">
-                        <i class="fas fa-brain"></i>
-                        <span>NewsLens</span>
-                    </a>
-                </div>
-                <nav>
-                    <a href="/">홈</a>
-                    <a href="/categories/">카테고리</a>
-                    <a href="/popular/" class="active">인기 글</a>
-                    <a href="/about/">소개</a>
-                    <a href="/contact/">문의</a>
-                </nav>
-                <div class="header-actions">
-                    <a href="/popular/?lang=en" class="language-switcher" id="langSwitcher">
-                        <i class="fas fa-globe"></i>
-                        <span id="currentLang">한국어</span>
-                    </a>
-                    <a href="/search/" class="search-button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </div>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- 헤더 포함 -->
+    {% include header.html %}
 
     <main class="main">
         <div class="container">
@@ -675,93 +646,8 @@
         </div>
     </main>
 
-    <!-- 푸터 -->
-    <footer class="footer">
-        <div class="container">
-            <!-- 한국어 푸터 -->
-            <div class="footer-content" id="footer-ko">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">카테고리</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy">철학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science">과학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society">사회/정치</a></li>
-                        <li class="footer-link"><a href="/categories/?category=technology">기술</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture">문화/예술</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">정보</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/">소개</a></li>
-                        <li class="footer-link"><a href="/authors/">필자 소개</a></li>
-                        <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
-                        <li class="footer-link"><a href="/contact/">문의하기</a></li>
-                        <li class="footer-link"><a href="/privacy/">개인정보처리방침</a></li>
-                        <li class="footer-link"><a href="/terms/">이용약관</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">연락처</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/">문의는 '문의하기' 메뉴를 이용해 주세요</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 영어 푸터 -->
-            <div class="footer-content" id="footer-en" style="display: none;">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">A blog that views the world through philosophical and scientific
-                        thinking. We provide in-depth analysis and new perspectives on various topics.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Categories</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy&lang=en">Philosophy</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science&lang=en">Science</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society&lang=en">Society/Politics</a>
-                        </li>
-                        <li class="footer-link"><a href="/categories/?category=technology&lang=en">Technology</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture&lang=en">Culture/Arts</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Information</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/?lang=en">About</a></li>
-                        <li class="footer-link"><a href="/authors/?lang=en">Authors</a></li>
-                        <li class="footer-link"><a href="/methodology/?lang=en">Methodology</a></li>
-                        <li class="footer-link"><a href="/contact/?lang=en">Contact</a></li>
-                        <li class="footer-link"><a href="/privacy/?lang=en">Privacy Policy</a></li>
-                        <li class="footer-link"><a href="/terms/?lang=en">Terms of Service</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Contact</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/?lang=en">Please use the 'Contact' menu for
-                                inquiries</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2024 NewsLens. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- 푸터 포함 -->
+    {% include footer.html %}
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

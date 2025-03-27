@@ -5,24 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>문의하기 - NewsLens</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #3b82f6;
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #fb7185;
             --dark-color: #1e293b;
-            --light-color: #f1f5f9;
-            --danger-color: #ef4444;
-            --background-color: #ffffff;
-            --text-color: #1e293b;
+            --light-color: #f8fafc;
+            --gray-color: #64748b;
             --transition: all 0.3s ease;
-        }
-
-        /* 다크 테마 */
-        .dark-theme {
-            --background-color: #1e293b;
-            --text-color: #f1f5f9;
-            --dark-color: #0f172a;
-            --light-color: #334155;
         }
 
         * {
@@ -32,10 +24,10 @@
         }
 
         body {
-            font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
-            line-height: 1.6;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: var(--dark-color);
+            background-color: var(--light-color);
         }
 
         .container {
@@ -44,786 +36,271 @@
             padding: 0 2rem;
         }
 
-        /* 헤더 스타일 */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
+        /* 메인 콘텐츠 스타일 */
+        .main {
+            padding: 4rem 0;
+            min-height: calc(100vh - 200px);
         }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
         }
 
-        .logo {
+        .page-description {
+            font-size: 1.1rem;
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* 문의 폼 스타일 */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .contact-info {
+            padding-right: 2rem;
+        }
+
+        .contact-heading {
             font-size: 1.8rem;
-            font-weight: 700;
-            color: #2563eb;
-            text-decoration: none;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .contact-description {
+            color: var(--gray-color);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .contact-method {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
         }
 
-        .logo i {
-            color: #fb7185;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #64748b;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a:hover,
-        nav a.active {
-            color: #2563eb;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #2563eb;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover::after,
-        nav a.active::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .language-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .language-switcher:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-        }
-
-        .language-switcher i {
-            color: #2563eb;
-        }
-
-        .search-button {
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #2563eb;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
+            margin-right: 1rem;
+            flex-shrink: 0;
         }
 
-        .search-button:hover {
-            background-color: #1e40af;
-            transform: scale(1.05);
+        .contact-text {
+            color: var(--gray-color);
         }
 
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
+        .contact-text strong {
+            display: block;
+            color: var(--dark-color);
+            margin-bottom: 0.3rem;
         }
 
-        @media (max-width: 768px) {
-
-            nav,
-            .header-actions {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            nav.active,
-            .header-actions.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: white;
-                padding: 1rem;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            nav.active {
-                gap: 1rem;
-            }
-        }
-
-        /* 메인 콘텐츠 스타일 */
-        .main-content {
-            padding: 6rem 0 3rem;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 2rem;
-            background-color: var(--light-color);
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--text-color);
+        .contact-form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
         }
 
         .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .form-group label {
+        .form-label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--text-color);
+            font-weight: 500;
+            color: var(--dark-color);
         }
 
-        .form-group input,
-        .form-group textarea {
+        .form-input {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            background-color: var(--background-color);
-            color: var(--text-color);
-        }
-
-        .form-group textarea {
-            height: 150px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 0.75rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            padding: 0.8rem 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            font-family: inherit;
             font-size: 1rem;
             transition: var(--transition);
         }
 
-        .submit-btn:hover {
-            background-color: #2563eb;
+        .form-textarea {
+            height: 150px;
+            resize: vertical;
         }
 
-        .error-message {
-            color: var(--danger-color);
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            display: none;
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
         }
 
+        .form-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .form-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* 반응형 스타일 */
         @media (max-width: 768px) {
-            .contact-form {
-                padding: 1.5rem;
+            .contact-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-info {
+                padding-right: 0;
             }
         }
     </style>
 </head>
 
 <body>
-    <header>
+    <!-- 헤더 포함 -->
+    {% include header.html %}
+
+    <main class="main">
         <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <a href="/" class="logo">
-                        <i class="fas fa-brain"></i>
-                        <span>NewsLens</span>
-                    </a>
-                </div>
-                <nav>
-                    <a href="/">홈</a>
-                    <a href="/categories/">카테고리</a>
-                    <a href="/popular/">인기 글</a>
-                    <a href="/about/">소개</a>
-                    <a href="/contact/" class="active">문의</a>
-                </nav>
-                <div class="header-actions">
-                    <a href="/contact/?lang=en" class="language-switcher" id="langSwitcher">
-                        <i class="fas fa-globe"></i>
-                        <span id="currentLang">한국어</span>
-                    </a>
-                    <a href="/search/" class="search-button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </div>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <style>
-        /* 헤더 스타일 */
-        .header {
-            background-color: var(--background-color);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-        }
-
-        .navbar {
-            padding: 1rem 0;
-        }
-
-        .navbar .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .navbar-brand .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-color);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-link {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color);
-        }
-
-        .navbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .language-switcher,
-        .theme-toggle {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            cursor: pointer;
-            padding: 0.5rem;
-            transition: var(--transition);
-        }
-
-        .language-switcher:hover,
-        .theme-toggle:hover {
-            color: var(--primary-color);
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .mobile-menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 2px;
-            background-color: var(--text-color);
-            margin: 5px 0;
-            transition: var(--transition);
-        }
-
-        @media (max-width: 768px) {
-
-            .navbar-menu,
-            .navbar-actions {
-                display: none;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .navbar-menu.active {
-                display: block;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: var(--background-color);
-                padding: 1rem;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-links {
-                flex-direction: column;
-            }
-
-            .nav-link {
-                padding: 0.5rem 0;
-            }
-
-            .navbar-actions.active {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 1rem;
-            }
-        }
-    </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-            const navbarMenu = document.querySelector('.navbar-menu');
-            const navbarActions = document.querySelector('.navbar-actions');
-
-            mobileMenuToggle.addEventListener('click', function () {
-                navbarMenu.classList.toggle('active');
-                navbarActions.classList.toggle('active');
-                this.classList.toggle('active');
-            });
-
-            // 테마 토글 기능
-            const themeToggle = document.querySelector('.theme-toggle');
-            const htmlElement = document.documentElement;
-
-            themeToggle.addEventListener('click', function () {
-                htmlElement.classList.toggle('dark-theme');
-                const isDarkTheme = htmlElement.classList.contains('dark-theme');
-                localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
-
-                // 아이콘 변경
-                const icon = this.querySelector('i');
-                icon.classList.toggle('fa-moon');
-                icon.classList.toggle('fa-sun');
-            });
-
-            // 저장된 테마 적용
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                htmlElement.classList.add('dark-theme');
-                themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
-            }
-
-            // 언어 전환 기능
-            const langSwitcher = document.getElementById('langSwitcher');
-            const currentLang = document.getElementById('currentLang');
-            const koContent = document.getElementById('ko-content');
-            const enContent = document.getElementById('en-content');
-            const footerKo = document.getElementById('footer-ko');
-            const footerEn = document.getElementById('footer-en');
-
-            // URL 파라미터에서 언어 확인
-            const urlParams = new URLSearchParams(window.location.search);
-            const langParam = urlParams.get('lang');
-
-            // 언어 파라미터에 따라 콘텐츠 표시
-            if (langParam === 'en') {
-                // 영어 콘텐츠 표시
-                koContent.style.display = 'none';
-                enContent.style.display = 'block';
-                footerKo.style.display = 'none';
-                footerEn.style.display = 'grid';
-                currentLang.textContent = 'English';
-                document.title = 'Contact Us - NewsLens';
-                document.documentElement.lang = 'en';
-                langSwitcher.href = '/contact/'; // 한국어로 전환
-            } else {
-                // 한국어 콘텐츠 표시
-                koContent.style.display = 'block';
-                enContent.style.display = 'none';
-                footerKo.style.display = 'grid';
-                footerEn.style.display = 'none';
-                currentLang.textContent = '한국어';
-                document.title = '문의하기 - NewsLens';
-                document.documentElement.lang = 'ko';
-                langSwitcher.href = '/contact/?lang=en'; // 영어로 전환
-            }
-        });
-    </script>
-
-    <main class="main-content">
-        <div class="container">
-            <!-- 한국어 콘텐츠 -->
-            <div class="contact-container" id="ko-content">
-                <div class="contact-header">
-                    <h1>문의하기</h1>
-                    <p>NewsLens 팀에게 질문, 피드백 또는 제안사항이 있으시면 아래 양식을 통해 연락해 주세요.</p>
-                </div>
-
-                <div class="contact-form">
-                    <div class="form-group">
-                        <label for="name">이름</label>
-                        <input type="text" id="name" name="name" required>
-                        <div class="error-message">이름을 입력해주세요.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">이메일</label>
-                        <input type="email" id="email" name="email" required>
-                        <div class="error-message">유효한 이메일 주소를 입력해주세요.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="subject">제목</label>
-                        <input type="text" id="subject" name="subject" required>
-                        <div class="error-message">제목을 입력해주세요.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">메시지</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                        <div class="error-message">메시지를 입력해주세요.</div>
-                    </div>
-
-                    <button type="submit" class="submit-btn">메시지 보내기</button>
-                </div>
-
-                <div class="contact-info">
-                    <h2>연락처 정보</h2>
-                    <p>아래 이메일을 통해서도 저희에게 연락하실 수 있습니다:</p>
-                    <ul>
-                        <li><strong>일반 문의:</strong> info@newslens.com</li>
-                        <li><strong>콘텐츠 제안:</strong> content@newslens.com</li>
-                        <li><strong>기술 지원:</strong> support@newslens.com</li>
-                    </ul>
-                    <p>빠른 시일 내에 답변 드리겠습니다. 감사합니다!</p>
-                </div>
+            <div class="page-header">
+                <h1 class="page-title">문의하기</h1>
+                <p class="page-description">NewsLens에 대한 의견이나 문의사항이 있으신가요? 아래 양식을 통해 메시지를 보내주세요.</p>
             </div>
 
-            <!-- 영어 콘텐츠 -->
-            <div class="contact-container" id="en-content" style="display: none;">
-                <div class="contact-header">
-                    <h1>Contact Us</h1>
-                    <p>If you have any questions, feedback, or suggestions for the NewsLens team, please get in touch
-                        with us using the form below.</p>
-                </div>
-
-                <div class="contact-form">
-                    <div class="form-group">
-                        <label for="name-en">Name</label>
-                        <input type="text" id="name-en" name="name" required>
-                        <div class="error-message">Please enter your name.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email-en">Email</label>
-                        <input type="email" id="email-en" name="email" required>
-                        <div class="error-message">Please enter a valid email address.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="subject-en">Subject</label>
-                        <input type="text" id="subject-en" name="subject" required>
-                        <div class="error-message">Please enter a subject.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message-en">Message</label>
-                        <textarea id="message-en" name="message" rows="5" required></textarea>
-                        <div class="error-message">Please enter your message.</div>
-                    </div>
-
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </div>
-
+            <div class="contact-section">
                 <div class="contact-info">
-                    <h2>Contact Information</h2>
-                    <p>You can also reach us through the following email addresses:</p>
-                    <ul>
-                        <li><strong>General Inquiries:</strong> info@newslens.com</li>
-                        <li><strong>Content Suggestions:</strong> content@newslens.com</li>
-                        <li><strong>Technical Support:</strong> support@newslens.com</li>
-                    </ul>
-                    <p>We will respond to your inquiry as soon as possible. Thank you!</p>
+                    <h2 class="contact-heading">주요 문의 안내</h2>
+                    <p class="contact-description">
+                        NewsLens는 철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 독자 여러분의 의견과 피드백은 더 나은 콘텐츠를 제공하는 데 큰 도움이 됩니다.
+                        기사 제안, 피드백, 협업 제안 등 다양한 문의를 환영합니다.
+                    </p>
+
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>이메일 문의</strong>
+                            contact@newslens.com
+                        </div>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>응답 시간</strong>
+                            일반적으로 2-3 영업일 이내에 답변 드립니다.
+                        </div>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>제안 사항</strong>
+                            새로운 주제 제안이나 특정 분야에 대한 분석 요청도 환영합니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">이름</label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">이메일</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject" class="form-label">제목</label>
+                            <input type="text" id="subject" name="subject" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">메시지</label>
+                            <textarea id="message" name="message" class="form-input form-textarea" required></textarea>
+                        </div>
+
+                        <button type="submit" class="form-button">메시지 보내기</button>
+                    </form>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- 푸터 -->
-    <footer class="footer">
-        <div class="container">
-            <!-- 한국어 푸터 -->
-            <div class="footer-content" id="footer-ko">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">카테고리</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy">철학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science">과학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society">사회/정치</a></li>
-                        <li class="footer-link"><a href="/categories/?category=technology">기술</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture">문화/예술</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">정보</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/">소개</a></li>
-                        <li class="footer-link"><a href="/authors/">필자 소개</a></li>
-                        <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
-                        <li class="footer-link"><a href="/contact/">문의하기</a></li>
-                        <li class="footer-link"><a href="/privacy/">개인정보처리방침</a></li>
-                        <li class="footer-link"><a href="/terms/">이용약관</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">연락처</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/">문의는 '문의하기' 메뉴를 이용해 주세요</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 영어 푸터 -->
-            <div class="footer-content" id="footer-en" style="display: none;">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">A blog that views the world through philosophical and scientific
-                        thinking. We provide in-depth analysis and new perspectives on various topics.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Categories</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy&lang=en">Philosophy</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science&lang=en">Science</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society&lang=en">Society/Politics</a>
-                        </li>
-                        <li class="footer-link"><a href="/categories/?category=technology&lang=en">Technology</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture&lang=en">Culture/Arts</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Information</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/?lang=en">About</a></li>
-                        <li class="footer-link"><a href="/authors/?lang=en">Authors</a></li>
-                        <li class="footer-link"><a href="/methodology/?lang=en">Methodology</a></li>
-                        <li class="footer-link"><a href="/contact/?lang=en">Contact</a></li>
-                        <li class="footer-link"><a href="/privacy/?lang=en">Privacy Policy</a></li>
-                        <li class="footer-link"><a href="/terms/?lang=en">Terms of Service</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Contact</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/?lang=en">Please use the 'Contact' menu for
-                                inquiries</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2024 NewsLens. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <style>
-        /* Footer 스타일 */
-        .footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 3rem 0;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-brand {
-            max-width: 400px;
-        }
-
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .footer-description {
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-        .footer-links-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .footer-links-title {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-link a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-link a:hover {
-            color: white;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-        }
-
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-brand {
-                grid-column: 1 / -1;
-                max-width: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-    </style>
+    <!-- 푸터 포함 -->
+    {% include footer.html %}
 
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+        document.addEventListener('DOMContentLoaded', function () {
+            // URL 파라미터에서 언어 확인
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            const langSwitcher = document.getElementById('langSwitcher');
+            const currentLang = document.getElementById('currentLang');
 
-            // 폼 유효성 검사
-            let isValid = true;
-            const name = document.getElementById('name');
-            const email = document.getElementById('email');
-            const subject = document.getElementById('subject');
-            const message = document.getElementById('message');
-
-            // 이름 검사
-            if (!name.value.trim()) {
-                document.getElementById('nameError').style.display = 'block';
-                isValid = false;
+            // 언어 파라미터에 따라 콘텐츠 표시
+            if (langParam === 'en') {
+                // 영어 콘텐츠 표시 (필요 시 이 부분을 확장)
+                currentLang.textContent = 'English';
+                document.documentElement.lang = 'en';
+                document.querySelector('.page-title').textContent = 'Contact Us';
+                document.querySelector('.page-description').textContent = 'Do you have any questions or feedback about NewsLens? Send us a message using the form below.';
+                // 필요한 경우 다른 텍스트 요소들도 영어로 변경
+                langSwitcher.href = window.location.pathname; // 한국어로 전환
             } else {
-                document.getElementById('nameError').style.display = 'none';
+                // 한국어 콘텐츠 표시
+                currentLang.textContent = '한국어';
+                document.documentElement.lang = 'ko';
+                langSwitcher.href = window.location.pathname + '?lang=en'; // 영어로 전환
             }
 
-            // 이메일 검사
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email.value.trim() || !emailRegex.test(email.value)) {
-                document.getElementById('emailError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('emailError').style.display = 'none';
-            }
+            // 문의 폼 제출 이벤트
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
 
-            // 제목 검사
-            if (!subject.value.trim()) {
-                document.getElementById('subjectError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('subjectError').style.display = 'none';
-            }
+                // 여기에 form 제출 로직 구현
+                // 실제 구현 시에는 서버로 데이터를 전송하거나 이메일 서비스를 이용
 
-            // 내용 검사
-            if (!message.value.trim()) {
-                document.getElementById('messageError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('messageError').style.display = 'none';
-            }
-
-            if (isValid) {
-                // 폼 제출 로직 추가
+                // 테스트용 알림
                 alert('메시지가 성공적으로 전송되었습니다. 감사합니다!');
-                this.reset();
-            }
+                contactForm.reset();
+            });
         });
     </script>
 </body>

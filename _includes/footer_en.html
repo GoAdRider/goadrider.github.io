@@ -1,11 +1,12 @@
 <!-- Footer -->
 <footer class="footer">
     <div class="container">
-        <div class="footer-content">
+        <!-- English Footer -->
+        <div class="footer-content" id="footer-en">
             <div class="footer-brand">
                 <div class="footer-logo">NewsLens</div>
-                <p class="footer-description">A blog that views the world through philosophical and scientific thinking.
-                    We provide in-depth analysis and new perspectives on various topics.</p>
+                <p class="footer-description">A blog that views the world through philosophical and scientific
+                    thinking. We provide in-depth analysis and new perspectives on various topics.</p>
             </div>
 
             <div class="footer-links-container">
@@ -34,7 +35,45 @@
             <div class="footer-links-container">
                 <h4 class="footer-links-title">Contact</h4>
                 <ul class="footer-links">
-                    <li class="footer-link"><a href="/en/contact/">Please use 'Contact' menu for inquiries</a></li>
+                    <li class="footer-link"><a href="/en/contact/">Please use the 'Contact' menu for inquiries</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Korean Footer (Hidden) -->
+        <div class="footer-content" id="footer-ko" style="display: none;">
+            <div class="footer-brand">
+                <div class="footer-logo">NewsLens</div>
+                <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title">카테고리</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/categories/?category=philosophy">철학</a></li>
+                    <li class="footer-link"><a href="/categories/?category=science">과학</a></li>
+                    <li class="footer-link"><a href="/categories/?category=society">사회/정치</a></li>
+                    <li class="footer-link"><a href="/categories/?category=technology">기술</a></li>
+                    <li class="footer-link"><a href="/categories/?category=culture">문화/예술</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title">정보</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/about/">소개</a></li>
+                    <li class="footer-link"><a href="/authors/">필자 소개</a></li>
+                    <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
+                    <li class="footer-link"><a href="/contact/">문의하기</a></li>
+                    <li class="footer-link"><a href="/privacy/">개인정보처리방침</a></li>
+                    <li class="footer-link"><a href="/terms/">이용약관</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title">연락처</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/contact/">문의는 '문의하기' 메뉴를 이용해 주세요</a></li>
                 </ul>
             </div>
         </div>
@@ -134,3 +173,24 @@
         }
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check language from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const footerKo = document.getElementById('footer-ko');
+        const footerEn = document.getElementById('footer-en');
+
+        // Display content based on language parameter
+        if (langParam === 'ko') {
+            // Show Korean footer
+            footerKo.style.display = 'grid';
+            footerEn.style.display = 'none';
+        } else {
+            // Show English footer (default)
+            footerKo.style.display = 'none';
+            footerEn.style.display = 'grid';
+        }
+    });
+</script>

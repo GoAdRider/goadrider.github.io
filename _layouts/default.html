@@ -37,12 +37,31 @@
     {% include head.html %}
     {% include head/custom.html %}
     <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
+
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #fb7185;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --gray-color: #64748b;
+            --transition: all 0.3s ease;
+        }
+    </style>
 </head>
 
 <body
     class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
     {% include_cached skip-links.html %}
-    {% include_cached masthead.html %}
+
+    <!-- 헤더 포함 -->
+    {% assign lang = page.lang | default: 'ko' %}
+    {% if lang == 'en' %}
+    {% include header_en.html %}
+    {% else %}
+    {% include header.html %}
+    {% endif %}
 
     <div class="initial-content">
         {{ content }}
@@ -55,10 +74,12 @@
     {% endif %}
 
     <div id="footer" class="page__footer">
-        <footer>
-            {% include footer/custom.html %}
-            {% include_cached footer.html %}
-        </footer>
+        <!-- 푸터 포함 -->
+        {% if lang == 'en' %}
+        {% include footer_en.html %}
+        {% else %}
+        {% include footer.html %}
+        {% endif %}
     </div>
 
     <!-- 최적화된 스크립트 로딩 -->
@@ -98,6 +119,17 @@
 
         // 페이지 완전 로드 시 스크립트 로딩 완료 표시
         window.addEventListener('load', markScriptsAsLoaded);
+
+        // URL 파라미터에서 언어 감지
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+
+            if (langParam) {
+                // HTML 언어 속성 업데이트
+                document.documentElement.lang = langParam;
+            }
+        });
     </script>
 
     <!-- 비동기 스크립트 로딩으로 변경 -->
