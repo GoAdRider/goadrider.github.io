@@ -188,14 +188,14 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const mobileMenuToggle = document.querySelector('.mobile-menu');
-        const navbarMenu = document.querySelector('.navbar-menu');
-        const navbarActions = document.querySelector('.navbar-actions');
+        // 모바일 메뉴 토글
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const nav = document.querySelector('nav');
+        const headerActions = document.querySelector('.header-actions');
 
-        mobileMenuToggle.addEventListener('click', function () {
-            navbarMenu.classList.toggle('active');
-            navbarActions.classList.toggle('active');
-            this.classList.toggle('active');
+        mobileMenu.addEventListener('click', function () {
+            nav.classList.toggle('active');
+            headerActions.classList.toggle('active');
         });
 
         // 테마 토글 기능

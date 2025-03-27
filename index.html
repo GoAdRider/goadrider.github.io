@@ -1,3 +1,7 @@
+---
+layout: default
+title: NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로그
+---
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -35,125 +39,6 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
-        }
-
-        /* 헤더 */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
-            padding: 1.2rem 0;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            color: var(--accent-color);
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: var(--gray-color);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        nav a:hover {
-            color: var(--primary-color);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-color);
-            transition: var(--transition);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .language-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .language-switcher:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-        }
-
-        .language-switcher i {
-            color: var(--primary-color);
-        }
-
-        .search-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            color: white;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .search-button:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.05);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
         }
 
         /* 히어로 섹션 */
@@ -453,84 +338,6 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
         }
 
-        /* 푸터 스타일 */
-        .footer {
-            background-color: #333;
-            color: white;
-            padding: 3rem 0;
-            margin-top: 3rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .footer-brand .footer-logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .footer-description {
-            line-height: 1.6;
-        }
-
-        .footer-links-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .footer-links {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-link {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-link a {
-            color: #ddd;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-link a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
-        .copyright {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-        }
-
-        /* 반응형 푸터 */
-        @media (max-width: 992px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-brand {
-                grid-column: span 2;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-brand {
-                grid-column: span 1;
-            }
-        }
-
         /* 글꼴 임포트 */
         @font-face {
             font-family: 'Pretendard';
@@ -563,43 +370,6 @@
 </head>
 
 <body>
-    <!-- 헤더 -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <a href="/" class="logo">
-                        <i class="fas fa-brain"></i>
-                        NewsLens
-                    </a>
-                </div>
-
-                <nav>
-                    <a href="/">홈</a>
-                    <a href="/categories/">카테고리</a>
-                    <a href="/popular/">인기 글</a>
-                    <a href="/about/">소개</a>
-                    <a href="/contact/">문의</a>
-                </nav>
-
-                <div class="header-actions">
-                    <a href="/?lang=en" class="language-switcher" id="langSwitcher">
-                        <i class="fas fa-globe"></i>
-                        <span id="currentLang">한국어</span>
-                    </a>
-
-                    <a href="/search/" class="search-button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </div>
-
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
-        </div>
-    </header>
-
     <!-- 히어로 섹션 -->
     <section class="hero">
         <div class="container">
@@ -806,116 +576,8 @@
         </div>
     </section>
 
-    <!-- 푸터 -->
-    <footer class="footer">
-        <div class="container">
-            <!-- 한국어 푸터 -->
-            <div class="footer-content" id="footer-ko">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">카테고리</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy">철학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science">과학</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society">사회/정치</a></li>
-                        <li class="footer-link"><a href="/categories/?category=technology">기술</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture">문화/예술</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">정보</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/">소개</a></li>
-                        <li class="footer-link"><a href="/authors/">필자 소개</a></li>
-                        <li class="footer-link"><a href="/methodology/">분석방법론</a></li>
-                        <li class="footer-link"><a href="/contact/">문의하기</a></li>
-                        <li class="footer-link"><a href="/privacy/">개인정보처리방침</a></li>
-                        <li class="footer-link"><a href="/terms/">이용약관</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">연락처</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/">문의는 '문의하기' 메뉴를 이용해 주세요</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 영어 푸터 -->
-            <div class="footer-content" id="footer-en" style="display: none;">
-                <div class="footer-brand">
-                    <div class="footer-logo">NewsLens</div>
-                    <p class="footer-description">A blog that views the world through philosophical and scientific
-                        thinking. We provide in-depth analysis and new perspectives on various topics.</p>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Categories</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/categories/?category=philosophy&lang=en">Philosophy</a></li>
-                        <li class="footer-link"><a href="/categories/?category=science&lang=en">Science</a></li>
-                        <li class="footer-link"><a href="/categories/?category=society&lang=en">Society/Politics</a>
-                        </li>
-                        <li class="footer-link"><a href="/categories/?category=technology&lang=en">Technology</a></li>
-                        <li class="footer-link"><a href="/categories/?category=culture&lang=en">Culture/Arts</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Information</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/about/?lang=en">About</a></li>
-                        <li class="footer-link"><a href="/authors/?lang=en">Authors</a></li>
-                        <li class="footer-link"><a href="/methodology/?lang=en">Methodology</a></li>
-                        <li class="footer-link"><a href="/contact/?lang=en">Contact</a></li>
-                        <li class="footer-link"><a href="/privacy/?lang=en">Privacy Policy</a></li>
-                        <li class="footer-link"><a href="/terms/?lang=en">Terms of Service</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-container">
-                    <h4 class="footer-links-title">Contact</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="/contact/?lang=en">Please use the 'Contact' menu for
-                                inquiries</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2024 NewsLens. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // 모바일 메뉴 토글
-            const mobileMenu = document.querySelector('.mobile-menu');
-            const nav = document.querySelector('nav');
-            const headerActions = document.querySelector('.header-actions');
-
-            mobileMenu.addEventListener('click', function () {
-                nav.classList.toggle('active');
-                headerActions.classList.toggle('active');
-            });
-
-            // 언어 전환 기능
-            const langSwitcher = document.getElementById('langSwitcher');
-            const currentLang = document.getElementById('currentLang');
-            const koContent = document.getElementById('ko-content');
-            const enContent = document.getElementById('en-content');
-            const featuresKo = document.getElementById('features-ko');
-            const featuresEn = document.getElementById('features-en');
-            const footerKo = document.getElementById('footer-ko');
-            const footerEn = document.getElementById('footer-en');
-
             // URL 파라미터에서 언어 확인
             const urlParams = new URLSearchParams(window.location.search);
             const langParam = urlParams.get('lang');
@@ -923,28 +585,22 @@
             // 언어 파라미터에 따라 콘텐츠 표시
             if (langParam === 'en') {
                 // 영어 콘텐츠 표시
-                koContent.style.display = 'none';
-                enContent.style.display = 'flex';
-                featuresKo.style.display = 'none';
-                featuresEn.style.display = 'block';
-                footerKo.style.display = 'none';
-                footerEn.style.display = 'grid';
-                currentLang.textContent = 'English';
+                document.getElementById('ko-content').style.display = 'none';
+                document.getElementById('en-content').style.display = 'flex';
+                document.getElementById('features-ko').style.display = 'none';
+                document.getElementById('features-en').style.display = 'block';
+                document.getElementById('currentLang').textContent = 'English';
                 document.title = 'NewsLens - Philosophical and Scientific Analysis of Current Affairs';
                 document.documentElement.lang = 'en';
-                langSwitcher.href = '/'; // 한국어로 전환
             } else {
                 // 한국어 콘텐츠 표시
-                koContent.style.display = 'flex';
-                enContent.style.display = 'none';
-                featuresKo.style.display = 'block';
-                featuresEn.style.display = 'none';
-                footerKo.style.display = 'grid';
-                footerEn.style.display = 'none';
-                currentLang.textContent = '한국어';
+                document.getElementById('ko-content').style.display = 'flex';
+                document.getElementById('en-content').style.display = 'none';
+                document.getElementById('features-ko').style.display = 'block';
+                document.getElementById('features-en').style.display = 'none';
+                document.getElementById('currentLang').textContent = '한국어';
                 document.title = 'NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로그';
                 document.documentElement.lang = 'ko';
-                langSwitcher.href = '/?lang=en'; // 영어로 전환
             }
         });
     </script>
