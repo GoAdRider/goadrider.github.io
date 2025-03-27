@@ -1,265 +1,157 @@
 ---
 layout: default
-title: 인기글 - NewsLens
-permalink: /popular/
+title: "글 목록"
+title_en: "Posts"
+permalink: /posts/
 ---
+
 <div class="container">
-    <div class="popular-header">
-        <h1 class="page-title" data-ko="인기 분석글" data-en="Popular Analysis Articles">인기 분석글</h1>
-        <p class="page-description" data-ko="NewsLens에서 가장 많이 읽히고 공유된 분석 콘텐츠를 만나보세요."
-            data-en="Discover the most read and shared analytical content on NewsLens.">
-            NewsLens에서 가장 많이 읽히고 공유된 분석 콘텐츠를 만나보세요.
-        </p>
-    </div>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="page-title">
+                <span data-ko>글 목록</span>
+                <span data-en>Posts</span>
+            </h1>
 
-    <div class="filter-container">
-        <div class="filter-group">
-            <label class="filter-label" data-ko="기간" data-en="Period">기간</label>
-            <select id="period-filter" class="filter-select">
-                <option value="week" data-ko="이번 주" data-en="This Week">이번 주</option>
-                <option value="month" data-ko="이번 달" data-en="This Month">이번 달</option>
-                <option value="year" data-ko="올해" data-en="This Year">올해</option>
-                <option value="all" data-ko="전체" data-en="All Time">전체</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label class="filter-label" data-ko="카테고리" data-en="Category">카테고리</label>
-            <select id="category-filter" class="filter-select">
-                <option value="all" data-ko="전체" data-en="All">전체</option>
-                <option value="philosophy" data-ko="철학" data-en="Philosophy">철학</option>
-                <option value="science" data-ko="과학" data-en="Science">과학</option>
-                <option value="technology" data-ko="기술" data-en="Technology">기술</option>
-                <option value="society" data-ko="사회" data-en="Society">사회</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="posts-container">
-        <div class="post-card">
-            <img src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?q=80&w=600&auto=format&fit=crop"
-                alt="AI 윤리" class="post-image">
-            <div class="post-content">
-                <span class="post-category">기술/AI</span>
-                <h3 class="post-title">인공지능 윤리와 거버넌스의 철학적 접근</h3>
-                <p class="post-excerpt">AI 기술이 발전하면서 대두되는 윤리적 문제들을 칸트, 공리주의, 덕 윤리학의 관점에서 분석합니다.</p>
-                <div class="post-meta">
-                    <div class="post-views">
-                        <i class="fas fa-eye"></i>
-                        <span>5,249</span>
-                    </div>
-                    <span class="post-date">2023.12.15</span>
-                </div>
+            <div class="posts-filters mb-4">
+                <select id="postSort" class="form-select" onchange="updatePostsList()">
+                    <option value="date" data-ko="최신순" data-en="Latest">최신순</option>
+                    <option value="title" data-ko="제목순" data-en="Title">제목순</option>
+                </select>
             </div>
-        </div>
 
-        <div class="post-card">
-            <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=600&auto=format&fit=crop"
-                alt="양자역학" class="post-image">
-            <div class="post-content">
-                <span class="post-category">과학/물리학</span>
-                <h3 class="post-title">양자역학과 현실 인식의 철학적 함의</h3>
-                <p class="post-excerpt">양자역학의 기이한 현상들이 우리의 현실 인식과 철학적 세계관에 미치는 영향을 탐구합니다.</p>
-                <div class="post-meta">
-                    <div class="post-views">
-                        <i class="fas fa-eye"></i>
-                        <span>4,872</span>
+            <div id="postsList" class="posts-list">
+                {% assign posts = site.posts | sort: 'date' | reverse %}
+                {% for post in posts %}
+                <div class="post-item">
+                    <h2 class="post-title">
+                        <a href="{{ post.url | relative_url }}">
+                            <span data-ko>{{ post.title }}</span>
+                            <span data-en>{{ post.title_en }}</span>
+                        </a>
+                    </h2>
+                    <div class="post-meta">
+                        <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+                        <span class="post-categories">
+                            <span data-ko>카테고리:</span>
+                            <span data-en>Categories:</span>
+                            {% if page.lang == 'ko' %}
+                            {{ post.categories | join: ", " }}
+                            {% else %}
+                            {{ post.categories_en | join: ", " }}
+                            {% endif %}
+                        </span>
                     </div>
-                    <span class="post-date">2023.11.28</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="post-card">
-            <img src="https://images.unsplash.com/photo-1494059980473-813e73ee784b?q=80&w=600&auto=format&fit=crop"
-                alt="소셜미디어" class="post-image">
-            <div class="post-content">
-                <span class="post-category">사회/미디어</span>
-                <h3 class="post-title">소셜미디어와 현대 사회의 분열: 정보 생태계의 붕괴</h3>
-                <p class="post-excerpt">알고리즘 필터 버블과 에코 챔버가 어떻게 사회적 분열을 심화시키는지 분석합니다.</p>
-                <div class="post-meta">
-                    <div class="post-views">
-                        <i class="fas fa-eye"></i>
-                        <span>4,587</span>
+                    <div class="post-excerpt">
+                        <span data-ko>{{ post.excerpt }}</span>
+                        <span data-en>{{ post.excerpt_en }}</span>
                     </div>
-                    <span class="post-date">2023.12.05</span>
                 </div>
-            </div>
-        </div>
-
-        <div class="post-card">
-            <img src="https://images.unsplash.com/photo-1607748851687-ba9a10d87eb4?q=80&w=600&auto=format&fit=crop"
-                alt="초의식" class="post-image">
-            <div class="post-content">
-                <span class="post-category">철학/의식</span>
-                <h3 class="post-title">의식의 경계: 현대 의식 연구와 철학의 교차점</h3>
-                <p class="post-excerpt">신경과학과 철학이 만나는 지점에서 의식의 본질에 대한 다양한 이론들을 검토합니다.</p>
-                <div class="post-meta">
-                    <div class="post-views">
-                        <i class="fas fa-eye"></i>
-                        <span>4,215</span>
-                    </div>
-                    <span class="post-date">2023.11.15</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="post-card">
-            <img src="https://images.unsplash.com/photo-1536825211030-094de935f680?q=80&w=600&auto=format&fit=crop"
-                alt="기후위기" class="post-image">
-            <div class="post-content">
-                <span class="post-category">환경/윤리</span>
-                <h3 class="post-title">기후 위기와 세대 간 정의: 미래 세대에 대한 우리의 의무</h3>
-                <p class="post-excerpt">기후 변화 대응에 있어 현 세대와 미래 세대 간의 윤리적 관계성을 탐구합니다.</p>
-                <div class="post-meta">
-                    <div class="post-views">
-                        <i class="fas fa-eye"></i>
-                        <span>3,987</span>
-                    </div>
-                    <span class="post-date">2023.10.20</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="post-card">
-            <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=600&auto=format&fit=crop"
-                alt="예술" class="post-image">
-            <div class="post-content">
-                <span class="post-category">문화/예술</span>
-                <h3 class="post-title">AI 예술의 등장과 창의성의 재정의</h3>
-                <p class="post-excerpt">인공지능이 생성한 예술 작품이 예술의 본질과 창의성에 대한 기존 관념을 어떻게 변화시키는지 고찰합니다.</p>
-                <div class="post-meta">
-                    <div class="post-views">
-                        <i class="fas fa-eye"></i>
-                        <span>3,754</span>
-                    </div>
-                    <span class="post-date">2023.11.02</span>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .page-title {
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        color: #333;
+    }
+
+    .posts-filters {
+        margin-bottom: 2rem;
+    }
+
+    .posts-filters select {
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: white;
+        width: 200px;
+    }
+
+    .post-item {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .post-item:last-child {
+        border-bottom: none;
+    }
+
+    .post-title {
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    .post-title a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .post-title a:hover {
+        color: #007bff;
+    }
+
+    .post-meta {
+        margin-bottom: 1rem;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .post-date {
+        margin-right: 1rem;
+    }
+
+    .post-categories {
+        color: #007bff;
+    }
+
+    .post-excerpt {
+        color: #666;
+        line-height: 1.6;
+    }
+</style>
+
 <script>
+    function updatePostsList() {
+        const sortType = document.getElementById('postSort').value;
+        const postsList = document.getElementById('postsList');
+        const posts = Array.from(postsList.getElementsByClassName('post-item'));
+
+        posts.sort((a, b) => {
+            if (sortType === 'date') {
+                const dateA = new Date(a.querySelector('.post-date').textContent);
+                const dateB = new Date(b.querySelector('.post-date').textContent);
+                return dateB - dateA;
+            } else {
+                const titleA = a.querySelector('.post-title').textContent.trim();
+                const titleB = b.querySelector('.post-title').textContent.trim();
+                return titleA.localeCompare(titleB);
+            }
+        });
+
+        posts.forEach(post => postsList.appendChild(post));
+    }
+
+    // 언어 변경 시 정렬 옵션 텍스트 업데이트
+    document.addEventListener('languageChanged', function () {
+        const currentLang = document.documentElement.getAttribute('lang') || 'ko';
+        const sortSelect = document.getElementById('postSort');
+
+        Array.from(sortSelect.options).forEach(option => {
+            const dataLang = option.getAttribute(`data-${currentLang}`);
+            if (dataLang) {
+                option.textContent = dataLang;
+            }
+        });
+    });
+
+    // 초기 로드
     document.addEventListener('DOMContentLoaded', function () {
-        const pageTitle = document.querySelector('.page-title');
-        const pageDescription = document.querySelector('.page-description');
-        const filterLabels = document.querySelectorAll('.filter-label');
-        const filterOptions = document.querySelectorAll('option');
-        const postCategories = document.querySelectorAll('.post-category');
-        const postTitles = document.querySelectorAll('.post-title');
-        const postExcerpts = document.querySelectorAll('.post-excerpt');
-
-        // 카테고리 매핑
-        const categoryMap = {
-            ko: {
-                'Technology/AI': '기술/AI',
-                'Science/Physics': '과학/물리학',
-                'Society/Media': '사회/미디어',
-                'Philosophy/Consciousness': '철학/의식',
-                'Environment/Ethics': '환경/윤리',
-                'Culture/Arts': '문화/예술'
-            },
-            en: {
-                '기술/AI': 'Technology/AI',
-                '과학/물리학': 'Science/Physics',
-                '사회/미디어': 'Society/Media',
-                '철학/의식': 'Philosophy/Consciousness',
-                '환경/윤리': 'Environment/Ethics',
-                '문화/예술': 'Culture/Arts'
-            }
-        };
-
-        // 포스트 콘텐츠 매핑 (실제로는 데이터베이스나 CMS에서 관리해야 함)
-        const contentMap = {
-            titles: {
-                ko: {
-                    'A Philosophical Approach to AI Ethics and Governance': '인공지능 윤리와 거버넌스의 철학적 접근',
-                    'Quantum Mechanics and Philosophical Implications for Reality Perception': '양자역학과 현실 인식의 철학적 함의',
-                    'Social Media and Modern Society\'s Division: Collapse of the Information Ecosystem': '소셜미디어와 현대 사회의 분열: 정보 생태계의 붕괴'
-                },
-                en: {
-                    '인공지능 윤리와 거버넌스의 철학적 접근': 'A Philosophical Approach to AI Ethics and Governance',
-                    '양자역학과 현실 인식의 철학적 함의': 'Quantum Mechanics and Philosophical Implications for Reality Perception',
-                    '소셜미디어와 현대 사회의 분열: 정보 생태계의 붕괴': 'Social Media and Modern Society\'s Division: Collapse of the Information Ecosystem'
-                }
-            },
-            excerpts: {
-                ko: {
-                    'Analyzes ethical issues arising from AI technology development': 'AI 기술이 발전하면서 대두되는 윤리적 문제들을 칸트, 공리주의, 덕 윤리학의 관점에서 분석합니다.',
-                    'Explores how the strange phenomena of quantum mechanics': '양자역학의 기이한 현상들이 우리의 현실 인식과 철학적 세계관에 미치는 영향을 탐구합니다.',
-                    'Analyzes how algorithmic filter bubbles': '알고리즘 필터 버블과 에코 챔버가 어떻게 사회적 분열을 심화시키는지 분석합니다.'
-                },
-                en: {
-                    'AI 기술이 발전하면서 대두되는 윤리적 문제들을': 'Analyzes ethical issues arising from AI technology development from the perspectives of Kant, utilitarianism, and virtue ethics.',
-                    '양자역학의 기이한 현상들이': 'Explores how the strange phenomena of quantum mechanics affect our perception of reality and philosophical worldview.',
-                    '알고리즘 필터 버블과 에코 챔버가': 'Analyzes how algorithmic filter bubbles and echo chambers intensify social division.'
-                }
-            }
-        };
-
-        // 언어 변경 함수
-        function updateLanguage(lang) {
-            // 페이지 제목과 설명 업데이트
-            pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
-            pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
-
-            // 필터 라벨 업데이트
-            filterLabels.forEach(label => {
-                label.textContent = label.getAttribute(`data-${lang}`);
-            });
-
-            // 필터 옵션 업데이트
-            filterOptions.forEach(option => {
-                option.textContent = option.getAttribute(`data-${lang}`);
-            });
-
-            // 포스트 카드 콘텐츠 업데이트
-            postCategories.forEach(category => {
-                const currentText = category.textContent;
-                category.textContent = categoryMap[lang][currentText] || currentText;
-            });
-
-            postTitles.forEach(title => {
-                const currentText = title.textContent;
-                title.textContent = contentMap.titles[lang][currentText] || currentText;
-            });
-
-            postExcerpts.forEach(excerpt => {
-                const currentText = excerpt.textContent;
-                excerpt.textContent = contentMap.excerpts[lang][currentText] || currentText;
-            });
-
-            // 인기 글 목록 업데이트
-            updatePopularArticles(lang);
-        }
-
-        function updatePopularArticles(lang) {
-            // 여기에 인기 글 목록을 업데이트하는 로직 구현
-            // API 호출 또는 데이터 처리 후 DOM 업데이트
-        }
-
-        // 언어 변경 이벤트 리스너
-        window.addEventListener('languageChange', function (e) {
-            updateLanguage(e.detail.language);
-        });
-
-        // 초기 언어 설정
-        const urlParams = new URLSearchParams(window.location.search);
-        const langParam = urlParams.get('lang');
-        const storedLang = localStorage.getItem('preferred_language');
-        const initialLang = langParam || storedLang || 'ko';
-
-        // 초기 언어 적용
-        updateLanguage(initialLang);
-
-        // 필터 변경 이벤트 리스너
-        document.getElementById('period-filter').addEventListener('change', function () {
-            updatePopularArticles(localStorage.getItem('preferred_language') || 'ko');
-        });
-
-        document.getElementById('category-filter').addEventListener('change', function () {
-            updatePopularArticles(localStorage.getItem('preferred_language') || 'ko');
-        });
+        updatePostsList();
     });
 </script>
