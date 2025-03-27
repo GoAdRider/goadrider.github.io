@@ -5,16 +5,21 @@ permalink: /methodology/
 ---
 <div class="container">
     <div class="page-header">
-        <h1 class="page-title">분석방법론</h1>
-        <p class="page-description">NewsLens에서는 깊이 있는 분석과 객관적인 시각을 제공하기 위해 다음과 같은 방법론을 적용하고 있습니다.</p>
+        <h1 class="page-title" data-ko="분석방법론" data-en="Analysis Methodology">분석방법론</h1>
+        <p class="page-description" data-ko="NewsLens에서는 깊이 있는 분석과 객관적인 시각을 제공하기 위해 다음과 같은 방법론을 적용하고 있습니다."
+            data-en="At NewsLens, we apply the following methodologies to provide in-depth analysis and objective perspectives.">
+            NewsLens에서는 깊이 있는 분석과 객관적인 시각을 제공하기 위해 다음과 같은 방법론을 적용하고 있습니다.
+        </p>
     </div>
 
     <div class="methodology-section">
         <div class="methodology-item">
-            <h2 class="methodology-heading">철학적 접근</h2>
+            <h2 class="methodology-heading" data-ko="철학적 접근" data-en="Philosophical Approach">철학적 접근</h2>
             <div class="methodology-content">
-                <p>NewsLens는 모든 주제에 대해 철학적 깊이와 비판적 사고를 통해 접근합니다. 여기서 철학적 접근이란 단순히 사실을 나열하는 것이 아니라, 그 사실이 가지는 의미와
-                    함의를 분석하고 다양한 관점에서 해석하는 것을 의미합니다.</p>
+                <p data-ko="NewsLens는 모든 주제에 대해 철학적 깊이를 추구합니다. 현상의 표면적인 분석을 넘어 근본적인 원인과 의미를 탐구합니다."
+                    data-en="NewsLens pursues philosophical depth in all subjects. We explore fundamental causes and meanings beyond surface-level analysis of phenomena.">
+                    NewsLens는 모든 주제에 대해 철학적 깊이를 추구합니다. 현상의 표면적인 분석을 넘어 근본적인 원인과 의미를 탐구합니다.
+                </p>
 
                 <h3>주요 철학적 방법론</h3>
                 <ul>
@@ -29,10 +34,14 @@ permalink: /methodology/
         </div>
 
         <div class="methodology-item">
-            <h2 class="methodology-heading">과학적 접근</h2>
+            <h2 class="methodology-heading" data-ko="과학적 접근" data-en="Scientific Approach">과학적 접근</h2>
             <div class="methodology-content">
-                <p>철학적 사고와 함께, NewsLens는 엄격한 과학적 방법론을 적용하여 주장의 타당성을 검증합니다. 이는 증거에 기반한 분석과 논리적 추론을 통해 객관성을 확보하는
-                    것을 의미합니다.</p>
+                <p data-ko="철학적 사고와 함께, NewsLens는 엄격한 과학적 방법론을 적용하여 주장의 타당성을 검증합니다. 이는 증거에 기반한 분석과 논리적 추론을 통해 객관성을 확보하는
+                    것을 의미합니다."
+                    data-en="In conjunction with philosophical thinking, NewsLens applies strict scientific methodologies to verify the validity of claims. This means basing analysis on evidence and logical reasoning to ensure objectivity.">
+                    철학적 사고와 함께, NewsLens는 엄격한 과학적 방법론을 적용하여 주장의 타당성을 검증합니다. 이는 증거에 기반한 분석과 논리적 추론을 통해 객관성을 확보하는
+                    것을 의미합니다.
+                </p>
 
                 <h3>과학적 방법론의 요소</h3>
                 <ol>
@@ -49,10 +58,14 @@ permalink: /methodology/
         </div>
 
         <div class="methodology-item">
-            <h2 class="methodology-heading">다학제적 접근</h2>
+            <h2 class="methodology-heading" data-ko="다학제적 접근" data-en="Multidisciplinary Approach">다학제적 접근</h2>
             <div class="methodology-content">
-                <p>NewsLens는 어떤 주제도 단일 학문의 관점으로는 충분히 이해될 수 없다고 믿습니다. 따라서 모든 분석에는 다양한 학문 분야의 통찰을 통합하는 다학제적 접근을
-                    적용합니다.</p>
+                <p data-ko="NewsLens는 어떤 주제도 단일 학문의 관점으로는 충분히 이해될 수 없다고 믿습니다. 따라서 모든 분석에는 다양한 학문 분야의 통찰을 통합하는 다학제적 접근을
+                    적용합니다."
+                    data-en="NewsLens believes that no subject can be fully understood from a single academic perspective. Therefore, we apply a multidisciplinary approach to all analysis.">
+                    NewsLens는 어떤 주제도 단일 학문의 관점으로는 충분히 이해될 수 없다고 믿습니다. 따라서 모든 분석에는 다양한 학문 분야의 통찰을 통합하는 다학제적 접근을
+                    적용합니다.
+                </p>
 
                 <h3>통합되는 주요 학문 분야</h3>
                 <ul>
@@ -74,29 +87,38 @@ permalink: /methodology/
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // URL 파라미터에서 언어 확인
+        const pageTitle = document.querySelector('.page-title');
+        const pageDescription = document.querySelector('.page-description');
+        const methodologyHeadings = document.querySelectorAll('.methodology-heading');
+        const methodologyContents = document.querySelectorAll('.methodology-content p');
+
+        function updateLanguage(lang) {
+            // 페이지 제목과 설명 업데이트
+            pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
+            pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
+
+            // 방법론 섹션 업데이트
+            methodologyHeadings.forEach(heading => {
+                heading.textContent = heading.getAttribute(`data-${lang}`);
+            });
+
+            methodologyContents.forEach(content => {
+                content.textContent = content.getAttribute(`data-${lang}`);
+            });
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
         const urlParams = new URLSearchParams(window.location.search);
         const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
 
-        // 언어 파라미터에 따라 콘텐츠 표시
-        if (langParam === 'en') {
-            // 영어 콘텐츠 표시
-            document.querySelector('.page-title').textContent = 'Methodology';
-            document.querySelector('.page-description').textContent = 'NewsLens applies the following methodologies to provide in-depth analysis and objective perspectives.';
-
-            // 섹션 제목 변경
-            document.querySelectorAll('.methodology-heading')[0].textContent = 'Philosophical Approach';
-            document.querySelectorAll('.methodology-heading')[1].textContent = 'Scientific Approach';
-            document.querySelectorAll('.methodology-heading')[2].textContent = 'Multidisciplinary Approach';
-
-            // 첫 번째 섹션 내용 변경
-            document.querySelectorAll('.methodology-content p')[0].textContent = 'NewsLens approaches all subjects through philosophical depth and critical thinking. Here, a philosophical approach means not simply listing facts, but analyzing their meaning and implications and interpreting them from various perspectives.';
-            document.querySelectorAll('.methodology-content h3')[0].textContent = 'Key Philosophical Methodologies';
-            document.querySelectorAll('.methodology-content ul li strong')[0].textContent = 'Phenomenological Analysis:';
-            document.querySelectorAll('.methodology-content ul li')[0].childNodes[1].textContent = ' Focusing on the phenomenon itself to explore how it is experienced';
-            // 나머지 항목들도 유사하게 변경
-
-            // 필요한 경우 나머지 섹션의 영어 텍스트도 업데이트
-        }
+        // 초기 언어 적용
+        updateLanguage(initialLang);
     });
 </script>

@@ -5,14 +5,19 @@ permalink: /contact/
 ---
 <div class="container">
     <div class="page-header">
-        <h1 class="page-title">문의하기</h1>
-        <p class="page-description">NewsLens에 대한 의견이나 문의사항이 있으신가요? 아래 양식을 통해 메시지를 보내주세요.</p>
+        <h1 class="page-title" data-ko="문의하기" data-en="Contact Us">문의하기</h1>
+        <p class="page-description" data-ko="NewsLens에 대한 의견이나 문의사항이 있으신가요? 아래 양식을 통해 메시지를 보내주세요."
+            data-en="Do you have any questions or feedback about NewsLens? Send us a message using the form below.">
+            NewsLens에 대한 의견이나 문의사항이 있으신가요? 아래 양식을 통해 메시지를 보내주세요.
+        </p>
     </div>
 
     <div class="contact-section">
         <div class="contact-info">
-            <h2 class="contact-heading">주요 문의 안내</h2>
-            <p class="contact-description">
+            <h2 class="contact-heading" data-ko="주요 문의 안내" data-en="Contact Information">주요 문의 안내</h2>
+            <p class="contact-description"
+                data-ko="NewsLens는 철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 독자 여러분의 의견과 피드백은 더 나은 콘텐츠를 제공하는 데 큰 도움이 됩니다. 기사 제안, 피드백, 협업 제안 등 다양한 문의를 환영합니다."
+                data-en="NewsLens is a blog that views the world through philosophical and scientific thinking. Your opinions and feedback help us provide better content. We welcome various inquiries including article suggestions, feedback, and collaboration proposals.">
                 NewsLens는 철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 독자 여러분의 의견과 피드백은 더 나은 콘텐츠를 제공하는 데 큰 도움이 됩니다.
                 기사 제안, 피드백, 협업 제안 등 다양한 문의를 환영합니다.
             </p>
@@ -22,7 +27,7 @@ permalink: /contact/
                     <i class="fas fa-envelope"></i>
                 </div>
                 <div class="contact-text">
-                    <strong>이메일 문의</strong>
+                    <strong data-ko="이메일 문의" data-en="Email Inquiry">이메일 문의</strong>
                     contact@newslens.com
                 </div>
             </div>
@@ -32,8 +37,10 @@ permalink: /contact/
                     <i class="fas fa-clock"></i>
                 </div>
                 <div class="contact-text">
-                    <strong>응답 시간</strong>
-                    일반적으로 2-3 영업일 이내에 답변 드립니다.
+                    <strong data-ko="응답 시간" data-en="Response Time">응답 시간</strong>
+                    <span data-ko="일반적으로 2-3 영업일 이내에 답변 드립니다." data-en="We usually respond within 2-3 business days.">
+                        일반적으로 2-3 영업일 이내에 답변 드립니다.
+                    </span>
                 </div>
             </div>
 
@@ -42,8 +49,11 @@ permalink: /contact/
                     <i class="fas fa-comments"></i>
                 </div>
                 <div class="contact-text">
-                    <strong>제안 사항</strong>
-                    새로운 주제 제안이나 특정 분야에 대한 분석 요청도 환영합니다.
+                    <strong data-ko="제안 사항" data-en="Suggestions">제안 사항</strong>
+                    <span data-ko="새로운 주제 제안이나 특정 분야에 대한 분석 요청도 환영합니다."
+                        data-en="We welcome new topic suggestions or requests for analysis in specific fields.">
+                        새로운 주제 제안이나 특정 분야에 대한 분석 요청도 환영합니다.
+                    </span>
                 </div>
             </div>
         </div>
@@ -51,26 +61,26 @@ permalink: /contact/
         <div class="contact-form-container">
             <form id="contactForm" class="contact-form">
                 <div class="form-group">
-                    <label for="name" class="form-label">이름</label>
+                    <label for="name" class="form-label" data-ko="이름" data-en="Name">이름</label>
                     <input type="text" id="name" name="name" class="form-input" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="form-label">이메일</label>
+                    <label for="email" class="form-label" data-ko="이메일" data-en="Email">이메일</label>
                     <input type="email" id="email" name="email" class="form-input" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="subject" class="form-label">제목</label>
+                    <label for="subject" class="form-label" data-ko="제목" data-en="Subject">제목</label>
                     <input type="text" id="subject" name="subject" class="form-input" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="message" class="form-label">메시지</label>
+                    <label for="message" class="form-label" data-ko="메시지" data-en="Message">메시지</label>
                     <textarea id="message" name="message" class="form-input form-textarea" required></textarea>
                 </div>
 
-                <button type="submit" class="form-button">보내기</button>
+                <button type="submit" class="form-button" data-ko="보내기" data-en="Send">보내기</button>
             </form>
         </div>
     </div>
@@ -78,40 +88,64 @@ permalink: /contact/
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // URL 파라미터에서 언어 확인
+        const pageTitle = document.querySelector('.page-title');
+        const pageDescription = document.querySelector('.page-description');
+        const contactHeading = document.querySelector('.contact-heading');
+        const contactDescription = document.querySelector('.contact-description');
+        const contactMethodStrongs = document.querySelectorAll('.contact-text strong');
+        const contactMethodSpans = document.querySelectorAll('.contact-text span');
+        const formLabels = document.querySelectorAll('.form-label');
+        const formButton = document.querySelector('.form-button');
+
+        function updateLanguage(lang) {
+            // 페이지 제목과 설명 업데이트
+            pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
+            pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
+
+            // 연락처 섹션 업데이트
+            contactHeading.textContent = contactHeading.getAttribute(`data-${lang}`);
+            contactDescription.textContent = contactDescription.getAttribute(`data-${lang}`);
+
+            // 연락 방법 텍스트 업데이트
+            contactMethodStrongs.forEach(strong => {
+                strong.textContent = strong.getAttribute(`data-${lang}`);
+            });
+
+            contactMethodSpans.forEach(span => {
+                if (span.hasAttribute(`data-${lang}`)) {
+                    span.textContent = span.getAttribute(`data-${lang}`);
+                }
+            });
+
+            // 폼 라벨 업데이트
+            formLabels.forEach(label => {
+                label.textContent = label.getAttribute(`data-${lang}`);
+            });
+
+            // 폼 버튼 업데이트
+            formButton.textContent = formButton.getAttribute(`data-${lang}`);
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
         const urlParams = new URLSearchParams(window.location.search);
         const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
 
-        // 언어 파라미터에 따라 콘텐츠 표시
-        if (langParam === 'en') {
-            // 영어 콘텐츠 표시
-            document.querySelector('.page-title').textContent = 'Contact Us';
-            document.querySelector('.page-description').textContent = 'Do you have any questions or feedback about NewsLens? Send us a message using the form below.';
-
-            // 문의 폼 텍스트 변경
-            document.querySelector('.contact-heading').textContent = 'Contact Information';
-            document.querySelector('.contact-description').textContent = 'NewsLens is a blog that views the world through philosophical and scientific thinking. Your opinions and feedback help us provide better content. We welcome various inquiries including article suggestions, feedback, and collaboration proposals.';
-
-            document.querySelectorAll('.contact-text strong')[0].textContent = 'Email Inquiry';
-            document.querySelectorAll('.contact-text strong')[1].textContent = 'Response Time';
-            document.querySelectorAll('.contact-text')[1].childNodes[2].textContent = 'We usually respond within 2-3 business days.';
-            document.querySelectorAll('.contact-text strong')[2].textContent = 'Suggestions';
-            document.querySelectorAll('.contact-text')[2].childNodes[2].textContent = 'We welcome new topic suggestions or requests for analysis in specific fields.';
-
-            // 폼 라벨 변경
-            document.querySelector('label[for="name"]').textContent = 'Name';
-            document.querySelector('label[for="email"]').textContent = 'Email';
-            document.querySelector('label[for="subject"]').textContent = 'Subject';
-            document.querySelector('label[for="message"]').textContent = 'Message';
-            document.querySelector('.form-button').textContent = 'Send';
-        }
+        // 초기 언어 적용
+        updateLanguage(initialLang);
 
         // 폼 제출 이벤트
         const contactForm = document.getElementById('contactForm');
         contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            // 여기에 폼 제출 로직 구현 (예: AJAX를 통한 서버 전송)
-            alert(langParam === 'en' ? 'Your message has been sent!' : '메시지가 전송되었습니다!');
+            const currentLang = localStorage.getItem('preferred_language') || 'ko';
+            alert(currentLang === 'en' ? 'Your message has been sent!' : '메시지가 전송되었습니다!');
             contactForm.reset();
         });
     });

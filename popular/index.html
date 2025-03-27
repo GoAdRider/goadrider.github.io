@@ -13,13 +13,26 @@ permalink: /popular/
     </div>
 
     <div class="filter-container">
-        <button class="filter-button active" data-ko="전체" data-en="All">전체</button>
-        <button class="filter-button" data-ko="이번 주" data-en="This Week">이번 주</button>
-        <button class="filter-button" data-ko="이번 달" data-en="This Month">이번 달</button>
-        <button class="filter-button" data-ko="철학" data-en="Philosophy">철학</button>
-        <button class="filter-button" data-ko="과학" data-en="Science">과학</button>
-        <button class="filter-button" data-ko="기술" data-en="Technology">기술</button>
-        <button class="filter-button" data-ko="사회" data-en="Society">사회</button>
+        <div class="filter-group">
+            <label class="filter-label" data-ko="기간" data-en="Period">기간</label>
+            <select id="period-filter" class="filter-select">
+                <option value="week" data-ko="이번 주" data-en="This Week">이번 주</option>
+                <option value="month" data-ko="이번 달" data-en="This Month">이번 달</option>
+                <option value="year" data-ko="올해" data-en="This Year">올해</option>
+                <option value="all" data-ko="전체" data-en="All Time">전체</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label class="filter-label" data-ko="카테고리" data-en="Category">카테고리</label>
+            <select id="category-filter" class="filter-select">
+                <option value="all" data-ko="전체" data-en="All">전체</option>
+                <option value="philosophy" data-ko="철학" data-en="Philosophy">철학</option>
+                <option value="science" data-ko="과학" data-en="Science">과학</option>
+                <option value="technology" data-ko="기술" data-en="Technology">기술</option>
+                <option value="society" data-ko="사회" data-en="Society">사회</option>
+            </select>
+        </div>
     </div>
 
     <div class="posts-container">
@@ -131,7 +144,8 @@ permalink: /popular/
     document.addEventListener('DOMContentLoaded', function () {
         const pageTitle = document.querySelector('.page-title');
         const pageDescription = document.querySelector('.page-description');
-        const filterButtons = document.querySelectorAll('.filter-button');
+        const filterLabels = document.querySelectorAll('.filter-label');
+        const filterOptions = document.querySelectorAll('option');
         const postCategories = document.querySelectorAll('.post-category');
         const postTitles = document.querySelectorAll('.post-title');
         const postExcerpts = document.querySelectorAll('.post-excerpt');
@@ -190,9 +204,14 @@ permalink: /popular/
             pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
             pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
 
-            // 필터 버튼 업데이트
-            filterButtons.forEach(button => {
-                button.textContent = button.getAttribute(`data-${lang}`);
+            // 필터 라벨 업데이트
+            filterLabels.forEach(label => {
+                label.textContent = label.getAttribute(`data-${lang}`);
+            });
+
+            // 필터 옵션 업데이트
+            filterOptions.forEach(option => {
+                option.textContent = option.getAttribute(`data-${lang}`);
             });
 
             // 포스트 카드 콘텐츠 업데이트
@@ -210,6 +229,14 @@ permalink: /popular/
                 const currentText = excerpt.textContent;
                 excerpt.textContent = contentMap.excerpts[lang][currentText] || currentText;
             });
+
+            // 인기 글 목록 업데이트
+            updatePopularArticles(lang);
+        }
+
+        function updatePopularArticles(lang) {
+            // 여기에 인기 글 목록을 업데이트하는 로직 구현
+            // API 호출 또는 데이터 처리 후 DOM 업데이트
         }
 
         // 언어 변경 이벤트 리스너
@@ -226,12 +253,13 @@ permalink: /popular/
         // 초기 언어 적용
         updateLanguage(initialLang);
 
-        // 필터 버튼 클릭 이벤트
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-            });
+        // 필터 변경 이벤트 리스너
+        document.getElementById('period-filter').addEventListener('change', function () {
+            updatePopularArticles(localStorage.getItem('preferred_language') || 'ko');
+        });
+
+        document.getElementById('category-filter').addEventListener('change', function () {
+            updatePopularArticles(localStorage.getItem('preferred_language') || 'ko');
         });
     });
 </script>
