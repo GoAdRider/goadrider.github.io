@@ -7,8 +7,11 @@ permalink: /tags/
 
 <div class="container">
     <div class="page-header">
-        <h1 class="page-title" data-ko="태그별 글 모음" data-en="Posts by Tags"></h1>
-        <p class="page-description" data-ko="관심 있는 태그를 선택하여 관련 글을 찾아보세요" data-en="Select a tag to find related posts">
+        <h1 class="page-title">
+            <span class="gradient-text" data-ko="태그별 글 모음" data-en="Posts by Tags"></span>
+        </h1>
+        <p class="page-description">
+            <span data-ko="관심 있는 태그를 선택하여 관련 글을 찾아보세요" data-en="Select a tag to find related posts"></span>
         </p>
     </div>
 
@@ -19,15 +22,15 @@ permalink: /tags/
         {% assign posts = tag | last %}
         {% assign tag_data = site.data.tags[tag_name] %}
         {% assign tag_name_en = tag_data.en | default: tag_name %}
-        <a href="#{{ tag_name }}" class="tag-item" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}"
-            data-count="{{ posts.size }}">
+        <a href="#{{ tag_name }}" class="tag-item" data-count="{{ posts.size }}">
             <span class="tag-name">
                 #<span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}"></span>
             </span>
             <span class="tag-count">{{ posts.size }}</span>
             {% if tag_data.description %}
-            <span class="tag-tooltip" data-ko="{{ tag_data.description }}"
-                data-en="{{ tag_data.description_en }}"></span>
+            <span class="tag-tooltip">
+                <span data-ko="{{ tag_data.description }}" data-en="{{ tag_data.description_en }}"></span>
+            </span>
             {% endif %}
         </a>
         {% endfor %}
@@ -41,14 +44,19 @@ permalink: /tags/
         {% assign tag_name_en = tag_data.en | default: tag_name %}
 
         <section id="{{ tag_name }}" class="tag-section">
-            <h2 class="tag-title">
-                #<span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}"></span>
-                <span class="tag-count">{{ posts.size }}</span>
-            </h2>
+            <div class="tag-header">
+                <h2 class="tag-title">
+                    <span class="tag-symbol">#</span>
+                    <span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}"></span>
+                    <span class="tag-count">{{ posts.size }}</span>
+                </h2>
 
-            {% if tag_data.description %}
-            <p class="tag-description" data-ko="{{ tag_data.description }}" data-en="{{ tag_data.description_en }}"></p>
-            {% endif %}
+                {% if tag_data.description %}
+                <p class="tag-description">
+                    <span data-ko="{{ tag_data.description }}" data-en="{{ tag_data.description_en }}"></span>
+                </p>
+                {% endif %}
+            </div>
 
             <div class="post-list">
                 {% for post in posts %}
@@ -56,7 +64,7 @@ permalink: /tags/
                     <div class="post-meta">
                         <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
                         {% if post.categories %}
-                        <span class="post-categories">
+                        <div class="post-categories">
                             {% for category in post.categories %}
                             {% assign cat_data = site.data.categories[category] %}
                             {% assign cat_name_en = cat_data.en | default: category %}
@@ -64,7 +72,7 @@ permalink: /tags/
                                 <span data-ko="{{ category }}" data-en="{{ cat_name_en }}"></span>
                             </a>
                             {% endfor %}
-                        </span>
+                        </div>
                         {% endif %}
                     </div>
 
@@ -86,7 +94,8 @@ permalink: /tags/
                         {% assign tag_data = site.data.tags[post_tag] %}
                         {% assign tag_name_en = tag_data.en | default: post_tag %}
                         <a href="#{{ post_tag }}" class="tag-link">
-                            #<span class="tag-text" data-ko="{{ post_tag }}" data-en="{{ tag_name_en }}"></span>
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="{{ post_tag }}" data-en="{{ tag_name_en }}"></span>
                         </a>
                         {% endif %}
                         {% endfor %}
@@ -101,6 +110,23 @@ permalink: /tags/
 </div>
 
 <style>
+    :root {
+        --gradient-start: #6366f1;
+        --gradient-end: #8b5cf6;
+        --primary-light: rgba(99, 102, 241, 0.1);
+        --primary-dark: #4f46e5;
+        --text-primary: #1f2937;
+        --text-secondary: #4b5563;
+        --text-accent: #6366f1;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f9fafb;
+        --bg-accent: #6366f1;
+        --bg-accent-light: rgba(99, 102, 241, 0.1);
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
     .container {
         max-width: 1200px;
         margin: 0 auto;
@@ -109,18 +135,32 @@ permalink: /tags/
 
     .page-header {
         text-align: center;
-        margin-bottom: 3rem;
+        margin-bottom: 4rem;
+        padding: 3rem 0;
+        background: linear-gradient(135deg, var(--primary-light), rgba(139, 92, 246, 0.1));
+        border-radius: 1rem;
+    }
+
+    .gradient-text {
+        background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
     }
 
     .page-title {
-        font-size: 2.5rem;
-        color: var(--text-title);
+        font-size: 3rem;
+        font-weight: 800;
         margin-bottom: 1rem;
+        letter-spacing: -0.025em;
     }
 
     .page-description {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
         color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
     }
 
     .tag-cloud {
@@ -131,56 +171,80 @@ permalink: /tags/
         padding: 2rem;
         background: var(--bg-secondary);
         border-radius: 1rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-md);
     }
 
     .tag-item {
         display: inline-flex;
         align-items: center;
-        padding: 0.5rem 1rem;
+        padding: 0.75rem 1.5rem;
         background: var(--bg-primary);
-        border-radius: 2rem;
+        border-radius: 9999px;
         color: var(--text-primary);
         text-decoration: none;
-        font-size: 1rem;
-        transition: all 0.3s ease;
+        font-weight: 500;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid var(--primary-light);
         position: relative;
     }
 
     .tag-item:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: var(--shadow-lg);
+        background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        color: white;
+        border-color: transparent;
+    }
+
+    .tag-item:hover .tag-count {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
     }
 
     .tag-name {
-        margin-right: 0.5rem;
+        margin-right: 0.75rem;
     }
 
     .tag-count {
-        background: var(--bg-accent);
-        color: var(--text-inverse);
-        padding: 0.2rem 0.6rem;
-        border-radius: 1rem;
-        font-size: 0.8rem;
+        background: var(--bg-accent-light);
+        color: var(--text-accent);
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
     }
 
     .tag-tooltip {
         display: none;
         position: absolute;
-        bottom: 100%;
+        bottom: 120%;
         left: 50%;
         transform: translateX(-50%);
-        padding: 0.5rem 1rem;
-        background: var(--bg-tooltip);
-        color: var(--text-inverse);
+        padding: 0.75rem 1rem;
+        background: var(--text-primary);
+        color: white;
         border-radius: 0.5rem;
-        font-size: 0.9rem;
+        font-size: 0.875rem;
         white-space: nowrap;
-        z-index: 1000;
+        z-index: 10;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .tag-tooltip::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 6px;
+        border-style: solid;
+        border-color: var(--text-primary) transparent transparent transparent;
     }
 
     .tag-item:hover .tag-tooltip {
         display: block;
+        animation: fadeIn 0.2s ease-in-out;
     }
 
     .tag-section {
@@ -188,21 +252,35 @@ permalink: /tags/
         padding: 2rem;
         background: var(--bg-primary);
         border-radius: 1rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-md);
+        transition: transform 0.3s ease;
+    }
+
+    .tag-section:hover {
+        transform: translateY(-4px);
+    }
+
+    .tag-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--primary-light);
     }
 
     .tag-title {
         font-size: 2rem;
-        color: var(--text-title);
-        margin-bottom: 1rem;
+        color: var(--text-primary);
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .tag-symbol {
+        color: var(--text-accent);
     }
 
     .tag-description {
         color: var(--text-secondary);
-        margin-bottom: 2rem;
         font-size: 1.1rem;
         line-height: 1.6;
     }
@@ -213,14 +291,17 @@ permalink: /tags/
     }
 
     .post-item {
-        padding: 1.5rem;
+        padding: 2rem;
         background: var(--bg-secondary);
-        border-radius: 0.8rem;
-        transition: transform 0.3s ease;
+        border-radius: 1rem;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
     }
 
     .post-item:hover {
         transform: translateY(-2px);
+        border-color: var(--primary-light);
+        box-shadow: var(--shadow-md);
     }
 
     .post-meta {
@@ -228,29 +309,44 @@ permalink: /tags/
         align-items: center;
         gap: 1rem;
         margin-bottom: 1rem;
-        font-size: 0.9rem;
-        color: var(--text-secondary);
+        flex-wrap: wrap;
     }
 
     .post-date {
         color: var(--text-accent);
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .post-categories {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
     }
 
     .category-link {
         color: var(--text-accent);
         text-decoration: none;
-        padding: 0.2rem 0.6rem;
+        padding: 0.25rem 0.75rem;
         background: var(--bg-accent-light);
-        border-radius: 0.4rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
+    }
+
+    .category-link:hover {
+        background: var(--bg-accent);
+        color: white;
     }
 
     .post-title {
         margin-bottom: 1rem;
-        font-size: 1.4rem;
+        font-size: 1.5rem;
+        line-height: 1.4;
     }
 
     .post-link {
-        color: var(--text-title);
+        color: var(--text-primary);
         text-decoration: none;
         transition: color 0.3s ease;
     }
@@ -261,25 +357,40 @@ permalink: /tags/
 
     .post-excerpt {
         color: var(--text-secondary);
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
         line-height: 1.6;
     }
 
     .post-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: 0.75rem;
     }
 
     .tag-link {
         color: var(--text-secondary);
         text-decoration: none;
-        font-size: 0.9rem;
-        transition: color 0.3s ease;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
     }
 
     .tag-link:hover {
         color: var(--text-accent);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px) translateX(-50%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) translateX(-50%);
+        }
     }
 
     @media (max-width: 768px) {
@@ -287,20 +398,29 @@ permalink: /tags/
             padding: 1rem;
         }
 
-        .tag-cloud {
-            padding: 1rem;
-        }
-
-        .tag-section {
-            padding: 1rem;
-        }
-
-        .post-item {
-            padding: 1rem;
+        .page-header {
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
         }
 
         .page-title {
             font-size: 2rem;
+        }
+
+        .tag-cloud {
+            padding: 1rem;
+        }
+
+        .tag-item {
+            padding: 0.5rem 1rem;
+        }
+
+        .tag-section {
+            padding: 1.5rem;
+        }
+
+        .post-item {
+            padding: 1.5rem;
         }
 
         .tag-title {
@@ -326,15 +446,15 @@ permalink: /tags/
         updateLanguage();
 
         // 언어 변경 이벤트 리스너
-        document.addEventListener('languageChanged', function () {
-            updateLanguage();
-        });
+        document.addEventListener('languageChanged', updateLanguage);
 
         // 태그 클라우드 애니메이션
         const tagItems = document.querySelectorAll('.tag-item');
+        const maxCount = Math.max(...Array.from(tagItems).map(item => parseInt(item.dataset.count)));
+
         tagItems.forEach(item => {
             const count = parseInt(item.dataset.count);
-            const size = Math.max(1, Math.min(2, 1 + count / 10));
+            const size = 1 + (count / maxCount) * 0.5; // 1.0 ~ 1.5 범위로 크기 조정
             item.style.fontSize = `${size}rem`;
         });
 
