@@ -22,7 +22,7 @@ permalink: /tags/
         <a href="#{{ tag_name }}" class="tag-item" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}"
             data-count="{{ posts.size }}">
             <span class="tag-name">
-                #<span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}">{{ tag_name }}</span>
+                #<span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}"></span>
             </span>
             <span class="tag-count">{{ posts.size }}</span>
             {% if tag_data.description %}
@@ -42,14 +42,12 @@ permalink: /tags/
 
         <section id="{{ tag_name }}" class="tag-section">
             <h2 class="tag-title">
-                #<span data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}">{{ tag_name }}</span>
+                #<span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}"></span>
                 <span class="tag-count">{{ posts.size }}</span>
             </h2>
 
             {% if tag_data.description %}
-            <p class="tag-description" data-ko="{{ tag_data.description }}" data-en="{{ tag_data.description_en }}">
-                {{ tag_data.description }}
-            </p>
+            <p class="tag-description" data-ko="{{ tag_data.description }}" data-en="{{ tag_data.description_en }}"></p>
             {% endif %}
 
             <div class="post-list">
@@ -60,7 +58,11 @@ permalink: /tags/
                         {% if post.categories %}
                         <span class="post-categories">
                             {% for category in post.categories %}
-                            <a href="/categories/#{{ category }}" class="category-link">{{ category }}</a>
+                            {% assign cat_data = site.data.categories[category] %}
+                            {% assign cat_name_en = cat_data.en | default: category %}
+                            <a href="/categories/#{{ category }}" class="category-link">
+                                <span data-ko="{{ category }}" data-en="{{ cat_name_en }}"></span>
+                            </a>
                             {% endfor %}
                         </span>
                         {% endif %}
@@ -68,17 +70,13 @@ permalink: /tags/
 
                     <h3 class="post-title">
                         <a href="{{ post.url }}" class="post-link">
-                            <span data-ko="{{ post.title }}" data-en="{{ post.title_en | default: post.title }}">
-                                {{ post.title }}
-                            </span>
+                            <span data-ko="{{ post.title }}" data-en="{{ post.title_en | default: post.title }}"></span>
                         </a>
                     </h3>
 
                     <p class="post-excerpt">
                         <span data-ko="{{ post.excerpt | strip_html | truncate: 160 }}"
-                            data-en="{{ post.excerpt_en | default: post.excerpt | strip_html | truncate: 160 }}">
-                            {{ post.excerpt | strip_html | truncate: 160 }}
-                        </span>
+                            data-en="{{ post.excerpt_en | default: post.excerpt | strip_html | truncate: 160 }}"></span>
                     </p>
 
                     {% if post.tags %}
@@ -88,7 +86,7 @@ permalink: /tags/
                         {% assign tag_data = site.data.tags[post_tag] %}
                         {% assign tag_name_en = tag_data.en | default: post_tag %}
                         <a href="#{{ post_tag }}" class="tag-link">
-                            #<span data-ko="{{ post_tag }}" data-en="{{ tag_name_en }}">{{ post_tag }}</span>
+                            #<span class="tag-text" data-ko="{{ post_tag }}" data-en="{{ tag_name_en }}"></span>
                         </a>
                         {% endif %}
                         {% endfor %}
@@ -313,6 +311,25 @@ permalink: /tags/
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // 언어 변경 감지 및 적용
+        function updateLanguage() {
+            const currentLang = document.documentElement.getAttribute('lang') || 'ko';
+            document.querySelectorAll('[data-ko], [data-en]').forEach(element => {
+                const content = element.getAttribute(`data-${currentLang}`);
+                if (content !== null) {
+                    element.textContent = content;
+                }
+            });
+        }
+
+        // 초기 언어 설정 적용
+        updateLanguage();
+
+        // 언어 변경 이벤트 리스너
+        document.addEventListener('languageChanged', function () {
+            updateLanguage();
+        });
+
         // 태그 클라우드 애니메이션
         const tagItems = document.querySelectorAll('.tag-item');
         tagItems.forEach(item => {
