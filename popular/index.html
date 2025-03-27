@@ -3,708 +3,289 @@ layout: default
 title: 인기글 - NewsLens
 permalink: /popular/
 ---
-<!DOCTYPE html>
-<html lang="ko">
+<div class="container">
+    <div class="popular-content-ko">
+        <div class="popular-header">
+            <h1>인기 분석글</h1>
+            <p>NewsLens에서 가장 많이 읽히고 공유된 분석 콘텐츠를 만나보세요.</p>
+        </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>인기글 - NewsLens</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #fb7185;
-            --dark-color: #1e293b;
-            --light-color: #f8fafc;
-            --gray-color: #64748b;
-            --transition: all 0.3s ease;
-        }
+        <div class="filter-container">
+            <button class="filter-button active">전체</button>
+            <button class="filter-button">이번 주</button>
+            <button class="filter-button">이번 달</button>
+            <button class="filter-button">철학</button>
+            <button class="filter-button">과학</button>
+            <button class="filter-button">기술</button>
+            <button class="filter-button">사회</button>
+        </div>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Pretendard', 'Arial', sans-serif;
-            line-height: 1.7;
-            color: var(--dark-color);
-            background-color: var(--light-color);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* 헤더 스타일 */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            color: var(--accent-color);
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: var(--gray-color);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        nav a:hover {
-            color: var(--primary-color);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-color);
-            transition: var(--transition);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .language-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .language-switcher:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-        }
-
-        .language-switcher i {
-            color: var(--primary-color);
-        }
-
-        .search-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            color: white;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-
-        .search-button:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.05);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-
-            nav,
-            .header-actions {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-        }
-
-        .main {
-            padding: 4rem 0;
-            min-height: calc(100vh - 200px);
-        }
-
-        /* Footer 스타일 */
-        .footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 3rem 0;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-brand {
-            max-width: 400px;
-        }
-
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .footer-description {
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-        .footer-links-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .footer-links-title {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-link a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-link a:hover {
-            color: white;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-        }
-
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-brand {
-                grid-column: 1 / -1;
-                max-width: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-
-        /* 인기글 페이지 스타일 */
-        .popular-header {
-            margin-bottom: 3rem;
-        }
-
-        .popular-header h1 {
-            margin-bottom: 1rem;
-        }
-
-        .popular-header p {
-            color: var(--gray-color);
-            font-size: 1.1rem;
-        }
-
-        .filter-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            padding: 1rem;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .filter-button {
-            padding: 0.5rem 1rem;
-            background-color: #f1f5f9;
-            border: none;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--gray-color);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .filter-button.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .filter-button:hover:not(.active) {
-            background-color: #e2e8f0;
-        }
-
-        .posts-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .post-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
-        }
-
-        .post-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .post-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .post-content {
-            padding: 1.5rem;
-        }
-
-        .post-category {
-            display: inline-block;
-            background-color: #e2e8f0;
-            color: var(--gray-color);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .post-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-            color: var(--dark-color);
-            line-height: 1.4;
-        }
-
-        .post-excerpt {
-            color: var(--gray-color);
-            margin-bottom: 1rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .post-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            color: var(--gray-color);
-        }
-
-        .post-views {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .post-date {
-            font-size: 0.8rem;
-        }
-
-        @media (max-width: 768px) {
-            .posts-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <!-- 헤더 포함 -->
-    {% include header.html %}
-
-    <main class="main">
-        <div class="container">
-            <div class="popular-content-ko">
-                <div class="popular-header">
-                    <h1>인기 분석글</h1>
-                    <p>NewsLens에서 가장 많이 읽히고 공유된 분석 콘텐츠를 만나보세요.</p>
-                </div>
-
-                <div class="filter-container">
-                    <button class="filter-button active">전체</button>
-                    <button class="filter-button">이번 주</button>
-                    <button class="filter-button">이번 달</button>
-                    <button class="filter-button">철학</button>
-                    <button class="filter-button">과학</button>
-                    <button class="filter-button">기술</button>
-                    <button class="filter-button">사회</button>
-                </div>
-
-                <div class="posts-container">
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?q=80&w=600&auto=format&fit=crop"
-                            alt="AI 윤리" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">기술/AI</span>
-                            <h3 class="post-title">인공지능 윤리와 거버넌스의 철학적 접근</h3>
-                            <p class="post-excerpt">AI 기술이 발전하면서 대두되는 윤리적 문제들을 칸트, 공리주의, 덕 윤리학의 관점에서 분석합니다.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>5,249</span>
-                                </div>
-                                <span class="post-date">2023.12.15</span>
-                            </div>
+        <div class="posts-container">
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?q=80&w=600&auto=format&fit=crop"
+                    alt="AI 윤리" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">기술/AI</span>
+                    <h3 class="post-title">인공지능 윤리와 거버넌스의 철학적 접근</h3>
+                    <p class="post-excerpt">AI 기술이 발전하면서 대두되는 윤리적 문제들을 칸트, 공리주의, 덕 윤리학의 관점에서 분석합니다.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>5,249</span>
                         </div>
-                    </div>
-
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=600&auto=format&fit=crop"
-                            alt="양자역학" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">과학/물리학</span>
-                            <h3 class="post-title">양자역학과 현실 인식의 철학적 함의</h3>
-                            <p class="post-excerpt">양자역학의 기이한 현상들이 우리의 현실 인식과 철학적 세계관에 미치는 영향을 탐구합니다.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>4,872</span>
-                                </div>
-                                <span class="post-date">2023.11.28</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1494059980473-813e73ee784b?q=80&w=600&auto=format&fit=crop"
-                            alt="소셜미디어" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">사회/미디어</span>
-                            <h3 class="post-title">소셜미디어와 현대 사회의 분열: 정보 생태계의 붕괴</h3>
-                            <p class="post-excerpt">알고리즘 필터 버블과 에코 챔버가 어떻게 사회적 분열을 심화시키는지 분석합니다.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>4,587</span>
-                                </div>
-                                <span class="post-date">2023.12.05</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10d87eb4?q=80&w=600&auto=format&fit=crop"
-                            alt="초의식" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">철학/의식</span>
-                            <h3 class="post-title">의식의 경계: 현대 의식 연구와 철학의 교차점</h3>
-                            <p class="post-excerpt">신경과학과 철학이 만나는 지점에서 의식의 본질에 대한 다양한 이론들을 검토합니다.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>4,215</span>
-                                </div>
-                                <span class="post-date">2023.11.15</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1536825211030-094de935f680?q=80&w=600&auto=format&fit=crop"
-                            alt="기후위기" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">환경/윤리</span>
-                            <h3 class="post-title">기후 위기와 세대 간 정의: 미래 세대에 대한 우리의 의무</h3>
-                            <p class="post-excerpt">기후 변화 대응에 있어 현 세대와 미래 세대 간의 윤리적 관계성을 탐구합니다.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>3,987</span>
-                                </div>
-                                <span class="post-date">2023.10.20</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=600&auto=format&fit=crop"
-                            alt="예술" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">문화/예술</span>
-                            <h3 class="post-title">AI 예술의 등장과 창의성의 재정의</h3>
-                            <p class="post-excerpt">인공지능이 생성한 예술 작품이 예술의 본질과 창의성에 대한 기존 관념을 어떻게 변화시키는지 고찰합니다.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>3,754</span>
-                                </div>
-                                <span class="post-date">2023.11.02</span>
-                            </div>
-                        </div>
+                        <span class="post-date">2023.12.15</span>
                     </div>
                 </div>
             </div>
 
-            <div class="popular-content-en" style="display: none;">
-                <div class="popular-header">
-                    <h1>Popular Analysis Articles</h1>
-                    <p>Discover the most read and shared analytical content on NewsLens.</p>
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=600&auto=format&fit=crop"
+                    alt="양자역학" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">과학/물리학</span>
+                    <h3 class="post-title">양자역학과 현실 인식의 철학적 함의</h3>
+                    <p class="post-excerpt">양자역학의 기이한 현상들이 우리의 현실 인식과 철학적 세계관에 미치는 영향을 탐구합니다.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>4,872</span>
+                        </div>
+                        <span class="post-date">2023.11.28</span>
+                    </div>
                 </div>
+            </div>
 
-                <div class="filter-container">
-                    <button class="filter-button active">All</button>
-                    <button class="filter-button">This Week</button>
-                    <button class="filter-button">This Month</button>
-                    <button class="filter-button">Philosophy</button>
-                    <button class="filter-button">Science</button>
-                    <button class="filter-button">Technology</button>
-                    <button class="filter-button">Society</button>
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1494059980473-813e73ee784b?q=80&w=600&auto=format&fit=crop"
+                    alt="소셜미디어" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">사회/미디어</span>
+                    <h3 class="post-title">소셜미디어와 현대 사회의 분열: 정보 생태계의 붕괴</h3>
+                    <p class="post-excerpt">알고리즘 필터 버블과 에코 챔버가 어떻게 사회적 분열을 심화시키는지 분석합니다.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>4,587</span>
+                        </div>
+                        <span class="post-date">2023.12.05</span>
+                    </div>
                 </div>
+            </div>
 
-                <div class="posts-container">
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?q=80&w=600&auto=format&fit=crop"
-                            alt="AI Ethics" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">Technology/AI</span>
-                            <h3 class="post-title">A Philosophical Approach to AI Ethics and Governance</h3>
-                            <p class="post-excerpt">Analyzes ethical issues arising from AI technology development from
-                                the perspectives of Kant, utilitarianism, and virtue ethics.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>5,249</span>
-                                </div>
-                                <span class="post-date">2023.12.15</span>
-                            </div>
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1607748851687-ba9a10d87eb4?q=80&w=600&auto=format&fit=crop"
+                    alt="초의식" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">철학/의식</span>
+                    <h3 class="post-title">의식의 경계: 현대 의식 연구와 철학의 교차점</h3>
+                    <p class="post-excerpt">신경과학과 철학이 만나는 지점에서 의식의 본질에 대한 다양한 이론들을 검토합니다.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>4,215</span>
                         </div>
+                        <span class="post-date">2023.11.15</span>
                     </div>
+                </div>
+            </div>
 
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=600&auto=format&fit=crop"
-                            alt="Quantum Mechanics" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">Science/Physics</span>
-                            <h3 class="post-title">Quantum Mechanics and Philosophical Implications for Reality
-                                Perception</h3>
-                            <p class="post-excerpt">Explores how the strange phenomena of quantum mechanics affect our
-                                perception of reality and philosophical worldview.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>4,872</span>
-                                </div>
-                                <span class="post-date">2023.11.28</span>
-                            </div>
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1536825211030-094de935f680?q=80&w=600&auto=format&fit=crop"
+                    alt="기후위기" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">환경/윤리</span>
+                    <h3 class="post-title">기후 위기와 세대 간 정의: 미래 세대에 대한 우리의 의무</h3>
+                    <p class="post-excerpt">기후 변화 대응에 있어 현 세대와 미래 세대 간의 윤리적 관계성을 탐구합니다.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>3,987</span>
                         </div>
+                        <span class="post-date">2023.10.20</span>
                     </div>
+                </div>
+            </div>
 
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1494059980473-813e73ee784b?q=80&w=600&auto=format&fit=crop"
-                            alt="Social Media" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">Society/Media</span>
-                            <h3 class="post-title">Social Media and Modern Society's Division: Collapse of the
-                                Information Ecosystem</h3>
-                            <p class="post-excerpt">Analyzes how algorithmic filter bubbles and echo chambers intensify
-                                social division.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>4,587</span>
-                                </div>
-                                <span class="post-date">2023.12.05</span>
-                            </div>
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=600&auto=format&fit=crop"
+                    alt="예술" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">문화/예술</span>
+                    <h3 class="post-title">AI 예술의 등장과 창의성의 재정의</h3>
+                    <p class="post-excerpt">인공지능이 생성한 예술 작품이 예술의 본질과 창의성에 대한 기존 관념을 어떻게 변화시키는지 고찰합니다.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>3,754</span>
                         </div>
-                    </div>
-
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10d87eb4?q=80&w=600&auto=format&fit=crop"
-                            alt="Consciousness" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">Philosophy/Consciousness</span>
-                            <h3 class="post-title">Boundaries of Consciousness: Intersection of Modern Consciousness
-                                Research and Philosophy</h3>
-                            <p class="post-excerpt">Examines various theories about the nature of consciousness at the
-                                intersection of neuroscience and philosophy.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>4,215</span>
-                                </div>
-                                <span class="post-date">2023.11.15</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1536825211030-094de935f680?q=80&w=600&auto=format&fit=crop"
-                            alt="Climate Crisis" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">Environment/Ethics</span>
-                            <h3 class="post-title">Climate Crisis and Intergenerational Justice: Our Obligations to
-                                Future Generations</h3>
-                            <p class="post-excerpt">Explores the ethical relationship between current and future
-                                generations in responding to climate change.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>3,987</span>
-                                </div>
-                                <span class="post-date">2023.10.20</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="post-card">
-                        <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=600&auto=format&fit=crop"
-                            alt="Art" class="post-image">
-                        <div class="post-content">
-                            <span class="post-category">Culture/Art</span>
-                            <h3 class="post-title">The Emergence of AI Art and Redefining Creativity</h3>
-                            <p class="post-excerpt">Examines how art generated by artificial intelligence is changing
-                                existing notions of the essence of art and creativity.</p>
-                            <div class="post-meta">
-                                <div class="post-views">
-                                    <i class="fas fa-eye"></i>
-                                    <span>3,754</span>
-                                </div>
-                                <span class="post-date">2023.11.02</span>
-                            </div>
-                        </div>
+                        <span class="post-date">2023.11.02</span>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <!-- 푸터 포함 -->
-    {% include footer.html %}
+    <div class="popular-content-en" style="display: none;">
+        <div class="popular-header">
+            <h1>Popular Analysis Articles</h1>
+            <p>Discover the most read and shared analytical content on NewsLens.</p>
+        </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // 모바일 메뉴 토글
-            const mobileMenu = document.querySelector('.mobile-menu');
-            const nav = document.querySelector('nav');
-            const headerActions = document.querySelector('.header-actions');
+        <div class="filter-container">
+            <button class="filter-button active">All</button>
+            <button class="filter-button">This Week</button>
+            <button class="filter-button">This Month</button>
+            <button class="filter-button">Philosophy</button>
+            <button class="filter-button">Science</button>
+            <button class="filter-button">Technology</button>
+            <button class="filter-button">Society</button>
+        </div>
 
-            mobileMenu.addEventListener('click', function () {
-                nav.classList.toggle('active');
-                headerActions.classList.toggle('active');
-            });
+        <div class="posts-container">
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?q=80&w=600&auto=format&fit=crop"
+                    alt="AI Ethics" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">Technology/AI</span>
+                    <h3 class="post-title">A Philosophical Approach to AI Ethics and Governance</h3>
+                    <p class="post-excerpt">Analyzes ethical issues arising from AI technology development from
+                        the perspectives of Kant, utilitarianism, and virtue ethics.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>5,249</span>
+                        </div>
+                        <span class="post-date">2023.12.15</span>
+                    </div>
+                </div>
+            </div>
 
-            // 언어 전환 기능
-            const langSwitcher = document.getElementById('langSwitcher');
-            const currentLang = document.getElementById('currentLang');
-            const footerKo = document.getElementById('footer-ko');
-            const footerEn = document.getElementById('footer-en');
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=600&auto=format&fit=crop"
+                    alt="Quantum Mechanics" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">Science/Physics</span>
+                    <h3 class="post-title">Quantum Mechanics and Philosophical Implications for Reality
+                        Perception</h3>
+                    <p class="post-excerpt">Explores how the strange phenomena of quantum mechanics affect our
+                        perception of reality and philosophical worldview.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>4,872</span>
+                        </div>
+                        <span class="post-date">2023.11.28</span>
+                    </div>
+                </div>
+            </div>
 
-            // URL 파라미터에서 언어 확인
-            const urlParams = new URLSearchParams(window.location.search);
-            const langParam = urlParams.get('lang');
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1494059980473-813e73ee784b?q=80&w=600&auto=format&fit=crop"
+                    alt="Social Media" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">Society/Media</span>
+                    <h3 class="post-title">Social Media and Modern Society's Division: Collapse of the
+                        Information Ecosystem</h3>
+                    <p class="post-excerpt">Analyzes how algorithmic filter bubbles and echo chambers intensify
+                        social division.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>4,587</span>
+                        </div>
+                        <span class="post-date">2023.12.05</span>
+                    </div>
+                </div>
+            </div>
 
-            // 언어 파라미터에 따라 콘텐츠 표시
-            if (langParam === 'en') {
-                // 영어 콘텐츠 표시
-                footerKo.style.display = 'none';
-                footerEn.style.display = 'grid';
-                currentLang.textContent = 'English';
-                document.documentElement.lang = 'en';
-                langSwitcher.href = window.location.pathname; // 한국어로 전환
-            } else {
-                // 한국어 콘텐츠 표시
-                footerKo.style.display = 'grid';
-                footerEn.style.display = 'none';
-                currentLang.textContent = '한국어';
-                document.documentElement.lang = 'ko';
-                langSwitcher.href = window.location.pathname + '?lang=en'; // 영어로 전환
-            }
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1607748851687-ba9a10d87eb4?q=80&w=600&auto=format&fit=crop"
+                    alt="Consciousness" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">Philosophy/Consciousness</span>
+                    <h3 class="post-title">Boundaries of Consciousness: Intersection of Modern Consciousness
+                        Research and Philosophy</h3>
+                    <p class="post-excerpt">Examines various theories about the nature of consciousness at the
+                        intersection of neuroscience and philosophy.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>4,215</span>
+                        </div>
+                        <span class="post-date">2023.11.15</span>
+                    </div>
+                </div>
+            </div>
 
-            // 필터 버튼 클릭 이벤트
-            const filterButtons = document.querySelectorAll('.filter-button');
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    // 모든 버튼에서 active 클래스 제거
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // 클릭한 버튼에 active 클래스 추가
-                    this.classList.add('active');
-                });
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1536825211030-094de935f680?q=80&w=600&auto=format&fit=crop"
+                    alt="Climate Crisis" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">Environment/Ethics</span>
+                    <h3 class="post-title">Climate Crisis and Intergenerational Justice: Our Obligations to
+                        Future Generations</h3>
+                    <p class="post-excerpt">Explores the ethical relationship between current and future
+                        generations in responding to climate change.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>3,987</span>
+                        </div>
+                        <span class="post-date">2023.10.20</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=600&auto=format&fit=crop"
+                    alt="Art" class="post-image">
+                <div class="post-content">
+                    <span class="post-category">Culture/Art</span>
+                    <h3 class="post-title">The Emergence of AI Art and Redefining Creativity</h3>
+                    <p class="post-excerpt">Examines how art generated by artificial intelligence is changing
+                        existing notions of the essence of art and creativity.</p>
+                    <div class="post-meta">
+                        <div class="post-views">
+                            <i class="fas fa-eye"></i>
+                            <span>3,754</span>
+                        </div>
+                        <span class="post-date">2023.11.02</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 필터 버튼 클릭 이벤트
+        const filterButtons = document.querySelectorAll('.filter-button');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                // 모든 버튼에서 active 클래스 제거
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // 클릭한 버튼에 active 클래스 추가
+                this.classList.add('active');
             });
         });
-    </script>
-</body>
 
-</html>
+        // URL 파라미터에서 언어 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+
+        // 언어 파라미터에 따라 콘텐츠 표시
+        const popularContentKo = document.querySelector('.popular-content-ko');
+        const popularContentEn = document.querySelector('.popular-content-en');
+
+        if (langParam === 'en') {
+            // 영어 콘텐츠 표시
+            popularContentKo.style.display = 'none';
+            popularContentEn.style.display = 'block';
+        } else {
+            // 한국어 콘텐츠 표시
+            popularContentKo.style.display = 'block';
+            popularContentEn.style.display = 'none';
+        }
+    });
+</script>
