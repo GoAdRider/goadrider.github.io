@@ -1,0 +1,149 @@
+---
+layout: default
+title: "소개 - NewsLens"
+permalink: /about-new/
+---
+
+<main class="main">
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">소개</h1>
+            <p class="page-description">NewsLens는 철학적, 과학적 사고로 세상을 바라보는 블로그입니다.</p>
+        </div>
+
+        <div class="about-section">
+            <div class="about-item">
+                <h2 class="about-heading">철학적 사고의 중요성</h2>
+                <p>현대 사회의 복잡한 문제들을 이해하기 위해서는 철학적 사고가 필수적입니다. NewsLens는 다양한 현상과 이슈를 철학적 관점에서 바라보고 분석합니다.</p>
+                <p>우리는 단순한 사실 전달을 넘어, 그 사실이 가지는 의미와 함의를 깊이 있게 탐구합니다. 이를 통해 독자들에게 새로운 시각과 통찰을 제공하고자 합니다.</p>
+            </div>
+
+            <div class="about-item">
+                <h2 class="about-heading">과학적 접근의 가치</h2>
+                <p>철학적 사고와 함께, 엄격한 과학적 방법론은 우리의 분석에 객관성과 타당성을 부여합니다. NewsLens는 검증 가능한 데이터와 연구 결과를 기반으로 주장을 전개합니다.</p>
+                <p>우리는 과학의 최신 발견들이 우리의 세계관과 자기 이해에 어떤 영향을 미치는지 탐구하며, 과학과 인문학의 경계를 넘나드는 통합적 관점을 추구합니다.</p>
+            </div>
+
+            <div class="about-item">
+                <h2 class="about-heading">다학제적 접근</h2>
+                <p>어떤 복잡한 현상도 단일 학문의 관점으로는 충분히 이해될 수 없습니다. NewsLens는 철학, 과학, 사회학, 심리학, 인류학 등 다양한 학문 분야의 통찰을 통합하는 다학제적
+                    접근을 지향합니다.</p>
+                <p>우리는 이러한 다양한 관점의 교차점에서 더 깊고 풍부한 이해가 가능하다고 믿으며, 이를 통해 독자들에게 균형 잡힌 시각을 제공하고자 합니다.</p>
+            </div>
+
+            <div class="about-item">
+                <h2 class="about-heading">NewsLens의 비전</h2>
+                <p>NewsLens는 현대 사회의 정보 과잉 속에서 깊이 있는 사고와 분석이 더욱 중요해졌다고 믿습니다. 우리는 빠르게 소비되는 단편적 정보가 아닌, 철저한 조사와 깊이 있는 성찰을
+                    바탕으로 한 콘텐츠를 제공합니다.</p>
+                <p>우리의 목표는 독자들이 현대 사회의 복잡한 이슈들을 더 깊이 이해하고, 비판적으로 사고하며, 자신만의 관점을 발전시킬 수 있도록 돕는 것입니다. NewsLens와 함께 세상을 더
+                    넓고 깊게 바라보세요.</p>
+                <p><a href="/contact/" class="contact-link">문의하기</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    .main {
+        padding: 4rem 0;
+        min-height: calc(100vh - 200px);
+    }
+
+    .page-header {
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--dark-color);
+    }
+
+    .page-description {
+        font-size: 1.1rem;
+        color: var(--gray-color);
+        max-width: 700px;
+        margin: 0 auto 2rem;
+    }
+
+    .about-section {
+        max-width: 800px;
+        margin: 0 auto 4rem;
+    }
+
+    .about-item {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        padding: 2.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .about-heading {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: var(--dark-color);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 0.5rem;
+        display: inline-block;
+    }
+
+    .about-item p {
+        color: var(--gray-color);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+
+    .about-item p:last-child {
+        margin-bottom: 0;
+    }
+
+    .contact-link {
+        display: inline-block;
+        padding: 0.8rem 2rem;
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .contact-link:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .about-item {
+            padding: 1.5rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // URL 파라미터에서 언어 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const langSwitcher = document.getElementById('langSwitcher');
+        const currentLang = document.getElementById('currentLang');
+
+        // 언어 파라미터에 따라 콘텐츠 표시
+        if (langParam === 'en') {
+            // 영어 콘텐츠 표시 (필요 시 이 부분을 확장)
+            currentLang.textContent = 'English';
+            document.documentElement.lang = 'en';
+            document.querySelector('.page-title').textContent = 'About';
+            document.querySelector('.page-description').textContent = 'NewsLens is a blog that views the world through philosophical and scientific thinking.';
+            // 필요한 경우 다른 텍스트 요소들도 영어로 변경
+            langSwitcher.href = window.location.pathname; // 한국어로 전환
+        } else {
+            // 한국어 콘텐츠 표시
+            currentLang.textContent = '한국어';
+            document.documentElement.lang = 'ko';
+            langSwitcher.href = window.location.pathname + '?lang=en'; // 영어로 전환
+        }
+    });
+</script>
