@@ -18,10 +18,10 @@
             </nav>
 
             <div class="header-actions">
-                <a href="#" class="language-switcher" id="langSwitcher">
+                <div class="language-switcher" id="language-switcher">
                     <i class="fas fa-globe"></i>
-                    <span id="currentLang">한국어</span>
-                </a>
+                    <span id="current-lang">한국어</span>
+                </div>
 
                 <a href="/search/" class="search-button">
                     <i class="fas fa-search"></i>
@@ -199,87 +199,57 @@
         });
 
         // 언어 토글 기능 개선
-        const langSwitcher = document.getElementById('langSwitcher');
-        const currentLang = document.getElementById('currentLang');
+        const languageSwitcher = document.getElementById('language-switcher');
+        const currentLang = document.getElementById('current-lang');
 
-        // 현재 언어 설정 불러오기
-        let currentLanguage = localStorage.getItem('preferred_language') || 'ko';
-        updateLanguageUI(currentLanguage);
-
-        // 모든 네비게이션 링크에 언어 파라미터 추가
-        updateNavigationLinks(currentLanguage);
-
-        // 언어 스위처 클릭 이벤트
-        langSwitcher.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            // 언어 토글 (ko <-> en)
-            currentLanguage = (currentLanguage === 'ko') ? 'en' : 'ko';
-
-            // 로컬 스토리지에 언어 설정 저장
-            localStorage.setItem('preferred_language', currentLanguage);
-
-            // 현재 페이지에서 언어만 변경
-            updateLanguageUI(currentLanguage);
-            updateNavigationLinks(currentLanguage);
-
-            // 현재 URL 기반으로 언어 파라미터 변경
-            const currentUrl = window.location.href;
-            const url = new URL(currentUrl);
-            url.searchParams.set('lang', currentLanguage);
-
-            // 페이지 새로고침 없이 URL 업데이트
-            window.history.pushState({}, '', url);
-
-            // 페이지 콘텐츠 언어 업데이트 이벤트 발생
-            window.dispatchEvent(new CustomEvent('languageChange', {
-                detail: { language: currentLanguage }
-            }));
-        });
-
-        // 언어 UI 업데이트 함수
-        function updateLanguageUI(lang) {
-            if (lang === 'en') {
-                currentLang.textContent = 'English';
-                document.documentElement.lang = 'en';
-            } else {
-                currentLang.textContent = '한국어';
-                document.documentElement.lang = 'ko';
-            }
-        }
-
-        // 네비게이션 링크 업데이트 함수
-        function updateNavigationLinks(lang) {
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                const href = link.getAttribute('href');
-                const url = new URL(href, window.location.origin);
-
-                // 기존 lang 파라미터 제거 후 새 값 설정
-                url.searchParams.delete('lang');
-                if (lang === 'en') {
-                    url.searchParams.set('lang', 'en');
-                }
-
-                link.href = url.toString();
-            });
-        }
-
-        // 페이지 로드 시 URL에서 언어 파라미터 확인
+        // URL에서 언어 파라미터 확인
         const urlParams = new URLSearchParams(window.location.search);
         const langParam = urlParams.get('lang');
 
+        // localStorage에서 저장된 언어 설정 확인
+        let preferredLanguage = localStorage.getItem('preferred_language');
+
+        // URL 파라미터가 있으면 그 값을 우선적으로 사용
         if (langParam) {
-            // URL에 언어 파라미터가 있으면 그에 맞게 설정
-            currentLanguage = langParam;
-            localStorage.setItem('preferred_language', currentLanguage);
-            updateLanguageUI(currentLanguage);
-            updateNavigationLinks(currentLanguage);
-        } else if (currentLanguage === 'en') {
-            // 저장된 언어가 영어인데 URL에 파라미터가 없으면 URL 업데이트
-            const url = new URL(window.location.href);
-            url.searchParams.set('lang', 'en');
-            window.history.replaceState({}, '', url);
+            preferredLanguage = langParam;
+            localStorage.setItem('preferred_language', preferredLanguage);
         }
+
+        // 언어 설정에 따라 현재 언어 표시 업데이트
+        if (preferredLanguage === 'en') {
+            currentLang.textContent = 'English';
+        } else {
+            currentLang.textContent = '한국어';
+        }
+
+        // 언어 변경 이벤트 핸들러
+        languageSwitcher.addEventListener('click', function () {
+            let newLang;
+
+            // 현재 설정된 언어 확인 및 전환
+            if (preferredLanguage === 'en') {
+                newLang = 'ko';
+                currentLang.textContent = '한국어';
+            } else {
+                newLang = 'en';
+                currentLang.textContent = 'English';
+            }
+
+            // 새 언어 설정 저장
+            preferredLanguage = newLang;
+            localStorage.setItem('preferred_language', preferredLanguage);
+
+            // 현재 페이지에 언어 변경 이벤트 발생시키기
+            window.dispatchEvent(new CustomEvent('languageChange', {
+                detail: {
+                    language: newLang
+                }
+            }));
+
+            // 현재 URL에 언어 파라미터 추가/변경하여 페이지 새로고침하지 않고 URL 업데이트
+            const url = new URL(window.location);
+            url.searchParams.set('lang', newLang);
+            window.history.pushState({}, '', url);
+        });
     });
 </script>

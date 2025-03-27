@@ -500,10 +500,11 @@ title: NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로�
     <!-- 최신 포스트 섹션 -->
     <section class="recent-posts" id="recent-posts">
         <div class="container">
-            <h2 class="section-title">최신 글</h2>
-            <p class="section-subtitle">NewsLens의 최신 콘텐츠를 확인해보세요.</p>
+            <h2 class="section-title" id="recent-posts-title">최신 글</h2>
+            <p class="section-subtitle" id="recent-posts-subtitle">NewsLens의 최신 콘텐츠를 확인해보세요.</p>
 
-            <div class="posts-grid">
+            <!-- 한국어 포스트 -->
+            <div class="posts-grid" id="posts-ko" data-lang="ko">
                 <div class="post-card">
                     <img src="https://images.unsplash.com/photo-1546776310-eef45dd6d63c?q=80&w=500&auto=format&fit=crop"
                         alt="AI 윤리" class="post-image">
@@ -555,13 +556,71 @@ title: NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로�
                     </div>
                 </div>
             </div>
+
+            <!-- 영어 포스트 -->
+            <div class="posts-grid" id="posts-en" data-lang="en" style="display: none;">
+                <div class="post-card">
+                    <img src="https://images.unsplash.com/photo-1546776310-eef45dd6d63c?q=80&w=500&auto=format&fit=crop"
+                        alt="AI Ethics" class="post-image">
+                    <div class="post-content">
+                        <span class="post-category">Artificial Intelligence</span>
+                        <h3 class="post-title">Ethical Challenges and Philosophical Approaches in the Age of AI</h3>
+                        <p class="post-excerpt">We explore the ethical issues brought by rapidly developing artificial
+                            intelligence technology and philosophical reflections on them.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>Aug 10, 2024</span>
+                            </div>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-card">
+                    <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=500&auto=format&fit=crop"
+                        alt="Modern Democracy" class="post-image">
+                    <div class="post-content">
+                        <span class="post-category">Society/Politics</span>
+                        <h3 class="post-title">The Crisis of Modern Democracy and Search for Solutions</h3>
+                        <p class="post-excerpt">We analyze the global phenomena of democratic crisis and explore
+                            alternatives from philosophical and political perspectives.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>Jul 25, 2024</span>
+                            </div>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-card">
+                    <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=500&auto=format&fit=crop"
+                        alt="Quantum Mechanics" class="post-image">
+                    <div class="post-content">
+                        <span class="post-category">Science/Physics</span>
+                        <h3 class="post-title">Quantum Mechanics and Its Philosophical Implications on Reality
+                            Perception</h3>
+                        <p class="post-excerpt">We explore how the strange phenomena of quantum mechanics affect our
+                            perception of reality and philosophical worldview.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>Jul 12, 2024</span>
+                            </div>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- 뉴스레터 섹션 -->
     <section class="newsletter">
         <div class="container">
-            <div class="newsletter-content">
+            <div class="newsletter-content" id="newsletter-ko" data-lang="ko">
                 <h2 class="newsletter-title">NewsLens 뉴스레터 구독하기</h2>
                 <p class="newsletter-description">최신 글과 특별한 콘텐츠를 이메일로 받아보세요. 언제든지 구독을 취소할 수 있습니다.</p>
 
@@ -573,35 +632,107 @@ title: NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로�
                     </button>
                 </form>
             </div>
+
+            <div class="newsletter-content" id="newsletter-en" data-lang="en" style="display: none;">
+                <h2 class="newsletter-title">Subscribe to NewsLens Newsletter</h2>
+                <p class="newsletter-description">Receive the latest articles and special content via email. You can
+                    unsubscribe at any time.</p>
+
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" class="newsletter-input" required>
+                    <button type="submit" class="primary-button">
+                        <i class="fas fa-paper-plane"></i>
+                        Subscribe
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // 언어 변경 함수
+            function updateLanguage(lang) {
+                // 헤더 및 탐색 요소
+                const koContent = document.getElementById('ko-content');
+                const enContent = document.getElementById('en-content');
+                const featuresKo = document.getElementById('features-ko');
+                const featuresEn = document.getElementById('features-en');
+                const postsKo = document.getElementById('posts-ko');
+                const postsEn = document.getElementById('posts-en');
+                const newsletterKo = document.getElementById('newsletter-ko');
+                const newsletterEn = document.getElementById('newsletter-en');
+                const recentPostsTitle = document.getElementById('recent-posts-title');
+                const recentPostsSubtitle = document.getElementById('recent-posts-subtitle');
+
+                if (lang === 'en') {
+                    // 영어 콘텐츠 표시
+                    document.title = 'NewsLens - Philosophical and Scientific Analysis of Current Affairs';
+                    document.documentElement.lang = 'en';
+
+                    // 히어로 섹션
+                    koContent.style.display = 'none';
+                    enContent.style.display = 'flex';
+
+                    // 특성 섹션
+                    featuresKo.style.display = 'none';
+                    featuresEn.style.display = 'block';
+
+                    // 최신 포스트 섹션
+                    recentPostsTitle.textContent = 'Latest Articles';
+                    recentPostsSubtitle.textContent = 'Check out the latest content from NewsLens.';
+                    postsKo.style.display = 'none';
+                    postsEn.style.display = 'grid';
+
+                    // 뉴스레터 섹션
+                    newsletterKo.style.display = 'none';
+                    newsletterEn.style.display = 'block';
+                } else {
+                    // 한국어 콘텐츠 표시
+                    document.title = 'NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로그';
+                    document.documentElement.lang = 'ko';
+
+                    // 히어로 섹션
+                    koContent.style.display = 'flex';
+                    enContent.style.display = 'none';
+
+                    // 특성 섹션
+                    featuresKo.style.display = 'block';
+                    featuresEn.style.display = 'none';
+
+                    // 최신 포스트 섹션
+                    recentPostsTitle.textContent = '최신 글';
+                    recentPostsSubtitle.textContent = 'NewsLens의 최신 콘텐츠를 확인해보세요.';
+                    postsKo.style.display = 'grid';
+                    postsEn.style.display = 'none';
+
+                    // 뉴스레터 섹션
+                    newsletterKo.style.display = 'block';
+                    newsletterEn.style.display = 'none';
+                }
+            }
+
             // URL 파라미터에서 언어 확인
             const urlParams = new URLSearchParams(window.location.search);
             const langParam = urlParams.get('lang');
 
-            // 언어 파라미터에 따라 콘텐츠 표시
-            if (langParam === 'en') {
-                // 영어 콘텐츠 표시
-                document.getElementById('ko-content').style.display = 'none';
-                document.getElementById('en-content').style.display = 'flex';
-                document.getElementById('features-ko').style.display = 'none';
-                document.getElementById('features-en').style.display = 'block';
-                document.getElementById('currentLang').textContent = 'English';
-                document.title = 'NewsLens - Philosophical and Scientific Analysis of Current Affairs';
-                document.documentElement.lang = 'en';
-            } else {
-                // 한국어 콘텐츠 표시
-                document.getElementById('ko-content').style.display = 'flex';
-                document.getElementById('en-content').style.display = 'none';
-                document.getElementById('features-ko').style.display = 'block';
-                document.getElementById('features-en').style.display = 'none';
-                document.getElementById('currentLang').textContent = '한국어';
-                document.title = 'NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로그';
-                document.documentElement.lang = 'ko';
+            // localStorage에서 언어 설정 확인
+            const storedLang = localStorage.getItem('preferred_language');
+
+            // 언어 파라미터가 있으면 그에 맞게 설정
+            if (langParam) {
+                updateLanguage(langParam);
             }
+            // localStorage에 저장된 설정 사용
+            else if (storedLang) {
+                updateLanguage(storedLang);
+            }
+
+            // 언어 변경 이벤트 리스너 추가
+            window.addEventListener('languageChange', function (e) {
+                const newLang = e.detail.language;
+                updateLanguage(newLang);
+            });
         });
     </script>
 </body>

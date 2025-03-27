@@ -407,11 +407,12 @@ permalink: /about/
     <main class="main">
         <div class="container">
             <div class="page-header">
-                <h1 class="page-title">소개</h1>
-                <p class="page-description">NewsLens는 철학적, 과학적 사고로 세상을 바라보는 블로그입니다.</p>
+                <h1 class="page-title" id="page-title">소개</h1>
+                <p class="page-description" id="page-description">NewsLens는 철학적, 과학적 사고로 세상을 바라보는 블로그입니다.</p>
             </div>
 
-            <div class="about-section">
+            <!-- 한국어 콘텐츠 -->
+            <div class="about-section" id="about-ko" data-lang="ko">
                 <div class="about-item">
                     <h2 class="about-heading">철학적 사고의 중요성</h2>
                     <div class="about-content">
@@ -445,7 +446,58 @@ permalink: /about/
                             있는 성찰을 바탕으로 한 콘텐츠를 제공합니다.</p>
                         <p>우리의 목표는 독자들이 현대 사회의 복잡한 이슈들을 더 깊이 이해하고, 비판적으로 사고하며, 자신만의 관점을 발전시킬 수 있도록 돕는 것입니다. NewsLens와 함께
                             세상을 더 넓고 깊게 바라보세요.</p>
-                        <p><a href="/contact/" class="contact-link">문의하기</a></p>
+                        <p><a href="/contact/" class="contact-link" id="contact-link-ko">문의하기</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 영어 콘텐츠 -->
+            <div class="about-section" id="about-en" data-lang="en" style="display: none;">
+                <div class="about-item">
+                    <h2 class="about-heading">The Importance of Philosophical Thinking</h2>
+                    <div class="about-content">
+                        <p>To understand the complex problems of modern society, philosophical thinking is essential.
+                            NewsLens observes and analyzes various phenomena and issues from a philosophical
+                            perspective.</p>
+                        <p>We go beyond simply conveying facts, deeply exploring their meanings and implications.
+                            Through this approach, we aim to provide readers with new perspectives and insights.</p>
+                    </div>
+                </div>
+
+                <div class="about-item">
+                    <h2 class="about-heading">The Value of Scientific Approach</h2>
+                    <div class="about-content">
+                        <p>Along with philosophical thinking, rigorous scientific methodology lends objectivity and
+                            validity to our analyses. NewsLens develops arguments based on verifiable data and research
+                            findings.</p>
+                        <p>We explore how the latest scientific discoveries affect our worldview and self-understanding,
+                            pursuing an integrated perspective that crosses the boundaries between science and
+                            humanities.</p>
+                    </div>
+                </div>
+
+                <div class="about-item">
+                    <h2 class="about-heading">Interdisciplinary Approach</h2>
+                    <div class="about-content">
+                        <p>No complex phenomenon can be fully understood from the perspective of a single discipline.
+                            NewsLens aims for an interdisciplinary approach that integrates insights from various
+                            academic fields including philosophy, science, sociology, psychology, and anthropology.</p>
+                        <p>We believe that a deeper and richer understanding is possible at the intersection of these
+                            diverse perspectives, and through this, we strive to provide readers with a balanced
+                            viewpoint.</p>
+                    </div>
+                </div>
+
+                <div class="about-item">
+                    <h2 class="about-heading">NewsLens Vision</h2>
+                    <div class="about-content">
+                        <p>NewsLens believes that in-depth thinking and analysis have become even more important in
+                            today's information-saturated society. We provide content based on thorough research and
+                            deep reflection, rather than fragmentary information that is quickly consumed.</p>
+                        <p>Our goal is to help readers understand the complex issues of modern society more deeply,
+                            think critically, and develop their own perspectives. See the world more broadly and deeply
+                            with NewsLens.</p>
+                        <p><a href="/contact/?lang=en" class="contact-link" id="contact-link-en">Contact Us</a></p>
                     </div>
                 </div>
             </div>
@@ -454,20 +506,59 @@ permalink: /about/
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // 언어 변경 함수
+            function updateLanguage(lang) {
+                const pageTitle = document.getElementById('page-title');
+                const pageDescription = document.getElementById('page-description');
+                const aboutKo = document.getElementById('about-ko');
+                const aboutEn = document.getElementById('about-en');
+                const contactLinkKo = document.getElementById('contact-link-ko');
+                const contactLinkEn = document.getElementById('contact-link-en');
+
+                if (lang === 'en') {
+                    // 영어 콘텐츠 표시
+                    pageTitle.textContent = 'About';
+                    pageDescription.textContent = 'NewsLens is a blog that views the world through philosophical and scientific thinking.';
+                    aboutKo.style.display = 'none';
+                    aboutEn.style.display = 'block';
+                } else {
+                    // 한국어 콘텐츠 표시
+                    pageTitle.textContent = '소개';
+                    pageDescription.textContent = 'NewsLens는 철학적, 과학적 사고로 세상을 바라보는 블로그입니다.';
+                    aboutKo.style.display = 'block';
+                    aboutEn.style.display = 'none';
+                }
+
+                // 링크에 언어 파라미터 추가
+                if (contactLinkKo) {
+                    contactLinkKo.href = "/contact/" + (lang === 'en' ? '?lang=en' : '');
+                }
+                if (contactLinkEn) {
+                    contactLinkEn.href = "/contact/" + (lang === 'en' ? '?lang=en' : '');
+                }
+            }
+
             // URL 파라미터에서 언어 확인
             const urlParams = new URLSearchParams(window.location.search);
             const langParam = urlParams.get('lang');
-            const langSwitcher = document.getElementById('langSwitcher');
-            const currentLang = document.getElementById('currentLang');
-            const footerKo = document.getElementById('footer-ko');
-            const footerEn = document.getElementById('footer-en');
 
-            // 언어 파라미터에 따라 콘텐츠 표시
-            if (langParam === 'en') {
-                // 영어 콘텐츠 표시
-                document.querySelector('.page-title').textContent = 'About';
-                document.querySelector('.page-description').textContent = 'NewsLens is a blog that views the world through philosophical and scientific thinking.';
+            // localStorage에서 언어 설정 확인
+            const storedLang = localStorage.getItem('preferred_language');
+
+            // 언어 파라미터가 있으면 그에 맞게 설정
+            if (langParam) {
+                updateLanguage(langParam);
             }
+            // localStorage에 저장된 설정 사용
+            else if (storedLang) {
+                updateLanguage(storedLang);
+            }
+
+            // 언어 변경 이벤트 리스너 추가
+            window.addEventListener('languageChange', function (e) {
+                const newLang = e.detail.language;
+                updateLanguage(newLang);
+            });
         });
     </script>
 </body>

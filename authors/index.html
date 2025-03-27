@@ -5,12 +5,13 @@ permalink: /authors/
 ---
 <div class="container">
     <div class="page-header">
-        <h1 class="page-title">필자 소개</h1>
-        <p class="page-description">NewsLens의 콘텐츠를 만들어가는 필진들을 소개합니다. 다양한 분야의 전문가들이 심층적인 분석과 통찰을 제공합니다.</p>
+        <h1 class="page-title" id="page-title">필자 소개</h1>
+        <p class="page-description" id="page-description">NewsLens의 콘텐츠를 만들어가는 필진들을 소개합니다. 다양한 분야의 전문가들이 심층적인 분석과 통찰을
+            제공합니다.</p>
     </div>
 
-    <div class="authors-grid">
-        <!-- 한국어 필자 카드 -->
+    <!-- 한국어 필자 카드 -->
+    <div class="authors-grid" id="authors-ko" data-lang="ko">
         <div class="author-card">
             <img src="https://images.unsplash.com/photo-1603575448878-868a20723f5d?q=80&w=1470&auto=format&fit=crop"
                 alt="이지원 교수" class="author-image">
@@ -108,25 +109,156 @@ permalink: /authors/
         </div>
     </div>
 
-    <div class="authors-grid" style="display: none;" id="authors-en">
-        <!-- 영어 필자 카드 (비슷한 구조로 영어 콘텐츠 추가) -->
-        <!-- ... 영어 버전 콘텐츠 ... -->
+    <!-- 영어 필자 카드 -->
+    <div class="authors-grid" id="authors-en" data-lang="en" style="display: none;">
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1603575448878-868a20723f5d?q=80&w=1470&auto=format&fit=crop"
+                alt="Professor Ji-won Lee" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">Professor Ji-won Lee</h2>
+                <div class="author-title">Philosophy / Ethics Expert</div>
+                <p class="author-bio">As a professor of philosophy at Seoul National University, he researches AI ethics
+                    and technology philosophy. He provides in-depth analysis of the ethical and social changes brought
+                    about by the development of modern technology.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1522&auto=format&fit=crop"
+                alt="Min-ji Kim, Researcher" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">Min-ji Kim, Researcher</h2>
+                <div class="author-title">Cognitive Science / Neuroscience Expert</div>
+                <p class="author-bio">As a senior researcher at the KAIST Institute for Cognitive Neuroscience, she
+                    conducts research on human consciousness and cognitive processes. She provides insights into the
+                    nature of consciousness and cognitive phenomena based on the latest brain science research.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=1448&auto=format&fit=crop"
+                alt="Jun-ho Park, CEO" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">Jun-ho Park, CEO</h2>
+                <div class="author-title">Technology / AI Expert</div>
+                <p class="author-bio">As the founder and CEO of the AI startup 'DeepThink', he has expertise in AI
+                    technology development and industrial applications. He provides analysis on the practical
+                    application of technology and its social impact.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1476&auto=format&fit=crop"
+                alt="Professor Su-yeon Choi" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">Professor Su-yeon Choi</h2>
+                <div class="author-title">Sociology / Media Expert</div>
+                <p class="author-bio">As a professor of sociology at Yonsei University, she researches the relationship
+                    between digital media and social change. She analyzes the impact of social media and digital
+                    platforms on modern society from various theoretical perspectives.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1374&auto=format&fit=crop"
+                alt="Dr. Tae-young Jung" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">Dr. Tae-young Jung</h2>
+                <div class="author-title">Physics / Cosmology Expert</div>
+                <p class="author-bio">As a senior researcher at the Korea Astronomy and Space Science Institute, he is
+                    an expert in cosmology and quantum physics. He explains the latest physics theories and discoveries
+                    in a clear and understandable way for general readers.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="author-card">
+            <img src="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?q=80&w=1470&auto=format&fit=crop"
+                alt="So-hee Han, Writer" class="author-image">
+            <div class="author-info">
+                <h2 class="author-name">So-hee Han, Writer</h2>
+                <div class="author-title">Culture / Art Critic</div>
+                <p class="author-bio">As an independent cultural critic and writer, she explores the intersection of
+                    contemporary art and digital culture. She provides deep analysis of the philosophical and aesthetic
+                    significance of AI art and new media art.</p>
+                <div class="author-links">
+                    <a href="#" class="author-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="author-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="author-link"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // 언어 변경 함수
+        function updateLanguage(lang) {
+            const pageTitle = document.getElementById('page-title');
+            const pageDescription = document.getElementById('page-description');
+            const authorsKo = document.getElementById('authors-ko');
+            const authorsEn = document.getElementById('authors-en');
+
+            if (lang === 'en') {
+                // 영어 콘텐츠 표시
+                pageTitle.textContent = 'Authors';
+                pageDescription.textContent = 'Meet the writers who create content for NewsLens. Experts from various fields provide in-depth analysis and insights.';
+                authorsKo.style.display = 'none';
+                authorsEn.style.display = 'grid';
+            } else {
+                // 한국어 콘텐츠 표시
+                pageTitle.textContent = '필자 소개';
+                pageDescription.textContent = 'NewsLens의 콘텐츠를 만들어가는 필진들을 소개합니다. 다양한 분야의 전문가들이 심층적인 분석과 통찰을 제공합니다.';
+                authorsKo.style.display = 'grid';
+                authorsEn.style.display = 'none';
+            }
+        }
+
         // URL 파라미터에서 언어 확인
         const urlParams = new URLSearchParams(window.location.search);
         const langParam = urlParams.get('lang');
 
-        // 언어 파라미터에 따라 콘텐츠 표시
-        if (langParam === 'en') {
-            // 영어 콘텐츠 표시
-            document.querySelector('.page-title').textContent = 'Authors';
-            document.querySelector('.page-description').textContent = 'Meet the writers who create content for NewsLens. Experts from various fields provide in-depth analysis and insights.';
-            document.getElementById('authors-en').style.display = 'grid';
-            document.querySelector('.authors-grid:not(#authors-en)').style.display = 'none';
+        // localStorage에서 언어 설정 확인
+        const storedLang = localStorage.getItem('preferred_language');
+
+        // 언어 파라미터가 있으면 그에 맞게 설정
+        if (langParam) {
+            updateLanguage(langParam);
         }
+        // localStorage에 저장된 설정 사용
+        else if (storedLang) {
+            updateLanguage(storedLang);
+        }
+
+        // 언어 변경 이벤트 리스너 추가
+        window.addEventListener('languageChange', function (e) {
+            const newLang = e.detail.language;
+            updateLanguage(newLang);
+        });
     });
 </script>
