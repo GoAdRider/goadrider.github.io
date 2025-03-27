@@ -4,253 +4,123 @@ title: 인기글 - NewsLens
 permalink: /popular/
 ---
 <div class="container">
-    <div class="popular-content-ko">
-        <div class="popular-header">
-            <h1>인기 분석글</h1>
-            <p>NewsLens에서 가장 많이 읽히고 공유된 분석 콘텐츠를 만나보세요.</p>
-        </div>
-
-        <div class="filter-container">
-            <button class="filter-button active">전체</button>
-            <button class="filter-button">이번 주</button>
-            <button class="filter-button">이번 달</button>
-            <button class="filter-button">철학</button>
-            <button class="filter-button">과학</button>
-            <button class="filter-button">기술</button>
-            <button class="filter-button">사회</button>
-        </div>
-
-        <div class="posts-container">
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?q=80&w=600&auto=format&fit=crop"
-                    alt="AI 윤리" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">기술/AI</span>
-                    <h3 class="post-title">인공지능 윤리와 거버넌스의 철학적 접근</h3>
-                    <p class="post-excerpt">AI 기술이 발전하면서 대두되는 윤리적 문제들을 칸트, 공리주의, 덕 윤리학의 관점에서 분석합니다.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>5,249</span>
-                        </div>
-                        <span class="post-date">2023.12.15</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=600&auto=format&fit=crop"
-                    alt="양자역학" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">과학/물리학</span>
-                    <h3 class="post-title">양자역학과 현실 인식의 철학적 함의</h3>
-                    <p class="post-excerpt">양자역학의 기이한 현상들이 우리의 현실 인식과 철학적 세계관에 미치는 영향을 탐구합니다.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>4,872</span>
-                        </div>
-                        <span class="post-date">2023.11.28</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1494059980473-813e73ee784b?q=80&w=600&auto=format&fit=crop"
-                    alt="소셜미디어" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">사회/미디어</span>
-                    <h3 class="post-title">소셜미디어와 현대 사회의 분열: 정보 생태계의 붕괴</h3>
-                    <p class="post-excerpt">알고리즘 필터 버블과 에코 챔버가 어떻게 사회적 분열을 심화시키는지 분석합니다.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>4,587</span>
-                        </div>
-                        <span class="post-date">2023.12.05</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1607748851687-ba9a10d87eb4?q=80&w=600&auto=format&fit=crop"
-                    alt="초의식" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">철학/의식</span>
-                    <h3 class="post-title">의식의 경계: 현대 의식 연구와 철학의 교차점</h3>
-                    <p class="post-excerpt">신경과학과 철학이 만나는 지점에서 의식의 본질에 대한 다양한 이론들을 검토합니다.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>4,215</span>
-                        </div>
-                        <span class="post-date">2023.11.15</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1536825211030-094de935f680?q=80&w=600&auto=format&fit=crop"
-                    alt="기후위기" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">환경/윤리</span>
-                    <h3 class="post-title">기후 위기와 세대 간 정의: 미래 세대에 대한 우리의 의무</h3>
-                    <p class="post-excerpt">기후 변화 대응에 있어 현 세대와 미래 세대 간의 윤리적 관계성을 탐구합니다.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>3,987</span>
-                        </div>
-                        <span class="post-date">2023.10.20</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=600&auto=format&fit=crop"
-                    alt="예술" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">문화/예술</span>
-                    <h3 class="post-title">AI 예술의 등장과 창의성의 재정의</h3>
-                    <p class="post-excerpt">인공지능이 생성한 예술 작품이 예술의 본질과 창의성에 대한 기존 관념을 어떻게 변화시키는지 고찰합니다.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>3,754</span>
-                        </div>
-                        <span class="post-date">2023.11.02</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="popular-header">
+        <h1 class="page-title" data-ko="인기 분석글" data-en="Popular Analysis Articles">인기 분석글</h1>
+        <p class="page-description" data-ko="NewsLens에서 가장 많이 읽히고 공유된 분석 콘텐츠를 만나보세요."
+            data-en="Discover the most read and shared analytical content on NewsLens.">
+            NewsLens에서 가장 많이 읽히고 공유된 분석 콘텐츠를 만나보세요.
+        </p>
     </div>
 
-    <div class="popular-content-en" style="display: none;">
-        <div class="popular-header">
-            <h1>Popular Analysis Articles</h1>
-            <p>Discover the most read and shared analytical content on NewsLens.</p>
+    <div class="filter-container">
+        <button class="filter-button active" data-ko="전체" data-en="All">전체</button>
+        <button class="filter-button" data-ko="이번 주" data-en="This Week">이번 주</button>
+        <button class="filter-button" data-ko="이번 달" data-en="This Month">이번 달</button>
+        <button class="filter-button" data-ko="철학" data-en="Philosophy">철학</button>
+        <button class="filter-button" data-ko="과학" data-en="Science">과학</button>
+        <button class="filter-button" data-ko="기술" data-en="Technology">기술</button>
+        <button class="filter-button" data-ko="사회" data-en="Society">사회</button>
+    </div>
+
+    <div class="posts-container">
+        <div class="post-card">
+            <img src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?q=80&w=600&auto=format&fit=crop"
+                alt="AI 윤리" class="post-image">
+            <div class="post-content">
+                <span class="post-category">기술/AI</span>
+                <h3 class="post-title">인공지능 윤리와 거버넌스의 철학적 접근</h3>
+                <p class="post-excerpt">AI 기술이 발전하면서 대두되는 윤리적 문제들을 칸트, 공리주의, 덕 윤리학의 관점에서 분석합니다.</p>
+                <div class="post-meta">
+                    <div class="post-views">
+                        <i class="fas fa-eye"></i>
+                        <span>5,249</span>
+                    </div>
+                    <span class="post-date">2023.12.15</span>
+                </div>
+            </div>
         </div>
 
-        <div class="filter-container">
-            <button class="filter-button active">All</button>
-            <button class="filter-button">This Week</button>
-            <button class="filter-button">This Month</button>
-            <button class="filter-button">Philosophy</button>
-            <button class="filter-button">Science</button>
-            <button class="filter-button">Technology</button>
-            <button class="filter-button">Society</button>
+        <div class="post-card">
+            <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=600&auto=format&fit=crop"
+                alt="양자역학" class="post-image">
+            <div class="post-content">
+                <span class="post-category">과학/물리학</span>
+                <h3 class="post-title">양자역학과 현실 인식의 철학적 함의</h3>
+                <p class="post-excerpt">양자역학의 기이한 현상들이 우리의 현실 인식과 철학적 세계관에 미치는 영향을 탐구합니다.</p>
+                <div class="post-meta">
+                    <div class="post-views">
+                        <i class="fas fa-eye"></i>
+                        <span>4,872</span>
+                    </div>
+                    <span class="post-date">2023.11.28</span>
+                </div>
+            </div>
         </div>
 
-        <div class="posts-container">
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?q=80&w=600&auto=format&fit=crop"
-                    alt="AI Ethics" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">Technology/AI</span>
-                    <h3 class="post-title">A Philosophical Approach to AI Ethics and Governance</h3>
-                    <p class="post-excerpt">Analyzes ethical issues arising from AI technology development from
-                        the perspectives of Kant, utilitarianism, and virtue ethics.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>5,249</span>
-                        </div>
-                        <span class="post-date">2023.12.15</span>
+        <div class="post-card">
+            <img src="https://images.unsplash.com/photo-1494059980473-813e73ee784b?q=80&w=600&auto=format&fit=crop"
+                alt="소셜미디어" class="post-image">
+            <div class="post-content">
+                <span class="post-category">사회/미디어</span>
+                <h3 class="post-title">소셜미디어와 현대 사회의 분열: 정보 생태계의 붕괴</h3>
+                <p class="post-excerpt">알고리즘 필터 버블과 에코 챔버가 어떻게 사회적 분열을 심화시키는지 분석합니다.</p>
+                <div class="post-meta">
+                    <div class="post-views">
+                        <i class="fas fa-eye"></i>
+                        <span>4,587</span>
                     </div>
+                    <span class="post-date">2023.12.05</span>
                 </div>
             </div>
+        </div>
 
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=600&auto=format&fit=crop"
-                    alt="Quantum Mechanics" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">Science/Physics</span>
-                    <h3 class="post-title">Quantum Mechanics and Philosophical Implications for Reality
-                        Perception</h3>
-                    <p class="post-excerpt">Explores how the strange phenomena of quantum mechanics affect our
-                        perception of reality and philosophical worldview.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>4,872</span>
-                        </div>
-                        <span class="post-date">2023.11.28</span>
+        <div class="post-card">
+            <img src="https://images.unsplash.com/photo-1607748851687-ba9a10d87eb4?q=80&w=600&auto=format&fit=crop"
+                alt="초의식" class="post-image">
+            <div class="post-content">
+                <span class="post-category">철학/의식</span>
+                <h3 class="post-title">의식의 경계: 현대 의식 연구와 철학의 교차점</h3>
+                <p class="post-excerpt">신경과학과 철학이 만나는 지점에서 의식의 본질에 대한 다양한 이론들을 검토합니다.</p>
+                <div class="post-meta">
+                    <div class="post-views">
+                        <i class="fas fa-eye"></i>
+                        <span>4,215</span>
                     </div>
+                    <span class="post-date">2023.11.15</span>
                 </div>
             </div>
+        </div>
 
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1494059980473-813e73ee784b?q=80&w=600&auto=format&fit=crop"
-                    alt="Social Media" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">Society/Media</span>
-                    <h3 class="post-title">Social Media and Modern Society's Division: Collapse of the
-                        Information Ecosystem</h3>
-                    <p class="post-excerpt">Analyzes how algorithmic filter bubbles and echo chambers intensify
-                        social division.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>4,587</span>
-                        </div>
-                        <span class="post-date">2023.12.05</span>
+        <div class="post-card">
+            <img src="https://images.unsplash.com/photo-1536825211030-094de935f680?q=80&w=600&auto=format&fit=crop"
+                alt="기후위기" class="post-image">
+            <div class="post-content">
+                <span class="post-category">환경/윤리</span>
+                <h3 class="post-title">기후 위기와 세대 간 정의: 미래 세대에 대한 우리의 의무</h3>
+                <p class="post-excerpt">기후 변화 대응에 있어 현 세대와 미래 세대 간의 윤리적 관계성을 탐구합니다.</p>
+                <div class="post-meta">
+                    <div class="post-views">
+                        <i class="fas fa-eye"></i>
+                        <span>3,987</span>
                     </div>
+                    <span class="post-date">2023.10.20</span>
                 </div>
             </div>
+        </div>
 
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1607748851687-ba9a10d87eb4?q=80&w=600&auto=format&fit=crop"
-                    alt="Consciousness" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">Philosophy/Consciousness</span>
-                    <h3 class="post-title">Boundaries of Consciousness: Intersection of Modern Consciousness
-                        Research and Philosophy</h3>
-                    <p class="post-excerpt">Examines various theories about the nature of consciousness at the
-                        intersection of neuroscience and philosophy.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>4,215</span>
-                        </div>
-                        <span class="post-date">2023.11.15</span>
+        <div class="post-card">
+            <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=600&auto=format&fit=crop"
+                alt="예술" class="post-image">
+            <div class="post-content">
+                <span class="post-category">문화/예술</span>
+                <h3 class="post-title">AI 예술의 등장과 창의성의 재정의</h3>
+                <p class="post-excerpt">인공지능이 생성한 예술 작품이 예술의 본질과 창의성에 대한 기존 관념을 어떻게 변화시키는지 고찰합니다.</p>
+                <div class="post-meta">
+                    <div class="post-views">
+                        <i class="fas fa-eye"></i>
+                        <span>3,754</span>
                     </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1536825211030-094de935f680?q=80&w=600&auto=format&fit=crop"
-                    alt="Climate Crisis" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">Environment/Ethics</span>
-                    <h3 class="post-title">Climate Crisis and Intergenerational Justice: Our Obligations to
-                        Future Generations</h3>
-                    <p class="post-excerpt">Explores the ethical relationship between current and future
-                        generations in responding to climate change.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>3,987</span>
-                        </div>
-                        <span class="post-date">2023.10.20</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=600&auto=format&fit=crop"
-                    alt="Art" class="post-image">
-                <div class="post-content">
-                    <span class="post-category">Culture/Art</span>
-                    <h3 class="post-title">The Emergence of AI Art and Redefining Creativity</h3>
-                    <p class="post-excerpt">Examines how art generated by artificial intelligence is changing
-                        existing notions of the essence of art and creativity.</p>
-                    <div class="post-meta">
-                        <div class="post-views">
-                            <i class="fas fa-eye"></i>
-                            <span>3,754</span>
-                        </div>
-                        <span class="post-date">2023.11.02</span>
-                    </div>
+                    <span class="post-date">2023.11.02</span>
                 </div>
             </div>
         </div>
@@ -259,33 +129,109 @@ permalink: /popular/
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 필터 버튼 클릭 이벤트
+        const pageTitle = document.querySelector('.page-title');
+        const pageDescription = document.querySelector('.page-description');
         const filterButtons = document.querySelectorAll('.filter-button');
+        const postCategories = document.querySelectorAll('.post-category');
+        const postTitles = document.querySelectorAll('.post-title');
+        const postExcerpts = document.querySelectorAll('.post-excerpt');
+
+        // 카테고리 매핑
+        const categoryMap = {
+            ko: {
+                'Technology/AI': '기술/AI',
+                'Science/Physics': '과학/물리학',
+                'Society/Media': '사회/미디어',
+                'Philosophy/Consciousness': '철학/의식',
+                'Environment/Ethics': '환경/윤리',
+                'Culture/Arts': '문화/예술'
+            },
+            en: {
+                '기술/AI': 'Technology/AI',
+                '과학/물리학': 'Science/Physics',
+                '사회/미디어': 'Society/Media',
+                '철학/의식': 'Philosophy/Consciousness',
+                '환경/윤리': 'Environment/Ethics',
+                '문화/예술': 'Culture/Arts'
+            }
+        };
+
+        // 포스트 콘텐츠 매핑 (실제로는 데이터베이스나 CMS에서 관리해야 함)
+        const contentMap = {
+            titles: {
+                ko: {
+                    'A Philosophical Approach to AI Ethics and Governance': '인공지능 윤리와 거버넌스의 철학적 접근',
+                    'Quantum Mechanics and Philosophical Implications for Reality Perception': '양자역학과 현실 인식의 철학적 함의',
+                    'Social Media and Modern Society\'s Division: Collapse of the Information Ecosystem': '소셜미디어와 현대 사회의 분열: 정보 생태계의 붕괴'
+                },
+                en: {
+                    '인공지능 윤리와 거버넌스의 철학적 접근': 'A Philosophical Approach to AI Ethics and Governance',
+                    '양자역학과 현실 인식의 철학적 함의': 'Quantum Mechanics and Philosophical Implications for Reality Perception',
+                    '소셜미디어와 현대 사회의 분열: 정보 생태계의 붕괴': 'Social Media and Modern Society\'s Division: Collapse of the Information Ecosystem'
+                }
+            },
+            excerpts: {
+                ko: {
+                    'Analyzes ethical issues arising from AI technology development': 'AI 기술이 발전하면서 대두되는 윤리적 문제들을 칸트, 공리주의, 덕 윤리학의 관점에서 분석합니다.',
+                    'Explores how the strange phenomena of quantum mechanics': '양자역학의 기이한 현상들이 우리의 현실 인식과 철학적 세계관에 미치는 영향을 탐구합니다.',
+                    'Analyzes how algorithmic filter bubbles': '알고리즘 필터 버블과 에코 챔버가 어떻게 사회적 분열을 심화시키는지 분석합니다.'
+                },
+                en: {
+                    'AI 기술이 발전하면서 대두되는 윤리적 문제들을': 'Analyzes ethical issues arising from AI technology development from the perspectives of Kant, utilitarianism, and virtue ethics.',
+                    '양자역학의 기이한 현상들이': 'Explores how the strange phenomena of quantum mechanics affect our perception of reality and philosophical worldview.',
+                    '알고리즘 필터 버블과 에코 챔버가': 'Analyzes how algorithmic filter bubbles and echo chambers intensify social division.'
+                }
+            }
+        };
+
+        // 언어 변경 함수
+        function updateLanguage(lang) {
+            // 페이지 제목과 설명 업데이트
+            pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
+            pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
+
+            // 필터 버튼 업데이트
+            filterButtons.forEach(button => {
+                button.textContent = button.getAttribute(`data-${lang}`);
+            });
+
+            // 포스트 카드 콘텐츠 업데이트
+            postCategories.forEach(category => {
+                const currentText = category.textContent;
+                category.textContent = categoryMap[lang][currentText] || currentText;
+            });
+
+            postTitles.forEach(title => {
+                const currentText = title.textContent;
+                title.textContent = contentMap.titles[lang][currentText] || currentText;
+            });
+
+            postExcerpts.forEach(excerpt => {
+                const currentText = excerpt.textContent;
+                excerpt.textContent = contentMap.excerpts[lang][currentText] || currentText;
+            });
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
+
+        // 초기 언어 적용
+        updateLanguage(initialLang);
+
+        // 필터 버튼 클릭 이벤트
         filterButtons.forEach(button => {
             button.addEventListener('click', function () {
-                // 모든 버튼에서 active 클래스 제거
                 filterButtons.forEach(btn => btn.classList.remove('active'));
-                // 클릭한 버튼에 active 클래스 추가
                 this.classList.add('active');
             });
         });
-
-        // URL 파라미터에서 언어 확인
-        const urlParams = new URLSearchParams(window.location.search);
-        const langParam = urlParams.get('lang');
-
-        // 언어 파라미터에 따라 콘텐츠 표시
-        const popularContentKo = document.querySelector('.popular-content-ko');
-        const popularContentEn = document.querySelector('.popular-content-en');
-
-        if (langParam === 'en') {
-            // 영어 콘텐츠 표시
-            popularContentKo.style.display = 'none';
-            popularContentEn.style.display = 'block';
-        } else {
-            // 한국어 콘텐츠 표시
-            popularContentKo.style.display = 'block';
-            popularContentEn.style.display = 'none';
-        }
     });
 </script>
