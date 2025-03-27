@@ -16,9 +16,11 @@ permalink: /tags/
         {% assign tags = site.tags | sort %}
         {% for tag in tags %}
         {% assign tag_name = tag | first %}
+        {% assign tag_name_en = site.data.tags[tag_name].en | default: tag_name %}
         {% assign posts = tag | last %}
         <a href="#{{ tag_name }}" class="tag-item" data-count="{{ posts.size }}">
-            #{{ tag_name }} <span class="tag-count">{{ posts.size }}</span>
+            <span data-ko="#{{ tag_name }}" data-en="#{{ tag_name_en }}"></span>
+            <span class="tag-count">{{ posts.size }}</span>
         </a>
         {% endfor %}
     </div>
@@ -26,31 +28,52 @@ permalink: /tags/
     <div class="tag-sections">
         {% for tag in tags %}
         {% assign tag_name = tag | first %}
+        {% assign tag_name_en = site.data.tags[tag_name].en | default: tag_name %}
         {% assign posts = tag | last %}
         <section id="{{ tag_name }}" class="tag-section">
-            <h2 class="tag-title">#{{ tag_name }}</h2>
+            <h2 class="tag-title">
+                <span data-ko="#{{ tag_name }}" data-en="#{{ tag_name_en }}"></span>
+                <span class="tag-count-large">{{ posts.size }}</span>
+            </h2>
             <div class="post-list">
                 {% for post in posts %}
                 <article class="post-item">
                     <div class="post-meta">
                         <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+                        {% if post.categories %}
+                        <span class="post-categories">
+                            {% if page.lang == 'en' %}
+                            {% for category in post.categories_en %}
+                            <a href="/categories#{{ category }}" class="category-link">#{{ category }}</a>
+                            {% endfor %}
+                            {% else %}
+                            {% for category in post.categories %}
+                            <a href="/categories#{{ category }}" class="category-link">#{{ category }}</a>
+                            {% endfor %}
+                            {% endif %}
+                        </span>
+                        {% endif %}
                     </div>
                     <h3 class="post-title">
                         <a href="{{ post.url }}" class="post-link">
-                            {% if page.lang == 'en' %}
-                            {{ post.title_en | default: post.title }}
-                            {% else %}
-                            {{ post.title }}
-                            {% endif %}
+                            <span data-ko="{{ post.title }}" data-en="{{ post.title_en | default: post.title }}"></span>
                         </a>
                     </h3>
                     <p class="post-excerpt">
-                        {% if page.lang == 'en' %}
-                        {{ post.excerpt_en | default: post.excerpt | truncate: 160 }}
-                        {% else %}
-                        {{ post.excerpt | truncate: 160 }}
-                        {% endif %}
+                        <span data-ko="{{ post.excerpt | truncate: 160 }}"
+                            data-en="{{ post.excerpt_en | default: post.excerpt | truncate: 160 }}"></span>
                     </p>
+                    <div class="post-tags">
+                        {% if page.lang == 'en' %}
+                        {% for tag in post.tags_en %}
+                        <a href="#{{ tag }}" class="tag-link">#{{ tag }}</a>
+                        {% endfor %}
+                        {% else %}
+                        {% for tag in post.tags %}
+                        <a href="#{{ tag }}" class="tag-link">#{{ tag }}</a>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
                 </article>
                 {% endfor %}
             </div>
@@ -62,19 +85,26 @@ permalink: /tags/
 <style>
     .page-header {
         text-align: center;
-        margin-bottom: 3rem;
-        padding: 2rem 0;
+        margin-bottom: 4rem;
+        padding: 3rem 0;
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.1) 0%, rgba(var(--primary-rgb), 0.05) 100%);
+        border-radius: 1.5rem;
     }
 
     .page-title {
-        font-size: 2.5rem;
-        color: var(--primary-color);
+        font-size: 3rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color, #6c63ff) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin-bottom: 1rem;
     }
 
     .page-description {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         color: var(--gray-color);
+        max-width: 600px;
+        margin: 0 auto;
     }
 
     .tag-cloud {
@@ -83,89 +113,135 @@ permalink: /tags/
         gap: 1rem;
         margin-bottom: 4rem;
         padding: 2rem;
-        background: rgba(var(--primary-rgb), 0.05);
-        border-radius: 1rem;
+        background: white;
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
     }
 
     .tag-item {
         display: inline-flex;
         align-items: center;
-        padding: 0.5rem 1rem;
+        padding: 0.75rem 1.5rem;
         background: white;
-        border-radius: 2rem;
+        border-radius: 3rem;
         color: var(--primary-color);
         text-decoration: none;
         font-size: 1rem;
-        transition: var(--transition);
-        border: 1px solid rgba(var(--primary-rgb), 0.2);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 2px solid rgba(var(--primary-rgb), 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
     }
 
     .tag-item:hover {
         background: var(--primary-color);
         color: white;
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(var(--primary-rgb), 0.2);
     }
 
     .tag-count {
-        margin-left: 0.5rem;
-        font-size: 0.9rem;
+        margin-left: 0.75rem;
+        background: rgba(var(--primary-rgb), 0.1);
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .tag-count-large {
+        font-size: 1.2rem;
+        color: var(--gray-color);
+        margin-left: 1rem;
         opacity: 0.8;
     }
 
     .tag-sections {
-        display: flex;
-        flex-direction: column;
-        gap: 4rem;
+        display: grid;
+        gap: 3rem;
     }
 
     .tag-section {
-        padding: 2rem;
+        padding: 2.5rem;
         background: white;
-        border-radius: 1rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+    }
+
+    .tag-section:hover {
+        transform: translateY(-5px);
     }
 
     .tag-title {
-        font-size: 1.8rem;
+        font-size: 2rem;
         color: var(--primary-color);
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
         padding-bottom: 1rem;
         border-bottom: 2px solid rgba(var(--primary-rgb), 0.1);
+        display: flex;
+        align-items: center;
     }
 
     .post-list {
-        display: flex;
-        flex-direction: column;
+        display: grid;
         gap: 2rem;
     }
 
     .post-item {
-        padding: 1.5rem;
+        padding: 2rem;
         background: rgba(var(--primary-rgb), 0.02);
-        border-radius: 0.5rem;
-        transition: var(--transition);
+        border-radius: 1rem;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(var(--primary-rgb), 0.05);
     }
 
     .post-item:hover {
         transform: translateX(0.5rem);
-        background: rgba(var(--primary-rgb), 0.05);
+        background: rgba(var(--primary-rgb), 0.04);
+        border-color: rgba(var(--primary-rgb), 0.1);
     }
 
     .post-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .post-date {
         font-size: 0.9rem;
         color: var(--gray-color);
-        margin-bottom: 0.5rem;
+        background: rgba(var(--primary-rgb), 0.05);
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+    }
+
+    .post-categories {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .category-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    .category-link:hover {
+        color: var(--secondary-color, #6c63ff);
     }
 
     .post-title {
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
     }
 
     .post-link {
         color: var(--text-color);
         text-decoration: none;
-        transition: var(--transition);
+        transition: color 0.3s ease;
     }
 
     .post-link:hover {
@@ -175,10 +251,34 @@ permalink: /tags/
     .post-excerpt {
         color: var(--gray-color);
         font-size: 1rem;
-        line-height: 1.6;
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+
+    .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .tag-link {
+        color: var(--gray-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    .tag-link:hover {
+        color: var(--primary-color);
     }
 
     @media (max-width: 768px) {
+        .page-header {
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+        }
+
         .page-title {
             font-size: 2rem;
         }
@@ -188,15 +288,20 @@ permalink: /tags/
         }
 
         .tag-item {
+            padding: 0.5rem 1rem;
             font-size: 0.9rem;
         }
 
         .tag-section {
-            padding: 1rem;
+            padding: 1.5rem;
         }
 
         .post-item {
-            padding: 1rem;
+            padding: 1.5rem;
+        }
+
+        .post-title {
+            font-size: 1.3rem;
         }
     }
 </style>
@@ -209,7 +314,14 @@ permalink: /tags/
             const elements = document.querySelectorAll('[data-ko], [data-en]');
 
             elements.forEach(element => {
-                element.textContent = element.getAttribute(`data-${lang}`);
+                const content = element.getAttribute(`data-${lang}`);
+                if (content) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.value = content;
+                    } else {
+                        element.textContent = content;
+                    }
+                }
             });
         }
 
