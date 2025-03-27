@@ -3,27 +3,27 @@
     <div class="container">
         <div class="header-content">
             <div class="logo-container">
-                <a href="/en/" class="logo">
+                <a href="/" class="logo">
                     <i class="fas fa-brain"></i>
                     NewsLens
                 </a>
             </div>
 
             <nav>
-                <a href="/en/">Home</a>
-                <a href="/en/categories/">Categories</a>
-                <a href="/en/popular/">Popular</a>
-                <a href="/en/about/">About</a>
-                <a href="/en/contact/">Contact</a>
+                <a href="/" class="nav-link">Home</a>
+                <a href="/categories/" class="nav-link">Categories</a>
+                <a href="/popular/" class="nav-link">Popular</a>
+                <a href="/about/" class="nav-link">About</a>
+                <a href="/contact/" class="nav-link">Contact</a>
             </nav>
 
             <div class="header-actions">
-                <a href="/" class="language-switcher" id="langSwitcher">
+                <a href="#" class="language-switcher" id="langSwitcher">
                     <i class="fas fa-globe"></i>
                     <span id="currentLang">English</span>
                 </a>
 
-                <a href="/en/search/" class="search-button">
+                <a href="/search/" class="search-button">
                     <i class="fas fa-search"></i>
                 </a>
             </div>
@@ -188,36 +188,98 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const mobileMenuToggle = document.querySelector('.mobile-menu');
-        const navbarMenu = document.querySelector('.navbar-menu');
-        const navbarActions = document.querySelector('.navbar-actions');
+        // 모바일 메뉴 토글
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const nav = document.querySelector('nav');
+        const headerActions = document.querySelector('.header-actions');
 
-        mobileMenuToggle.addEventListener('click', function () {
-            navbarMenu.classList.toggle('active');
-            navbarActions.classList.toggle('active');
-            this.classList.toggle('active');
+        mobileMenu.addEventListener('click', function () {
+            nav.classList.toggle('active');
+            headerActions.classList.toggle('active');
         });
 
-        // Theme toggle functionality
-        const themeToggle = document.querySelector('.theme-toggle');
-        const htmlElement = document.documentElement;
+        // 언어 토글 기능 개선
+        const langSwitcher = document.getElementById('langSwitcher');
+        const currentLang = document.getElementById('currentLang');
 
-        themeToggle.addEventListener('click', function () {
-            htmlElement.classList.toggle('dark-theme');
-            const isDarkTheme = htmlElement.classList.contains('dark-theme');
-            localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+        // 현재 언어 설정 불러오기
+        let currentLanguage = localStorage.getItem('preferred_language') || 'ko';
+        updateLanguageUI(currentLanguage);
 
-            // Icon change
-            const icon = this.querySelector('i');
-            icon.classList.toggle('fa-moon');
-            icon.classList.toggle('fa-sun');
+        // 모든 네비게이션 링크에 언어 파라미터 추가
+        updateNavigationLinks(currentLanguage);
+
+        // 언어 스위처 클릭 이벤트
+        langSwitcher.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // 언어 토글 (ko <-> en)
+            currentLanguage = (currentLanguage === 'ko') ? 'en' : 'ko';
+
+            // 로컬 스토리지에 언어 설정 저장
+            localStorage.setItem('preferred_language', currentLanguage);
+
+            // 현재 페이지에서 언어만 변경
+            updateLanguageUI(currentLanguage);
+            updateNavigationLinks(currentLanguage);
+
+            // 현재 URL 기반으로 언어 파라미터 변경
+            const currentUrl = window.location.href;
+            const url = new URL(currentUrl);
+            url.searchParams.set('lang', currentLanguage);
+
+            // 페이지 새로고침 없이 URL 업데이트
+            window.history.pushState({}, '', url);
+
+            // 페이지 콘텐츠 언어 업데이트 이벤트 발생
+            window.dispatchEvent(new CustomEvent('languageChange', {
+                detail: { language: currentLanguage }
+            }));
         });
 
-        // Apply saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            htmlElement.classList.add('dark-theme');
-            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+        // 언어 UI 업데이트 함수
+        function updateLanguageUI(lang) {
+            if (lang === 'en') {
+                currentLang.textContent = 'English';
+                document.documentElement.lang = 'en';
+            } else {
+                currentLang.textContent = '한국어';
+                document.documentElement.lang = 'ko';
+            }
+        }
+
+        // 네비게이션 링크 업데이트 함수
+        function updateNavigationLinks(lang) {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                const url = new URL(href, window.location.origin);
+
+                // 기존 lang 파라미터 제거 후 새 값 설정
+                url.searchParams.delete('lang');
+                if (lang === 'en') {
+                    url.searchParams.set('lang', 'en');
+                }
+
+                link.href = url.toString();
+            });
+        }
+
+        // 페이지 로드 시 URL에서 언어 파라미터 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+
+        if (langParam) {
+            // URL에 언어 파라미터가 있으면 그에 맞게 설정
+            currentLanguage = langParam;
+            localStorage.setItem('preferred_language', currentLanguage);
+            updateLanguageUI(currentLanguage);
+            updateNavigationLinks(currentLanguage);
+        } else if (currentLanguage === 'en') {
+            // 저장된 언어가 영어인데 URL에 파라미터가 없으면 URL 업데이트
+            const url = new URL(window.location.href);
+            url.searchParams.set('lang', 'en');
+            window.history.replaceState({}, '', url);
         }
     });
 </script>
