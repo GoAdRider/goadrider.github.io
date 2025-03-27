@@ -1,0 +1,250 @@
+---
+layout: default
+title: "태그별 글 모음"
+title_en: "Posts by Tags"
+permalink: /tags/
+---
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title" data-ko="태그별 글 모음" data-en="Posts by Tags"></h1>
+        <p class="page-description" data-ko="관심 있는 태그를 선택하여 관련 글을 찾아보세요" data-en="Select a tag to find related posts">
+        </p>
+    </div>
+
+    <div class="tag-cloud">
+        {% assign tags = site.tags | sort %}
+        {% for tag in tags %}
+        {% assign tag_name = tag | first %}
+        {% assign posts = tag | last %}
+        <a href="#{{ tag_name }}" class="tag-item" data-count="{{ posts.size }}">
+            #{{ tag_name }} <span class="tag-count">{{ posts.size }}</span>
+        </a>
+        {% endfor %}
+    </div>
+
+    <div class="tag-sections">
+        {% for tag in tags %}
+        {% assign tag_name = tag | first %}
+        {% assign posts = tag | last %}
+        <section id="{{ tag_name }}" class="tag-section">
+            <h2 class="tag-title">#{{ tag_name }}</h2>
+            <div class="post-list">
+                {% for post in posts %}
+                <article class="post-item">
+                    <div class="post-meta">
+                        <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="{{ post.url }}" class="post-link">
+                            {% if page.lang == 'en' %}
+                            {{ post.title_en | default: post.title }}
+                            {% else %}
+                            {{ post.title }}
+                            {% endif %}
+                        </a>
+                    </h3>
+                    <p class="post-excerpt">
+                        {% if page.lang == 'en' %}
+                        {{ post.excerpt_en | default: post.excerpt | truncate: 160 }}
+                        {% else %}
+                        {{ post.excerpt | truncate: 160 }}
+                        {% endif %}
+                    </p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .page-description {
+        font-size: 1.1rem;
+        color: var(--gray-color);
+    }
+
+    .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 4rem;
+        padding: 2rem;
+        background: rgba(var(--primary-rgb), 0.05);
+        border-radius: 1rem;
+    }
+
+    .tag-item {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background: white;
+        border-radius: 2rem;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 1rem;
+        transition: var(--transition);
+        border: 1px solid rgba(var(--primary-rgb), 0.2);
+    }
+
+    .tag-item:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .tag-count {
+        margin-left: 0.5rem;
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    .tag-sections {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+    }
+
+    .tag-section {
+        padding: 2rem;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .tag-title {
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid rgba(var(--primary-rgb), 0.1);
+    }
+
+    .post-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .post-item {
+        padding: 1.5rem;
+        background: rgba(var(--primary-rgb), 0.02);
+        border-radius: 0.5rem;
+        transition: var(--transition);
+    }
+
+    .post-item:hover {
+        transform: translateX(0.5rem);
+        background: rgba(var(--primary-rgb), 0.05);
+    }
+
+    .post-meta {
+        font-size: 0.9rem;
+        color: var(--gray-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .post-title {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .post-link {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .post-link:hover {
+        color: var(--primary-color);
+    }
+
+    .post-excerpt {
+        color: var(--gray-color);
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .page-title {
+            font-size: 2rem;
+        }
+
+        .tag-cloud {
+            padding: 1rem;
+        }
+
+        .tag-item {
+            font-size: 0.9rem;
+        }
+
+        .tag-section {
+            padding: 1rem;
+        }
+
+        .post-item {
+            padding: 1rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 언어 변경 감지 함수
+        function updatePageLanguage() {
+            const lang = document.documentElement.getAttribute('lang') || 'ko';
+            const elements = document.querySelectorAll('[data-ko], [data-en]');
+
+            elements.forEach(element => {
+                element.textContent = element.getAttribute(`data-${lang}`);
+            });
+        }
+
+        // 초기 언어 설정
+        updatePageLanguage();
+
+        // 언어 변경 이벤트 리스너
+        document.addEventListener('languageChanged', function (e) {
+            updatePageLanguage();
+        });
+
+        // 태그 클라우드 크기 조정
+        const tags = document.querySelectorAll('.tag-item');
+        const maxCount = Math.max(...Array.from(tags).map(tag => parseInt(tag.dataset.count)));
+
+        tags.forEach(tag => {
+            const count = parseInt(tag.dataset.count);
+            const size = 1 + (count / maxCount) * 0.5; // 1.0 ~ 1.5 범위로 크기 조정
+            tag.style.fontSize = `${size}rem`;
+        });
+
+        // 스크롤 애니메이션
+        document.querySelectorAll('.tag-item').forEach(tag => {
+            tag.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').slice(1);
+                const targetSection = document.getElementById(targetId);
+
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    });
+</script>
