@@ -1,26 +1,25 @@
 ---
 layout: default
-title: "태그"
-title_en: "Tags"
+title: "태그별 글 모음"
+title_en: "Posts by Tags"
 permalink: /tags/
 ---
 
 <div class="container">
     <div class="page-header">
         <h1 class="page-title">
-            <span class="gradient-text" data-ko="태그" data-en="Tags"></span>
+            <span class="gradient-text" data-ko="태그별 글 모음" data-en="Posts by Tags"></span>
         </h1>
         <p class="page-description">
             <span data-ko="관심 있는 태그를 선택하여 관련 글을 찾아보세요" data-en="Select a tag to find related posts"></span>
         </p>
     </div>
 
-    <!-- 디버깅용 언어 전환 버튼 -->
-    <div class="debug-panel"
-        style="text-align: center; margin-bottom: 20px; padding: 10px; background: #f0f0f0; border-radius: 8px;">
+    <!-- 디버깅용 언어 전환 버튼 (개발 완료 후 삭제) -->
+    <div class="debug-panel">
         <p>현재 언어: <span id="current-lang">ko</span></p>
-        <button onclick="debugChangeLanguage('ko')" style="margin-right: 10px; padding: 5px 10px;">한국어</button>
-        <button onclick="debugChangeLanguage('en')" style="padding: 5px 10px;">English</button>
+        <button onclick="debugChangeLanguage('ko')">한국어</button>
+        <button onclick="debugChangeLanguage('en')">English</button>
     </div>
 
     <div class="tag-cloud">
@@ -481,41 +480,51 @@ permalink: /tags/
         // 디버깅용 언어 변경 함수
         window.debugChangeLanguage = function (lang) {
             console.log("디버깅 언어 변경 호출: " + lang);
-            changeLanguage(lang);
+
+            // 글로벌 languageChange 이벤트 트리거
+            window.dispatchEvent(new CustomEvent('languageChange', {
+                detail: { language: lang }
+            }));
+
+            // URL 파라미터 업데이트
+            const url = new URL(window.location.href);
+            url.searchParams.set('lang', lang);
+            window.history.pushState({}, '', url);
+
+            // 로컬 스토리지에 언어 설정 저장
+            localStorage.setItem('preferred_language', lang);
+
+            // HTML lang 속성 설정
+            document.documentElement.setAttribute('lang', lang);
+
+            // 디버깅 패널 업데이트
+            updateDebugPanel(lang);
         };
 
         // 모든 언어 전환 가능한 요소들
         const elementsWithLanguageData = document.querySelectorAll('[data-ko], [data-en]');
 
-        // 언어 변경 함수
-        function changeLanguage(lang) {
-            console.log("언어 변경 함수 호출됨: " + lang);
+        // 언어에 따라 콘텐츠 업데이트 함수
+        function updateContent(lang) {
+            console.log("태그 페이지 콘텐츠 업데이트: " + lang);
 
             // 모든 다국어 요소 업데이트
             elementsWithLanguageData.forEach(element => {
                 const content = element.getAttribute(`data-${lang}`);
                 if (content !== null) {
                     element.textContent = content;
-                    console.log("업데이트: ", element, content);
                 }
             });
 
-            // HTML lang 속성 설정
-            document.documentElement.setAttribute('lang', lang);
-
-            // 로컬 스토리지에 언어 설정 저장
-            localStorage.setItem('preferred_language', lang);
-
             // 디버깅 패널 업데이트
             updateDebugPanel(lang);
-
-            // 이벤트 트리거
-            const event = new CustomEvent('languageChanged', { detail: { language: lang } });
-            document.dispatchEvent(event);
         }
 
-        // 전역에 함수 노출
-        window.changeLanguage = changeLanguage;
+        // 글로벌 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            console.log("글로벌 languageChange 이벤트 감지: ", e.detail.language);
+            updateContent(e.detail.language);
+        });
 
         // 초기 언어 설정
         const urlParams = new URLSearchParams(window.location.search);
@@ -523,17 +532,12 @@ permalink: /tags/
         const storedLang = localStorage.getItem('preferred_language');
         const initialLang = langParam || storedLang || 'ko';
 
-        console.log("초기 언어: ", initialLang, "URL 매개변수: ", langParam, "저장된 언어: ", storedLang);
+        console.log("초기 언어: ", initialLang);
 
-        // 초기 언어 적용
+        // 초기 언어 적용 (약간의 지연을 두어 다른 스크립트와의 충돌 방지)
         setTimeout(function () {
-            changeLanguage(initialLang);
+            updateContent(initialLang);
         }, 100);
-
-        // 언어 변경 이벤트 리스너
-        document.addEventListener('languageChanged', function (e) {
-            console.log("languageChanged 이벤트 감지: ", e.detail.language);
-        });
 
         // 태그 클라우드 애니메이션
         const tagItems = document.querySelectorAll('.tag-item');
