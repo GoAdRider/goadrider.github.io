@@ -1,18 +1,26 @@
 ---
 layout: default
-title: "태그별 글 모음"
-title_en: "Posts by Tags"
+title: "태그"
+title_en: "Tags"
 permalink: /tags/
 ---
 
 <div class="container">
     <div class="page-header">
         <h1 class="page-title">
-            <span class="gradient-text" data-ko="태그별 글 모음" data-en="Posts by Tags"></span>
+            <span class="gradient-text" data-ko="태그" data-en="Tags"></span>
         </h1>
         <p class="page-description">
             <span data-ko="관심 있는 태그를 선택하여 관련 글을 찾아보세요" data-en="Select a tag to find related posts"></span>
         </p>
+    </div>
+
+    <!-- 디버깅용 언어 전환 버튼 -->
+    <div class="debug-panel"
+        style="text-align: center; margin-bottom: 20px; padding: 10px; background: #f0f0f0; border-radius: 8px;">
+        <p>현재 언어: <span id="current-lang">ko</span></p>
+        <button onclick="debugChangeLanguage('ko')" style="margin-right: 10px; padding: 5px 10px;">한국어</button>
+        <button onclick="debugChangeLanguage('en')" style="padding: 5px 10px;">English</button>
     </div>
 
     <div class="tag-cloud">
@@ -24,12 +32,13 @@ permalink: /tags/
         {% assign tag_name_en = tag_data.en | default: tag_name %}
         <a href="#{{ tag_name }}" class="tag-item" data-count="{{ posts.size }}">
             <span class="tag-name">
-                #<span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}"></span>
+                #<span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}">{{ tag_name }}</span>
             </span>
             <span class="tag-count">{{ posts.size }}</span>
             {% if tag_data.description %}
             <span class="tag-tooltip">
-                <span data-ko="{{ tag_data.description }}" data-en="{{ tag_data.description_en }}"></span>
+                <span data-ko="{{ tag_data.description }}" data-en="{{ tag_data.description_en }}">{{
+                    tag_data.description }}</span>
             </span>
             {% endif %}
         </a>
@@ -47,13 +56,14 @@ permalink: /tags/
             <div class="tag-header">
                 <h2 class="tag-title">
                     <span class="tag-symbol">#</span>
-                    <span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}"></span>
+                    <span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}">{{ tag_name }}</span>
                     <span class="tag-count">{{ posts.size }}</span>
                 </h2>
 
                 {% if tag_data.description %}
                 <p class="tag-description">
-                    <span data-ko="{{ tag_data.description }}" data-en="{{ tag_data.description_en }}"></span>
+                    <span data-ko="{{ tag_data.description }}" data-en="{{ tag_data.description_en }}">{{
+                        tag_data.description }}</span>
                 </p>
                 {% endif %}
             </div>
@@ -69,7 +79,7 @@ permalink: /tags/
                             {% assign cat_data = site.data.categories[category] %}
                             {% assign cat_name_en = cat_data.en | default: category %}
                             <a href="/categories/#{{ category }}" class="category-link">
-                                <span data-ko="{{ category }}" data-en="{{ cat_name_en }}"></span>
+                                <span data-ko="{{ category }}" data-en="{{ cat_name_en }}">{{ category }}</span>
                             </a>
                             {% endfor %}
                         </div>
@@ -78,13 +88,16 @@ permalink: /tags/
 
                     <h3 class="post-title">
                         <a href="{{ post.url }}" class="post-link">
-                            <span data-ko="{{ post.title }}" data-en="{{ post.title_en | default: post.title }}"></span>
+                            <span data-ko="{{ post.title }}" data-en="{{ post.title_en | default: post.title }}">{{
+                                post.title }}</span>
                         </a>
                     </h3>
 
                     <p class="post-excerpt">
                         <span data-ko="{{ post.excerpt | strip_html | truncate: 160 }}"
-                            data-en="{{ post.excerpt_en | default: post.excerpt | strip_html | truncate: 160 }}"></span>
+                            data-en="{{ post.excerpt_en | default: post.excerpt | strip_html | truncate: 160 }}">
+                            {{ post.excerpt | strip_html | truncate: 160 }}
+                        </span>
                     </p>
 
                     {% if post.tags %}
@@ -95,7 +108,8 @@ permalink: /tags/
                         {% assign tag_name_en = tag_data.en | default: post_tag %}
                         <a href="#{{ post_tag }}" class="tag-link">
                             <span class="tag-symbol">#</span>
-                            <span class="tag-text" data-ko="{{ post_tag }}" data-en="{{ tag_name_en }}"></span>
+                            <span class="tag-text" data-ko="{{ post_tag }}" data-en="{{ tag_name_en }}">{{ post_tag
+                                }}</span>
                         </a>
                         {% endif %}
                         {% endfor %}
@@ -427,111 +441,106 @@ permalink: /tags/
             font-size: 1.5rem;
         }
     }
+
+    /* 디버깅 패널 스타일 */
+    .debug-panel {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--primary-light);
+        border-radius: 0.5rem;
+        text-align: center;
+    }
+
+    .debug-panel button {
+        background: var(--bg-accent);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin: 0 0.5rem;
+    }
+
+    .debug-panel button:hover {
+        background: var(--primary-dark);
+    }
 </style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // 디버깅용 상태 표시 함수
+        function updateDebugPanel(lang) {
+            const currentLangEl = document.getElementById('current-lang');
+            if (currentLangEl) {
+                currentLangEl.textContent = lang;
+            }
+        }
+
+        // 디버깅용 언어 변경 함수
+        window.debugChangeLanguage = function (lang) {
+            console.log("디버깅 언어 변경 호출: " + lang);
+            changeLanguage(lang);
+        };
+
         // 모든 언어 전환 가능한 요소들
-        const pageTitle = document.querySelector('.gradient-text');
-        const pageDescription = document.querySelector('.page-description span');
-        const tagTexts = document.querySelectorAll('.tag-text');
-        const tagTooltips = document.querySelectorAll('.tag-tooltip span');
-        const tagDescriptions = document.querySelectorAll('.tag-description span');
-        const postTitles = document.querySelectorAll('.post-title .post-link span');
-        const postExcerpts = document.querySelectorAll('.post-excerpt span');
-        const categoryLinks = document.querySelectorAll('.category-link span');
+        const elementsWithLanguageData = document.querySelectorAll('[data-ko], [data-en]');
 
-        // 언어 변경 함수 (카테고리 페이지 방식과 유사하게 구현)
-        function updateLanguage(lang) {
-            console.log("언어 변경: " + lang); // 디버깅용 로그
+        // 언어 변경 함수
+        function changeLanguage(lang) {
+            console.log("언어 변경 함수 호출됨: " + lang);
 
-            // 페이지 제목과 설명 업데이트
-            pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
-            pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
-
-            // 모든 태그 텍스트 업데이트
-            tagTexts.forEach(tag => {
-                tag.textContent = tag.getAttribute(`data-${lang}`);
-            });
-
-            // 태그 툴팁 업데이트
-            tagTooltips.forEach(tooltip => {
-                tooltip.textContent = tooltip.getAttribute(`data-${lang}`);
-            });
-
-            // 태그 설명 업데이트
-            tagDescriptions.forEach(desc => {
-                desc.textContent = desc.getAttribute(`data-${lang}`);
-            });
-
-            // 포스트 제목 업데이트
-            postTitles.forEach(title => {
-                title.textContent = title.getAttribute(`data-${lang}`);
-            });
-
-            // 포스트 요약 업데이트
-            postExcerpts.forEach(excerpt => {
-                excerpt.textContent = excerpt.getAttribute(`data-${lang}`);
-            });
-
-            // 카테고리 링크 업데이트
-            categoryLinks.forEach(cat => {
-                cat.textContent = cat.getAttribute(`data-${lang}`);
+            // 모든 다국어 요소 업데이트
+            elementsWithLanguageData.forEach(element => {
+                const content = element.getAttribute(`data-${lang}`);
+                if (content !== null) {
+                    element.textContent = content;
+                    console.log("업데이트: ", element, content);
+                }
             });
 
             // HTML lang 속성 설정
             document.documentElement.setAttribute('lang', lang);
 
-            // 언어 변경 이벤트 발생
+            // 로컬 스토리지에 언어 설정 저장
+            localStorage.setItem('preferred_language', lang);
+
+            // 디버깅 패널 업데이트
+            updateDebugPanel(lang);
+
+            // 이벤트 트리거
             const event = new CustomEvent('languageChanged', { detail: { language: lang } });
             document.dispatchEvent(event);
         }
 
-        // 초기 언어 설정 (URL 파라미터 또는 저장된 설정)
+        // 전역에 함수 노출
+        window.changeLanguage = changeLanguage;
+
+        // 초기 언어 설정
         const urlParams = new URLSearchParams(window.location.search);
         const langParam = urlParams.get('lang');
         const storedLang = localStorage.getItem('preferred_language');
         const initialLang = langParam || storedLang || 'ko';
 
+        console.log("초기 언어: ", initialLang, "URL 매개변수: ", langParam, "저장된 언어: ", storedLang);
+
         // 초기 언어 적용
-        updateLanguage(initialLang);
+        setTimeout(function () {
+            changeLanguage(initialLang);
+        }, 100);
 
-        // 전역 언어 변경 함수 등록 (다른 페이지와 통합)
-        window.changeLanguage = function (lang) {
-            console.log("전역 언어 변경 함수 호출: " + lang);
-            localStorage.setItem('preferred_language', lang);
-            updateLanguage(lang);
-        };
-
-        // 언어 변경 이벤트 리스너 (다양한 방식 지원)
+        // 언어 변경 이벤트 리스너
         document.addEventListener('languageChanged', function (e) {
-            updateLanguage(e.detail.language);
+            console.log("languageChanged 이벤트 감지: ", e.detail.language);
         });
-
-        window.addEventListener('languageChange', function (e) {
-            updateLanguage(e.detail.language);
-        });
-
-        // HTML lang 속성 변경 감지
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                if (mutation.type === "attributes" && mutation.attributeName === "lang") {
-                    const newLang = document.documentElement.getAttribute('lang');
-                    if (newLang) {
-                        updateLanguage(newLang);
-                    }
-                }
-            });
-        });
-
-        observer.observe(document.documentElement, { attributes: true });
 
         // 태그 클라우드 애니메이션
         const tagItems = document.querySelectorAll('.tag-item');
-        const maxCount = Math.max(...Array.from(tagItems).map(item => parseInt(item.dataset.count)));
+        const maxCount = Math.max(...Array.from(tagItems).map(item => parseInt(item.dataset.count) || 1));
 
         tagItems.forEach(item => {
-            const count = parseInt(item.dataset.count);
+            const count = parseInt(item.dataset.count) || 1;
             const size = 1 + (count / maxCount) * 0.5; // 1.0 ~ 1.5 범위로 크기 조정
             item.style.fontSize = `${size}rem`;
         });
