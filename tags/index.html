@@ -28,10 +28,10 @@ permalink: /tags/
         {% assign tag_name = tag | first %}
         {% assign posts = tag | last %}
         {% assign tag_data = site.data.tags[tag_name] %}
-        {% assign tag_name_en = tag_data.en | default: tag_name %}
         <a href="#{{ tag_name }}" class="tag-item" data-count="{{ posts.size }}">
             <span class="tag-name">
-                #<span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}">{{ tag_name }}</span>
+                #<span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_data.en | default: tag_name }}">{{
+                    tag_name }}</span>
             </span>
             <span class="tag-count">{{ posts.size }}</span>
             {% if tag_data.description %}
@@ -49,13 +49,13 @@ permalink: /tags/
         {% assign tag_name = tag | first %}
         {% assign posts = tag | last %}
         {% assign tag_data = site.data.tags[tag_name] %}
-        {% assign tag_name_en = tag_data.en | default: tag_name %}
 
         <section id="{{ tag_name }}" class="tag-section">
             <div class="tag-header">
                 <h2 class="tag-title">
                     <span class="tag-symbol">#</span>
-                    <span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_name_en }}">{{ tag_name }}</span>
+                    <span class="tag-text" data-ko="{{ tag_name }}" data-en="{{ tag_data.en | default: tag_name }}">{{
+                        tag_name }}</span>
                     <span class="tag-count">{{ posts.size }}</span>
                 </h2>
 
