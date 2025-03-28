@@ -471,94 +471,70 @@ permalink: /tags/
     document.addEventListener('DOMContentLoaded', function () {
         console.log("태그 페이지 스크립트 로드됨");
 
-        // 언어 관련 요소 선택
-        const pageTitle = document.querySelector('.page-title .gradient-text');
-        const pageDescription = document.querySelector('.page-description span');
-        const debugLangDisplay = document.getElementById('current-lang');
-        const tagTexts = document.querySelectorAll('.tag-text');
-        const tagDescriptions = document.querySelectorAll('.tag-tooltip span');
-        const postTitles = document.querySelectorAll('.post-title .post-link span');
-        const postExcerpts = document.querySelectorAll('.post-excerpt span');
-        const categoryLinks = document.querySelectorAll('.category-link span');
+        // 다국어 지원 요소들
+        const multilingual = {
+            elements: document.querySelectorAll('[data-ko], [data-en]'),
+            update: function (language) {
+                console.log("다국어 요소 업데이트: ", language, this.elements.length + "개 요소");
+                this.elements.forEach(el => {
+                    if (el.hasAttribute(`data-${language}`)) {
+                        el.textContent = el.getAttribute(`data-${language}`);
+                    }
+                });
+            }
+        };
 
-        // 다국어 클래스를 가진 모든 요소
-        const allMultilingualElements = document.querySelectorAll('[data-ko], [data-en]');
-
-        // 디버깅용 언어 변경 함수
+        // 디버깅용 함수 (개발용)
         window.debugChangeLanguage = function (lang) {
-            console.log("디버그 언어 변경: ", lang);
+            console.log("수동 언어 변경 트리거: ", lang);
+
+            // 기존 이벤트와 동일한 형식으로 발생시킴
+            const event = new CustomEvent('languageChange', {
+                detail: { language: lang }
+            });
+            document.dispatchEvent(event);
+
+            // 전역 상태 업데이트
+            document.documentElement.setAttribute('lang', lang);
+            localStorage.setItem('preferred_language', lang);
 
             // URL 파라미터 업데이트
             const url = new URL(window.location);
             url.searchParams.set('lang', lang);
             window.history.pushState({}, '', url);
 
-            // 로컬 스토리지 저장
-            localStorage.setItem('preferred_language', lang);
-
-            // 전역 언어 변경 이벤트 발생
-            const event = new CustomEvent('languageChange', {
-                detail: { language: lang }
-            });
-            window.dispatchEvent(event);
+            // 업데이트 함수 직접 호출
+            updateTagPageLanguage(lang);
         };
 
-        // 언어 업데이트 함수
-        function updateLanguage(lang) {
-            console.log("언어 업데이트 실행: ", lang);
+        // 태그 페이지 전용 언어 업데이트 함수
+        function updateTagPageLanguage(lang) {
+            console.log("태그 페이지 언어 업데이트: ", lang);
 
-            // 간단한 접근법 - 모든 다국어 요소 일괄 처리
-            allMultilingualElements.forEach(el => {
-                if (el.hasAttribute(`data-${lang}`)) {
-                    el.textContent = el.getAttribute(`data-${lang}`);
-                }
-            });
+            // 다국어 요소 업데이트
+            multilingual.update(lang);
 
-            // HTML lang 속성 설정
-            document.documentElement.setAttribute('lang', lang);
-
-            // 디버깅 패널 업데이트
-            if (debugLangDisplay) {
-                debugLangDisplay.textContent = lang;
+            // 디버깅 정보 업데이트
+            const debugDisplay = document.getElementById('current-lang');
+            if (debugDisplay) {
+                debugDisplay.textContent = lang;
             }
-
-            // 이벤트 발생 - 다른 스크립트와의 통합을 위해
-            const event = new CustomEvent('languageChanged', {
-                detail: { language: lang }
-            });
-            document.dispatchEvent(event);
         }
 
-        // 언어 변경 이벤트 감지
-        window.addEventListener('languageChange', function (e) {
-            console.log("글로벌 languageChange 이벤트 감지: ", e.detail.language);
-            updateLanguage(e.detail.language);
-        });
-
-        // 초기 언어 설정
-        const urlParams = new URLSearchParams(window.location.search);
-        const langParam = urlParams.get('lang');
-        const storedLang = localStorage.getItem('preferred_language');
-        const initialLang = langParam || storedLang || 'ko';
-
-        console.log("초기 언어: ", initialLang);
-
-        // 초기 언어 적용
-        setTimeout(() => {
-            updateLanguage(initialLang);
-        }, 100);
-
-        // 태그 클라우드 애니메이션
+        // 태그 클라우드 애니메이션 - 포스트 수에 따라 크기 조정
         const tagItems = document.querySelectorAll('.tag-item');
-        const maxCount = Math.max(...Array.from(tagItems).map(item => parseInt(item.dataset.count) || 1));
+        if (tagItems.length > 0) {
+            const counts = Array.from(tagItems).map(item => parseInt(item.dataset.count) || 1);
+            const maxCount = Math.max(...counts);
 
-        tagItems.forEach(item => {
-            const count = parseInt(item.dataset.count) || 1;
-            const size = 1 + (count / maxCount) * 0.5; // 1.0 ~ 1.5 범위로 크기 조정
-            item.style.fontSize = `${size}rem`;
-        });
+            tagItems.forEach(item => {
+                const count = parseInt(item.dataset.count) || 1;
+                const size = 1 + (count / maxCount) * 0.5; // 1.0 ~ 1.5 범위
+                item.style.fontSize = `${size}rem`;
+            });
+        }
 
-        // 스무스 스크롤
+        // 스무스 스크롤 구현
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -571,5 +547,31 @@ permalink: /tags/
                 }
             });
         });
+
+        // 중요: 두 가지 이벤트 모두 처리 (기존 시스템과의 호환성)
+        document.addEventListener('languageChange', function (e) {
+            console.log('languageChange 이벤트 감지됨: ', e.detail);
+            if (e.detail && e.detail.language) {
+                updateTagPageLanguage(e.detail.language);
+            }
+        });
+
+        document.addEventListener('languageChanged', function (e) {
+            console.log('languageChanged 이벤트 감지됨: ', e.detail);
+            if (e.detail && e.detail.language) {
+                updateTagPageLanguage(e.detail.language);
+            }
+        });
+
+        // 초기 언어 설정 및 적용
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialLang = urlParams.get('lang') || localStorage.getItem('preferred_language') || 'ko';
+        console.log("초기 언어 설정: ", initialLang);
+
+        // 약간의 지연 후 적용 (DOM이 완전히 준비된 후)
+        setTimeout(() => {
+            updateTagPageLanguage(initialLang);
+            console.log("초기 언어 적용 완료");
+        }, 100);
     });
 </script>
