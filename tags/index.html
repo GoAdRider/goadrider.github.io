@@ -431,59 +431,100 @@ permalink: /tags/
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 언어 변경 감지 및 적용 함수
-        function updateLanguage() {
-            const currentLang = document.documentElement.getAttribute('lang') || 'ko';
-            console.log("언어 변경 감지: " + currentLang); // 디버깅용 로그
+        // 모든 언어 전환 가능한 요소들
+        const pageTitle = document.querySelector('.gradient-text');
+        const pageDescription = document.querySelector('.page-description span');
+        const tagTexts = document.querySelectorAll('.tag-text');
+        const tagTooltips = document.querySelectorAll('.tag-tooltip span');
+        const tagDescriptions = document.querySelectorAll('.tag-description span');
+        const postTitles = document.querySelectorAll('.post-title .post-link span');
+        const postExcerpts = document.querySelectorAll('.post-excerpt span');
+        const categoryLinks = document.querySelectorAll('.category-link span');
 
-            document.querySelectorAll('[data-ko], [data-en]').forEach(element => {
-                const content = element.getAttribute(`data-${currentLang}`);
-                if (content !== null) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.value = content;
-                    } else {
-                        element.textContent = content;
+        // 언어 변경 함수 (카테고리 페이지 방식과 유사하게 구현)
+        function updateLanguage(lang) {
+            console.log("언어 변경: " + lang); // 디버깅용 로그
+
+            // 페이지 제목과 설명 업데이트
+            pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
+            pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
+
+            // 모든 태그 텍스트 업데이트
+            tagTexts.forEach(tag => {
+                tag.textContent = tag.getAttribute(`data-${lang}`);
+            });
+
+            // 태그 툴팁 업데이트
+            tagTooltips.forEach(tooltip => {
+                tooltip.textContent = tooltip.getAttribute(`data-${lang}`);
+            });
+
+            // 태그 설명 업데이트
+            tagDescriptions.forEach(desc => {
+                desc.textContent = desc.getAttribute(`data-${lang}`);
+            });
+
+            // 포스트 제목 업데이트
+            postTitles.forEach(title => {
+                title.textContent = title.getAttribute(`data-${lang}`);
+            });
+
+            // 포스트 요약 업데이트
+            postExcerpts.forEach(excerpt => {
+                excerpt.textContent = excerpt.getAttribute(`data-${lang}`);
+            });
+
+            // 카테고리 링크 업데이트
+            categoryLinks.forEach(cat => {
+                cat.textContent = cat.getAttribute(`data-${lang}`);
+            });
+
+            // HTML lang 속성 설정
+            document.documentElement.setAttribute('lang', lang);
+
+            // 언어 변경 이벤트 발생
+            const event = new CustomEvent('languageChanged', { detail: { language: lang } });
+            document.dispatchEvent(event);
+        }
+
+        // 초기 언어 설정 (URL 파라미터 또는 저장된 설정)
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
+
+        // 초기 언어 적용
+        updateLanguage(initialLang);
+
+        // 전역 언어 변경 함수 등록 (다른 페이지와 통합)
+        window.changeLanguage = function (lang) {
+            console.log("전역 언어 변경 함수 호출: " + lang);
+            localStorage.setItem('preferred_language', lang);
+            updateLanguage(lang);
+        };
+
+        // 언어 변경 이벤트 리스너 (다양한 방식 지원)
+        document.addEventListener('languageChanged', function (e) {
+            updateLanguage(e.detail.language);
+        });
+
+        window.addEventListener('languageChange', function (e) {
+            updateLanguage(e.detail.language);
+        });
+
+        // HTML lang 속성 변경 감지
+        const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.type === "attributes" && mutation.attributeName === "lang") {
+                    const newLang = document.documentElement.getAttribute('lang');
+                    if (newLang) {
+                        updateLanguage(newLang);
                     }
                 }
             });
-        }
-
-        // 초기 언어 설정 적용
-        updateLanguage();
-
-        // 현재 페이지에 적용된 전역 언어 변경 함수가 있는지 확인
-        if (typeof window.changeLanguage === 'function') {
-            // 기존 함수 백업
-            const originalChangeLanguage = window.changeLanguage;
-
-            // 함수 재정의
-            window.changeLanguage = function (lang) {
-                // 원래 함수 호출
-                originalChangeLanguage(lang);
-
-                // 추가 작업 실행
-                setTimeout(updateLanguage, 100); // 약간의 지연을 두고 실행
-            };
-        }
-
-        // 언어 변경 이벤트 리스너 (여러 방식 지원)
-        document.addEventListener('languageChanged', updateLanguage);
-        window.addEventListener('languageChange', updateLanguage);
-        document.addEventListener('DOMSubtreeModified', function (e) {
-            if (e.target.nodeName === 'HTML' && e.target.getAttribute('lang')) {
-                updateLanguage();
-            }
         });
 
-        // 수동 언어 변경 감지 (1초마다 체크)
-        let lastLang = document.documentElement.getAttribute('lang') || 'ko';
-        setInterval(function () {
-            const currentLang = document.documentElement.getAttribute('lang') || 'ko';
-            if (currentLang !== lastLang) {
-                lastLang = currentLang;
-                updateLanguage();
-            }
-        }, 1000);
+        observer.observe(document.documentElement, { attributes: true });
 
         // 태그 클라우드 애니메이션
         const tagItems = document.querySelectorAll('.tag-item');
