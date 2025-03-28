@@ -431,13 +431,19 @@ permalink: /tags/
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 언어 변경 감지 및 적용
+        // 언어 변경 감지 및 적용 함수
         function updateLanguage() {
             const currentLang = document.documentElement.getAttribute('lang') || 'ko';
+            console.log("언어 변경 감지: " + currentLang); // 디버깅용 로그
+
             document.querySelectorAll('[data-ko], [data-en]').forEach(element => {
                 const content = element.getAttribute(`data-${currentLang}`);
                 if (content !== null) {
-                    element.textContent = content;
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.value = content;
+                    } else {
+                        element.textContent = content;
+                    }
                 }
             });
         }
@@ -445,8 +451,39 @@ permalink: /tags/
         // 초기 언어 설정 적용
         updateLanguage();
 
-        // 언어 변경 이벤트 리스너
+        // 현재 페이지에 적용된 전역 언어 변경 함수가 있는지 확인
+        if (typeof window.changeLanguage === 'function') {
+            // 기존 함수 백업
+            const originalChangeLanguage = window.changeLanguage;
+
+            // 함수 재정의
+            window.changeLanguage = function (lang) {
+                // 원래 함수 호출
+                originalChangeLanguage(lang);
+
+                // 추가 작업 실행
+                setTimeout(updateLanguage, 100); // 약간의 지연을 두고 실행
+            };
+        }
+
+        // 언어 변경 이벤트 리스너 (여러 방식 지원)
         document.addEventListener('languageChanged', updateLanguage);
+        window.addEventListener('languageChange', updateLanguage);
+        document.addEventListener('DOMSubtreeModified', function (e) {
+            if (e.target.nodeName === 'HTML' && e.target.getAttribute('lang')) {
+                updateLanguage();
+            }
+        });
+
+        // 수동 언어 변경 감지 (1초마다 체크)
+        let lastLang = document.documentElement.getAttribute('lang') || 'ko';
+        setInterval(function () {
+            const currentLang = document.documentElement.getAttribute('lang') || 'ko';
+            if (currentLang !== lastLang) {
+                lastLang = currentLang;
+                updateLanguage();
+            }
+        }, 1000);
 
         // 태그 클라우드 애니메이션
         const tagItems = document.querySelectorAll('.tag-item');
