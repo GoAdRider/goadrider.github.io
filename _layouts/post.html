@@ -67,7 +67,7 @@ layout: default
             {% endif %}
 
             <div class="post-content e-content" itemprop="articleBody">
-                {{ content }}
+                {{ content | markdownify }}
             </div>
 
             <div class="post-navigation">
