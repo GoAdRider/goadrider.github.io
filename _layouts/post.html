@@ -1,0 +1,267 @@
+---
+layout: default
+---
+
+<div class="container">
+    <div class="post-container">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">
+                    <span data-ko="{{ page.title }}" data-en="{{ page.title_en | default: page.title }}">
+                        {% if page.lang == 'en' %}
+                        {{ page.title_en | default: page.title }}
+                        {% else %}
+                        {{ page.title }}
+                        {% endif %}
+                    </span>
+                </h1>
+
+                <div class="post-meta">
+                    <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+                        {{ page.date | date: "%Y-%m-%d" }}
+                    </time>
+
+                    {% if page.categories %}
+                    <div class="post-categories">
+                        {% for category in page.categories %}
+                        {% assign cat_data = site.data.categories[category] %}
+                        {% assign cat_name_en = cat_data.en | default: category %}
+                        <a href="/categories/#{{ category }}" class="category-link">
+                            <span data-ko="{{ category }}" data-en="{{ cat_name_en }}">
+                                {% if page.lang == 'en' %}
+                                {{ cat_name_en }}
+                                {% else %}
+                                {{ category }}
+                                {% endif %}
+                            </span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if page.tags %}
+                    <div class="post-tags">
+                        {% for tag in page.tags %}
+                        {% assign tag_data = site.data.tags[tag] %}
+                        {% assign tag_name_en = tag_data.en | default: tag %}
+                        <a href="/tags/#{{ tag }}" class="tag-link">
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="{{ tag }}" data-en="{{ tag_name_en }}">
+                                {% if page.lang == 'en' %}
+                                {{ tag_name_en }}
+                                {% else %}
+                                {{ tag }}
+                                {% endif %}
+                            </span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </header>
+
+            {% if page.image %}
+            <div class="post-featured-image">
+                <img src="{{ page.image }}" alt="Featured Image">
+            </div>
+            {% endif %}
+
+            <div class="post-content e-content" itemprop="articleBody">
+                {{ content }}
+            </div>
+
+            <div class="post-navigation">
+                {% if page.previous %}
+                <a href="{{ page.previous.url | relative_url }}" class="prev-post" rel="prev">
+                    &larr;
+                    <span data-ko="이전 글" data-en="Previous Post">
+                        {% if page.lang == 'en' %}Previous Post{% else %}이전 글{% endif %}
+                    </span>
+                </a>
+                {% endif %}
+
+                {% if page.next %}
+                <a href="{{ page.next.url | relative_url }}" class="next-post" rel="next">
+                    <span data-ko="다음 글" data-en="Next Post">
+                        {% if page.lang == 'en' %}Next Post{% else %}다음 글{% endif %}
+                    </span>
+                    &rarr;
+                </a>
+                {% endif %}
+            </div>
+        </article>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .post-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .post-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+
+    .post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        color: var(--gray-color);
+        font-size: 0.9rem;
+    }
+
+    .post-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .category-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        padding: 0.25rem 0.75rem;
+        background: rgba(37, 99, 235, 0.1);
+        border-radius: 9999px;
+        transition: var(--transition);
+    }
+
+    .category-link:hover {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tag-link {
+        color: var(--gray-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .tag-link:hover {
+        color: var(--primary-color);
+    }
+
+    .post-featured-image {
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    .post-featured-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .post-content {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 3rem;
+    }
+
+    .post-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .prev-post,
+    .next-post {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .prev-post:hover,
+    .next-post:hover {
+        color: var(--secondary-color);
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+
+        .post-title {
+            font-size: 2rem;
+        }
+
+        .post-content {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 언어 변경 감지 및 처리
+        function updatePostLanguage() {
+            const lang = document.documentElement.getAttribute('lang') || 'ko';
+            console.log('포스트 페이지 언어 업데이트:', lang);
+
+            // 다국어 콘텐츠 요소들 표시/숨김 처리
+            const koContent = document.querySelector('.post-content-ko');
+            const enContent = document.querySelector('.post-content-en');
+
+            if (koContent && enContent) {
+                if (lang === 'ko') {
+                    koContent.style.display = 'block';
+                    enContent.style.display = 'none';
+                } else {
+                    koContent.style.display = 'none';
+                    enContent.style.display = 'block';
+                }
+            }
+
+            // 데이터 속성을 가진 다국어 요소들 업데이트
+            const allMultilingualElements = document.querySelectorAll('[data-ko], [data-en]');
+            allMultilingualElements.forEach(el => {
+                if (el.hasAttribute(`data-${lang}`)) {
+                    el.textContent = el.getAttribute(`data-${lang}`);
+                }
+            });
+        }
+
+        // 초기 언어 설정 적용
+        updatePostLanguage();
+
+        // 언어 변경 이벤트 리스너 (languageChange 및 languageChanged 모두 처리)
+        document.addEventListener('languageChange', function (e) {
+            console.log('languageChange 이벤트 감지:', e.detail);
+            updatePostLanguage();
+        });
+
+        document.addEventListener('languageChanged', function (e) {
+            console.log('languageChanged 이벤트 감지:', e.detail);
+            updatePostLanguage();
+        });
+    });
+</script>
