@@ -1,29 +1,15 @@
 ---
-layout: single
+layout: post
 title: "양자역학적 관점에서 바라본 의식의 본질"
 title_en: "The Nature of Consciousness from a Quantum Mechanical Perspective"
 date: 2025-03-25 10:30:00 +0900
-categories: 
-  - 과학
-  - 철학
-categories_en:
-  - Science
-  - Philosophy
-tags:
-  - 양자역학
-  - 의식
-  - 마음의철학
-  - 뇌과학
-tags_en:
-  - quantum mechanics
-  - consciousness
-  - philosophy of mind
-  - neuroscience
+categories: [과학, 철학]
+categories_en: [Science, Philosophy]
+tags: [양자역학, 의식, 마음의철학, 뇌과학]
+tags_en: [quantum mechanics, consciousness, philosophy of mind, neuroscience]
 excerpt: "양자역학과 의식의 관계에 대한 철학적 고찰과 최신 과학적 연구 분석"
 excerpt_en: "Philosophical contemplation and analysis of recent scientific research on the relationship between quantum mechanics and consciousness"
-header:
-  overlay_color: "#333"
-  overlay_filter: 0.7
+image: /assets/images/posts/2025-03-25-quantum-consciousness.jpg
 ---
 
 <div class="post-content-ko">
