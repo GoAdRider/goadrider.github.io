@@ -1,7 +1,6 @@
 ---
 layout: default
-title: "태그별 글 모음"
-title_en: "Posts by Tags"
+title: 태그별 글 모음 - NewsLens
 permalink: /tags/
 ---
 
@@ -11,11 +10,9 @@ permalink: /tags/
 
 <div class="container">
     <div class="page-header">
-        <h1 class="page-title">
-            <span class="gradient-text" data-ko="태그별 글 모음" data-en="Posts by Tags"></span>
-        </h1>
-        <p class="page-description">
-            <span data-ko="관심 있는 태그를 선택하여 관련 글을 찾아보세요" data-en="Select a tag to find related posts"></span>
+        <h1 class="page-title" data-ko="태그별 글 모음" data-en="Posts by Tags">태그별 글 모음</h1>
+        <p class="page-description" data-ko="관심 있는 태그를 선택하여 관련 글을 찾아보세요" data-en="Select a tag to find related posts">
+            관심 있는 태그를 선택하여 관련 글을 찾아보세요
         </p>
     </div>
 
@@ -440,31 +437,20 @@ permalink: /tags/
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // 필요한 요소들 선택
-        const pageTitle = document.querySelector('.page-title .gradient-text');
-        const pageDescription = document.querySelector('.page-description span');
+        const pageTitle = document.querySelector('.page-title');
+        const pageDescription = document.querySelector('.page-description');
         const tagItems = document.querySelectorAll('.tag-item');
-        const tagSections = document.querySelectorAll('.tag-section');
         const currentLangDisplay = document.getElementById('current-lang');
 
         // 언어 변경 함수
         function updateLanguage(lang) {
             console.log('태그 페이지 언어 변경 적용:', lang);
 
-            // 1. 문서 타이틀 업데이트
-            document.title = lang === 'ko' ?
-                "태그별 글 모음 | NewsLens" :
-                "Posts by Tags | NewsLens";
+            // 페이지 제목과 설명 업데이트
+            pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
+            pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
 
-            // 2. 페이지 제목과 설명 업데이트
-            if (pageTitle) {
-                pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
-            }
-
-            if (pageDescription) {
-                pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
-            }
-
-            // 3. 모든 data-ko, data-en 속성이 있는 요소 업데이트
+            // 모든 data-ko, data-en 속성이 있는 요소 업데이트
             document.querySelectorAll('[data-ko], [data-en]').forEach(el => {
                 if (el.hasAttribute(`data-${lang}`)) {
                     const newText = el.getAttribute(`data-${lang}`);
@@ -475,12 +461,12 @@ permalink: /tags/
                 }
             });
 
-            // 4. 디버깅 정보 업데이트
+            // 디버깅 정보 업데이트
             if (currentLangDisplay) {
                 currentLangDisplay.textContent = lang;
             }
 
-            // 5. HTML lang 속성 및 로컬 스토리지 업데이트
+            // HTML lang 속성 및 로컬 스토리지 업데이트
             document.documentElement.setAttribute('lang', lang);
             localStorage.setItem('preferred_language', lang);
         }
@@ -499,21 +485,11 @@ permalink: /tags/
             }
         }
 
-        // 스무스 스크롤 구현
-        function setupSmoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        }
+        // 언어 변경 이벤트 리스너 설정
+        window.addEventListener('languageChange', function (e) {
+            console.log('languageChange 이벤트 감지:', e.detail);
+            updateLanguage(e.detail.language);
+        });
 
         // 디버그 언어 변경 함수 (전역으로 노출)
         window.debugChangeLanguage = function (lang) {
@@ -527,68 +503,22 @@ permalink: /tags/
             url.searchParams.set('lang', lang);
             window.history.pushState({}, '', url);
 
-            // 전역 이벤트 발생 (두 형식 모두 지원)
+            // 전역 이벤트 발생
             document.dispatchEvent(new CustomEvent('languageChange', {
-                detail: { language: lang }
-            }));
-
-            document.dispatchEvent(new CustomEvent('languageChanged', {
                 detail: { language: lang }
             }));
         };
 
-        // 언어 변경 이벤트 리스너 설정 (두 가지 이벤트 모두 처리)
-        window.addEventListener('languageChange', function (e) {
-            console.log('languageChange 이벤트 감지:', e.detail);
-            if (e.detail && e.detail.language) {
-                updateLanguage(e.detail.language);
-            }
-        });
+        // 초기화
+        initializeTagCloud();
 
-        window.addEventListener('languageChanged', function (e) {
-            console.log('languageChanged 이벤트 감지:', e.detail);
-            if (e.detail && e.detail.language) {
-                updateLanguage(e.detail.language);
-            }
-        });
+        // 초기 언어 설정
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
 
-        // HTML lang 속성 변경 감지
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                if (mutation.attributeName === 'lang') {
-                    const newLang = document.documentElement.getAttribute('lang');
-                    console.log('HTML lang 속성 변경 감지:', newLang);
-                    if (newLang === 'ko' || newLang === 'en') {
-                        updateLanguage(newLang);
-                    }
-                }
-            });
-        });
-
-        observer.observe(document.documentElement, { attributes: true });
-
-        // 초기화 작업
-        function initializePage() {
-            // 태그 클라우드 초기화
-            initializeTagCloud();
-
-            // 스무스 스크롤 설정
-            setupSmoothScroll();
-
-            // 초기 언어 설정
-            const urlParams = new URLSearchParams(window.location.search);
-            const langParam = urlParams.get('lang');
-            const storedLang = localStorage.getItem('preferred_language');
-            const htmlLang = document.documentElement.getAttribute('lang');
-            const initialLang = langParam || storedLang || htmlLang || 'ko';
-
-            // 초기 언어 적용
-            updateLanguage(initialLang);
-
-            console.log('태그 페이지 초기화 완료');
-        }
-
-        // 페이지 초기화 실행
-        initializePage();
+        // 초기 언어 적용
+        updateLanguage(initialLang);
     });
 </script>
