@@ -33,7 +33,7 @@ paginate_path: /page:num/
 
 # 콘텐츠 설정
 include:
-  - _pages
+  - .htaccess
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -63,9 +63,9 @@ defaults:
     values:
       layout: "post"
       author: "NewsLens"
-  # _pages
+  # 페이지 기본값
   - scope:
-      path: "_pages"
+      path: "*/index.html"
       type: pages
     values:
       layout: single
