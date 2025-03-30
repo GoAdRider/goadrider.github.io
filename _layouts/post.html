@@ -67,61 +67,33 @@ layout: default
             {% endif %}
 
             <div class="post-content e-content" itemprop="articleBody">
-                {% assign content_parts = content | split: '<div class="post-content-ko">' %}
-                    {% if content_parts.size > 1 %}
-                    {% assign ko_content_parts = content_parts[1] | split: '</div>' %}
-                {% assign remaining_content = content_parts[1] | remove_first: ko_content_parts[0] | remove_first: '
-            </div>' %}
-            {% assign en_content_parts = remaining_content | split: '<div class="post-content-en"' %}
-                    {% if en_content_parts.size > 1 %}
-                        {% assign en_content = en_content_parts[1] | split: ' </div>' | first | remove_first: '
-                style="display: none;">' %}
-                {% endif %}
-
-                <div class="post-content-ko">
-                    {{ ko_content_parts[0] | markdownify }}
-                </div>
-
-                <div class="post-content-en" style="display: none;">
-                    {% if en_content %}
-                    {{ en_content | markdownify }}
+                <!-- 다국어 콘텐츠 분리 및 표시 로직 -->
+                {% if content contains '<div class="post-content-ko">' %}
+                    {{ content }}
+                    {% else %}
+                    {{ content | markdownify }}
                     {% endif %}
                 </div>
 
-                {% if content contains '
-                <script>' %}
-                    {% assign script_content = content | split: '<script>' %}
-                    {% if script_content.size > 1 %}
-                    {% assign script_body = script_content[1] | split: '</script>' | first %}
-                <script>
-                        { { script_body } }
-                </script>
-                {% endif %}
-                {% endif %}
-                {% else %}
-                {{ content | markdownify }}
-                {% endif %}
-            </div>
+                <div class="post-navigation">
+                    {% if page.previous %}
+                    <a href="{{ page.previous.url | relative_url }}" class="prev-post" rel="prev">
+                        &larr;
+                        <span data-ko="이전 글" data-en="Previous Post">
+                            {% if page.lang == 'en' %}Previous Post{% else %}이전 글{% endif %}
+                        </span>
+                    </a>
+                    {% endif %}
 
-            <div class="post-navigation">
-                {% if page.previous %}
-                <a href="{{ page.previous.url | relative_url }}" class="prev-post" rel="prev">
-                    &larr;
-                    <span data-ko="이전 글" data-en="Previous Post">
-                        {% if page.lang == 'en' %}Previous Post{% else %}이전 글{% endif %}
-                    </span>
-                </a>
-                {% endif %}
-
-                {% if page.next %}
-                <a href="{{ page.next.url | relative_url }}" class="next-post" rel="next">
-                    <span data-ko="다음 글" data-en="Next Post">
-                        {% if page.lang == 'en' %}Next Post{% else %}다음 글{% endif %}
-                    </span>
-                    &rarr;
-                </a>
-                {% endif %}
-            </div>
+                    {% if page.next %}
+                    <a href="{{ page.next.url | relative_url }}" class="next-post" rel="next">
+                        <span data-ko="다음 글" data-en="Next Post">
+                            {% if page.lang == 'en' %}Next Post{% else %}다음 글{% endif %}
+                        </span>
+                        &rarr;
+                    </a>
+                    {% endif %}
+                </div>
         </article>
     </div>
 </div>
@@ -254,47 +226,47 @@ layout: default
 </style>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // 언어 변경 감지 및 처리
-            function updatePostLanguage() {
-                const lang = document.documentElement.getAttribute('lang') || 'ko';
-                console.log('포스트 페이지 언어 업데이트:', lang);
+    document.addEventListener('DOMContentLoaded', function () {
+        // 언어 변경 감지 및 처리
+        function updatePostLanguage() {
+            const lang = document.documentElement.getAttribute('lang') || 'ko';
+            console.log('포스트 페이지 언어 업데이트:', lang);
 
-                // 다국어 콘텐츠 요소들 표시/숨김 처리
-                const koContent = document.querySelector('.post-content-ko');
-                const enContent = document.querySelector('.post-content-en');
+            // 다국어 콘텐츠 요소들 표시/숨김 처리
+            const koContent = document.querySelector('.post-content-ko');
+            const enContent = document.querySelector('.post-content-en');
 
-                if (koContent && enContent) {
-                    if (lang === 'ko') {
-                        koContent.style.display = 'block';
-                        enContent.style.display = 'none';
-                    } else {
-                        koContent.style.display = 'none';
-                        enContent.style.display = 'block';
-                    }
+            if (koContent && enContent) {
+                if (lang === 'ko') {
+                    koContent.style.display = 'block';
+                    enContent.style.display = 'none';
+                } else {
+                    koContent.style.display = 'none';
+                    enContent.style.display = 'block';
                 }
-
-                // 데이터 속성을 가진 다국어 요소들 업데이트
-                const allMultilingualElements = document.querySelectorAll('[data-ko], [data-en]');
-                allMultilingualElements.forEach(el => {
-                    if (el.hasAttribute(`data-${lang}`)) {
-                        el.textContent = el.getAttribute(`data-${lang}`);
-                    }
-                });
             }
 
-            // 초기 언어 설정 적용
+            // 데이터 속성을 가진 다국어 요소들 업데이트
+            const allMultilingualElements = document.querySelectorAll('[data-ko], [data-en]');
+            allMultilingualElements.forEach(el => {
+                if (el.hasAttribute(`data-${lang}`)) {
+                    el.textContent = el.getAttribute(`data-${lang}`);
+                }
+            });
+        }
+
+        // 초기 언어 설정 적용
+        updatePostLanguage();
+
+        // 언어 변경 이벤트 리스너 (languageChange 및 languageChanged 모두 처리)
+        document.addEventListener('languageChange', function (e) {
+            console.log('languageChange 이벤트 감지:', e.detail);
             updatePostLanguage();
-
-            // 언어 변경 이벤트 리스너 (languageChange 및 languageChanged 모두 처리)
-            document.addEventListener('languageChange', function (e) {
-                console.log('languageChange 이벤트 감지:', e.detail);
-                updatePostLanguage();
-            });
-
-            document.addEventListener('languageChanged', function (e) {
-                console.log('languageChanged 이벤트 감지:', e.detail);
-                updatePostLanguage();
-            });
         });
+
+        document.addEventListener('languageChanged', function (e) {
+            console.log('languageChanged 이벤트 감지:', e.detail);
+            updatePostLanguage();
+        });
+    });
 </script>
