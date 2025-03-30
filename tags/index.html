@@ -436,43 +436,73 @@ permalink: /tags/
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        console.log('[태그 페이지] DOM 콘텐츠 로드됨');
+
         // 필요한 요소들 선택
         const pageTitle = document.querySelector('.page-title');
         const pageDescription = document.querySelector('.page-description');
         const tagItems = document.querySelectorAll('.tag-item');
         const currentLangDisplay = document.getElementById('current-lang');
 
+        // 선택한 요소들 로그
+        console.log('[태그 페이지] 페이지 제목 요소:', pageTitle);
+        console.log('[태그 페이지] 페이지 설명 요소:', pageDescription);
+        console.log('[태그 페이지] 태그 아이템 수:', tagItems.length);
+
         // 언어 변경 함수
         function updateLanguage(lang) {
-            console.log('태그 페이지 언어 변경 적용:', lang);
+            console.log('[태그 페이지] 언어 변경 적용:', lang);
 
             // 페이지 제목과 설명 업데이트
-            pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
-            pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
+            if (pageTitle && pageTitle.getAttribute(`data-${lang}`)) {
+                pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
+                console.log('[태그 페이지] 제목 변경됨:', pageTitle.textContent);
+            } else {
+                console.warn('[태그 페이지] 제목 요소 또는 속성 없음');
+            }
+
+            if (pageDescription && pageDescription.getAttribute(`data-${lang}`)) {
+                pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
+                console.log('[태그 페이지] 설명 변경됨:', pageDescription.textContent);
+            } else {
+                console.warn('[태그 페이지] 설명 요소 또는 속성 없음');
+            }
 
             // 모든 data-ko, data-en 속성이 있는 요소 업데이트
+            let updatedCount = 0;
             document.querySelectorAll('[data-ko], [data-en]').forEach(el => {
                 if (el.hasAttribute(`data-${lang}`)) {
                     const newText = el.getAttribute(`data-${lang}`);
                     // 내용이 있는 경우에만 업데이트
                     if (newText && newText.trim() !== '') {
                         el.textContent = newText;
+                        updatedCount++;
                     }
                 }
             });
+            console.log(`[태그 페이지] 총 ${updatedCount}개 요소 언어 변경됨`);
 
             // 디버깅 정보 업데이트
             if (currentLangDisplay) {
                 currentLangDisplay.textContent = lang;
+                console.log('[태그 페이지] 현재 언어 표시 업데이트:', lang);
             }
 
             // HTML lang 속성 및 로컬 스토리지 업데이트
             document.documentElement.setAttribute('lang', lang);
             localStorage.setItem('preferred_language', lang);
+            console.log('[태그 페이지] 문서 언어 및 로컬 스토리지 업데이트됨');
+
+            // 문서 제목 업데이트
+            document.title = lang === 'ko' ?
+                "태그별 글 모음 - NewsLens" :
+                "Posts by Tags - NewsLens";
+            console.log('[태그 페이지] 문서 제목 업데이트됨:', document.title);
         }
 
         // 태그 클라우드 초기화 - 포스트 수에 따라 크기 조정
         function initializeTagCloud() {
+            console.log('[태그 페이지] 태그 클라우드 초기화');
             if (tagItems.length > 0) {
                 const counts = Array.from(tagItems).map(item => parseInt(item.dataset.count) || 1);
                 const maxCount = Math.max(...counts);
@@ -482,18 +512,19 @@ permalink: /tags/
                     const size = 1 + (count / maxCount) * 0.5; // 1.0 ~ 1.5 범위
                     item.style.fontSize = `${size}rem`;
                 });
+                console.log('[태그 페이지] 태그 클라우드 크기 조정 완료');
             }
         }
 
         // 언어 변경 이벤트 리스너 설정
         window.addEventListener('languageChange', function (e) {
-            console.log('languageChange 이벤트 감지:', e.detail);
+            console.log('[태그 페이지] languageChange 이벤트 감지:', e.detail);
             updateLanguage(e.detail.language);
         });
 
         // 디버그 언어 변경 함수 (전역으로 노출)
         window.debugChangeLanguage = function (lang) {
-            console.log('수동 언어 변경 요청:', lang);
+            console.log('[태그 페이지] 수동 언어 변경 요청:', lang);
 
             // 언어 업데이트
             updateLanguage(lang);
@@ -516,9 +547,20 @@ permalink: /tags/
         const urlParams = new URLSearchParams(window.location.search);
         const langParam = urlParams.get('lang');
         const storedLang = localStorage.getItem('preferred_language');
-        const initialLang = langParam || storedLang || 'ko';
+        const htmlLang = document.documentElement.getAttribute('lang');
+        const initialLang = langParam || storedLang || htmlLang || 'ko';
+
+        console.log('[태그 페이지] 초기 언어 설정:', initialLang,
+            '(URL:', langParam, ', 저장됨:', storedLang, ', HTML:', htmlLang, ')');
 
         // 초기 언어 적용
         updateLanguage(initialLang);
+
+        // 페이지 완전 로드 후 한번 더 언어 설정 적용 (안전장치)
+        window.addEventListener('load', function () {
+            console.log('[태그 페이지] 페이지 완전히 로드됨, 언어 재확인');
+            const currentLang = document.documentElement.getAttribute('lang') || initialLang;
+            updateLanguage(currentLang);
+        });
     });
 </script>
