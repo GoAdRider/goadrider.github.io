@@ -1,5 +1,16 @@
 <!-- start custom head snippets -->
 
+<!-- 페이지 타이틀 설정 -->
+<title>
+    {% if page.title_en and page.lang == 'en' %}
+    {{ page.title_en }} | {{ site.title }}
+    {% elsif page.title %}
+    {{ page.title }} | {{ site.title }}
+    {% else %}
+    {{ site.title }}
+    {% endif %}
+</title>
+
 <!-- Google Font 로드 - 비동기 로딩으로 변경 -->
 {% if site.lang == "ko" or page.lang == "ko" %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
