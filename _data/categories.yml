@@ -16,4 +16,19 @@
 마음의철학:
   en: "Philosophy of Mind"
   description: "마음과 정신에 대한 철학적 탐구"
-  description_en: "Philosophical inquiry into mind and consciousness" 
+  description_en: "Philosophical inquiry into mind and consciousness"
+
+철학:
+  en: "Philosophy"
+  description: "철학적 사고와 분석"
+  description_en: "Philosophical thinking and analysis"
+
+인공지능:
+  en: "Artificial Intelligence"
+  description: "인공지능 기술과 그 영향"
+  description_en: "AI technology and its impact"
+
+뇌과학:
+  en: "Brain Science"
+  description: "뇌의 구조와 기능에 대한 연구"
+  description_en: "Research on brain structure and function" 

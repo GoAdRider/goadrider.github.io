@@ -5,23 +5,28 @@
   description_en: "Analysis and reflection from a philosophical perspective"
 
 윤리:
-  en: ethics
+  en: "Ethics"
   description: "윤리적 관점과 도덕적 함의"
   description_en: "Ethical perspectives and moral implications"
 
 존재론:
-  en: ontology
+  en: "Ontology"
   description: "존재와 실재에 대한 탐구"
   description_en: "Investigation of being and reality"
 
 인식론:
-  en: epistemology
+  en: "Epistemology"
   description: "지식과 앎에 대한 탐구"
   description_en: "Study of knowledge and knowing"
 
+의식:
+  en: "Consciousness"
+  description: "의식의 본질과 특성에 대한 탐구"
+  description_en: "Investigation of the nature and characteristics of consciousness"
+
 # 과학 관련 태그
 과학적고찰:
-  en: scientific-review
+  en: "Scientific Review"
   description: "과학적 방법론과 증거 기반 분석"
   description_en: "Scientific methodology and evidence-based analysis"
 
@@ -36,23 +41,23 @@ AI:
   description_en: "Scientific research on brain structure and function"
 
 데이터분석:
-  en: data-analysis
+  en: "Data Analysis"
   description: "데이터 기반 분석과 통계"
   description_en: "Data-driven analysis and statistics"
 
 # 사회 관련 태그
 사회분석:
-  en: social-analysis
+  en: "Social Analysis"
   description: "사회 현상과 구조 분석"
   description_en: "Analysis of social phenomena and structures"
 
 정책연구:
-  en: policy-research
+  en: "Policy Research"
   description: "정책과 제도에 대한 연구"
   description_en: "Research on policies and institutions"
 
 미래전망:
-  en: future-prospects
+  en: "Future Prospects"
   description: "미래 사회와 기술 전망"
   description_en: "Future society and technology prospects"
 
