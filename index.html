@@ -505,114 +505,67 @@ title: NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로�
 
             <!-- 한국어 포스트 -->
             <div class="posts-grid" id="posts-ko" data-lang="ko">
+                {% assign posts = site.posts | sort: 'date' | reverse %}
+                {% for post in posts limit:3 %}
                 <div class="post-card">
-                    <img src="https://images.unsplash.com/photo-1546776310-eef45dd6d63c?q=80&w=500&auto=format&fit=crop"
-                        alt="AI 윤리" class="post-image">
+                    {% if post.image %}
+                    <img src="{{ post.image }}" alt="{{ post.title }}" class="post-image">
+                    {% else %}
+                    <img src="/assets/images/default-post-image.jpg" alt="{{ post.title }}" class="post-image">
+                    {% endif %}
                     <div class="post-content">
-                        <span class="post-category">인공지능</span>
-                        <h3 class="post-title">인공지능 시대의 윤리적 과제와 철학적 접근</h3>
-                        <p class="post-excerpt">급속도로 발전하는 인공지능 기술이 가져오는 윤리적 문제와 이에 대한 철학적 고찰을 담았습니다.</p>
+                        {% if post.categories.first %}
+                        <span class="post-category">{{ post.categories.first }}</span>
+                        {% endif %}
+                        <h3 class="post-title">{{ post.title }}</h3>
+                        <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
                         <div class="post-meta">
                             <div class="post-date">
                                 <i class="far fa-calendar"></i>
-                                <span>2024.08.10</span>
+                                <span>{{ post.date | date: "%Y.%m.%d" }}</span>
                             </div>
-                            <a href="#" class="read-more">자세히 보기</a>
+                            <a href="{{ post.url }}" class="read-more">자세히 보기</a>
                         </div>
                     </div>
                 </div>
-
-                <div class="post-card">
-                    <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=500&auto=format&fit=crop"
-                        alt="현대 민주주의" class="post-image">
-                    <div class="post-content">
-                        <span class="post-category">사회/정치</span>
-                        <h3 class="post-title">현대 민주주의의 위기와 해결책 모색</h3>
-                        <p class="post-excerpt">전 세계적으로 나타나는 민주주의 위기 현상을 분석하고 철학과 정치학의 관점에서 대안을 모색합니다.</p>
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="far fa-calendar"></i>
-                                <span>2024.07.25</span>
-                            </div>
-                            <a href="#" class="read-more">자세히 보기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="post-card">
-                    <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=500&auto=format&fit=crop"
-                        alt="양자역학" class="post-image">
-                    <div class="post-content">
-                        <span class="post-category">과학/물리학</span>
-                        <h3 class="post-title">양자역학과 현실 인식의 철학적 함의</h3>
-                        <p class="post-excerpt">양자역학의 기이한 현상들이 우리의 현실 인식과 철학적 세계관에 미치는 영향을 탐구합니다.</p>
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="far fa-calendar"></i>
-                                <span>2024.07.12</span>
-                            </div>
-                            <a href="#" class="read-more">자세히 보기</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
 
             <!-- 영어 포스트 -->
             <div class="posts-grid" id="posts-en" data-lang="en" style="display: none;">
+                {% assign posts = site.posts | sort: 'date' | reverse %}
+                {% for post in posts limit:3 %}
                 <div class="post-card">
-                    <img src="https://images.unsplash.com/photo-1546776310-eef45dd6d63c?q=80&w=500&auto=format&fit=crop"
-                        alt="AI Ethics" class="post-image">
+                    {% if post.image %}
+                    <img src="{{ post.image }}" alt="{{ post.title_en | default: post.title }}" class="post-image">
+                    {% else %}
+                    <img src="/assets/images/default-post-image.jpg" alt="{{ post.title_en | default: post.title }}"
+                        class="post-image">
+                    {% endif %}
                     <div class="post-content">
-                        <span class="post-category">Artificial Intelligence</span>
-                        <h3 class="post-title">Ethical Challenges and Philosophical Approaches in the Age of AI</h3>
-                        <p class="post-excerpt">We explore the ethical issues brought by rapidly developing artificial
-                            intelligence technology and philosophical reflections on them.</p>
+                        {% if post.categories_en.first %}
+                        <span class="post-category">{{ post.categories_en.first }}</span>
+                        {% elsif post.categories.first %}
+                        <span class="post-category">{{ post.categories.first }}</span>
+                        {% endif %}
+                        <h3 class="post-title">{{ post.title_en | default: post.title }}</h3>
+                        <p class="post-excerpt">
+                            {% if post.excerpt_en %}
+                            {{ post.excerpt_en | strip_html | truncatewords: 25 }}
+                            {% else %}
+                            {{ post.excerpt | strip_html | truncatewords: 25 }}
+                            {% endif %}
+                        </p>
                         <div class="post-meta">
                             <div class="post-date">
                                 <i class="far fa-calendar"></i>
-                                <span>Aug 10, 2024</span>
+                                <span>{{ post.date | date: "%b %d, %Y" }}</span>
                             </div>
-                            <a href="#" class="read-more">Read More</a>
+                            <a href="{{ post.url }}?lang=en" class="read-more">Read More</a>
                         </div>
                     </div>
                 </div>
-
-                <div class="post-card">
-                    <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=500&auto=format&fit=crop"
-                        alt="Modern Democracy" class="post-image">
-                    <div class="post-content">
-                        <span class="post-category">Society/Politics</span>
-                        <h3 class="post-title">The Crisis of Modern Democracy and Search for Solutions</h3>
-                        <p class="post-excerpt">We analyze the global phenomena of democratic crisis and explore
-                            alternatives from philosophical and political perspectives.</p>
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="far fa-calendar"></i>
-                                <span>Jul 25, 2024</span>
-                            </div>
-                            <a href="#" class="read-more">Read More</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="post-card">
-                    <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=500&auto=format&fit=crop"
-                        alt="Quantum Mechanics" class="post-image">
-                    <div class="post-content">
-                        <span class="post-category">Science/Physics</span>
-                        <h3 class="post-title">Quantum Mechanics and Its Philosophical Implications on Reality
-                            Perception</h3>
-                        <p class="post-excerpt">We explore how the strange phenomena of quantum mechanics affect our
-                            perception of reality and philosophical worldview.</p>
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="far fa-calendar"></i>
-                                <span>Jul 12, 2024</span>
-                            </div>
-                            <a href="#" class="read-more">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
