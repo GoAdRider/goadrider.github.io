@@ -1,5 +1,8 @@
+// 전역 언어 관리 시스템
 // 언어 전환 함수
 function updateLanguage(lang) {
+    console.log('[언어 시스템] 언어 변경:', lang);
+
     // 모든 다국어 요소 업데이트
     document.querySelectorAll('[data-ko]').forEach(element => {
         // 프론트매터의 번역이 있으면 우선 사용
@@ -17,8 +20,14 @@ function updateLanguage(lang) {
         }
     });
 
-    // 현재 언어 저장
+    // 모든 저장소에 언어 설정 저장 (통합)
     localStorage.setItem('lang', lang);
+    localStorage.setItem('preferred_language', lang);
+    document.documentElement.lang = lang;
+
+    // 언어 변경 이벤트 발생 (다른 스크립트에 알림)
+    const event = new CustomEvent('languageChanged', { detail: { language: lang } });
+    document.dispatchEvent(event);
 
     // 언어 토글 버튼 업데이트
     const toggleButton = document.getElementById('language-toggle');
@@ -27,18 +36,37 @@ function updateLanguage(lang) {
     }
 }
 
-// 페이지 로드 시 언어 설정 적용
-document.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('lang') || 'ko';
-    updateLanguage(savedLang);
+// 현재 저장된 언어 설정 가져오기 (통합 감지)
+function getStoredLanguage() {
+    // 우선순위: 1. localStorage의 lang, 2. localStorage의 preferred_language, 3. 기본값 'ko'
+    return localStorage.getItem('lang') || localStorage.getItem('preferred_language') || 'ko';
+}
 
-    // 언어 토글 버튼 이벤트 리스너
+// 언어 토글 버튼 설정
+function setupLanguageToggle() {
     const toggleButton = document.getElementById('language-toggle');
     if (toggleButton) {
         toggleButton.addEventListener('click', () => {
-            const currentLang = localStorage.getItem('lang') || 'ko';
+            const currentLang = getStoredLanguage();
             const newLang = currentLang === 'ko' ? 'en' : 'ko';
             updateLanguage(newLang);
         });
     }
-}); 
+}
+
+// 페이지 로드 시 즉시 언어 설정 적용
+const savedLang = getStoredLanguage();
+console.log('[언어 시스템] 저장된 언어:', savedLang);
+
+// 문서가 아직 로딩 중이면 DOMContentLoaded 이벤트에 등록, 이미 로딩됐으면 즉시 실행
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('[언어 시스템] DOM 로드 완료 - 언어 적용');
+        updateLanguage(savedLang);
+        setupLanguageToggle();
+    });
+} else {
+    console.log('[언어 시스템] 즉시 언어 적용');
+    updateLanguage(savedLang);
+    setupLanguageToggle();
+} 
