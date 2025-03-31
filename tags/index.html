@@ -536,88 +536,150 @@ permalink: /tags/
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 태그 클라우드 초기화
-        function initializeTagCloud() {
-            const tagItems = document.querySelectorAll('.tag-item');
-            const maxCount = Math.max(...Array.from(tagItems).map(item => parseInt(item.getAttribute('data-count'))));
+        // 태그 아이템 이벤트 리스너 설정
+        const tagItems = document.querySelectorAll('.tag-item');
+        const postItems = document.querySelectorAll('.post-item');
 
-            tagItems.forEach(item => {
-                const count = parseInt(item.getAttribute('data-count'));
-                const fontSize = 0.8 + (count / maxCount) * 0.7; // 0.8rem ~ 1.5rem
-                item.style.fontSize = `${fontSize}rem`;
+        // 태그 아이템에 클릭 이벤트 추가
+        tagItems.forEach(tagItem => {
+            tagItem.addEventListener('click', function (e) {
+                e.preventDefault();
 
-                // 애니메이션 지연 추가 - 랜덤하게 등장하는 효과
-                const delay = Math.random() * 0.5;
-                item.style.animationDelay = `${delay}s`;
+                // 활성화 상태 변경
+                tagItems.forEach(item => item.classList.remove('active'));
+                this.classList.add('active');
 
-                // 마우스 호버 효과 강화
-                item.addEventListener('mouseenter', function () {
-                    const siblings = document.querySelectorAll('.tag-item');
-                    siblings.forEach(sib => {
-                        if (sib !== item) {
-                            sib.style.opacity = '0.7';
-                            sib.style.transform = 'scale(0.95)';
+                // 태그 필터링
+                const tag = this.getAttribute('data-tag');
+
+                if (tag === 'all') {
+                    postItems.forEach(item => {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = 1;
+                            item.style.transform = 'translateY(0)';
+                        }, 10);
+                    });
+                } else {
+                    postItems.forEach(item => {
+                        const tags = item.getAttribute('data-tags');
+
+                        if (tags.includes(tag)) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = 1;
+                                item.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            item.style.opacity = 0;
+                            item.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
                         }
                     });
-                });
+                }
 
-                item.addEventListener('mouseleave', function () {
-                    const siblings = document.querySelectorAll('.tag-item');
-                    siblings.forEach(sib => {
-                        sib.style.opacity = '1';
-                        sib.style.transform = '';
-                    });
-                });
-            });
-
-            // 부드러운 스크롤 효과 추가
-            document.querySelectorAll('.tag-item').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-
-                        // URL 업데이트 (스크롤 후)
-                        setTimeout(() => {
-                            history.pushState(null, null, targetId);
-                        }, 500);
-                    }
+                // 스크롤 위치 조정
+                const tagCloudTop = document.querySelector('.tag-cloud').offsetTop;
+                window.scrollTo({
+                    top: tagCloudTop + tagCloudTop * 0.2,
+                    behavior: 'smooth'
                 });
             });
-        }
+        });
 
         // 언어 변경 처리 함수
         function updateLanguage(lang) {
             console.log('[태그 페이지] 언어 업데이트:', lang);
-            document.getElementById('current-lang').textContent = lang === 'ko' ? '한국어' : 'English';
 
             // 모든 다국어 요소 업데이트
             const allMultilingualElements = document.querySelectorAll('[data-ko], [data-en]');
             allMultilingualElements.forEach(el => {
-                if (el.hasAttribute(`data-${lang}`)) {
-                    el.textContent = el.getAttribute(`data-${lang}`);
+                if (lang === 'ko' && el.hasAttribute('data-ko')) {
+                    el.textContent = el.getAttribute('data-ko');
+                } else if (lang === 'en' && el.hasAttribute('data-en')) {
+                    el.textContent = el.getAttribute('data-en');
+                }
+            });
+
+            // 카테고리 링크 업데이트
+            const categoryLinks = document.querySelectorAll('.category-link');
+            categoryLinks.forEach(link => {
+                const category = link.getAttribute('data-ko');
+                const categoryData = window.siteData?.categories?.[category];
+
+                if (lang === 'en' && categoryData?.en) {
+                    link.textContent = categoryData.en;
+                } else {
+                    link.textContent = category;
+                }
+            });
+
+            // 태그 링크 및 아이템 업데이트
+            const tagLinks = document.querySelectorAll('.tag-link');
+            tagLinks.forEach(link => {
+                const tag = link.getAttribute('data-ko');
+                const tagData = window.siteData?.tags?.[tag];
+
+                if (lang === 'en' && tagData?.en) {
+                    link.textContent = '#' + tagData.en;
+                } else {
+                    link.textContent = '#' + tag;
+                }
+            });
+
+            // 태그 클라우드 아이템 업데이트
+            const tagItems = document.querySelectorAll('.tag-item');
+            tagItems.forEach(item => {
+                if (item.getAttribute('data-tag') === 'all') {
+                    // '전체' 태그는 이미 다국어 속성을 갖고 있음
+                    return;
+                }
+
+                const tag = item.getAttribute('data-tag');
+                const tagData = window.siteData?.tags?.[tag];
+
+                if (lang === 'en' && tagData?.en) {
+                    item.textContent = tagData.en;
+                } else {
+                    item.textContent = tag;
                 }
             });
         }
 
+        // 사이트 데이터 초기화 (카테고리 및 태그 정보)
+        window.siteData = {
+            categories: {},
+            tags: {}
+        };
+
+        // 카테고리 데이터 초기화
+        {% for category_item in site.data.categories %}
+        window.siteData.categories["{{ category_item[0] }}"] = {
+            en: "{{ category_item[1].en | default: category_item[0] }}"
+        };
+        {% endfor %}
+
+        // 태그 데이터 초기화
+        {% for tag_item in site.data.tags %}
+        window.siteData.tags["{{ tag_item[0] }}"] = {
+            en: "{{ tag_item[1].en | default: tag_item[0] }}"
+        };
+        {% endfor %}
+
         // 언어 변경 이벤트 리스너 설정
         function setupAllLanguageListeners() {
-            // 언어 변경 이벤트 리스너 (window와 document 모두에 설정)
+            // 언어 변경 이벤트 리스너 (여러 이벤트 이름으로 리스닝)
             ['languageChange', 'languageChanged'].forEach(eventName => {
                 window.addEventListener(eventName, e => {
-                    const lang = e.detail.language;
+                    const lang = e.detail?.language || document.documentElement.getAttribute('lang') || 'ko';
                     console.log(`[태그 페이지] ${eventName} 이벤트 감지:`, lang);
                     updateLanguage(lang);
                 });
 
                 document.addEventListener(eventName, e => {
-                    const lang = e.detail.language;
+                    const lang = e.detail?.language || document.documentElement.getAttribute('lang') || 'ko';
                     console.log(`[태그 페이지] document ${eventName} 이벤트 감지:`, lang);
                     updateLanguage(lang);
                 });
@@ -639,13 +701,10 @@ permalink: /tags/
 
         // 초기화 시퀀스
         function initialize() {
-            // 1. 태그 클라우드 초기화
-            initializeTagCloud();
-
-            // 2. 언어 이벤트 리스너 설정
+            // 1. 언어 이벤트 리스너 설정
             setupAllLanguageListeners();
 
-            // 3. 초기 언어 설정
+            // 2. 초기 언어 설정
             const urlParams = new URLSearchParams(window.location.search);
             const langParam = urlParams.get('lang');
             const storedLang = localStorage.getItem('preferred_language');
@@ -654,21 +713,30 @@ permalink: /tags/
 
             console.log('[태그 페이지] 초기 언어 설정:', initialLang);
 
-            // 4. 초기 언어 적용
+            // 3. 초기 언어 적용
             updateLanguage(initialLang);
 
-            // 5. 해시 태그 있으면 스크롤
+            // 4. 해시 태그가 있으면 해당 태그로 필터링
             if (window.location.hash) {
-                setTimeout(() => {
-                    const targetElement = document.querySelector(window.location.hash);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
-                }, 300);
+                const tagName = window.location.hash.substring(1);
+                const tagItem = document.querySelector(`.tag-item[data-tag="${tagName}"]`);
+
+                if (tagItem) {
+                    tagItem.click();
+                }
             }
+
+            // 5. 포스트 아이템 초기화
+            postItems.forEach((item, index) => {
+                // 애니메이션 지연 추가
+                item.style.opacity = 0;
+                item.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    item.style.opacity = 1;
+                    item.style.transform = 'translateY(0)';
+                }, 50 + index * 50);
+            });
 
             console.log('[태그 페이지] 초기화 완료');
         }
@@ -684,13 +752,8 @@ permalink: /tags/
             const currentLang = document.documentElement.getAttribute('lang') ||
                 localStorage.getItem('preferred_language') || 'ko';
 
-            // 언어 다시 적용
+            // 안전을 위해 다시 한번 적용
             updateLanguage(currentLang);
-
-            // 애니메이션 클래스 추가
-            document.querySelectorAll('.tag-item').forEach((item, index) => {
-                item.classList.add('animated');
-            });
         });
     });
 </script>

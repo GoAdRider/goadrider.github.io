@@ -499,24 +499,72 @@ permalink: /categories/
             // 모든 다국어 요소 업데이트
             const allMultilingualElements = document.querySelectorAll('[data-ko], [data-en]');
             allMultilingualElements.forEach(el => {
-                if (el.hasAttribute(`data-${lang}`)) {
-                    el.textContent = el.getAttribute(`data-${lang}`);
+                if (lang === 'ko' && el.hasAttribute('data-ko')) {
+                    el.textContent = el.getAttribute('data-ko');
+                } else if (lang === 'en' && el.hasAttribute('data-en')) {
+                    el.textContent = el.getAttribute('data-en');
+                }
+            });
+
+            // 카테고리 링크 업데이트
+            const categoryLinks = document.querySelectorAll('.category-link');
+            categoryLinks.forEach(link => {
+                const category = link.getAttribute('data-ko');
+                const categoryData = window.siteData?.categories?.[category];
+
+                if (lang === 'en' && categoryData?.en) {
+                    link.textContent = categoryData.en;
+                } else {
+                    link.textContent = category;
+                }
+            });
+
+            // 태그 링크 업데이트
+            const tagLinks = document.querySelectorAll('.tag-link');
+            tagLinks.forEach(link => {
+                const tag = link.getAttribute('data-ko');
+                const tagData = window.siteData?.tags?.[tag];
+
+                if (lang === 'en' && tagData?.en) {
+                    link.textContent = '#' + tagData.en;
+                } else {
+                    link.textContent = '#' + tag;
                 }
             });
         }
 
+        // 사이트 데이터 초기화 (카테고리 및 태그 정보)
+        window.siteData = {
+            categories: {},
+            tags: {}
+        };
+
+        // 카테고리 데이터 초기화
+        {% for category_item in site.data.categories %}
+        window.siteData.categories["{{ category_item[0] }}"] = {
+            en: "{{ category_item[1].en | default: category_item[0] }}"
+        };
+        {% endfor %}
+
+        // 태그 데이터 초기화
+        {% for tag_item in site.data.tags %}
+        window.siteData.tags["{{ tag_item[0] }}"] = {
+            en: "{{ tag_item[1].en | default: tag_item[0] }}"
+        };
+        {% endfor %}
+
         // 언어 변경 이벤트 리스너 설정
         function setupAllLanguageListeners() {
-            // 언어 변경 이벤트 리스너 (window와 document 모두에 설정)
+            // 언어 변경 이벤트 리스너 (여러 이벤트 이름으로 리스닝)
             ['languageChange', 'languageChanged'].forEach(eventName => {
                 window.addEventListener(eventName, e => {
-                    const lang = e.detail.language;
+                    const lang = e.detail?.language || document.documentElement.getAttribute('lang') || 'ko';
                     console.log(`[카테고리 페이지] ${eventName} 이벤트 감지:`, lang);
                     updateLanguage(lang);
                 });
 
                 document.addEventListener(eventName, e => {
-                    const lang = e.detail.language;
+                    const lang = e.detail?.language || document.documentElement.getAttribute('lang') || 'ko';
                     console.log(`[카테고리 페이지] document ${eventName} 이벤트 감지:`, lang);
                     updateLanguage(lang);
                 });
@@ -598,7 +646,7 @@ permalink: /categories/
             const currentLang = document.documentElement.getAttribute('lang') ||
                 localStorage.getItem('preferred_language') || 'ko';
 
-            // 언어 다시 적용
+            // 안전을 위해 다시 한번 적용
             updateLanguage(currentLang);
         });
     });
