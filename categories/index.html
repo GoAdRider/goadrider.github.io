@@ -439,11 +439,38 @@ permalink: /categories/
     }
 </style>
 
+<!-- 카테고리 및 태그 데이터를 JSON으로 생성 -->
+<script type="application/json" id="site-categories-data">
+    {
+        {% for category_item in site.data.categories %}
+        "{{ category_item[0] }}": {
+            "en": "{{ category_item[1].en | default: category_item[0] }}"
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+    }
+</script>
+
+<script type="application/json" id="site-tags-data">
+    {
+        {% for tag_item in site.data.tags %}
+        "{{ tag_item[0] }}": {
+            "en": "{{ tag_item[1].en | default: tag_item[0] }}"
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+    }
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // 탭 버튼 이벤트 리스너 설정
         const tabButtons = document.querySelectorAll('.tab-button');
         const postCards = document.querySelectorAll('.post-card');
+
+        // JSON 데이터 로드
+        window.siteData = {
+            categories: JSON.parse(document.getElementById('site-categories-data').textContent),
+            tags: JSON.parse(document.getElementById('site-tags-data').textContent)
+        };
 
         // 버튼에 애니메이션 효과 추가
         tabButtons.forEach((button, index) => {
@@ -532,26 +559,6 @@ permalink: /categories/
                 }
             });
         }
-
-        // 사이트 데이터 초기화 (카테고리 및 태그 정보)
-        window.siteData = {
-            categories: {},
-            tags: {}
-        };
-
-        // 카테고리 데이터 초기화
-        {% for category_item in site.data.categories %}
-        window.siteData.categories["{{ category_item[0] }}"] = {
-            en: "{{ category_item[1].en | default: category_item[0] }}"
-        };
-        {% endfor %}
-
-        // 태그 데이터 초기화
-        {% for tag_item in site.data.tags %}
-        window.siteData.tags["{{ tag_item[0] }}"] = {
-            en: "{{ tag_item[1].en | default: tag_item[0] }}"
-        };
-        {% endfor %}
 
         // 언어 변경 이벤트 리스너 설정
         function setupAllLanguageListeners() {
