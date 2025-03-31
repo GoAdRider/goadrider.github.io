@@ -12,7 +12,7 @@ excerpt_en: "Philosophical contemplation and analysis of recent scientific resea
 image: /assets/images/posts/2025-03-25-quantum-consciousness.jpg
 ---
 
-<div class="post-content-ko">
+<div class="post-content-ko" markdown="1">
   
 ## 뉴스 원문 요약
 [Nature - Quantum effects in the brain might explain consciousness, study shows](https://www.nature.com/articles/d41586-025-00321-7)
@@ -77,7 +77,7 @@ image: /assets/images/posts/2025-03-25-quantum-consciousness.jpg
 나는 자주 이런 생각에 빠진다. 우리가 의식을 완전히 이해하게 된다면, 그것은 단순히 과학적 지식의 확장을 넘어 인간 존재에 대한 근본적 이해의 변화를 가져올 것이다. 우리는 과연 그 미래를 받아들일 준비가 되어 있을까?
 </div>
 
-<div class="post-content-en" style="display: none;">
+<div class="post-content-en" markdown="1" style="display: none;">
   
 ## Original News Summary
 [Nature - Quantum effects in the brain might explain consciousness, study shows](https://www.nature.com/articles/d41586-025-00321-7)

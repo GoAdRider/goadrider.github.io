@@ -69,12 +69,10 @@ layout: default
             <div class="post-content e-content" itemprop="articleBody">
                 <!-- 다국어 콘텐츠 분리 및 표시 로직 -->
                 {% if content contains '<div class="post-content-ko">' %}
-                    <div class="post-content-container">
-                        {{ content }}
-                    </div>
+                    {{ content }}
                     {% else %}
-                    <div class="post-content-container">
-                        {{ content }}
+                    <div class="post-content-container markdown-content">
+                        {{ content | markdownify }}
                     </div>
                     {% endif %}
                 </div>
@@ -197,43 +195,81 @@ layout: default
         width: 100%;
     }
 
+    /* 수정된 다국어 콘텐츠 스타일 */
+    .post-content-ko,
+    .post-content-en,
+    .markdown-content {
+        width: 100%;
+    }
+
+    /* 마크다운 요소 스타일 */
     .post-content h1,
     .post-content h2,
     .post-content h3,
     .post-content h4,
     .post-content h5,
-    .post-content h6 {
+    .post-content h6,
+    .post-content-ko h1,
+    .post-content-ko h2,
+    .post-content-ko h3,
+    .post-content-ko h4,
+    .post-content-ko h5,
+    .post-content-ko h6,
+    .post-content-en h1,
+    .post-content-en h2,
+    .post-content-en h3,
+    .post-content-en h4,
+    .post-content-en h5,
+    .post-content-en h6 {
         margin-top: 1.5em;
         margin-bottom: 0.8em;
         line-height: 1.3;
     }
 
-    .post-content h2 {
+    .post-content h2,
+    .post-content-ko h2,
+    .post-content-en h2 {
         font-size: 1.8rem;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         padding-bottom: 0.3em;
     }
 
-    .post-content h3 {
+    .post-content h3,
+    .post-content-ko h3,
+    .post-content-en h3 {
         font-size: 1.5rem;
     }
 
     .post-content p,
     .post-content ul,
-    .post-content ol {
+    .post-content ol,
+    .post-content-ko p,
+    .post-content-ko ul,
+    .post-content-ko ol,
+    .post-content-en p,
+    .post-content-en ul,
+    .post-content-en ol {
         margin-bottom: 1.5em;
     }
 
     .post-content ul,
-    .post-content ol {
+    .post-content ol,
+    .post-content-ko ul,
+    .post-content-ko ol,
+    .post-content-en ul,
+    .post-content-en ol {
         padding-left: 2em;
     }
 
-    .post-content li {
+    .post-content li,
+    .post-content-ko li,
+    .post-content-en li {
         margin-bottom: 0.5em;
     }
 
-    .post-content code {
+    .post-content code,
+    .post-content-ko code,
+    .post-content-en code {
         background: rgba(0, 0, 0, 0.05);
         padding: 0.2em 0.4em;
         border-radius: 3px;
@@ -241,7 +277,9 @@ layout: default
         font-size: 0.9em;
     }
 
-    .post-content pre {
+    .post-content pre,
+    .post-content-ko pre,
+    .post-content-en pre {
         background: #f5f5f5;
         padding: 1em;
         border-radius: 5px;
@@ -249,7 +287,9 @@ layout: default
         margin-bottom: 1.5em;
     }
 
-    .post-content pre code {
+    .post-content pre code,
+    .post-content-ko pre code,
+    .post-content-en pre code {
         background: none;
         padding: 0;
     }

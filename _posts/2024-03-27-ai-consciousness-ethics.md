@@ -12,7 +12,7 @@ excerpt_en: "Recent advances in AI models have brought the question of 'machine 
 image: /assets/images/posts/2024-03-27-ai-consciousness.jpg
 ---
 
-<div class="post-content-ko">
+<div class="post-content-ko" markdown="1">
 
 ## 뉴스 원문 요약
 [Nature - Could AI develop consciousness? We asked philosophers and scientists](https://www.nature.com/articles/d41586-024-00589-5)
@@ -69,7 +69,7 @@ AI의 의식 가능성 문제는 철학적 깊이와 과학적 엄밀함을 모�
 
 </div>
 
-<div class="post-content-en" style="display: none;">
+<div class="post-content-en" markdown="1" style="display: none;">
 
 ## Original News Summary
 [Nature - Could AI develop consciousness? We asked philosophers and scientists](https://www.nature.com/articles/d41586-024-00589-5)
