@@ -21,9 +21,25 @@ permalink: /categories/
         <button class="tab-button active" data-category="all" data-ko="전체" data-en="All">전체</button>
         {% for category in site.categories %}
         {% assign category_name = category | first %}
-        {% assign category_data = site.data.categories[category_name] %}
+        {% assign category_en = "" %}
+
+        <!-- 이 카테고리의 영어 버전 찾기 -->
+        {% for post in site.posts %}
+        {% if post.categories contains category_name and post.categories_en %}
+        {% assign cat_index = post.categories | index_of: category_name %}
+        {% if cat_index >= 0 and post.categories_en[cat_index] %}
+        {% assign category_en = post.categories_en[cat_index] %}
+        {% break %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+        {% if category_en == "" %}
+        {% assign category_en = category_name %}
+        {% endif %}
+
         <button class="tab-button" data-category="{{ category_name }}" data-ko="{{ category_name }}"
-            data-en="{{ category_data.en | default: category_name }}">
+            data-en="{{ category_en }}">
             {{ category_name }}
         </button>
         {% endfor %}
@@ -476,6 +492,64 @@ permalink: /categories/
             window.siteData = { categories: {}, tags: {} };
         }
 
+        // 카테고리 필터링 관련 변수 설정
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const postCards = document.querySelectorAll('.post-card');
+        let currentCategory = 'all';
+
+        // 카테고리 버튼 이벤트 리스너 설정
+        function setupCategoryListeners() {
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    // 액티브 클래스 토글
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // 카테고리 필터링
+                    currentCategory = this.getAttribute('data-category');
+                    console.log('[카테고리 페이지] 카테고리 변경:', currentCategory);
+
+                    if (currentCategory === 'all') {
+                        // 모든 카드 표시
+                        postCards.forEach(card => {
+                            card.style.display = 'block';
+                            // 애니메이션 효과
+                            setTimeout(() => {
+                                card.style.opacity = 1;
+                                card.style.transform = 'translateY(0)';
+                            }, 10);
+                        });
+                    } else {
+                        // 선택된 카테고리에 해당하는 카드만 표시
+                        postCards.forEach(card => {
+                            const cardCategories = card.getAttribute('data-categories');
+                            if (cardCategories && cardCategories.includes(currentCategory)) {
+                                card.style.display = 'block';
+                                // 애니메이션 효과
+                                setTimeout(() => {
+                                    card.style.opacity = 1;
+                                    card.style.transform = 'translateY(0)';
+                                }, 10);
+                            } else {
+                                card.style.opacity = 0;
+                                card.style.transform = 'translateY(20px)';
+                                setTimeout(() => {
+                                    card.style.display = 'none';
+                                }, 300);
+                            }
+                        });
+                    }
+
+                    // URL 해시 업데이트
+                    if (currentCategory === 'all') {
+                        history.replaceState(null, null, ' ');
+                    } else {
+                        history.replaceState(null, null, `#${currentCategory}`);
+                    }
+                });
+            });
+        }
+
         // 언어 변경 처리 함수
         function updateLanguage(lang) {
             console.log('[카테고리 페이지] 언어 업데이트:', lang);
@@ -494,6 +568,13 @@ permalink: /categories/
                         el.placeholder = el.getAttribute('data-en');
                     } else {
                         el.textContent = el.getAttribute('data-en');
+                    }
+                }
+
+                // 태그 링크인 경우 '#' 기호 추가
+                if (el.classList.contains('tag-link')) {
+                    if (el.textContent && !el.textContent.startsWith('#')) {
+                        el.textContent = '#' + el.textContent;
                     }
                 }
             });
@@ -563,101 +644,55 @@ permalink: /categories/
         }
 
         // 언어 변경 이벤트 리스너 설정
-        function setupAllLanguageListeners() {
-            // 언어 변경 이벤트 리스너 (여러 이벤트 이름으로 리스닝)
-            ['languageChange', 'languageChanged'].forEach(eventName => {
-                window.addEventListener(eventName, e => {
-                    const lang = e.detail?.language || document.documentElement.getAttribute('lang') || 'ko';
-                    console.log(`[카테고리 페이지] ${eventName} 이벤트 감지:`, lang);
-                    updateLanguage(lang);
-                });
-
-                document.addEventListener(eventName, e => {
-                    const lang = e.detail?.language || document.documentElement.getAttribute('lang') || 'ko';
-                    console.log(`[카테고리 페이지] document ${eventName} 이벤트 감지:`, lang);
-                    updateLanguage(lang);
-                });
+        function setupLanguageListeners() {
+            document.addEventListener('languageChanged', e => {
+                const lang = e.detail?.language || document.documentElement.getAttribute('lang') || 'ko';
+                console.log(`[카테고리 페이지] languageChanged 이벤트 감지:`, lang);
+                updateLanguage(lang);
             });
-
-            // HTML lang 속성 변경 감지
-            const observer = new MutationObserver(mutations => {
-                mutations.forEach(mutation => {
-                    if (mutation.attributeName === 'lang') {
-                        const lang = document.documentElement.getAttribute('lang') || 'ko';
-                        console.log('[카테고리 페이지] HTML lang 속성 변경 감지:', lang);
-                        updateLanguage(lang);
-                    }
-                });
-            });
-
-            observer.observe(document.documentElement, { attributes: true });
         }
 
         // 초기화 시퀀스
         function initialize() {
-            // 1. 언어 이벤트 리스너 설정
-            setupAllLanguageListeners();
+            // 1. 카테고리 필터링 이벤트 설정
+            setupCategoryListeners();
 
-            // 2. 초기 언어 설정
-            const urlParams = new URLSearchParams(window.location.search);
-            const langParam = urlParams.get('lang');
-            const storedLang = localStorage.getItem('preferred_language');
-            const htmlLang = document.documentElement.getAttribute('lang');
-            const initialLang = langParam || storedLang || htmlLang || 'ko';
+            // 2. 언어 이벤트 리스너 설정
+            setupLanguageListeners();
 
-            console.log('[카테고리 페이지] 초기 언어 설정:', initialLang);
+            // 3. 현재 언어 감지 및 적용
+            const currentLang = localStorage.getItem('lang') || 'ko';
+            updateLanguage(currentLang);
 
-            // 3. 초기 언어 적용
-            updateLanguage(initialLang);
-
-            // 4. 해시 태그가 있으면 해당 카테고리 필터링
+            // 4. URL 해시에 카테고리가 있으면 해당 카테고리 탭 클릭
             if (window.location.hash) {
-                const categoryName = window.location.hash.substring(1);
-                const categoryButton = document.querySelector(`.tab-button[data-category="${categoryName}"]`);
+                const categoryFromHash = window.location.hash.substring(1);
+                const categoryButton = document.querySelector(`.tab-button[data-category="${categoryFromHash}"]`);
 
                 if (categoryButton) {
-                    categoryButton.click();
-
-                    // 스크롤 위치 조정
                     setTimeout(() => {
-                        const categoryTabsTop = document.querySelector('.category-tabs').offsetTop;
-                        window.scrollTo({
-                            top: categoryTabsTop - 100,
-                            behavior: 'smooth'
-                        });
+                        console.log('[카테고리 페이지] 해시에서 카테고리 감지:', categoryFromHash);
+                        categoryButton.click();
                     }, 100);
+                } else {
+                    // 해당 카테고리 버튼이 없으면 전체 버튼 클릭
+                    const allButton = document.querySelector('.tab-button[data-category="all"]');
+                    if (allButton) {
+                        setTimeout(() => allButton.click(), 100);
+                    }
+                }
+            } else {
+                // 해시가 없으면 전체 버튼 클릭
+                const allButton = document.querySelector('.tab-button[data-category="all"]');
+                if (allButton) {
+                    setTimeout(() => allButton.click(), 100);
                 }
             }
-
-            // 5. 포스트 카드 초기화
-            const postCards = document.querySelectorAll('.post-card');
-            postCards.forEach((card, index) => {
-                // 애니메이션 지연 추가
-                card.style.opacity = 0;
-                card.style.transform = 'translateY(20px)';
-
-                setTimeout(() => {
-                    card.style.opacity = 1;
-                    card.style.transform = 'translateY(0)';
-                }, 50 + index * 50);
-            });
 
             console.log('[카테고리 페이지] 초기화 완료');
         }
 
         // 페이지 로드 시 초기화 실행
         initialize();
-
-        // 페이지 완전 로드 후 추가 초기화 (안전장치)
-        window.addEventListener('load', function () {
-            console.log('[카테고리 페이지] 페이지 완전히 로드됨, 추가 초기화');
-
-            // 현재 언어 재확인
-            const currentLang = document.documentElement.getAttribute('lang') ||
-                localStorage.getItem('preferred_language') || 'ko';
-
-            // 안전을 위해 다시 한번 적용
-            updateLanguage(currentLang);
-        });
     });
 </script>

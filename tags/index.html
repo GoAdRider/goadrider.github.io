@@ -17,15 +17,36 @@ permalink: /tags/
     </div>
 
     <div class="tag-cloud">
+        <!-- 전체 태그 버튼 추가 -->
+        <a href="#" class="tag-item all-tags-button" data-tag="all" data-ko="전체" data-en="All">
+            <span class="tag-name" data-ko="전체" data-en="All">전체</span>
+            <span class="tag-count">{{ site.tags.size }}</span>
+        </a>
+
         {% assign tags = site.tags | sort %}
         {% for tag in tags %}
         {% assign tag_name = tag | first %}
         {% assign posts = tag | last %}
-        {% assign tag_index = forloop.index0 %}
-        {% assign tag_en = site.posts.first.tags_en[tag_index] | default: tag_name %}
+        {% assign tag_en = "" %}
+
+        <!-- 이 태그의 영어 버전 찾기 -->
+        {% for post in posts %}
+        {% if post.tags contains tag_name and post.tags_en %}
+        {% assign tag_index = post.tags | index_of: tag_name %}
+        {% if tag_index >= 0 and post.tags_en[tag_index] %}
+        {% assign tag_en = post.tags_en[tag_index] %}
+        {% break %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+        {% if tag_en == "" %}
+        {% assign tag_en = tag_name %}
+        {% endif %}
+
         <a href="#{{ tag_name }}" class="tag-item" data-count="{{ posts.size }}" data-tag="{{ tag_name }}"
             data-ko="{{ tag_name }}" data-en="{{ tag_en }}">
-            <span class="tag-name">#{{ tag_name }}</span>
+            <span class="tag-name" data-ko="#{{ tag_name }}" data-en="#{{ tag_en }}">#{{ tag_name }}</span>
             <span class="tag-count">{{ posts.size }}</span>
         </a>
         {% endfor %}
@@ -501,6 +522,7 @@ permalink: /tags/
         let currentTag = '';
         const allSections = document.querySelectorAll('.tag-section');
         const tagItems = document.querySelectorAll('.tag-item');
+        const allTagsBtn = document.querySelector('.all-tags-button');
 
         // 태그 데이터 로드
         try {
@@ -521,8 +543,35 @@ permalink: /tags/
                 section.style.display = 'none';
             });
 
+            // 전체 태그 버튼 클릭 이벤트
+            if (allTagsBtn) {
+                allTagsBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    console.log('[태그 페이지] 전체 태그 클릭');
+
+                    // 현재 선택된 태그 표시
+                    tagItems.forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // 모든 섹션 표시
+                    allSections.forEach(section => {
+                        section.style.display = 'block';
+                    });
+
+                    currentTag = 'all';
+
+                    // 브라우저 URL 업데이트
+                    window.history.replaceState(null, null, '');
+
+                    // 페이지 상단으로 스크롤
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
             // 태그 클릭 이벤트 추가
             tagItems.forEach(tagItem => {
+                if (tagItem.classList.contains('all-tags-button')) return; // 전체 버튼 제외
+
                 tagItem.addEventListener('click', function (e) {
                     e.preventDefault();
                     const tagName = this.getAttribute('data-tag');
@@ -573,8 +622,8 @@ permalink: /tags/
                     }
                 }
 
-                // 태그 링크인 경우 '#' 기호 추가
-                if (el.classList.contains('tag-link') || el.classList.contains('tag-name')) {
+                // 태그 링크인 경우 '#' 기호 확인
+                if (el.classList.contains('tag-link')) {
                     if (el.textContent && !el.textContent.startsWith('#')) {
                         el.textContent = '#' + el.textContent;
                     }
@@ -663,10 +712,17 @@ permalink: /tags/
                     }, 100);
                 } else {
                     console.warn('[태그 페이지] 해당 태그 아이템을 찾을 수 없음:', tagName);
+                    // 태그를 찾지 못했을 경우 전체 버튼 클릭
+                    if (allTagsBtn) {
+                        setTimeout(() => allTagsBtn.click(), 100);
+                    }
                 }
             } else {
-                // 해시가 없으면 첫 번째 태그 클릭
-                if (tagItems.length > 0) {
+                // 해시가 없으면 전체 태그 버튼 클릭
+                if (allTagsBtn) {
+                    setTimeout(() => allTagsBtn.click(), 100);
+                } else if (tagItems.length > 0) {
+                    // 전체 버튼이 없으면 첫 번째 태그 클릭
                     setTimeout(() => {
                         tagItems[0].click();
                     }, 100);
