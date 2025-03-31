@@ -467,10 +467,17 @@ permalink: /categories/
         const postCards = document.querySelectorAll('.post-card');
 
         // JSON 데이터 로드
-        window.siteData = {
-            categories: JSON.parse(document.getElementById('site-categories-data').textContent),
-            tags: JSON.parse(document.getElementById('site-tags-data').textContent)
-        };
+        try {
+            window.siteData = {
+                categories: JSON.parse(document.getElementById('site-categories-data').textContent),
+                tags: JSON.parse(document.getElementById('site-tags-data').textContent)
+            };
+            console.log('[카테고리 페이지] 사이트 데이터 로드 완료:', Object.keys(window.siteData.tags).length, '개의 태그,',
+                Object.keys(window.siteData.categories).length, '개의 카테고리');
+        } catch (error) {
+            console.error('[카테고리 페이지] 사이트 데이터 로드 오류:', error);
+            window.siteData = { categories: {}, tags: {} };
+        }
 
         // 버튼에 애니메이션 효과 추가
         tabButtons.forEach((button, index) => {
@@ -498,7 +505,7 @@ permalink: /categories/
                     postCards.forEach(card => {
                         const categories = card.getAttribute('data-categories');
 
-                        if (categories.includes(category)) {
+                        if (categories && categories.includes(category)) {
                             card.style.display = 'block';
                             setTimeout(() => {
                                 card.style.opacity = 1;
@@ -527,16 +534,42 @@ permalink: /categories/
             const allMultilingualElements = document.querySelectorAll('[data-ko], [data-en]');
             allMultilingualElements.forEach(el => {
                 if (lang === 'ko' && el.hasAttribute('data-ko')) {
-                    el.textContent = el.getAttribute('data-ko');
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = el.getAttribute('data-ko');
+                    } else {
+                        el.textContent = el.getAttribute('data-ko');
+                    }
                 } else if (lang === 'en' && el.hasAttribute('data-en')) {
-                    el.textContent = el.getAttribute('data-en');
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = el.getAttribute('data-en');
+                    } else {
+                        el.textContent = el.getAttribute('data-en');
+                    }
                 }
             });
 
-            // 카테고리 링크 업데이트
+            // 탭 버튼 직접 업데이트
+            tabButtons.forEach(button => {
+                const category = button.getAttribute('data-category');
+                if (category === 'all') {
+                    // '전체' 버튼은 이미 multilingual 속성으로 처리됨
+                    return;
+                }
+
+                const categoryData = window.siteData?.categories?.[category];
+                if (lang === 'en' && categoryData?.en) {
+                    button.textContent = categoryData.en;
+                } else {
+                    button.textContent = category;
+                }
+            });
+
+            // 카테고리 링크 직접 업데이트
             const categoryLinks = document.querySelectorAll('.category-link');
             categoryLinks.forEach(link => {
                 const category = link.getAttribute('data-ko');
+                if (!category) return;
+
                 const categoryData = window.siteData?.categories?.[category];
 
                 if (lang === 'en' && categoryData?.en) {
@@ -546,10 +579,12 @@ permalink: /categories/
                 }
             });
 
-            // 태그 링크 업데이트
+            // 태그 링크 직접 업데이트
             const tagLinks = document.querySelectorAll('.tag-link');
             tagLinks.forEach(link => {
                 const tag = link.getAttribute('data-ko');
+                if (!tag) return;
+
                 const tagData = window.siteData?.tags?.[tag];
 
                 if (lang === 'en' && tagData?.en) {
@@ -558,6 +593,28 @@ permalink: /categories/
                     link.textContent = '#' + tag;
                 }
             });
+
+            // 포스트 타이틀 및 요약 직접 업데이트
+            const postLinks = document.querySelectorAll('.post-link');
+            postLinks.forEach(link => {
+                if (lang === 'ko' && link.hasAttribute('data-ko')) {
+                    link.textContent = link.getAttribute('data-ko');
+                } else if (lang === 'en' && link.hasAttribute('data-en')) {
+                    link.textContent = link.getAttribute('data-en');
+                }
+            });
+
+            const postExcerpts = document.querySelectorAll('.post-excerpt');
+            postExcerpts.forEach(excerpt => {
+                if (lang === 'ko' && excerpt.hasAttribute('data-ko')) {
+                    excerpt.textContent = excerpt.getAttribute('data-ko');
+                } else if (lang === 'en' && excerpt.hasAttribute('data-en')) {
+                    excerpt.textContent = excerpt.getAttribute('data-en');
+                }
+            });
+
+            // 디버깅을 위한 상태 출력
+            console.log('[카테고리 페이지] 언어 업데이트 완료:', lang);
         }
 
         // 언어 변경 이벤트 리스너 설정
