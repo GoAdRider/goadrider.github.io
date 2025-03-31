@@ -1,7 +1,8 @@
 source "https://rubygems.org"
 
+# github-pages 또는 jekyll 중 하나만 선택해야 합니다(두 가지가 충돌함)
 gem "jekyll", "~> 4.3.2"
-gem "github-pages", group: :jekyll_plugins
+# gem "github-pages", group: :jekyll_plugins  # 일시적으로 비활성화
 gem "jekyll-remote-theme"
 gem "jekyll-polyglot", "~> 1.6.0"
 

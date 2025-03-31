@@ -1,0 +1,1598 @@
+<!doctype html>
+<html lang="ko" class="no-js">
+
+<head>
+    <!-- 안전 모드 스크립트 - 페이지 응답성 유지 -->
+    <script>
+        // 페이지 응답성 보호를 위한 스크립트
+        window.addEventListener('error', function (e) {
+            // 로딩 시간이 너무 오래 걸리는 스크립트를 감지
+            if (e.target && e.target.tagName === 'SCRIPT') {
+                console.warn('Script loading error:', e.target.src);
+            }
+        }, true);
+
+        // 10초 후에도 로딩이 완료되지 않으면 자동으로 복구 시도
+        setTimeout(function () {
+            if (document.readyState !== 'complete') {
+                console.warn('페이지 로딩 지연 감지 - 복구 모드 활성화');
+
+                // 로딩이 안 된 이미지나 스크립트 감지
+                var pendingScripts = document.querySelectorAll('script:not([async]):not([defer])');
+                for (var i = 0; i < pendingScripts.length; i++) {
+                    if (!pendingScripts[i].hasAttribute('data-checked')) {
+                        pendingScripts[i].setAttribute('data-checked', 'true');
+                        if (pendingScripts[i].src && pendingScripts[i].src.includes('lunr')) {
+                            // 문제가 되는 스크립트는 비동기로 변경
+                            pendingScripts[i].async = true;
+                            pendingScripts[i].defer = true;
+                            console.log('스크립트 최적화:', pendingScripts[i].src);
+                        }
+                    }
+                }
+            }
+        }, 8000);
+    </script>
+
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로그 - NewsLens</title>
+<meta name="description" content="철학적, 과학적 사고로 세상을 바라보는 블로그">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="NewsLens">
+<meta property="og:title" content="NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로그">
+<meta property="og:url" content="http://localhost:4000/">
+
+
+  <meta property="og:description" content="철학적, 과학적 사고로 세상을 바라보는 블로그">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="NewsLens Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- 페이지 타이틀 설정 -->
+<title>
+    
+    NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로그 | NewsLens
+    
+</title>
+
+<!-- Google Font 로드 - 비동기 로딩으로 변경 -->
+
+
+<!-- Google Analytics - 비동기로 변경 -->
+
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<!-- 문제가 되는 webmanifest 파일 로딩 비활성화 -->
+<!-- <link rel="manifest" href="/site.webmanifest"> -->
+
+<!-- end custom head snippets -->
+
+<!-- 글로벌 스크립트 - 페이지 로드 전에 실행됨 (지연 로딩으로 변경) -->
+<script src="/assets/js/global.js" defer async></script>
+
+<!-- 언어 변경 처리를 위한 즉시 실행 스크립트 -->
+<script>
+    (function () {
+        // DOM 로드 완료 시 실행
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('언어 전환 스크립트 초기화');
+
+            // 언어 변경 함수 - 모든 data-ko/data-en 속성을 처리
+            function updateLanguageElements(lang) {
+                console.log('언어 변경 적용: ' + lang);
+
+                // 모든 data-ko 또는 data-en 속성을 가진 요소 선택
+                const elementsWithLangData = document.querySelectorAll('[data-ko], [data-en]');
+                console.log('언어 변경 대상 요소 수: ' + elementsWithLangData.length);
+
+                // 각 요소에 대해 현재 언어에 맞는 텍스트 적용
+                elementsWithLangData.forEach(function (el) {
+                    if (el.hasAttribute('data-' + lang)) {
+                        const content = el.getAttribute('data-' + lang);
+                        el.textContent = content;
+                        console.log('요소 텍스트 변경: ', content);
+                    }
+                });
+
+                // title 태그 업데이트
+                if (lang === 'en' && document.querySelector('meta[name="title-en"]')) {
+                    document.title = document.querySelector('meta[name="title-en"]').getAttribute('content');
+                } else if (document.querySelector('meta[name="title-ko"]')) {
+                    document.title = document.querySelector('meta[name="title-ko"]').getAttribute('content');
+                }
+            }
+
+            // 초기 언어 설정 확인 및 적용
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlLang = urlParams.get('lang');
+            const storedLang = localStorage.getItem('preferred_language');
+            const initialLang = urlLang || storedLang || 'ko';
+
+            // HTML lang 속성 설정
+            document.documentElement.setAttribute('lang', initialLang);
+
+            // 초기 언어 적용
+            setTimeout(function () {
+                updateLanguageElements(initialLang);
+            }, 0);
+
+            // 언어 변경 이벤트 리스너 등록 (여러 이벤트 타입 지원)
+            window.addEventListener('languageChange', function (e) {
+                if (e.detail && e.detail.language) {
+                    updateLanguageElements(e.detail.language);
+                }
+            });
+
+            document.addEventListener('languageChanged', function (e) {
+                if (e.detail && e.detail.language) {
+                    updateLanguageElements(e.detail.language);
+                }
+            });
+
+            // HTML lang 속성 변경 감지
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.attributeName === 'lang') {
+                        const newLang = document.documentElement.getAttribute('lang');
+                        updateLanguageElements(newLang);
+                    }
+                });
+            });
+
+            observer.observe(document.documentElement, { attributes: true });
+        });
+    })();
+</script>
+
+<!-- 긴급 복구 시스템 - 새로운 방식으로 구현 -->
+<script>
+    (function () {
+        // 최우선 실행되는 안전 장치
+        var safetyTimer = setTimeout(function () {
+            if (document.readyState !== 'complete') {
+                console.warn('[안전모드] 페이지 로딩이 지연되고 있습니다. 복구 시작...');
+
+                // 문제가 될 수 있는 스크립트 제거
+                var allScripts = document.querySelectorAll('script[src]');
+                for (var i = 0; i < allScripts.length; i++) {
+                    var script = allScripts[i];
+                    if (script.src.indexOf('/lunr/') !== -1 ||
+                        script.src.indexOf('search') !== -1 ||
+                        script.src.indexOf('/js/') !== -1) {
+                        console.log('[안전모드] 문제 스크립트 제거:', script.src);
+                        script.remove();
+                    }
+                }
+
+                // 로딩 이벤트 강제 발생
+                window.dispatchEvent(new Event('load'));
+                document.dispatchEvent(new Event('DOMContentLoaded'));
+
+                // 사용자에게 상태 알림
+                var notice = document.createElement('div');
+                notice.style.position = 'fixed';
+                notice.style.top = '10px';
+                notice.style.left = '10px';
+                notice.style.padding = '10px';
+                notice.style.background = 'rgba(255,255,255,0.9)';
+                notice.style.border = '1px solid #ddd';
+                notice.style.borderRadius = '5px';
+                notice.style.zIndex = '999999';
+                notice.style.fontSize = '14px';
+                notice.textContent = '페이지 로딩이 자동으로 복구되었습니다.';
+
+                if (document.body) {
+                    document.body.appendChild(notice);
+                    setTimeout(function () {
+                        notice.style.opacity = '0';
+                        notice.style.transition = 'opacity 1s';
+                        setTimeout(function () { notice.remove(); }, 1000);
+                    }, 3000);
+                }
+            }
+        }, 2000); // 2초 후 체크
+
+        // 페이지가 정상적으로 로드된 경우
+        window.addEventListener('load', function () {
+            clearTimeout(safetyTimer);
+        });
+    })();
+</script>
+    <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #fb7185;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --gray-color: #64748b;
+            --transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body
+    class="layout--default">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+
+    <!-- 헤더 포함 -->
+    
+
+    <script>
+        // URL 파라미터에서 언어 파라미터 확인
+        var urlParams = new URLSearchParams(window.location.search);
+        var urlLang = urlParams.get('lang');
+
+        // localStorage에 저장된 언어 설정 확인
+        var storedLang = localStorage.getItem('preferred_language');
+
+        // URL 파라미터가 있으면 그 값을 우선 사용
+        if (urlLang) {
+            document.documentElement.lang = urlLang;
+        }
+        // 없는 경우 localStorage 값 사용
+        else if (storedLang) {
+            document.documentElement.lang = storedLang;
+            // URL에 언어 파라미터 추가
+            if (storedLang === 'en') {
+                urlParams.set('lang', 'en');
+                var newUrl = window.location.pathname + '?' + urlParams.toString();
+                window.history.replaceState({}, '', newUrl);
+            }
+        }
+    </script>
+
+    
+    <!-- 헤더 -->
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="/" class="logo">
+                    <i class="fas fa-brain"></i>
+                    NewsLens
+                </a>
+            </div>
+
+            <nav>
+                <a href="/" class="nav-link" data-ko="홈" data-en="Home">홈</a>
+                <a href="/categories/" class="nav-link" data-ko="카테고리" data-en="Categories">카테고리</a>
+                <a href="/tags/" class="nav-link" data-ko="태그" data-en="Tags">태그</a>
+                <a href="/about/" class="nav-link" data-ko="소개" data-en="About">소개</a>
+                <a href="/contact/" class="nav-link" data-ko="문의" data-en="Contact">문의</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="language-switcher" id="language-switcher">
+                    <i class="fas fa-globe"></i>
+                    <span id="current-lang" data-ko="한국어" data-en="English">한국어</span>
+                </div>
+
+                <a href="/search/" class="search-button">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    /* 헤더 */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+        padding: 1.2rem 0;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo i {
+        color: var(--accent-color);
+    }
+
+    nav {
+        display: flex;
+        gap: 2rem;
+    }
+
+    nav a {
+        color: var(--gray-color);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.05rem;
+        transition: var(--transition);
+        position: relative;
+    }
+
+    nav a:hover {
+        color: var(--primary-color);
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: var(--transition);
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .language-switcher {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .language-switcher:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .language-switcher i {
+        color: var(--primary-color);
+    }
+
+    .search-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .search-button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+    }
+
+    .mobile-menu {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+
+        nav,
+        .header-actions {
+            display: none;
+        }
+
+        nav.active,
+        .header-actions.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.active {
+            align-items: flex-start;
+        }
+
+        .mobile-menu {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 모바일 메뉴 토글
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const nav = document.querySelector('nav');
+        const headerActions = document.querySelector('.header-actions');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const currentLang = document.getElementById('current-lang');
+        const languageSwitcher = document.getElementById('language-switcher');
+
+        mobileMenu.addEventListener('click', function () {
+            nav.classList.toggle('active');
+            headerActions.classList.toggle('active');
+        });
+
+        // 언어 변경 함수
+        function updateHeaderLanguage(lang) {
+            // 네비게이션 링크 텍스트 업데이트
+            navLinks.forEach(link => {
+                link.textContent = link.getAttribute(`data-${lang}`);
+                // URL에 언어 파라미터 추가
+                const href = link.getAttribute('href');
+                const baseUrl = href.split('?')[0];
+                const params = new URLSearchParams(href.split('?')[1] || '');
+                params.set('lang', lang);
+                link.href = `${baseUrl}?${params.toString()}`;
+            });
+
+            // 현재 언어 표시 업데이트
+            currentLang.textContent = currentLang.getAttribute(`data-${lang}`);
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateHeaderLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
+
+        // 초기 언어 적용
+        updateHeaderLanguage(initialLang);
+
+        // 언어 스위처 클릭 이벤트
+        languageSwitcher.addEventListener('click', function () {
+            const currentLanguage = localStorage.getItem('preferred_language') || 'ko';
+            const newLanguage = currentLanguage === 'en' ? 'ko' : 'en';
+
+            // 언어 설정 저장
+            localStorage.setItem('preferred_language', newLanguage);
+
+            // 언어 변경 이벤트 발생
+            window.dispatchEvent(new CustomEvent('languageChange', {
+                detail: {
+                    language: newLanguage
+                }
+            }));
+
+            // URL 업데이트
+            const url = new URL(window.location);
+            url.searchParams.set('lang', newLanguage);
+            window.history.pushState({}, '', url);
+        });
+    });
+</script>
+    
+
+    <div class="initial-content">
+        <!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로그</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #fb7185;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --gray-color: #64748b;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f6f7ff 0%, #dfe9f3 100%);
+            border-radius: 0 0 50px 50px;
+            margin-bottom: 4rem;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-color);
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .primary-button {
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .primary-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .secondary-button {
+            padding: 0.8rem 2rem;
+            background-color: transparent;
+            color: var(--dark-color);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .secondary-button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            transform: rotate(2deg);
+        }
+
+        /* 특성 섹션 */
+        .features {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            text-align: center;
+            color: var(--gray-color);
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background-color: rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .feature-description {
+            color: var(--gray-color);
+            line-height: 1.6;
+        }
+
+        /* 최신 포스트 섹션 */
+        .recent-posts {
+            padding: 4rem 0;
+            background-color: #f8fafc;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .post-card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-category {
+            display: inline-block;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .post-excerpt {
+            color: var(--gray-color);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .post-date {
+            font-size: 0.85rem;
+            color: var(--gray-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: auto;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 뉴스레터 섹션 */
+        .newsletter {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f6f7ff 0%, #dfe9f3 100%);
+            border-radius: 50px;
+            margin: 4rem 0;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .newsletter-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .newsletter-description {
+            font-size: 1.1rem;
+            color: var(--gray-color);
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        /* 글꼴 임포트 */
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 400;
+            font-display: swap;
+            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-regular.woff2) format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 500;
+            font-display: swap;
+            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-medium.woff2) format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 600;
+            font-display: swap;
+            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-semibold.woff2) format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 700;
+            font-display: swap;
+            src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-bold.woff2) format('woff2');
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <div class="container">
+            <!-- 한국어 콘텐츠 -->
+            <div class="hero-content" id="ko-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">최신 뉴스, 철학적·과학적 관점으로 재해석</h1>
+                    <p class="hero-subtitle">NewsLens는 일상의 뉴스와 사회 현상을 철학적, 과학적 렌즈로 분석합니다. 시사적 이슈에 깊이를 더하고, 새로운 관점으로 세상을
+                        바라보는 통찰을 제공합니다.</p>
+
+                    <div class="cta-buttons">
+                        <a href="#recent-posts" class="primary-button">
+                            <i class="fas fa-book-open"></i>
+                            최신 분석 보기
+                        </a>
+                        <a href="/methodology/" class="secondary-button">
+                            <i class="fas fa-info-circle"></i>
+                            분석 방법론
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <img src="assets/images/thinking-person-silhouette.jpg" alt="생각하는 모습" class="hero-img">
+                </div>
+            </div>
+
+            <!-- 영어 콘텐츠 -->
+            <div class="hero-content" id="en-content" style="display: none;">
+                <div class="hero-text">
+                    <h1 class="hero-title">Latest News, Reinterpreted through Philosophical and Scientific Perspectives
+                    </h1>
+                    <p class="hero-subtitle">NewsLens analyzes everyday news and social phenomena through philosophical
+                        and scientific lenses. We add depth to current issues and provide insights that view the world
+                        from a new perspective.</p>
+
+                    <div class="cta-buttons">
+                        <a href="#recent-posts" class="primary-button">
+                            <i class="fas fa-book-open"></i>
+                            View Latest Analysis
+                        </a>
+                        <a href="/methodology/?lang=en" class="secondary-button">
+                            <i class="fas fa-info-circle"></i>
+                            Analysis Methodology
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <img src="assets/images/thinking-person-silhouette.jpg" alt="Thinking person" class="hero-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 특성 섹션 -->
+    <section class="features">
+        <div class="container">
+            <!-- 한국어 콘텐츠 -->
+            <div id="features-ko">
+                <h2 class="section-title">NewsLens의 분석 특징</h2>
+                <p class="section-subtitle">당신이 접하는 뉴스를 철학과 과학의 렌즈로 다시 바라봅니다.</p>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h3 class="feature-title">시사 뉴스 분석</h3>
+                        <p class="feature-description">최신 시사 뉴스를 철학적, 과학적 관점에서 재해석하여 이슈의 본질과 함의를 깊이 있게 살펴봅니다.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 class="feature-title">다층적 해석</h3>
+                        <p class="feature-description">하나의 뉴스 사건에 대해 다양한 사상적 관점과 과학적 증거를 기반으로 다층적 해석을 제시합니다.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="feature-title">현실적 통찰</h3>
+                        <p class="feature-description">학술적 깊이를 유지하면서도 현실 사회에 적용 가능한 실질적인 통찰과 대안을 제시합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 영어 콘텐츠 -->
+            <div id="features-en" style="display: none;">
+                <h2 class="section-title">NewsLens Analysis Features</h2>
+                <p class="section-subtitle">View the news you encounter through the lens of philosophy and science.</p>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h3 class="feature-title">Current News Analysis</h3>
+                        <p class="feature-description">Reinterpret current news from philosophical and scientific
+                            perspectives, examining the essence and implications of issues in depth.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 class="feature-title">Multi-layered Interpretation</h3>
+                        <p class="feature-description">Present multi-layered interpretations of news events based on
+                            various ideological perspectives and scientific evidence.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="feature-title">Practical Insights</h3>
+                        <p class="feature-description">Provide practical insights and alternatives applicable to real
+                            society while maintaining academic depth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 최신 포스트 섹션 -->
+    <section class="recent-posts" id="recent-posts">
+        <div class="container">
+            <h2 class="section-title" id="recent-posts-title">최신 글</h2>
+            <p class="section-subtitle" id="recent-posts-subtitle">NewsLens의 최신 콘텐츠를 확인해보세요.</p>
+
+            <!-- 한국어 포스트 -->
+            <div class="posts-grid" id="posts-ko" data-lang="ko">
+                <div class="post-card">
+                    <img src="https://images.unsplash.com/photo-1546776310-eef45dd6d63c?q=80&w=500&auto=format&fit=crop"
+                        alt="AI 윤리" class="post-image">
+                    <div class="post-content">
+                        <span class="post-category">인공지능</span>
+                        <h3 class="post-title">인공지능 시대의 윤리적 과제와 철학적 접근</h3>
+                        <p class="post-excerpt">급속도로 발전하는 인공지능 기술이 가져오는 윤리적 문제와 이에 대한 철학적 고찰을 담았습니다.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>2024.08.10</span>
+                            </div>
+                            <a href="#" class="read-more">자세히 보기</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-card">
+                    <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=500&auto=format&fit=crop"
+                        alt="현대 민주주의" class="post-image">
+                    <div class="post-content">
+                        <span class="post-category">사회/정치</span>
+                        <h3 class="post-title">현대 민주주의의 위기와 해결책 모색</h3>
+                        <p class="post-excerpt">전 세계적으로 나타나는 민주주의 위기 현상을 분석하고 철학과 정치학의 관점에서 대안을 모색합니다.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>2024.07.25</span>
+                            </div>
+                            <a href="#" class="read-more">자세히 보기</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-card">
+                    <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=500&auto=format&fit=crop"
+                        alt="양자역학" class="post-image">
+                    <div class="post-content">
+                        <span class="post-category">과학/물리학</span>
+                        <h3 class="post-title">양자역학과 현실 인식의 철학적 함의</h3>
+                        <p class="post-excerpt">양자역학의 기이한 현상들이 우리의 현실 인식과 철학적 세계관에 미치는 영향을 탐구합니다.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>2024.07.12</span>
+                            </div>
+                            <a href="#" class="read-more">자세히 보기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 영어 포스트 -->
+            <div class="posts-grid" id="posts-en" data-lang="en" style="display: none;">
+                <div class="post-card">
+                    <img src="https://images.unsplash.com/photo-1546776310-eef45dd6d63c?q=80&w=500&auto=format&fit=crop"
+                        alt="AI Ethics" class="post-image">
+                    <div class="post-content">
+                        <span class="post-category">Artificial Intelligence</span>
+                        <h3 class="post-title">Ethical Challenges and Philosophical Approaches in the Age of AI</h3>
+                        <p class="post-excerpt">We explore the ethical issues brought by rapidly developing artificial
+                            intelligence technology and philosophical reflections on them.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>Aug 10, 2024</span>
+                            </div>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-card">
+                    <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=500&auto=format&fit=crop"
+                        alt="Modern Democracy" class="post-image">
+                    <div class="post-content">
+                        <span class="post-category">Society/Politics</span>
+                        <h3 class="post-title">The Crisis of Modern Democracy and Search for Solutions</h3>
+                        <p class="post-excerpt">We analyze the global phenomena of democratic crisis and explore
+                            alternatives from philosophical and political perspectives.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>Jul 25, 2024</span>
+                            </div>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-card">
+                    <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=500&auto=format&fit=crop"
+                        alt="Quantum Mechanics" class="post-image">
+                    <div class="post-content">
+                        <span class="post-category">Science/Physics</span>
+                        <h3 class="post-title">Quantum Mechanics and Its Philosophical Implications on Reality
+                            Perception</h3>
+                        <p class="post-excerpt">We explore how the strange phenomena of quantum mechanics affect our
+                            perception of reality and philosophical worldview.</p>
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span>Jul 12, 2024</span>
+                            </div>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 뉴스레터 섹션 -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content" id="newsletter-ko" data-lang="ko">
+                <h2 class="newsletter-title">NewsLens 뉴스레터 구독하기</h2>
+                <p class="newsletter-description">최신 글과 특별한 콘텐츠를 이메일로 받아보세요. 언제든지 구독을 취소할 수 있습니다.</p>
+
+                <form class="newsletter-form">
+                    <input type="email" placeholder="이메일 주소를 입력하세요" class="newsletter-input" required>
+                    <button type="submit" class="primary-button">
+                        <i class="fas fa-paper-plane"></i>
+                        구독하기
+                    </button>
+                </form>
+            </div>
+
+            <div class="newsletter-content" id="newsletter-en" data-lang="en" style="display: none;">
+                <h2 class="newsletter-title">Subscribe to NewsLens Newsletter</h2>
+                <p class="newsletter-description">Receive the latest articles and special content via email. You can
+                    unsubscribe at any time.</p>
+
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" class="newsletter-input" required>
+                    <button type="submit" class="primary-button">
+                        <i class="fas fa-paper-plane"></i>
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 언어 변경 함수
+            function updateLanguage(lang) {
+                // 헤더 및 탐색 요소
+                const koContent = document.getElementById('ko-content');
+                const enContent = document.getElementById('en-content');
+                const featuresKo = document.getElementById('features-ko');
+                const featuresEn = document.getElementById('features-en');
+                const postsKo = document.getElementById('posts-ko');
+                const postsEn = document.getElementById('posts-en');
+                const newsletterKo = document.getElementById('newsletter-ko');
+                const newsletterEn = document.getElementById('newsletter-en');
+                const recentPostsTitle = document.getElementById('recent-posts-title');
+                const recentPostsSubtitle = document.getElementById('recent-posts-subtitle');
+
+                if (lang === 'en') {
+                    // 영어 콘텐츠 표시
+                    document.title = 'NewsLens - Philosophical and Scientific Analysis of Current Affairs';
+                    document.documentElement.lang = 'en';
+
+                    // 히어로 섹션
+                    koContent.style.display = 'none';
+                    enContent.style.display = 'flex';
+
+                    // 특성 섹션
+                    featuresKo.style.display = 'none';
+                    featuresEn.style.display = 'block';
+
+                    // 최신 포스트 섹션
+                    recentPostsTitle.textContent = 'Latest Articles';
+                    recentPostsSubtitle.textContent = 'Check out the latest content from NewsLens.';
+                    postsKo.style.display = 'none';
+                    postsEn.style.display = 'grid';
+
+                    // 뉴스레터 섹션
+                    newsletterKo.style.display = 'none';
+                    newsletterEn.style.display = 'block';
+                } else {
+                    // 한국어 콘텐츠 표시
+                    document.title = 'NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로그';
+                    document.documentElement.lang = 'ko';
+
+                    // 히어로 섹션
+                    koContent.style.display = 'flex';
+                    enContent.style.display = 'none';
+
+                    // 특성 섹션
+                    featuresKo.style.display = 'block';
+                    featuresEn.style.display = 'none';
+
+                    // 최신 포스트 섹션
+                    recentPostsTitle.textContent = '최신 글';
+                    recentPostsSubtitle.textContent = 'NewsLens의 최신 콘텐츠를 확인해보세요.';
+                    postsKo.style.display = 'grid';
+                    postsEn.style.display = 'none';
+
+                    // 뉴스레터 섹션
+                    newsletterKo.style.display = 'block';
+                    newsletterEn.style.display = 'none';
+                }
+            }
+
+            // URL 파라미터에서 언어 확인
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+
+            // localStorage에서 언어 설정 확인
+            const storedLang = localStorage.getItem('preferred_language');
+
+            // 언어 파라미터가 있으면 그에 맞게 설정
+            if (langParam) {
+                updateLanguage(langParam);
+            }
+            // localStorage에 저장된 설정 사용
+            else if (storedLang) {
+                updateLanguage(storedLang);
+            }
+
+            // 언어 변경 이벤트 리스너 추가
+            window.addEventListener('languageChange', function (e) {
+                const newLang = e.detail.language;
+                updateLanguage(newLang);
+            });
+        });
+    </script>
+</body>
+
+</html>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+        <!-- 푸터 포함 -->
+        
+        <!-- 푸터 -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">NewsLens</div>
+                <p class="footer-description" data-ko="철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다."
+                    data-en="A blog that views the world through philosophical and scientific thinking. We provide in-depth analysis and new perspectives on various topics.">
+                    철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.
+                </p>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="카테고리" data-en="Categories">카테고리</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/categories/?category=philosophy" data-ko="철학"
+                            data-en="Philosophy">철학</a></li>
+                    <li class="footer-link"><a href="/categories/?category=science" data-ko="과학"
+                            data-en="Science">과학</a></li>
+                    <li class="footer-link"><a href="/categories/?category=society" data-ko="사회/정치"
+                            data-en="Society/Politics">사회/정치</a></li>
+                    <li class="footer-link"><a href="/categories/?category=technology" data-ko="기술"
+                            data-en="Technology">기술</a></li>
+                    <li class="footer-link"><a href="/categories/?category=culture" data-ko="문화/예술"
+                            data-en="Culture/Arts">문화/예술</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="정보" data-en="Information">정보</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/about/" data-ko="소개" data-en="About">소개</a></li>
+                    <li class="footer-link"><a href="/authors/" data-ko="필자 소개" data-en="Authors">필자 소개</a></li>
+                    <li class="footer-link"><a href="/methodology/" data-ko="분석방법론" data-en="Methodology">분석방법론</a></li>
+                    <li class="footer-link"><a href="/contact/" data-ko="문의하기" data-en="Contact">문의하기</a></li>
+                    <li class="footer-link"><a href="/privacy/" data-ko="개인정보처리방침" data-en="Privacy Policy">개인정보처리방침</a>
+                    </li>
+                    <li class="footer-link"><a href="/terms/" data-ko="이용약관" data-en="Terms of Service">이용약관</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="연락처" data-en="Contact">연락처</h4>
+                <ul class="footer-links">
+                    <li class="footer-link">
+                        <a href="/contact/" data-ko="문의는 '문의하기' 메뉴를 이용해 주세요"
+                            data-en="Please use the 'Contact' menu for inquiries">
+                            문의는 '문의하기' 메뉴를 이용해 주세요
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2024 NewsLens. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* 푸터 스타일 */
+    .footer {
+        background-color: #333;
+        color: white;
+        padding: 3rem 0;
+        margin-top: 3rem;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .footer-brand .footer-logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .footer-description {
+        line-height: 1.6;
+    }
+
+    .footer-links-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-link {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-link a {
+        color: #ddd;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-link a:hover {
+        color: white;
+        text-decoration: underline;
+    }
+
+    .copyright {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+
+    /* 반응형 푸터 */
+    @media (max-width: 992px) {
+        .footer-content {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .footer-brand {
+            grid-column: span 2;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-brand {
+            grid-column: span 1;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const footerDescription = document.querySelector('.footer-description');
+        const footerTitles = document.querySelectorAll('.footer-links-title');
+        const footerLinks = document.querySelectorAll('.footer-link a');
+
+        function updateFooterLanguage(lang) {
+            // 푸터 설명 업데이트
+            footerDescription.textContent = footerDescription.getAttribute(`data-${lang}`);
+
+            // 푸터 섹션 제목 업데이트
+            footerTitles.forEach(title => {
+                title.textContent = title.getAttribute(`data-${lang}`);
+            });
+
+            // 푸터 링크 텍스트 업데이트
+            footerLinks.forEach(link => {
+                link.textContent = link.getAttribute(`data-${lang}`);
+                // URL에 언어 파라미터 추가
+                const href = link.getAttribute('href');
+                const baseUrl = href.split('?')[0];
+                const params = new URLSearchParams(href.split('?')[1] || '');
+                params.set('lang', lang);
+                link.href = `${baseUrl}?${params.toString()}`;
+            });
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateFooterLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
+
+        // 초기 언어 적용
+        updateFooterLanguage(initialLang);
+    });
+</script>
+        
+    </div>
+
+    <!-- 최적화된 스크립트 로딩 -->
+    <script>
+        // 스크립트 로드 상태 모니터링
+        var scriptsLoaded = false;
+        var safetyTimeout = null;
+
+        // 스크립트 타임아웃 설정 (20초)
+        safetyTimeout = setTimeout(function () {
+            if (!scriptsLoaded) {
+                console.warn('스크립트 로딩 타임아웃 - 페이지 복구 중');
+                // 페이지가 응답하지 않는 경우 복구
+                document.documentElement.classList.add('js-loading-timeout');
+
+                // 기존 로딩 스크립트 중단
+                var loadingScripts = document.querySelectorAll('script[src*="lunr"]');
+                loadingScripts.forEach(function (script) {
+                    if (script.parentNode) {
+                        script.parentNode.removeChild(script);
+                    }
+                });
+
+                // 페이지 상태 복구
+                document.body.classList.remove('loading');
+                scriptsLoaded = true;
+            }
+        }, 20000);
+
+        // 스크립트 로딩 완료 후 호출되는 함수
+        function markScriptsAsLoaded() {
+            scriptsLoaded = true;
+            if (safetyTimeout) {
+                clearTimeout(safetyTimeout);
+            }
+        }
+
+        // 페이지 완전 로드 시 스크립트 로딩 완료 표시
+        window.addEventListener('load', markScriptsAsLoaded);
+
+        // URL 파라미터에서 언어 감지
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+
+            if (langParam) {
+                // HTML 언어 속성 업데이트
+                document.documentElement.lang = langParam;
+                // 로컬 스토리지에 언어 설정 저장
+                localStorage.setItem('preferred_language', langParam);
+            } else {
+                // 저장된 언어 설정 확인
+                const storedLang = localStorage.getItem('preferred_language');
+                if (storedLang && storedLang === 'en') {
+                    // 영어로 저장되어 있지만 URL에 파라미터가 없는 경우
+                    document.documentElement.lang = 'en';
+                    // URL에 언어 파라미터 추가
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('lang', 'en');
+                    history.replaceState({}, '', url);
+                }
+            }
+        });
+
+        // 언어 변경 이벤트 수신
+        window.addEventListener('languageChange', function (e) {
+            const newLang = e.detail.language;
+            console.log('언어 변경:', newLang);
+
+            // 페이지 새로고침 대신 언어별 콘텐츠 전환 처리
+            const koreanElements = document.querySelectorAll('[data-lang="ko"]');
+            const englishElements = document.querySelectorAll('[data-lang="en"]');
+
+            if (newLang === 'en') {
+                koreanElements.forEach(el => el.style.display = 'none');
+                englishElements.forEach(el => el.style.display = 'block');
+            } else {
+                koreanElements.forEach(el => el.style.display = 'block');
+                englishElements.forEach(el => el.style.display = 'none');
+            }
+        });
+    </script>
+
+    <!-- 비동기 스크립트 로딩으로 변경 -->
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

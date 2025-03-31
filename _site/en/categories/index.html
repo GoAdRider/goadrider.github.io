@@ -1,0 +1,1570 @@
+<!doctype html>
+<html lang="ko" class="no-js">
+
+<head>
+    <!-- 안전 모드 스크립트 - 페이지 응답성 유지 -->
+    <script>
+        // 페이지 응답성 보호를 위한 스크립트
+        window.addEventListener('error', function (e) {
+            // 로딩 시간이 너무 오래 걸리는 스크립트를 감지
+            if (e.target && e.target.tagName === 'SCRIPT') {
+                console.warn('Script loading error:', e.target.src);
+            }
+        }, true);
+
+        // 10초 후에도 로딩이 완료되지 않으면 자동으로 복구 시도
+        setTimeout(function () {
+            if (document.readyState !== 'complete') {
+                console.warn('페이지 로딩 지연 감지 - 복구 모드 활성화');
+
+                // 로딩이 안 된 이미지나 스크립트 감지
+                var pendingScripts = document.querySelectorAll('script:not([async]):not([defer])');
+                for (var i = 0; i < pendingScripts.length; i++) {
+                    if (!pendingScripts[i].hasAttribute('data-checked')) {
+                        pendingScripts[i].setAttribute('data-checked', 'true');
+                        if (pendingScripts[i].src && pendingScripts[i].src.includes('lunr')) {
+                            // 문제가 되는 스크립트는 비동기로 변경
+                            pendingScripts[i].async = true;
+                            pendingScripts[i].defer = true;
+                            console.log('스크립트 최적화:', pendingScripts[i].src);
+                        }
+                    }
+                }
+            }
+        }, 8000);
+    </script>
+
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>카테고리별 글 모음 - NewsLens - NewsLens</title>
+<meta name="description" content="철학적, 과학적 사고로 세상을 바라보는 블로그">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="NewsLens">
+<meta property="og:title" content="카테고리별 글 모음 - NewsLens">
+<meta property="og:url" content="http://localhost:4000/categories/">
+
+
+  <meta property="og:description" content="철학적, 과학적 사고로 세상을 바라보는 블로그">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/en/categories/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/en/feed.xml" type="application/atom+xml" rel="alternate" title="NewsLens Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- 페이지 타이틀 설정 -->
+<title>
+    
+    카테고리별 글 모음 - NewsLens | NewsLens
+    
+</title>
+
+<!-- Google Font 로드 - 비동기 로딩으로 변경 -->
+
+
+<!-- Google Analytics - 비동기로 변경 -->
+
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href="/en/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/en/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/en/favicon-16x16.png">
+<!-- 문제가 되는 webmanifest 파일 로딩 비활성화 -->
+<!-- <link rel="manifest" href="/en/site.webmanifest"> -->
+
+<!-- end custom head snippets -->
+
+<!-- 글로벌 스크립트 - 페이지 로드 전에 실행됨 (지연 로딩으로 변경) -->
+<script src="/assets/js/global.js" defer async></script>
+
+<!-- 언어 변경 처리를 위한 즉시 실행 스크립트 -->
+<script>
+    (function () {
+        // DOM 로드 완료 시 실행
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('언어 전환 스크립트 초기화');
+
+            // 언어 변경 함수 - 모든 data-ko/data-en 속성을 처리
+            function updateLanguageElements(lang) {
+                console.log('언어 변경 적용: ' + lang);
+
+                // 모든 data-ko 또는 data-en 속성을 가진 요소 선택
+                const elementsWithLangData = document.querySelectorAll('[data-ko], [data-en]');
+                console.log('언어 변경 대상 요소 수: ' + elementsWithLangData.length);
+
+                // 각 요소에 대해 현재 언어에 맞는 텍스트 적용
+                elementsWithLangData.forEach(function (el) {
+                    if (el.hasAttribute('data-' + lang)) {
+                        const content = el.getAttribute('data-' + lang);
+                        el.textContent = content;
+                        console.log('요소 텍스트 변경: ', content);
+                    }
+                });
+
+                // title 태그 업데이트
+                if (lang === 'en' && document.querySelector('meta[name="title-en"]')) {
+                    document.title = document.querySelector('meta[name="title-en"]').getAttribute('content');
+                } else if (document.querySelector('meta[name="title-ko"]')) {
+                    document.title = document.querySelector('meta[name="title-ko"]').getAttribute('content');
+                }
+            }
+
+            // 초기 언어 설정 확인 및 적용
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlLang = urlParams.get('lang');
+            const storedLang = localStorage.getItem('preferred_language');
+            const initialLang = urlLang || storedLang || 'ko';
+
+            // HTML lang 속성 설정
+            document.documentElement.setAttribute('lang', initialLang);
+
+            // 초기 언어 적용
+            setTimeout(function () {
+                updateLanguageElements(initialLang);
+            }, 0);
+
+            // 언어 변경 이벤트 리스너 등록 (여러 이벤트 타입 지원)
+            window.addEventListener('languageChange', function (e) {
+                if (e.detail && e.detail.language) {
+                    updateLanguageElements(e.detail.language);
+                }
+            });
+
+            document.addEventListener('languageChanged', function (e) {
+                if (e.detail && e.detail.language) {
+                    updateLanguageElements(e.detail.language);
+                }
+            });
+
+            // HTML lang 속성 변경 감지
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.attributeName === 'lang') {
+                        const newLang = document.documentElement.getAttribute('lang');
+                        updateLanguageElements(newLang);
+                    }
+                });
+            });
+
+            observer.observe(document.documentElement, { attributes: true });
+        });
+    })();
+</script>
+
+<!-- 긴급 복구 시스템 - 새로운 방식으로 구현 -->
+<script>
+    (function () {
+        // 최우선 실행되는 안전 장치
+        var safetyTimer = setTimeout(function () {
+            if (document.readyState !== 'complete') {
+                console.warn('[안전모드] 페이지 로딩이 지연되고 있습니다. 복구 시작...');
+
+                // 문제가 될 수 있는 스크립트 제거
+                var allScripts = document.querySelectorAll('script[src]');
+                for (var i = 0; i < allScripts.length; i++) {
+                    var script = allScripts[i];
+                    if (script.src.indexOf('/lunr/') !== -1 ||
+                        script.src.indexOf('search') !== -1 ||
+                        script.src.indexOf('/js/') !== -1) {
+                        console.log('[안전모드] 문제 스크립트 제거:', script.src);
+                        script.remove();
+                    }
+                }
+
+                // 로딩 이벤트 강제 발생
+                window.dispatchEvent(new Event('load'));
+                document.dispatchEvent(new Event('DOMContentLoaded'));
+
+                // 사용자에게 상태 알림
+                var notice = document.createElement('div');
+                notice.style.position = 'fixed';
+                notice.style.top = '10px';
+                notice.style.left = '10px';
+                notice.style.padding = '10px';
+                notice.style.background = 'rgba(255,255,255,0.9)';
+                notice.style.border = '1px solid #ddd';
+                notice.style.borderRadius = '5px';
+                notice.style.zIndex = '999999';
+                notice.style.fontSize = '14px';
+                notice.textContent = '페이지 로딩이 자동으로 복구되었습니다.';
+
+                if (document.body) {
+                    document.body.appendChild(notice);
+                    setTimeout(function () {
+                        notice.style.opacity = '0';
+                        notice.style.transition = 'opacity 1s';
+                        setTimeout(function () { notice.remove(); }, 1000);
+                    }, 3000);
+                }
+            }
+        }, 2000); // 2초 후 체크
+
+        // 페이지가 정상적으로 로드된 경우
+        window.addEventListener('load', function () {
+            clearTimeout(safetyTimer);
+        });
+    })();
+</script>
+    <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #fb7185;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --gray-color: #64748b;
+            --transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body
+    class="layout--default">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+
+    <!-- 헤더 포함 -->
+    
+
+    <script>
+        // URL 파라미터에서 언어 파라미터 확인
+        var urlParams = new URLSearchParams(window.location.search);
+        var urlLang = urlParams.get('lang');
+
+        // localStorage에 저장된 언어 설정 확인
+        var storedLang = localStorage.getItem('preferred_language');
+
+        // URL 파라미터가 있으면 그 값을 우선 사용
+        if (urlLang) {
+            document.documentElement.lang = urlLang;
+        }
+        // 없는 경우 localStorage 값 사용
+        else if (storedLang) {
+            document.documentElement.lang = storedLang;
+            // URL에 언어 파라미터 추가
+            if (storedLang === 'en') {
+                urlParams.set('lang', 'en');
+                var newUrl = window.location.pathname + '?' + urlParams.toString();
+                window.history.replaceState({}, '', newUrl);
+            }
+        }
+    </script>
+
+    
+    <!-- 헤더 -->
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="/en/" class="logo">
+                    <i class="fas fa-brain"></i>
+                    NewsLens
+                </a>
+            </div>
+
+            <nav>
+                <a href="/en/" class="nav-link" data-ko="홈" data-en="Home">홈</a>
+                <a href="/en/categories/" class="nav-link" data-ko="카테고리" data-en="Categories">카테고리</a>
+                <a href="/en/tags/" class="nav-link" data-ko="태그" data-en="Tags">태그</a>
+                <a href="/en/about/" class="nav-link" data-ko="소개" data-en="About">소개</a>
+                <a href="/en/contact/" class="nav-link" data-ko="문의" data-en="Contact">문의</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="language-switcher" id="language-switcher">
+                    <i class="fas fa-globe"></i>
+                    <span id="current-lang" data-ko="한국어" data-en="English">한국어</span>
+                </div>
+
+                <a href="/en/search/" class="search-button">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    /* 헤더 */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+        padding: 1.2rem 0;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo i {
+        color: var(--accent-color);
+    }
+
+    nav {
+        display: flex;
+        gap: 2rem;
+    }
+
+    nav a {
+        color: var(--gray-color);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.05rem;
+        transition: var(--transition);
+        position: relative;
+    }
+
+    nav a:hover {
+        color: var(--primary-color);
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: var(--transition);
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .language-switcher {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .language-switcher:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .language-switcher i {
+        color: var(--primary-color);
+    }
+
+    .search-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .search-button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+    }
+
+    .mobile-menu {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+
+        nav,
+        .header-actions {
+            display: none;
+        }
+
+        nav.active,
+        .header-actions.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.active {
+            align-items: flex-start;
+        }
+
+        .mobile-menu {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 모바일 메뉴 토글
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const nav = document.querySelector('nav');
+        const headerActions = document.querySelector('.header-actions');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const currentLang = document.getElementById('current-lang');
+        const languageSwitcher = document.getElementById('language-switcher');
+
+        mobileMenu.addEventListener('click', function () {
+            nav.classList.toggle('active');
+            headerActions.classList.toggle('active');
+        });
+
+        // 언어 변경 함수
+        function updateHeaderLanguage(lang) {
+            // 네비게이션 링크 텍스트 업데이트
+            navLinks.forEach(link => {
+                link.textContent = link.getAttribute(`data-${lang}`);
+                // URL에 언어 파라미터 추가
+                const href = link.getAttribute('href');
+                const baseUrl = href.split('?')[0];
+                const params = new URLSearchParams(href.split('?')[1] || '');
+                params.set('lang', lang);
+                link.href = `${baseUrl}?${params.toString()}`;
+            });
+
+            // 현재 언어 표시 업데이트
+            currentLang.textContent = currentLang.getAttribute(`data-${lang}`);
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateHeaderLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
+
+        // 초기 언어 적용
+        updateHeaderLanguage(initialLang);
+
+        // 언어 스위처 클릭 이벤트
+        languageSwitcher.addEventListener('click', function () {
+            const currentLanguage = localStorage.getItem('preferred_language') || 'ko';
+            const newLanguage = currentLanguage === 'en' ? 'ko' : 'en';
+
+            // 언어 설정 저장
+            localStorage.setItem('preferred_language', newLanguage);
+
+            // 언어 변경 이벤트 발생
+            window.dispatchEvent(new CustomEvent('languageChange', {
+                detail: {
+                    language: newLanguage
+                }
+            }));
+
+            // URL 업데이트
+            const url = new URL(window.location);
+            url.searchParams.set('lang', newLanguage);
+            window.history.pushState({}, '', url);
+        });
+    });
+</script>
+    
+
+    <div class="initial-content">
+        <!-- 페이지 제목 메타데이터 -->
+<meta name="title-ko" content="카테고리별 글 모음 | NewsLens">
+<meta name="title-en" content="Posts by Categories | NewsLens">
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title" data-ko="카테고리별 글 모음" data-en="Posts by Categories">카테고리별 글 모음</h1>
+        <p class="page-description" data-ko="관심 있는 카테고리를 선택하여 관련 글을 찾아보세요"
+            data-en="Select a category to find related posts">
+            관심 있는 카테고리를 선택하여 관련 글을 찾아보세요
+        </p>
+    </div>
+
+    <div class="category-tabs">
+        <button class="tab-button active" data-category="all" data-ko="전체" data-en="All">전체</button>
+        
+        
+        
+        <button class="tab-button" data-category="철학" data-ko="철학"
+            data-en="철학">
+            철학
+        </button>
+        
+        
+        
+        <button class="tab-button" data-category="인공지능" data-ko="인공지능"
+            data-en="인공지능">
+            인공지능
+        </button>
+        
+        
+        
+        <button class="tab-button" data-category="과학" data-ko="과학"
+            data-en="과학">
+            과학
+        </button>
+        
+    </div>
+
+    <div class="posts-grid">
+        
+        <article class="post-card" data-categories="과학 철학 ">
+            <div class="post-meta">
+                <span class="post-date">2025-03-25</span>
+                
+                <div class="post-categories">
+                    
+                    
+                    <a href="/en/categories/#과학" class="category-link" data-ko="과학"
+                        data-en="과학">
+                        과학
+                    </a>
+                    
+                    
+                    <a href="/en/categories/#철학" class="category-link" data-ko="철학"
+                        data-en="철학">
+                        철학
+                    </a>
+                    
+                </div>
+                
+            </div>
+
+            <h3 class="post-title">
+                <a href="/en/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/" class="post-link" data-ko="양자역학적 관점에서 바라본 의식의 본질"
+                    data-en="The Nature of Consciousness from a Quantum Mechanical Perspective">
+                    양자역학적 관점에서 바라본 의식의 본질
+                </a>
+            </h3>
+
+            <p class="post-excerpt" data-ko="양자역학과 의식의 관계에 대한 철학적 고찰과 최신 과학적 연구 분석"
+                data-en="Philosophical contemplation and analysis of recent scientific research on the relationship between quantum mechanics and consciousness">
+                양자역학과 의식의 관계에 대한 철학적 고찰과 최신 과학적 연구 분석
+            </p>
+
+            
+            <div class="post-tags">
+                
+                
+                <a href="/en/tags/#양자역학" class="tag-link" data-ko="양자역학"
+                    data-en="Quantum Mechanics">
+                    #양자역학
+                </a>
+                
+                
+                <a href="/en/tags/#의식" class="tag-link" data-ko="의식"
+                    data-en="의식">
+                    #의식
+                </a>
+                
+                
+                <a href="/en/tags/#마음의철학" class="tag-link" data-ko="마음의철학"
+                    data-en="마음의철학">
+                    #마음의철학
+                </a>
+                
+                
+                <a href="/en/tags/#뇌과학" class="tag-link" data-ko="뇌과학"
+                    data-en="뇌과학">
+                    #뇌과학
+                </a>
+                
+            </div>
+            
+        </article>
+        
+        <article class="post-card" data-categories="철학 인공지능 ">
+            <div class="post-meta">
+                <span class="post-date">2024-03-27</span>
+                
+                <div class="post-categories">
+                    
+                    
+                    <a href="/en/categories/#철학" class="category-link" data-ko="철학"
+                        data-en="철학">
+                        철학
+                    </a>
+                    
+                    
+                    <a href="/en/categories/#인공지능" class="category-link" data-ko="인공지능"
+                        data-en="인공지능">
+                        인공지능
+                    </a>
+                    
+                </div>
+                
+            </div>
+
+            <h3 class="post-title">
+                <a href="/en/%EC%B2%A0%ED%95%99/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5/ai-consciousness-ethics/" class="post-link" data-ko="AI의 의식 가능성과 윤리적 함의: 철학적 분석과 과학적 고찰"
+                    data-en="The Possibility of AI Consciousness and Its Ethical Implications: A Philosophical and Scientific Analysis">
+                    AI의 의식 가능성과 윤리적 함의: 철학적 분석과 과학적 고찰
+                </a>
+            </h3>
+
+            <p class="post-excerpt" data-ko="최근 AI 모델들의 발전이 '기계의 의식' 문제를 다시 한번 부각시키고 있습니다. 의식의 본질과 AI의 의식 가능성에 대한 철학적, 과학적 분석을 통해 윤리적 함의를 도출합니다."
+                data-en="Recent advances in AI models have brought the question of 'machine consciousness' back into focus. Through philosophical and scientific analysis of conscious...">
+                최근 AI 모델들의 발전이 '기계의 의식' 문제를 다시 한번 부각시키고 있습니다. 의식의 본질과 AI의 의식 가능성에 대한 철학적, 과학적 분석을 통해 윤리적 함의를 도출합니다.
+            </p>
+
+            
+            <div class="post-tags">
+                
+                
+                <a href="/en/tags/#AI" class="tag-link" data-ko="AI"
+                    data-en="AI">
+                    #AI
+                </a>
+                
+                
+                <a href="/en/tags/#의식" class="tag-link" data-ko="의식"
+                    data-en="의식">
+                    #의식
+                </a>
+                
+                
+                <a href="/en/tags/#윤리" class="tag-link" data-ko="윤리"
+                    data-en="ethics">
+                    #윤리
+                </a>
+                
+                
+                <a href="/en/tags/#철학적분석" class="tag-link" data-ko="철학적분석"
+                    data-en="Philosophical Analysis">
+                    #철학적분석
+                </a>
+                
+                
+                <a href="/en/tags/#과학적고찰" class="tag-link" data-ko="과학적고찰"
+                    data-en="scientific-review">
+                    #과학적고찰
+                </a>
+                
+            </div>
+            
+        </article>
+        
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --accent-color: #fb7185;
+        --text-primary: #1f2937;
+        --text-secondary: #4b5563;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f9fafb;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --gradient-1: linear-gradient(135deg, #2563eb, #4f46e5);
+        --gradient-2: linear-gradient(135deg, #8b5cf6, #d946ef);
+        --gradient-3: linear-gradient(135deg, #ec4899, #f43f5e);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    /* 크고 트렌디한 페이지 헤더 */
+    .page-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding: 3rem 0;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(139, 92, 246, 0.1));
+        border-radius: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(236, 72, 153, 0.03) 0%, rgba(37, 99, 235, 0.03) 50%, transparent 70%);
+        animation: rotate 30s linear infinite;
+        z-index: 0;
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .page-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        letter-spacing: -0.025em;
+        color: var(--text-primary);
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+    }
+
+    .page-title::after {
+        content: '';
+        position: absolute;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+    }
+
+    .page-description {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 1.5rem auto 0;
+        position: relative;
+        z-index: 1;
+        line-height: 1.6;
+    }
+
+    /* 트렌디한 카테고리 탭 버튼 */
+    .category-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        justify-content: center;
+        padding: 1.5rem;
+        background: var(--bg-secondary);
+        border-radius: 1rem;
+        box-shadow: var(--shadow-md);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .category-tabs::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(ellipse at top right, rgba(37, 99, 235, 0.05), transparent 70%),
+            radial-gradient(ellipse at bottom left, rgba(236, 72, 153, 0.05), transparent 70%);
+        pointer-events: none;
+    }
+
+    .tab-button {
+        padding: 0.75rem 1.5rem;
+        background: var(--bg-primary);
+        border: 1px solid rgba(37, 99, 235, 0.1);
+        border-radius: 9999px;
+        color: var(--text-primary);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .tab-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-1);
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.3s ease;
+    }
+
+    .tab-button:nth-child(3n+1)::before {
+        background: var(--gradient-1);
+    }
+
+    .tab-button:nth-child(3n+2)::before {
+        background: var(--gradient-2);
+    }
+
+    .tab-button:nth-child(3n+3)::before {
+        background: var(--gradient-3);
+    }
+
+    .tab-button:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: var(--shadow-md);
+    }
+
+    .tab-button:hover::before {
+        opacity: 0.8;
+    }
+
+    .tab-button:hover {
+        color: white;
+        border-color: transparent;
+    }
+
+    .tab-button.active {
+        color: white;
+        border-color: transparent;
+        box-shadow: var(--shadow-md);
+    }
+
+    .tab-button.active::before {
+        opacity: 1;
+    }
+
+    /* 포스트 그리드 스타일 */
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .post-card {
+        padding: 2rem;
+        background-color: var(--bg-primary);
+        border-radius: 1rem;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .post-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 0;
+        background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+        transition: height 0.3s ease;
+    }
+
+    .post-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .post-card:hover::before {
+        height: 100%;
+    }
+
+    .post-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .post-date {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .post-categories {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .category-link {
+        padding: 0.25rem 0.75rem;
+        background-color: rgba(37, 99, 235, 0.1);
+        color: var(--primary-color);
+        text-decoration: none;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .category-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary-color);
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.3s ease;
+    }
+
+    .category-link:hover {
+        color: white;
+    }
+
+    .category-link:hover::before {
+        opacity: 1;
+    }
+
+    .post-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+        font-weight: 700;
+    }
+
+    .post-link {
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .post-link:hover {
+        color: var(--primary-color);
+        transform: translateX(5px);
+    }
+
+    .post-excerpt {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .tag-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .tag-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
+    }
+
+    .tag-link:hover {
+        color: var(--primary-color);
+    }
+
+    .tag-link:hover::after {
+        width: 100%;
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+        .posts-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+        }
+
+        .category-tabs {
+            padding: 1rem;
+        }
+
+        .tab-button {
+            padding: 0.5rem 1rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .container {
+            padding: 1rem;
+        }
+
+        .posts-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .page-title {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 탭 버튼 이벤트 리스너 설정
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const postCards = document.querySelectorAll('.post-card');
+
+        // 버튼에 애니메이션 효과 추가
+        tabButtons.forEach((button, index) => {
+            // 애니메이션 지연 추가
+            const delay = index * 0.1;
+            button.style.animationDelay = `${delay}s`;
+
+            button.addEventListener('click', function () {
+                // 활성화 상태 변경
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                // 카테고리 필터링
+                const category = this.getAttribute('data-category');
+
+                if (category === 'all') {
+                    postCards.forEach(card => {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = 1;
+                            card.style.transform = 'translateY(0)';
+                        }, 10);
+                    });
+                } else {
+                    postCards.forEach(card => {
+                        const categories = card.getAttribute('data-categories');
+
+                        if (categories.includes(category)) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = 1;
+                                card.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            card.style.opacity = 0;
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                }
+            });
+        });
+
+        // 기본적으로 '전체' 탭 활성화
+        tabButtons[0].classList.add('active');
+
+        // 언어 변경 처리 함수
+        function updateLanguage(lang) {
+            console.log('[카테고리 페이지] 언어 업데이트:', lang);
+
+            // 모든 다국어 요소 업데이트
+            const allMultilingualElements = document.querySelectorAll('[data-ko], [data-en]');
+            allMultilingualElements.forEach(el => {
+                if (el.hasAttribute(`data-${lang}`)) {
+                    el.textContent = el.getAttribute(`data-${lang}`);
+                }
+            });
+        }
+
+        // 언어 변경 이벤트 리스너 설정
+        function setupAllLanguageListeners() {
+            // 언어 변경 이벤트 리스너 (window와 document 모두에 설정)
+            ['languageChange', 'languageChanged'].forEach(eventName => {
+                window.addEventListener(eventName, e => {
+                    const lang = e.detail.language;
+                    console.log(`[카테고리 페이지] ${eventName} 이벤트 감지:`, lang);
+                    updateLanguage(lang);
+                });
+
+                document.addEventListener(eventName, e => {
+                    const lang = e.detail.language;
+                    console.log(`[카테고리 페이지] document ${eventName} 이벤트 감지:`, lang);
+                    updateLanguage(lang);
+                });
+            });
+
+            // HTML lang 속성 변경 감지
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'lang') {
+                        const lang = document.documentElement.getAttribute('lang') || 'ko';
+                        console.log('[카테고리 페이지] HTML lang 속성 변경 감지:', lang);
+                        updateLanguage(lang);
+                    }
+                });
+            });
+
+            observer.observe(document.documentElement, { attributes: true });
+        }
+
+        // 초기화 시퀀스
+        function initialize() {
+            // 1. 언어 이벤트 리스너 설정
+            setupAllLanguageListeners();
+
+            // 2. 초기 언어 설정
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            const storedLang = localStorage.getItem('preferred_language');
+            const htmlLang = document.documentElement.getAttribute('lang');
+            const initialLang = langParam || storedLang || htmlLang || 'ko';
+
+            console.log('[카테고리 페이지] 초기 언어 설정:', initialLang);
+
+            // 3. 초기 언어 적용
+            updateLanguage(initialLang);
+
+            // 4. 해시 태그가 있으면 해당 카테고리 필터링
+            if (window.location.hash) {
+                const categoryName = window.location.hash.substring(1);
+                const categoryButton = document.querySelector(`.tab-button[data-category="${categoryName}"]`);
+
+                if (categoryButton) {
+                    categoryButton.click();
+
+                    // 스크롤 위치 조정
+                    setTimeout(() => {
+                        const categoryTabsTop = document.querySelector('.category-tabs').offsetTop;
+                        window.scrollTo({
+                            top: categoryTabsTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                }
+            }
+
+            // 5. 포스트 카드 초기화
+            postCards.forEach((card, index) => {
+                // 애니메이션 지연 추가
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = 'translateY(0)';
+                }, 50 + index * 50);
+            });
+
+            console.log('[카테고리 페이지] 초기화 완료');
+        }
+
+        // 페이지 로드 시 초기화 실행
+        initialize();
+
+        // 페이지 완전 로드 후 추가 초기화 (안전장치)
+        window.addEventListener('load', function () {
+            console.log('[카테고리 페이지] 페이지 완전히 로드됨, 추가 초기화');
+
+            // 현재 언어 재확인
+            const currentLang = document.documentElement.getAttribute('lang') ||
+                localStorage.getItem('preferred_language') || 'ko';
+
+            // 언어 다시 적용
+            updateLanguage(currentLang);
+        });
+    });
+</script>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+        <!-- 푸터 포함 -->
+        
+        <!-- 푸터 -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">NewsLens</div>
+                <p class="footer-description" data-ko="철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다."
+                    data-en="A blog that views the world through philosophical and scientific thinking. We provide in-depth analysis and new perspectives on various topics.">
+                    철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.
+                </p>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="카테고리" data-en="Categories">카테고리</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/en/categories/?category=philosophy" data-ko="철학"
+                            data-en="Philosophy">철학</a></li>
+                    <li class="footer-link"><a href="/en/categories/?category=science" data-ko="과학"
+                            data-en="Science">과학</a></li>
+                    <li class="footer-link"><a href="/en/categories/?category=society" data-ko="사회/정치"
+                            data-en="Society/Politics">사회/정치</a></li>
+                    <li class="footer-link"><a href="/en/categories/?category=technology" data-ko="기술"
+                            data-en="Technology">기술</a></li>
+                    <li class="footer-link"><a href="/en/categories/?category=culture" data-ko="문화/예술"
+                            data-en="Culture/Arts">문화/예술</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="정보" data-en="Information">정보</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/en/about/" data-ko="소개" data-en="About">소개</a></li>
+                    <li class="footer-link"><a href="/en/authors/" data-ko="필자 소개" data-en="Authors">필자 소개</a></li>
+                    <li class="footer-link"><a href="/en/methodology/" data-ko="분석방법론" data-en="Methodology">분석방법론</a></li>
+                    <li class="footer-link"><a href="/en/contact/" data-ko="문의하기" data-en="Contact">문의하기</a></li>
+                    <li class="footer-link"><a href="/en/privacy/" data-ko="개인정보처리방침" data-en="Privacy Policy">개인정보처리방침</a>
+                    </li>
+                    <li class="footer-link"><a href="/en/terms/" data-ko="이용약관" data-en="Terms of Service">이용약관</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="연락처" data-en="Contact">연락처</h4>
+                <ul class="footer-links">
+                    <li class="footer-link">
+                        <a href="/en/contact/" data-ko="문의는 '문의하기' 메뉴를 이용해 주세요"
+                            data-en="Please use the 'Contact' menu for inquiries">
+                            문의는 '문의하기' 메뉴를 이용해 주세요
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2024 NewsLens. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* 푸터 스타일 */
+    .footer {
+        background-color: #333;
+        color: white;
+        padding: 3rem 0;
+        margin-top: 3rem;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .footer-brand .footer-logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .footer-description {
+        line-height: 1.6;
+    }
+
+    .footer-links-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-link {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-link a {
+        color: #ddd;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-link a:hover {
+        color: white;
+        text-decoration: underline;
+    }
+
+    .copyright {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+
+    /* 반응형 푸터 */
+    @media (max-width: 992px) {
+        .footer-content {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .footer-brand {
+            grid-column: span 2;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-brand {
+            grid-column: span 1;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const footerDescription = document.querySelector('.footer-description');
+        const footerTitles = document.querySelectorAll('.footer-links-title');
+        const footerLinks = document.querySelectorAll('.footer-link a');
+
+        function updateFooterLanguage(lang) {
+            // 푸터 설명 업데이트
+            footerDescription.textContent = footerDescription.getAttribute(`data-${lang}`);
+
+            // 푸터 섹션 제목 업데이트
+            footerTitles.forEach(title => {
+                title.textContent = title.getAttribute(`data-${lang}`);
+            });
+
+            // 푸터 링크 텍스트 업데이트
+            footerLinks.forEach(link => {
+                link.textContent = link.getAttribute(`data-${lang}`);
+                // URL에 언어 파라미터 추가
+                const href = link.getAttribute('href');
+                const baseUrl = href.split('?')[0];
+                const params = new URLSearchParams(href.split('?')[1] || '');
+                params.set('lang', lang);
+                link.href = `${baseUrl}?${params.toString()}`;
+            });
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateFooterLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
+
+        // 초기 언어 적용
+        updateFooterLanguage(initialLang);
+    });
+</script>
+        
+    </div>
+
+    <!-- 최적화된 스크립트 로딩 -->
+    <script>
+        // 스크립트 로드 상태 모니터링
+        var scriptsLoaded = false;
+        var safetyTimeout = null;
+
+        // 스크립트 타임아웃 설정 (20초)
+        safetyTimeout = setTimeout(function () {
+            if (!scriptsLoaded) {
+                console.warn('스크립트 로딩 타임아웃 - 페이지 복구 중');
+                // 페이지가 응답하지 않는 경우 복구
+                document.documentElement.classList.add('js-loading-timeout');
+
+                // 기존 로딩 스크립트 중단
+                var loadingScripts = document.querySelectorAll('script[src*="lunr"]');
+                loadingScripts.forEach(function (script) {
+                    if (script.parentNode) {
+                        script.parentNode.removeChild(script);
+                    }
+                });
+
+                // 페이지 상태 복구
+                document.body.classList.remove('loading');
+                scriptsLoaded = true;
+            }
+        }, 20000);
+
+        // 스크립트 로딩 완료 후 호출되는 함수
+        function markScriptsAsLoaded() {
+            scriptsLoaded = true;
+            if (safetyTimeout) {
+                clearTimeout(safetyTimeout);
+            }
+        }
+
+        // 페이지 완전 로드 시 스크립트 로딩 완료 표시
+        window.addEventListener('load', markScriptsAsLoaded);
+
+        // URL 파라미터에서 언어 감지
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+
+            if (langParam) {
+                // HTML 언어 속성 업데이트
+                document.documentElement.lang = langParam;
+                // 로컬 스토리지에 언어 설정 저장
+                localStorage.setItem('preferred_language', langParam);
+            } else {
+                // 저장된 언어 설정 확인
+                const storedLang = localStorage.getItem('preferred_language');
+                if (storedLang && storedLang === 'en') {
+                    // 영어로 저장되어 있지만 URL에 파라미터가 없는 경우
+                    document.documentElement.lang = 'en';
+                    // URL에 언어 파라미터 추가
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('lang', 'en');
+                    history.replaceState({}, '', url);
+                }
+            }
+        });
+
+        // 언어 변경 이벤트 수신
+        window.addEventListener('languageChange', function (e) {
+            const newLang = e.detail.language;
+            console.log('언어 변경:', newLang);
+
+            // 페이지 새로고침 대신 언어별 콘텐츠 전환 처리
+            const koreanElements = document.querySelectorAll('[data-lang="ko"]');
+            const englishElements = document.querySelectorAll('[data-lang="en"]');
+
+            if (newLang === 'en') {
+                koreanElements.forEach(el => el.style.display = 'none');
+                englishElements.forEach(el => el.style.display = 'block');
+            } else {
+                koreanElements.forEach(el => el.style.display = 'block');
+                englishElements.forEach(el => el.style.display = 'none');
+            }
+        });
+    </script>
+
+    <!-- 비동기 스크립트 로딩으로 변경 -->
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

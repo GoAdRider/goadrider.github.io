@@ -1,0 +1,1325 @@
+<!doctype html>
+<html lang="ko" class="no-js">
+
+<head>
+    <!-- 안전 모드 스크립트 - 페이지 응답성 유지 -->
+    <script>
+        // 페이지 응답성 보호를 위한 스크립트
+        window.addEventListener('error', function (e) {
+            // 로딩 시간이 너무 오래 걸리는 스크립트를 감지
+            if (e.target && e.target.tagName === 'SCRIPT') {
+                console.warn('Script loading error:', e.target.src);
+            }
+        }, true);
+
+        // 10초 후에도 로딩이 완료되지 않으면 자동으로 복구 시도
+        setTimeout(function () {
+            if (document.readyState !== 'complete') {
+                console.warn('페이지 로딩 지연 감지 - 복구 모드 활성화');
+
+                // 로딩이 안 된 이미지나 스크립트 감지
+                var pendingScripts = document.querySelectorAll('script:not([async]):not([defer])');
+                for (var i = 0; i < pendingScripts.length; i++) {
+                    if (!pendingScripts[i].hasAttribute('data-checked')) {
+                        pendingScripts[i].setAttribute('data-checked', 'true');
+                        if (pendingScripts[i].src && pendingScripts[i].src.includes('lunr')) {
+                            // 문제가 되는 스크립트는 비동기로 변경
+                            pendingScripts[i].async = true;
+                            pendingScripts[i].defer = true;
+                            console.log('스크립트 최적화:', pendingScripts[i].src);
+                        }
+                    }
+                }
+            }
+        }, 8000);
+    </script>
+
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>양자역학적 관점에서 바라본 의식의 본질 - NewsLens</title>
+<meta name="description" content="양자역학과 의식의 관계에 대한 철학적 고찰과 최신 과학적 연구 분석">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="NewsLens">
+<meta property="og:title" content="양자역학적 관점에서 바라본 의식의 본질">
+<meta property="og:url" content="http://localhost:4000/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/">
+
+
+  <meta property="og:description" content="양자역학과 의식의 관계에 대한 철학적 고찰과 최신 과학적 연구 분석">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-03-25T10:30:00+09:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="NewsLens Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- 페이지 타이틀 설정 -->
+<title>
+    
+    양자역학적 관점에서 바라본 의식의 본질 | NewsLens
+    
+</title>
+
+<!-- Google Font 로드 - 비동기 로딩으로 변경 -->
+
+
+<!-- Google Analytics - 비동기로 변경 -->
+
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<!-- 문제가 되는 webmanifest 파일 로딩 비활성화 -->
+<!-- <link rel="manifest" href="/site.webmanifest"> -->
+
+<!-- end custom head snippets -->
+
+<!-- 글로벌 스크립트 - 페이지 로드 전에 실행됨 (지연 로딩으로 변경) -->
+<script src="/assets/js/global.js" defer async></script>
+
+<!-- 언어 변경 처리를 위한 즉시 실행 스크립트 -->
+<script>
+    (function () {
+        // DOM 로드 완료 시 실행
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('언어 전환 스크립트 초기화');
+
+            // 언어 변경 함수 - 모든 data-ko/data-en 속성을 처리
+            function updateLanguageElements(lang) {
+                console.log('언어 변경 적용: ' + lang);
+
+                // 모든 data-ko 또는 data-en 속성을 가진 요소 선택
+                const elementsWithLangData = document.querySelectorAll('[data-ko], [data-en]');
+                console.log('언어 변경 대상 요소 수: ' + elementsWithLangData.length);
+
+                // 각 요소에 대해 현재 언어에 맞는 텍스트 적용
+                elementsWithLangData.forEach(function (el) {
+                    if (el.hasAttribute('data-' + lang)) {
+                        const content = el.getAttribute('data-' + lang);
+                        el.textContent = content;
+                        console.log('요소 텍스트 변경: ', content);
+                    }
+                });
+
+                // title 태그 업데이트
+                if (lang === 'en' && document.querySelector('meta[name="title-en"]')) {
+                    document.title = document.querySelector('meta[name="title-en"]').getAttribute('content');
+                } else if (document.querySelector('meta[name="title-ko"]')) {
+                    document.title = document.querySelector('meta[name="title-ko"]').getAttribute('content');
+                }
+            }
+
+            // 초기 언어 설정 확인 및 적용
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlLang = urlParams.get('lang');
+            const storedLang = localStorage.getItem('preferred_language');
+            const initialLang = urlLang || storedLang || 'ko';
+
+            // HTML lang 속성 설정
+            document.documentElement.setAttribute('lang', initialLang);
+
+            // 초기 언어 적용
+            setTimeout(function () {
+                updateLanguageElements(initialLang);
+            }, 0);
+
+            // 언어 변경 이벤트 리스너 등록 (여러 이벤트 타입 지원)
+            window.addEventListener('languageChange', function (e) {
+                if (e.detail && e.detail.language) {
+                    updateLanguageElements(e.detail.language);
+                }
+            });
+
+            document.addEventListener('languageChanged', function (e) {
+                if (e.detail && e.detail.language) {
+                    updateLanguageElements(e.detail.language);
+                }
+            });
+
+            // HTML lang 속성 변경 감지
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.attributeName === 'lang') {
+                        const newLang = document.documentElement.getAttribute('lang');
+                        updateLanguageElements(newLang);
+                    }
+                });
+            });
+
+            observer.observe(document.documentElement, { attributes: true });
+        });
+    })();
+</script>
+
+<!-- 긴급 복구 시스템 - 새로운 방식으로 구현 -->
+<script>
+    (function () {
+        // 최우선 실행되는 안전 장치
+        var safetyTimer = setTimeout(function () {
+            if (document.readyState !== 'complete') {
+                console.warn('[안전모드] 페이지 로딩이 지연되고 있습니다. 복구 시작...');
+
+                // 문제가 될 수 있는 스크립트 제거
+                var allScripts = document.querySelectorAll('script[src]');
+                for (var i = 0; i < allScripts.length; i++) {
+                    var script = allScripts[i];
+                    if (script.src.indexOf('/lunr/') !== -1 ||
+                        script.src.indexOf('search') !== -1 ||
+                        script.src.indexOf('/js/') !== -1) {
+                        console.log('[안전모드] 문제 스크립트 제거:', script.src);
+                        script.remove();
+                    }
+                }
+
+                // 로딩 이벤트 강제 발생
+                window.dispatchEvent(new Event('load'));
+                document.dispatchEvent(new Event('DOMContentLoaded'));
+
+                // 사용자에게 상태 알림
+                var notice = document.createElement('div');
+                notice.style.position = 'fixed';
+                notice.style.top = '10px';
+                notice.style.left = '10px';
+                notice.style.padding = '10px';
+                notice.style.background = 'rgba(255,255,255,0.9)';
+                notice.style.border = '1px solid #ddd';
+                notice.style.borderRadius = '5px';
+                notice.style.zIndex = '999999';
+                notice.style.fontSize = '14px';
+                notice.textContent = '페이지 로딩이 자동으로 복구되었습니다.';
+
+                if (document.body) {
+                    document.body.appendChild(notice);
+                    setTimeout(function () {
+                        notice.style.opacity = '0';
+                        notice.style.transition = 'opacity 1s';
+                        setTimeout(function () { notice.remove(); }, 1000);
+                    }, 3000);
+                }
+            }
+        }, 2000); // 2초 후 체크
+
+        // 페이지가 정상적으로 로드된 경우
+        window.addEventListener('load', function () {
+            clearTimeout(safetyTimer);
+        });
+    })();
+</script>
+    <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #fb7185;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --gray-color: #64748b;
+            --transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body
+    class="layout--post">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+
+    <!-- 헤더 포함 -->
+    
+
+    <script>
+        // URL 파라미터에서 언어 파라미터 확인
+        var urlParams = new URLSearchParams(window.location.search);
+        var urlLang = urlParams.get('lang');
+
+        // localStorage에 저장된 언어 설정 확인
+        var storedLang = localStorage.getItem('preferred_language');
+
+        // URL 파라미터가 있으면 그 값을 우선 사용
+        if (urlLang) {
+            document.documentElement.lang = urlLang;
+        }
+        // 없는 경우 localStorage 값 사용
+        else if (storedLang) {
+            document.documentElement.lang = storedLang;
+            // URL에 언어 파라미터 추가
+            if (storedLang === 'en') {
+                urlParams.set('lang', 'en');
+                var newUrl = window.location.pathname + '?' + urlParams.toString();
+                window.history.replaceState({}, '', newUrl);
+            }
+        }
+    </script>
+
+    
+    <!-- 헤더 -->
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="/" class="logo">
+                    <i class="fas fa-brain"></i>
+                    NewsLens
+                </a>
+            </div>
+
+            <nav>
+                <a href="/" class="nav-link" data-ko="홈" data-en="Home">홈</a>
+                <a href="/categories/" class="nav-link" data-ko="카테고리" data-en="Categories">카테고리</a>
+                <a href="/tags/" class="nav-link" data-ko="태그" data-en="Tags">태그</a>
+                <a href="/about/" class="nav-link" data-ko="소개" data-en="About">소개</a>
+                <a href="/contact/" class="nav-link" data-ko="문의" data-en="Contact">문의</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="language-switcher" id="language-switcher">
+                    <i class="fas fa-globe"></i>
+                    <span id="current-lang" data-ko="한국어" data-en="English">한국어</span>
+                </div>
+
+                <a href="/search/" class="search-button">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    /* 헤더 */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+        padding: 1.2rem 0;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo i {
+        color: var(--accent-color);
+    }
+
+    nav {
+        display: flex;
+        gap: 2rem;
+    }
+
+    nav a {
+        color: var(--gray-color);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.05rem;
+        transition: var(--transition);
+        position: relative;
+    }
+
+    nav a:hover {
+        color: var(--primary-color);
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: var(--transition);
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .language-switcher {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .language-switcher:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .language-switcher i {
+        color: var(--primary-color);
+    }
+
+    .search-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .search-button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+    }
+
+    .mobile-menu {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+
+        nav,
+        .header-actions {
+            display: none;
+        }
+
+        nav.active,
+        .header-actions.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.active {
+            align-items: flex-start;
+        }
+
+        .mobile-menu {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 모바일 메뉴 토글
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const nav = document.querySelector('nav');
+        const headerActions = document.querySelector('.header-actions');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const currentLang = document.getElementById('current-lang');
+        const languageSwitcher = document.getElementById('language-switcher');
+
+        mobileMenu.addEventListener('click', function () {
+            nav.classList.toggle('active');
+            headerActions.classList.toggle('active');
+        });
+
+        // 언어 변경 함수
+        function updateHeaderLanguage(lang) {
+            // 네비게이션 링크 텍스트 업데이트
+            navLinks.forEach(link => {
+                link.textContent = link.getAttribute(`data-${lang}`);
+                // URL에 언어 파라미터 추가
+                const href = link.getAttribute('href');
+                const baseUrl = href.split('?')[0];
+                const params = new URLSearchParams(href.split('?')[1] || '');
+                params.set('lang', lang);
+                link.href = `${baseUrl}?${params.toString()}`;
+            });
+
+            // 현재 언어 표시 업데이트
+            currentLang.textContent = currentLang.getAttribute(`data-${lang}`);
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateHeaderLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
+
+        // 초기 언어 적용
+        updateHeaderLanguage(initialLang);
+
+        // 언어 스위처 클릭 이벤트
+        languageSwitcher.addEventListener('click', function () {
+            const currentLanguage = localStorage.getItem('preferred_language') || 'ko';
+            const newLanguage = currentLanguage === 'en' ? 'ko' : 'en';
+
+            // 언어 설정 저장
+            localStorage.setItem('preferred_language', newLanguage);
+
+            // 언어 변경 이벤트 발생
+            window.dispatchEvent(new CustomEvent('languageChange', {
+                detail: {
+                    language: newLanguage
+                }
+            }));
+
+            // URL 업데이트
+            const url = new URL(window.location);
+            url.searchParams.set('lang', newLanguage);
+            window.history.pushState({}, '', url);
+        });
+    });
+</script>
+    
+
+    <div class="initial-content">
+        <div class="container">
+    <div class="post-container">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">
+                    <span data-ko="양자역학적 관점에서 바라본 의식의 본질" data-en="The Nature of Consciousness from a Quantum Mechanical Perspective">
+                        
+                        양자역학적 관점에서 바라본 의식의 본질
+                        
+                    </span>
+                </h1>
+
+                <div class="post-meta">
+                    <time class="dt-published" datetime="2025-03-25T10:30:00+09:00" itemprop="datePublished">
+                        2025-03-25
+                    </time>
+
+                    
+                    <div class="post-categories">
+                        
+                        
+                        
+                        <a href="/categories/#과학" class="category-link">
+                            <span data-ko="과학" data-en="과학">
+                                
+                                과학
+                                
+                            </span>
+                        </a>
+                        
+                        
+                        
+                        <a href="/categories/#철학" class="category-link">
+                            <span data-ko="철학" data-en="철학">
+                                
+                                철학
+                                
+                            </span>
+                        </a>
+                        
+                    </div>
+                    
+
+                    
+                    <div class="post-tags">
+                        
+                        
+                        
+                        <a href="/tags/#양자역학" class="tag-link">
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="양자역학" data-en="Quantum Mechanics">
+                                
+                                양자역학
+                                
+                            </span>
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/#의식" class="tag-link">
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="의식" data-en="의식">
+                                
+                                의식
+                                
+                            </span>
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/#마음의철학" class="tag-link">
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="마음의철학" data-en="마음의철학">
+                                
+                                마음의철학
+                                
+                            </span>
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/#뇌과학" class="tag-link">
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="뇌과학" data-en="뇌과학">
+                                
+                                뇌과학
+                                
+                            </span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </header>
+
+            
+            <div class="post-featured-image">
+                <img src="/assets/images/posts/2025-03-25-quantum-consciousness.jpg" alt="Featured Image">
+            </div>
+            
+
+            <div class="post-content e-content" itemprop="articleBody">
+                <!-- 다국어 콘텐츠 분리 및 표시 로직 -->
+                
+                    <div class="post-content-ko">
+  
+## 뉴스 원문 요약
+[Nature - Quantum effects in the brain might explain consciousness, study shows](https://www.nature.com/articles/d41586-025-00321-7)
+
+최근 독일 뮌헨 대학 연구팀은 생물학적 시스템에서 양자 효과가 예상보다 오래 지속될 수 있다는 새로운 증거를 발표했다. 이 연구는 Nature Neuroscience 3월호에 게재되었으며, 미세소관(microtubules)에서 양자 결맞음(quantum coherence)이 실온에서도 유지될 수 있다는 실험 결과를 담고 있다. 연구팀은 특수 현미경 기술을 사용해 신경세포 내부에서 일어나는 양자 현상을 관찰했으며, 이 발견은 의식이 신경세포 내 양자 현상과 관련될 수 있다는 이론에 힘을 실어주고 있다.
+
+## 핵심 쟁점과 질문
+- 의식은 고전적 뇌과학만으로 설명 가능한가, 아니면 양자역학적 관점이 필요한가?
+- 뇌의 '뜨겁고 습한' 환경에서 양자 효과가 유지될 수 있는가?
+- 만약 의식이 양자현상과 연결되어 있다면, 이는 자유의지와 결정론에 어떤 함의를 갖는가?
+
+## 고전 신경과학의 설명 간극
+  
+인간 의식의 본질에 대한 탐구는 지금까지의 과학과 철학에서 가장 큰 미스터리 중 하나로 남아 있다. 우리가 '나'라고 부르는 이 주관적 경험은 어디서 오는 것일까? 뇌의 복잡한 신경 회로만으로 이 경험을 설명할 수 있을까?
+
+전통적인 신경과학은 의식을 뇌의 신경 활동에 기반한 창발적 현상으로 설명한다. 그러나 신경 회로가 어떻게 주관적 경험으로 변환되는지, 이른바 '하드 프로블럼(Hard Problem)'은 여전히 풀리지 않고 있다. 뇌의 물리적 상태가 어떻게 의식적 경험을 생성하는지에 대한 설명 간극은 고전적 접근법의 한계를 보여준다.
+
+나는 종종 이런 의문을 품는다. 우리의 의식적 경험이 단순히 뉴런의 발화 패턴으로 환원될 수 있는가? 아니면 그 너머에 더 근본적인 현상이 존재하는가? 이 질문은 단순한 과학적 호기심을 넘어, 우리가 누구인지에 대한 근본적 이해와 맞닿아 있다.
+
+## 양자의 세계와 의식의 가능성
+  
+일부 이론가들은 의식의 본질을 설명하기 위해 양자역학으로 눈을 돌린다. 양자역학이 제시하는 비결정론적 세계관은 의식의 수수께끼를 푸는 열쇠가 될 수 있을까?
+
+가장 주목받는 이론 중 하나인 오르치(Orchestrated Objective Reduction, Orch OR) 이론은 로저 펜로즈와 스튜어트 해머로프에 의해 제안되었다. 이 이론은 뇌 내 마이크로튜뷸에서 발생하는 양자 현상이 의식을 생성한다고 주장한다. 그들의 핵심 아이디어는 다음과 같다:
+
+1. 신경 세포 내 마이크로튜뷸이 양자 컴퓨팅 디바이스처럼 작동할 수 있다.
+2. 양자 중첩 상태의 붕괴가 의식적 경험의 기초가 된다.
+3. 의식은 양자 정보 처리의 거시적 표현이다.
+
+이 관점에서 의식은 단순한 뇌의 기능이 아니라, 더 근본적인 양자 현상의 표현일 수 있다. 만약 그렇다면, 의식은 우리가 생각했던 것보다 훨씬 더 신비롭고 깊은 현상일지도 모른다.
+
+## 증거의 저울: 찬성과 반대
+  
+이러한 양자 의식 이론은 매력적이지만, 비판도 만만치 않다. 많은 과학자들은 뇌가 너무 '뜨겁고 습한' 환경이어서 정교한 양자 효과가 유지되기 어렵다고 주장한다. 양자 효과는 보통 극도로 낮은 온도와 고도로 통제된 환경에서만 관찰되기 때문이다.
+
+그러나 최근의 연구들은 이러한 비판에 도전하고 있다. 2022년 독일 뮌헨 대학의 연구진은 인공 신경망에서 양자 효과를 시뮬레이션하여 특정 형태의 학습과 인지 기능이 향상될 수 있음을 보여주었다. 더 놀라운 것은 생물학적 시스템에서도 양자 효과가 예상보다 더 오래 지속될 수 있다는 증거가 발견되고 있다는 점이다.
+
+이러한 발견은 우리 뇌에서도 유사한 메커니즘이 작동할 가능성을 제시한다. 만약 그렇다면, 의식에 대한 우리의 이해는 근본적으로 변화할 수 있다.
+
+내가 이런 연구들을 접할 때마다 드는 생각은, 우리가 의식에 대해 얼마나 적게 알고 있는지에 대한 경이로움이다. 수세기 동안 철학자들이 고민해 온 문제에 이제 물리학과 신경과학이 합류하여 새로운 시각을 제공하고 있다는 사실이 흥미롭지 않은가?
+
+## 철학적 지평의 확장
+  
+양자역학적 관점에서 의식을 바라보는 것은 깊은 철학적 함의를 갖는다. 만약 의식이 양자 현상과 연결되어 있다면, 이는 다음과 같은 근본적 질문들을 새롭게 조명한다:
+
+- 의식은 우주의 기본적인 속성인가, 아니면 창발적 현상인가?
+- 이원론(마음과 물질의 분리)과 물리주의(모든 것은 물리적) 사이의 대립을 어떻게 조화시킬 수 있을까?
+- 양자역학적 시각은 자유의지와 결정론에 관한 우리의 이해에 어떤 영향을 미치는가?
+
+특히 자유의지의 문제는 양자역학의 비결정론적 성격과 맞닿아 있다. 만약 의식이 양자 수준의 불확실성과 연결되어 있다면, 이는 우리의 결정이 완전히 결정되어 있지 않을 가능성을 열어준다. 이는 자유의지에 대한 새로운 물리학적 기반을 제공할 수 있다.
+
+이런 질문들을 생각할 때마다, 우리가 오랫동안 별개의 영역으로 취급해 온 과학과 철학이 얼마나 깊이 연결되어 있는지 새삼 느끼게 된다. 의식에 대한 이해는 결국 자연과학과 인문학의 경계를 허무는 지점에서 발전할 것이라 생각한다.
+
+## 학문 경계를 넘어선 종합적 접근
+  
+의식에 대한 완전한 이해는 어느 한 분야의 노력만으로는 불가능할 것이다. 신경과학, 인지심리학, 철학, 양자물리학을 통합한 학제간 접근이 필요하다. 이런 통합적 관점은 의식이라는 복잡한 현상의 다양한 측면을 포괄할 수 있다.
+
+양자역학과 의식의 관계는 여전히 가설 단계에 있지만, 이 분야의 연구는 우리가 자신과 세계를 이해하는 방식에 혁명적 변화를 가져올 잠재력을 가지고 있다. 과학적 증거가 축적됨에 따라, 우리는 의식이라는 깊은 미스터리에 한 걸음 더 가까워질 수 있을 것이다.
+
+의식에 대한 양자역학적 접근은 철학적 사색에서 과학적 탐구로 발전하고 있으며, 이 과정에서 우리는 인간 경험의 본질에 대한 더 깊은 통찰을 얻을 수 있을 것이다.
+
+나는 자주 이런 생각에 빠진다. 우리가 의식을 완전히 이해하게 된다면, 그것은 단순히 과학적 지식의 확장을 넘어 인간 존재에 대한 근본적 이해의 변화를 가져올 것이다. 우리는 과연 그 미래를 받아들일 준비가 되어 있을까?
+</div>
+
+<div class="post-content-en" style="display: none;">
+  
+## Original News Summary
+[Nature - Quantum effects in the brain might explain consciousness, study shows](https://www.nature.com/articles/d41586-025-00321-7)
+
+Recently, researchers at the University of Munich in Germany published new evidence suggesting that quantum effects can persist in biological systems longer than previously thought. This study, published in the March issue of Nature Neuroscience, presents experimental results showing that quantum coherence in microtubules can be maintained even at room temperature. The research team used specialized microscopy techniques to observe quantum phenomena within neurons, lending support to theories that consciousness may be related to quantum phenomena within nerve cells.
+
+## Key Issues and Questions
+- Can consciousness be explained solely by classical neuroscience, or is a quantum mechanical perspective necessary?
+- Can quantum effects be maintained in the 'warm and wet' environment of the brain?
+- If consciousness is connected to quantum phenomena, what implications does this have for free will and determinism?
+
+## The Explanatory Gap in Classical Neuroscience
+  
+The exploration of human consciousness remains one of the greatest mysteries in science and philosophy. Where does this subjective experience we call 'self' come from? Can the complex neural circuits of the brain fully explain this experience?
+
+Traditional neuroscience explains consciousness as an emergent phenomenon based on neural activity in the brain. However, the "Hard Problem" of how neural circuits transform into subjective experience remains unsolved. The explanatory gap between the physical states of the brain and the generation of conscious experience reveals the limitations of classical approaches.
+
+I often find myself wondering: Can our conscious experience be reduced simply to patterns of neuronal firing? Or is there something more fundamental beyond that? This question extends beyond mere scientific curiosity, touching on our fundamental understanding of who we are.
+
+## Quantum Realms and the Possibility of Consciousness
+  
+Some theorists turn to quantum mechanics to explain the nature of consciousness. Could the non-deterministic worldview offered by quantum mechanics be the key to unlocking the mystery of consciousness?
+
+One of the most prominent theories, the Orchestrated Objective Reduction (Orch OR) theory proposed by Roger Penrose and Stuart Hameroff, suggests that quantum phenomena occurring in microtubules within the brain generate consciousness. Their key ideas include:
+
+1. Microtubules within neurons can function as quantum computing devices.
+2. The collapse of quantum superposition states forms the basis of conscious experience.
+3. Consciousness is a macroscopic representation of quantum information processing.
+
+From this perspective, consciousness may not simply be a function of the brain but an expression of more fundamental quantum phenomena. If so, consciousness might be a far more mysterious and profound phenomenon than we have thought.
+
+## The Balance of Evidence: Pro and Con
+  
+While these quantum consciousness theories are intriguing, criticism is substantial. Many scientists argue that the brain is too "warm and wet" an environment for sophisticated quantum effects to be maintained, as quantum effects are typically observed only at extremely low temperatures and in highly controlled environments.
+
+However, recent studies are challenging these criticisms. In 2022, researchers at the University of Munich, Germany, demonstrated that simulating quantum effects in artificial neural networks could enhance certain forms of learning and cognitive functions. More surprisingly, evidence is emerging that quantum effects in biological systems may last longer than expected.
+
+These discoveries suggest the possibility of similar mechanisms operating in our brains. If so, our understanding of consciousness could fundamentally change.
+
+Whenever I encounter these studies, I'm struck by the wonder of how little we actually know about consciousness. Isn't it fascinating that philosophers have contemplated this problem for centuries, and now physics and neuroscience are joining forces to provide new perspectives?
+
+## Expanding Philosophical Horizons
+  
+Viewing consciousness from a quantum mechanical perspective has profound philosophical implications. If consciousness is connected to quantum phenomena, it sheds new light on fundamental questions such as:
+
+- Is consciousness a fundamental property of the universe or an emergent phenomenon?
+- How can we reconcile the opposition between dualism (separation of mind and matter) and physicalism (everything is physical)?
+- How does a quantum mechanical view affect our understanding of free will and determinism?
+
+The issue of free will, in particular, intersects with the non-deterministic nature of quantum mechanics. If consciousness is linked to quantum-level uncertainty, it opens the possibility that our decisions are not completely determined, potentially providing a new physical basis for free will.
+
+Whenever I contemplate these questions, I'm reminded of how deeply connected science and philosophy are, despite having been treated as separate domains for so long. I believe that understanding consciousness will ultimately advance at the intersection where natural sciences and humanities merge.
+
+## An Integrated Approach Beyond Disciplinary Boundaries
+  
+A complete understanding of consciousness may not be possible through the efforts of any single field. An interdisciplinary approach integrating neuroscience, cognitive psychology, philosophy, and quantum physics is necessary. This integrated perspective can encompass various aspects of the complex phenomenon of consciousness.
+
+While the relationship between quantum mechanics and consciousness is still at the hypothesis stage, research in this field has the potential to revolutionize how we understand ourselves and the world. As scientific evidence accumulates, we may come one step closer to the deep mystery of consciousness.
+
+The quantum mechanical approach to consciousness is evolving from philosophical contemplation to scientific inquiry, and in this process, we can gain deeper insights into the nature of human experience.
+
+I often find myself pondering: If we were to fully understand consciousness, it would bring about not just an expansion of scientific knowledge but a fundamental shift in our understanding of human existence. Are we prepared to embrace that future?
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 언어 변경 감지 함수
+  function updateLanguage() {
+    const lang = document.documentElement.getAttribute('lang') || 'ko';
+    const koContent = document.querySelector('.post-content-ko');
+    const enContent = document.querySelector('.post-content-en');
+    
+    // 콘텐츠 표시/숨김 전환
+    if (lang === 'ko') {
+      if(koContent) koContent.style.display = 'block';
+      if(enContent) enContent.style.display = 'none';
+    } else {
+      if(koContent) koContent.style.display = 'none';
+      if(enContent) enContent.style.display = 'block';
+    }
+  }
+  
+  // 초기 설정 및 이벤트 리스너
+  updateLanguage();
+  document.addEventListener('languageChanged', updateLanguage);
+  
+  // HTML lang 속성 변경 감지
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'lang') {
+        updateLanguage();
+      }
+    });
+  });
+  
+  observer.observe(document.documentElement, { attributes: true });
+});
+</script>
+
+
+                    
+                </div>
+
+                <div class="post-navigation">
+                    
+                    <a href="/%EC%B2%A0%ED%95%99/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5/ai-consciousness-ethics/" class="prev-post" rel="prev">
+                        &larr;
+                        <span data-ko="이전 글" data-en="Previous Post">
+                            이전 글
+                        </span>
+                    </a>
+                    
+
+                    
+                </div>
+        </article>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .post-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .post-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+
+    .post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        color: var(--gray-color);
+        font-size: 0.9rem;
+    }
+
+    .post-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .category-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        padding: 0.25rem 0.75rem;
+        background: rgba(37, 99, 235, 0.1);
+        border-radius: 9999px;
+        transition: var(--transition);
+    }
+
+    .category-link:hover {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tag-link {
+        color: var(--gray-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .tag-link:hover {
+        color: var(--primary-color);
+    }
+
+    .post-featured-image {
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    .post-featured-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .post-content {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 3rem;
+    }
+
+    .post-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .prev-post,
+    .next-post {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .prev-post:hover,
+    .next-post:hover {
+        color: var(--secondary-color);
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+
+        .post-title {
+            font-size: 2rem;
+        }
+
+        .post-content {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 언어 변경 감지 및 처리
+        function updatePostLanguage() {
+            const lang = document.documentElement.getAttribute('lang') || 'ko';
+            console.log('포스트 페이지 언어 업데이트:', lang);
+
+            // 다국어 콘텐츠 요소들 표시/숨김 처리
+            const koContent = document.querySelector('.post-content-ko');
+            const enContent = document.querySelector('.post-content-en');
+
+            if (koContent && enContent) {
+                if (lang === 'ko') {
+                    koContent.style.display = 'block';
+                    enContent.style.display = 'none';
+                } else {
+                    koContent.style.display = 'none';
+                    enContent.style.display = 'block';
+                }
+            }
+
+            // 데이터 속성을 가진 다국어 요소들 업데이트
+            const allMultilingualElements = document.querySelectorAll('[data-ko], [data-en]');
+            allMultilingualElements.forEach(el => {
+                if (el.hasAttribute(`data-${lang}`)) {
+                    el.textContent = el.getAttribute(`data-${lang}`);
+                }
+            });
+        }
+
+        // 초기 언어 설정 적용
+        updatePostLanguage();
+
+        // 언어 변경 이벤트 리스너 (languageChange 및 languageChanged 모두 처리)
+        document.addEventListener('languageChange', function (e) {
+            console.log('languageChange 이벤트 감지:', e.detail);
+            updatePostLanguage();
+        });
+
+        document.addEventListener('languageChanged', function (e) {
+            console.log('languageChanged 이벤트 감지:', e.detail);
+            updatePostLanguage();
+        });
+    });
+</script>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+        <!-- 푸터 포함 -->
+        
+        <!-- 푸터 -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">NewsLens</div>
+                <p class="footer-description" data-ko="철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다."
+                    data-en="A blog that views the world through philosophical and scientific thinking. We provide in-depth analysis and new perspectives on various topics.">
+                    철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.
+                </p>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="카테고리" data-en="Categories">카테고리</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/categories/?category=philosophy" data-ko="철학"
+                            data-en="Philosophy">철학</a></li>
+                    <li class="footer-link"><a href="/categories/?category=science" data-ko="과학"
+                            data-en="Science">과학</a></li>
+                    <li class="footer-link"><a href="/categories/?category=society" data-ko="사회/정치"
+                            data-en="Society/Politics">사회/정치</a></li>
+                    <li class="footer-link"><a href="/categories/?category=technology" data-ko="기술"
+                            data-en="Technology">기술</a></li>
+                    <li class="footer-link"><a href="/categories/?category=culture" data-ko="문화/예술"
+                            data-en="Culture/Arts">문화/예술</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="정보" data-en="Information">정보</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/about/" data-ko="소개" data-en="About">소개</a></li>
+                    <li class="footer-link"><a href="/authors/" data-ko="필자 소개" data-en="Authors">필자 소개</a></li>
+                    <li class="footer-link"><a href="/methodology/" data-ko="분석방법론" data-en="Methodology">분석방법론</a></li>
+                    <li class="footer-link"><a href="/contact/" data-ko="문의하기" data-en="Contact">문의하기</a></li>
+                    <li class="footer-link"><a href="/privacy/" data-ko="개인정보처리방침" data-en="Privacy Policy">개인정보처리방침</a>
+                    </li>
+                    <li class="footer-link"><a href="/terms/" data-ko="이용약관" data-en="Terms of Service">이용약관</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="연락처" data-en="Contact">연락처</h4>
+                <ul class="footer-links">
+                    <li class="footer-link">
+                        <a href="/contact/" data-ko="문의는 '문의하기' 메뉴를 이용해 주세요"
+                            data-en="Please use the 'Contact' menu for inquiries">
+                            문의는 '문의하기' 메뉴를 이용해 주세요
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2024 NewsLens. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* 푸터 스타일 */
+    .footer {
+        background-color: #333;
+        color: white;
+        padding: 3rem 0;
+        margin-top: 3rem;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .footer-brand .footer-logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .footer-description {
+        line-height: 1.6;
+    }
+
+    .footer-links-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-link {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-link a {
+        color: #ddd;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-link a:hover {
+        color: white;
+        text-decoration: underline;
+    }
+
+    .copyright {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+
+    /* 반응형 푸터 */
+    @media (max-width: 992px) {
+        .footer-content {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .footer-brand {
+            grid-column: span 2;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-brand {
+            grid-column: span 1;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const footerDescription = document.querySelector('.footer-description');
+        const footerTitles = document.querySelectorAll('.footer-links-title');
+        const footerLinks = document.querySelectorAll('.footer-link a');
+
+        function updateFooterLanguage(lang) {
+            // 푸터 설명 업데이트
+            footerDescription.textContent = footerDescription.getAttribute(`data-${lang}`);
+
+            // 푸터 섹션 제목 업데이트
+            footerTitles.forEach(title => {
+                title.textContent = title.getAttribute(`data-${lang}`);
+            });
+
+            // 푸터 링크 텍스트 업데이트
+            footerLinks.forEach(link => {
+                link.textContent = link.getAttribute(`data-${lang}`);
+                // URL에 언어 파라미터 추가
+                const href = link.getAttribute('href');
+                const baseUrl = href.split('?')[0];
+                const params = new URLSearchParams(href.split('?')[1] || '');
+                params.set('lang', lang);
+                link.href = `${baseUrl}?${params.toString()}`;
+            });
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateFooterLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
+
+        // 초기 언어 적용
+        updateFooterLanguage(initialLang);
+    });
+</script>
+        
+    </div>
+
+    <!-- 최적화된 스크립트 로딩 -->
+    <script>
+        // 스크립트 로드 상태 모니터링
+        var scriptsLoaded = false;
+        var safetyTimeout = null;
+
+        // 스크립트 타임아웃 설정 (20초)
+        safetyTimeout = setTimeout(function () {
+            if (!scriptsLoaded) {
+                console.warn('스크립트 로딩 타임아웃 - 페이지 복구 중');
+                // 페이지가 응답하지 않는 경우 복구
+                document.documentElement.classList.add('js-loading-timeout');
+
+                // 기존 로딩 스크립트 중단
+                var loadingScripts = document.querySelectorAll('script[src*="lunr"]');
+                loadingScripts.forEach(function (script) {
+                    if (script.parentNode) {
+                        script.parentNode.removeChild(script);
+                    }
+                });
+
+                // 페이지 상태 복구
+                document.body.classList.remove('loading');
+                scriptsLoaded = true;
+            }
+        }, 20000);
+
+        // 스크립트 로딩 완료 후 호출되는 함수
+        function markScriptsAsLoaded() {
+            scriptsLoaded = true;
+            if (safetyTimeout) {
+                clearTimeout(safetyTimeout);
+            }
+        }
+
+        // 페이지 완전 로드 시 스크립트 로딩 완료 표시
+        window.addEventListener('load', markScriptsAsLoaded);
+
+        // URL 파라미터에서 언어 감지
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+
+            if (langParam) {
+                // HTML 언어 속성 업데이트
+                document.documentElement.lang = langParam;
+                // 로컬 스토리지에 언어 설정 저장
+                localStorage.setItem('preferred_language', langParam);
+            } else {
+                // 저장된 언어 설정 확인
+                const storedLang = localStorage.getItem('preferred_language');
+                if (storedLang && storedLang === 'en') {
+                    // 영어로 저장되어 있지만 URL에 파라미터가 없는 경우
+                    document.documentElement.lang = 'en';
+                    // URL에 언어 파라미터 추가
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('lang', 'en');
+                    history.replaceState({}, '', url);
+                }
+            }
+        });
+
+        // 언어 변경 이벤트 수신
+        window.addEventListener('languageChange', function (e) {
+            const newLang = e.detail.language;
+            console.log('언어 변경:', newLang);
+
+            // 페이지 새로고침 대신 언어별 콘텐츠 전환 처리
+            const koreanElements = document.querySelectorAll('[data-lang="ko"]');
+            const englishElements = document.querySelectorAll('[data-lang="en"]');
+
+            if (newLang === 'en') {
+                koreanElements.forEach(el => el.style.display = 'none');
+                englishElements.forEach(el => el.style.display = 'block');
+            } else {
+                koreanElements.forEach(el => el.style.display = 'block');
+                englishElements.forEach(el => el.style.display = 'none');
+            }
+        });
+    </script>
+
+    <!-- 비동기 스크립트 로딩으로 변경 -->
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -4,7 +4,9 @@ title: "AI의 의식 가능성과 윤리적 함의: 철학적 분석과 과학�
 title_en: "The Possibility of AI Consciousness and Its Ethical Implications: A Philosophical and Scientific Analysis"
 date: 2024-03-27
 categories: [철학, 인공지능]
+categories_en: [Philosophy, Artificial Intelligence]
 tags: [AI, 의식, 윤리, 철학적분석, 과학적고찰]
+tags_en: [AI, Consciousness, Ethics, Philosophical Analysis, Scientific Review]
 excerpt: "최근 AI 모델들의 발전이 '기계의 의식' 문제를 다시 한번 부각시키고 있습니다. 의식의 본질과 AI의 의식 가능성에 대한 철학적, 과학적 분석을 통해 윤리적 함의를 도출합니다."
 excerpt_en: "Recent advances in AI models have brought the question of 'machine consciousness' back into focus. Through philosophical and scientific analysis of consciousness and AI's potential for consciousness, we explore the ethical implications."
 image: /assets/images/posts/2024-03-27-ai-consciousness.jpg

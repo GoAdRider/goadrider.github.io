@@ -506,7 +506,7 @@ title: NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로�
             <!-- 한국어 포스트 -->
             <div class="posts-grid" id="posts-ko" data-lang="ko">
                 {% assign posts = site.posts | sort: 'date' | reverse %}
-                {% for post in posts limit:3 %}
+                {% for post in posts limit:4 %}
                 <div class="post-card">
                     {% if post.image %}
                     <img src="{{ post.image }}" alt="{{ post.title }}" class="post-image">
@@ -534,7 +534,7 @@ title: NewsLens - 철학적, 과학적 사고로 세상을 바라보는 블로�
             <!-- 영어 포스트 -->
             <div class="posts-grid" id="posts-en" data-lang="en" style="display: none;">
                 {% assign posts = site.posts | sort: 'date' | reverse %}
-                {% for post in posts limit:3 %}
+                {% for post in posts limit:4 %}
                 <div class="post-card">
                     {% if post.image %}
                     <img src="{{ post.image }}" alt="{{ post.title_en | default: post.title }}" class="post-image">

@@ -37,9 +37,10 @@ permalink: /categories/
                 {% if post.categories %}
                 <div class="post-categories">
                     {% for category in post.categories %}
-                    {% assign cat_data = site.data.categories[category] %}
+                    {% assign cat_index = forloop.index0 %}
+                    {% assign cat_en = post.categories_en[cat_index] | default: category %}
                     <a href="/categories/#{{ category }}" class="category-link" data-ko="{{ category }}"
-                        data-en="{{ cat_data.en | default: category }}">
+                        data-en="{{ cat_en }}" data-frontmatter-en="{{ cat_en }}">
                         {{ category }}
                     </a>
                     {% endfor %}
@@ -62,9 +63,10 @@ permalink: /categories/
             {% if post.tags %}
             <div class="post-tags">
                 {% for tag in post.tags %}
-                {% assign tag_data = site.data.tags[tag] %}
-                <a href="/tags/#{{ tag }}" class="tag-link" data-ko="{{ tag }}"
-                    data-en="{{ tag_data.en | default: tag }}">
+                {% assign tag_index = forloop.index0 %}
+                {% assign tag_en = post.tags_en[tag_index] | default: tag %}
+                <a href="/tags/#{{ tag }}" class="tag-link" data-ko="{{ tag }}" data-en="{{ tag_en }}"
+                    data-frontmatter-en="{{ tag_en }}">
                     #{{ tag }}
                 </a>
                 {% endfor %}
@@ -462,69 +464,17 @@ permalink: /categories/
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 탭 버튼 이벤트 리스너 설정
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const postCards = document.querySelectorAll('.post-card');
-
         // JSON 데이터 로드
         try {
             window.siteData = {
                 categories: JSON.parse(document.getElementById('site-categories-data').textContent),
                 tags: JSON.parse(document.getElementById('site-tags-data').textContent)
             };
-            console.log('[카테고리 페이지] 사이트 데이터 로드 완료:', Object.keys(window.siteData.tags).length, '개의 태그,',
-                Object.keys(window.siteData.categories).length, '개의 카테고리');
+            console.log('[카테고리 페이지] 사이트 데이터 로드 완료');
         } catch (error) {
             console.error('[카테고리 페이지] 사이트 데이터 로드 오류:', error);
             window.siteData = { categories: {}, tags: {} };
         }
-
-        // 버튼에 애니메이션 효과 추가
-        tabButtons.forEach((button, index) => {
-            // 애니메이션 지연 추가
-            const delay = index * 0.1;
-            button.style.animationDelay = `${delay}s`;
-
-            button.addEventListener('click', function () {
-                // 활성화 상태 변경
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-
-                // 카테고리 필터링
-                const category = this.getAttribute('data-category');
-
-                if (category === 'all') {
-                    postCards.forEach(card => {
-                        card.style.display = 'block';
-                        setTimeout(() => {
-                            card.style.opacity = 1;
-                            card.style.transform = 'translateY(0)';
-                        }, 10);
-                    });
-                } else {
-                    postCards.forEach(card => {
-                        const categories = card.getAttribute('data-categories');
-
-                        if (categories && categories.includes(category)) {
-                            card.style.display = 'block';
-                            setTimeout(() => {
-                                card.style.opacity = 1;
-                                card.style.transform = 'translateY(0)';
-                            }, 10);
-                        } else {
-                            card.style.opacity = 0;
-                            card.style.transform = 'translateY(20px)';
-                            setTimeout(() => {
-                                card.style.display = 'none';
-                            }, 300);
-                        }
-                    });
-                }
-            });
-        });
-
-        // 기본적으로 '전체' 탭 활성화
-        tabButtons[0].classList.add('active');
 
         // 언어 변경 처리 함수
         function updateLanguage(lang) {
@@ -548,68 +498,63 @@ permalink: /categories/
                 }
             });
 
-            // 탭 버튼 직접 업데이트
-            tabButtons.forEach(button => {
-                const category = button.getAttribute('data-category');
-                if (category === 'all') {
-                    // '전체' 버튼은 이미 multilingual 속성으로 처리됨
-                    return;
-                }
-
-                const categoryData = window.siteData?.categories?.[category];
-                if (lang === 'en' && categoryData?.en) {
-                    button.textContent = categoryData.en;
-                } else {
-                    button.textContent = category;
-                }
-            });
-
-            // 카테고리 링크 직접 업데이트
+            // 카테고리 링크 업데이트 - 프론트매터 데이터 우선 사용
             const categoryLinks = document.querySelectorAll('.category-link');
             categoryLinks.forEach(link => {
                 const category = link.getAttribute('data-ko');
                 if (!category) return;
 
+                // 1. 프론트매터에서 번역 확인
+                const frontmatterEn = link.getAttribute('data-frontmatter-en');
+
+                // 2. 데이터 파일에서 번역 확인
                 const categoryData = window.siteData?.categories?.[category];
 
-                if (lang === 'en' && categoryData?.en) {
-                    link.textContent = categoryData.en;
+                if (lang === 'en') {
+                    // 프론트매터 번역 우선 사용
+                    if (frontmatterEn) {
+                        link.textContent = frontmatterEn;
+                    }
+                    // 없으면 데이터 파일 번역 사용
+                    else if (categoryData?.en) {
+                        link.textContent = categoryData.en;
+                    }
+                    // 둘 다 없으면 원본 사용
+                    else {
+                        link.textContent = category;
+                    }
                 } else {
                     link.textContent = category;
                 }
             });
 
-            // 태그 링크 직접 업데이트
+            // 태그 링크 업데이트 - 프론트매터 데이터 우선 사용
             const tagLinks = document.querySelectorAll('.tag-link');
             tagLinks.forEach(link => {
                 const tag = link.getAttribute('data-ko');
                 if (!tag) return;
 
+                // 1. 프론트매터에서 번역 확인
+                const frontmatterEn = link.getAttribute('data-frontmatter-en');
+
+                // 2. 데이터 파일에서 번역 확인
                 const tagData = window.siteData?.tags?.[tag];
 
-                if (lang === 'en' && tagData?.en) {
-                    link.textContent = '#' + tagData.en;
+                if (lang === 'en') {
+                    // 프론트매터 번역 우선 사용
+                    if (frontmatterEn) {
+                        link.textContent = '#' + frontmatterEn;
+                    }
+                    // 없으면 데이터 파일 번역 사용
+                    else if (tagData?.en) {
+                        link.textContent = '#' + tagData.en;
+                    }
+                    // 둘 다 없으면 원본 사용
+                    else {
+                        link.textContent = '#' + tag;
+                    }
                 } else {
                     link.textContent = '#' + tag;
-                }
-            });
-
-            // 포스트 타이틀 및 요약 직접 업데이트
-            const postLinks = document.querySelectorAll('.post-link');
-            postLinks.forEach(link => {
-                if (lang === 'ko' && link.hasAttribute('data-ko')) {
-                    link.textContent = link.getAttribute('data-ko');
-                } else if (lang === 'en' && link.hasAttribute('data-en')) {
-                    link.textContent = link.getAttribute('data-en');
-                }
-            });
-
-            const postExcerpts = document.querySelectorAll('.post-excerpt');
-            postExcerpts.forEach(excerpt => {
-                if (lang === 'ko' && excerpt.hasAttribute('data-ko')) {
-                    excerpt.textContent = excerpt.getAttribute('data-ko');
-                } else if (lang === 'en' && excerpt.hasAttribute('data-en')) {
-                    excerpt.textContent = excerpt.getAttribute('data-en');
                 }
             });
 
@@ -685,6 +630,7 @@ permalink: /categories/
             }
 
             // 5. 포스트 카드 초기화
+            const postCards = document.querySelectorAll('.post-card');
             postCards.forEach((card, index) => {
                 // 애니메이션 지연 추가
                 card.style.opacity = 0;
