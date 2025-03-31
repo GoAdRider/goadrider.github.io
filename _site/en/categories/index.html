@@ -45,7 +45,7 @@
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="NewsLens">
 <meta property="og:title" content="카테고리별 글 모음 - NewsLens">
-<meta property="og:url" content="http://localhost:4000/categories/">
+<meta property="og:url" content="https://goadrider.github.io/categories/">
 
 
   <meta property="og:description" content="철학적, 과학적 사고로 세상을 바라보는 블로그">
@@ -61,7 +61,7 @@
 
 
 
-<link rel="canonical" href="http://localhost:4000/en/categories/">
+<link rel="canonical" href="https://goadrider.github.io/en/categories/">
 
 
 
@@ -72,7 +72,7 @@
     
       "@type": "Person",
       "name": null,
-      "url": "http://localhost:4000/"
+      "url": "https://goadrider.github.io/"
     
   }
 </script>
@@ -591,14 +591,14 @@
         
         
         <button class="tab-button" data-category="철학" data-ko="철학"
-            data-en="철학">
+            data-en="Philosophy">
             철학
         </button>
         
         
         
         <button class="tab-button" data-category="인공지능" data-ko="인공지능"
-            data-en="인공지능">
+            data-en="Artificial Intelligence">
             인공지능
         </button>
         
@@ -620,14 +620,16 @@
                 <div class="post-categories">
                     
                     
+                    
                     <a href="/en/categories/#과학" class="category-link" data-ko="과학"
-                        data-en="과학">
+                        data-en="Science" data-frontmatter-en="Science">
                         과학
                     </a>
                     
                     
+                    
                     <a href="/en/categories/#철학" class="category-link" data-ko="철학"
-                        data-en="철학">
+                        data-en="Philosophy" data-frontmatter-en="Philosophy">
                         철학
                     </a>
                     
@@ -651,26 +653,30 @@
             <div class="post-tags">
                 
                 
-                <a href="/en/tags/#양자역학" class="tag-link" data-ko="양자역학"
-                    data-en="Quantum Mechanics">
+                
+                <a href="/en/tags/#양자역학" class="tag-link" data-ko="양자역학" data-en="quantum mechanics"
+                    data-frontmatter-en="quantum mechanics">
                     #양자역학
                 </a>
                 
                 
-                <a href="/en/tags/#의식" class="tag-link" data-ko="의식"
-                    data-en="의식">
+                
+                <a href="/en/tags/#의식" class="tag-link" data-ko="의식" data-en="consciousness"
+                    data-frontmatter-en="consciousness">
                     #의식
                 </a>
                 
                 
-                <a href="/en/tags/#마음의철학" class="tag-link" data-ko="마음의철학"
-                    data-en="마음의철학">
+                
+                <a href="/en/tags/#마음의철학" class="tag-link" data-ko="마음의철학" data-en="philosophy of mind"
+                    data-frontmatter-en="philosophy of mind">
                     #마음의철학
                 </a>
                 
                 
-                <a href="/en/tags/#뇌과학" class="tag-link" data-ko="뇌과학"
-                    data-en="뇌과학">
+                
+                <a href="/en/tags/#뇌과학" class="tag-link" data-ko="뇌과학" data-en="neuroscience"
+                    data-frontmatter-en="neuroscience">
                     #뇌과학
                 </a>
                 
@@ -685,14 +691,16 @@
                 <div class="post-categories">
                     
                     
+                    
                     <a href="/en/categories/#철학" class="category-link" data-ko="철학"
-                        data-en="철학">
+                        data-en="Philosophy" data-frontmatter-en="Philosophy">
                         철학
                     </a>
                     
                     
+                    
                     <a href="/en/categories/#인공지능" class="category-link" data-ko="인공지능"
-                        data-en="인공지능">
+                        data-en="Artificial Intelligence" data-frontmatter-en="Artificial Intelligence">
                         인공지능
                     </a>
                     
@@ -716,32 +724,37 @@
             <div class="post-tags">
                 
                 
-                <a href="/en/tags/#AI" class="tag-link" data-ko="AI"
-                    data-en="AI">
+                
+                <a href="/en/tags/#AI" class="tag-link" data-ko="AI" data-en="AI"
+                    data-frontmatter-en="AI">
                     #AI
                 </a>
                 
                 
-                <a href="/en/tags/#의식" class="tag-link" data-ko="의식"
-                    data-en="의식">
+                
+                <a href="/en/tags/#의식" class="tag-link" data-ko="의식" data-en="Consciousness"
+                    data-frontmatter-en="Consciousness">
                     #의식
                 </a>
                 
                 
-                <a href="/en/tags/#윤리" class="tag-link" data-ko="윤리"
-                    data-en="ethics">
+                
+                <a href="/en/tags/#윤리" class="tag-link" data-ko="윤리" data-en="Ethics"
+                    data-frontmatter-en="Ethics">
                     #윤리
                 </a>
                 
                 
-                <a href="/en/tags/#철학적분석" class="tag-link" data-ko="철학적분석"
-                    data-en="Philosophical Analysis">
+                
+                <a href="/en/tags/#철학적분석" class="tag-link" data-ko="철학적분석" data-en="Philosophical Analysis"
+                    data-frontmatter-en="Philosophical Analysis">
                     #철학적분석
                 </a>
                 
                 
-                <a href="/en/tags/#과학적고찰" class="tag-link" data-ko="과학적고찰"
-                    data-en="scientific-review">
+                
+                <a href="/en/tags/#과학적고찰" class="tag-link" data-ko="과학적고찰" data-en="Scientific Review"
+                    data-frontmatter-en="Scientific Review">
                     #과학적고찰
                 </a>
                 
@@ -1116,58 +1129,112 @@
     }
 </style>
 
+<!-- 카테고리 및 태그 데이터를 JSON으로 생성 -->
+<script type="application/json" id="site-categories-data">
+    {
+        
+        "의식": {
+            "en": "Consciousness"
+        },
+        
+        "윤리": {
+            "en": "Ethics"
+        },
+        
+        "과학적고찰": {
+            "en": "Scientific Review"
+        },
+        
+        "마음의철학": {
+            "en": "Philosophy of Mind"
+        },
+        
+        "철학": {
+            "en": "Philosophy"
+        },
+        
+        "인공지능": {
+            "en": "Artificial Intelligence"
+        },
+        
+        "뇌과학": {
+            "en": "Brain Science"
+        }
+        
+    }
+</script>
+
+<script type="application/json" id="site-tags-data">
+    {
+        
+        "철학적분석": {
+            "en": "Philosophical Analysis"
+        },
+        
+        "윤리": {
+            "en": "Ethics"
+        },
+        
+        "존재론": {
+            "en": "Ontology"
+        },
+        
+        "인식론": {
+            "en": "Epistemology"
+        },
+        
+        "의식": {
+            "en": "Consciousness"
+        },
+        
+        "과학적고찰": {
+            "en": "Scientific Review"
+        },
+        
+        "AI": {
+            "en": "AI"
+        },
+        
+        "신경과학": {
+            "en": "Neuroscience"
+        },
+        
+        "데이터분석": {
+            "en": "Data Analysis"
+        },
+        
+        "사회분석": {
+            "en": "Social Analysis"
+        },
+        
+        "정책연구": {
+            "en": "Policy Research"
+        },
+        
+        "미래전망": {
+            "en": "Future Prospects"
+        },
+        
+        "양자역학": {
+            "en": "Quantum Mechanics"
+        }
+        
+    }
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 탭 버튼 이벤트 리스너 설정
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const postCards = document.querySelectorAll('.post-card');
-
-        // 버튼에 애니메이션 효과 추가
-        tabButtons.forEach((button, index) => {
-            // 애니메이션 지연 추가
-            const delay = index * 0.1;
-            button.style.animationDelay = `${delay}s`;
-
-            button.addEventListener('click', function () {
-                // 활성화 상태 변경
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-
-                // 카테고리 필터링
-                const category = this.getAttribute('data-category');
-
-                if (category === 'all') {
-                    postCards.forEach(card => {
-                        card.style.display = 'block';
-                        setTimeout(() => {
-                            card.style.opacity = 1;
-                            card.style.transform = 'translateY(0)';
-                        }, 10);
-                    });
-                } else {
-                    postCards.forEach(card => {
-                        const categories = card.getAttribute('data-categories');
-
-                        if (categories.includes(category)) {
-                            card.style.display = 'block';
-                            setTimeout(() => {
-                                card.style.opacity = 1;
-                                card.style.transform = 'translateY(0)';
-                            }, 10);
-                        } else {
-                            card.style.opacity = 0;
-                            card.style.transform = 'translateY(20px)';
-                            setTimeout(() => {
-                                card.style.display = 'none';
-                            }, 300);
-                        }
-                    });
-                }
-            });
-        });
-
-        // 기본적으로 '전체' 탭 활성화
-        tabButtons[0].classList.add('active');
+        // JSON 데이터 로드
+        try {
+            window.siteData = {
+                categories: JSON.parse(document.getElementById('site-categories-data').textContent),
+                tags: JSON.parse(document.getElementById('site-tags-data').textContent)
+            };
+            console.log('[카테고리 페이지] 사이트 데이터 로드 완료');
+        } catch (error) {
+            console.error('[카테고리 페이지] 사이트 데이터 로드 오류:', error);
+            window.siteData = { categories: {}, tags: {} };
+        }
 
         // 언어 변경 처리 함수
         function updateLanguage(lang) {
@@ -1176,24 +1243,97 @@
             // 모든 다국어 요소 업데이트
             const allMultilingualElements = document.querySelectorAll('[data-ko], [data-en]');
             allMultilingualElements.forEach(el => {
-                if (el.hasAttribute(`data-${lang}`)) {
-                    el.textContent = el.getAttribute(`data-${lang}`);
+                if (lang === 'ko' && el.hasAttribute('data-ko')) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = el.getAttribute('data-ko');
+                    } else {
+                        el.textContent = el.getAttribute('data-ko');
+                    }
+                } else if (lang === 'en' && el.hasAttribute('data-en')) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = el.getAttribute('data-en');
+                    } else {
+                        el.textContent = el.getAttribute('data-en');
+                    }
                 }
             });
+
+            // 카테고리 링크 업데이트 - 프론트매터 데이터 우선 사용
+            const categoryLinks = document.querySelectorAll('.category-link');
+            categoryLinks.forEach(link => {
+                const category = link.getAttribute('data-ko');
+                if (!category) return;
+
+                // 1. 프론트매터에서 번역 확인
+                const frontmatterEn = link.getAttribute('data-frontmatter-en');
+
+                // 2. 데이터 파일에서 번역 확인
+                const categoryData = window.siteData?.categories?.[category];
+
+                if (lang === 'en') {
+                    // 프론트매터 번역 우선 사용
+                    if (frontmatterEn) {
+                        link.textContent = frontmatterEn;
+                    }
+                    // 없으면 데이터 파일 번역 사용
+                    else if (categoryData?.en) {
+                        link.textContent = categoryData.en;
+                    }
+                    // 둘 다 없으면 원본 사용
+                    else {
+                        link.textContent = category;
+                    }
+                } else {
+                    link.textContent = category;
+                }
+            });
+
+            // 태그 링크 업데이트 - 프론트매터 데이터 우선 사용
+            const tagLinks = document.querySelectorAll('.tag-link');
+            tagLinks.forEach(link => {
+                const tag = link.getAttribute('data-ko');
+                if (!tag) return;
+
+                // 1. 프론트매터에서 번역 확인
+                const frontmatterEn = link.getAttribute('data-frontmatter-en');
+
+                // 2. 데이터 파일에서 번역 확인
+                const tagData = window.siteData?.tags?.[tag];
+
+                if (lang === 'en') {
+                    // 프론트매터 번역 우선 사용
+                    if (frontmatterEn) {
+                        link.textContent = '#' + frontmatterEn;
+                    }
+                    // 없으면 데이터 파일 번역 사용
+                    else if (tagData?.en) {
+                        link.textContent = '#' + tagData.en;
+                    }
+                    // 둘 다 없으면 원본 사용
+                    else {
+                        link.textContent = '#' + tag;
+                    }
+                } else {
+                    link.textContent = '#' + tag;
+                }
+            });
+
+            // 디버깅을 위한 상태 출력
+            console.log('[카테고리 페이지] 언어 업데이트 완료:', lang);
         }
 
         // 언어 변경 이벤트 리스너 설정
         function setupAllLanguageListeners() {
-            // 언어 변경 이벤트 리스너 (window와 document 모두에 설정)
+            // 언어 변경 이벤트 리스너 (여러 이벤트 이름으로 리스닝)
             ['languageChange', 'languageChanged'].forEach(eventName => {
                 window.addEventListener(eventName, e => {
-                    const lang = e.detail.language;
+                    const lang = e.detail?.language || document.documentElement.getAttribute('lang') || 'ko';
                     console.log(`[카테고리 페이지] ${eventName} 이벤트 감지:`, lang);
                     updateLanguage(lang);
                 });
 
                 document.addEventListener(eventName, e => {
-                    const lang = e.detail.language;
+                    const lang = e.detail?.language || document.documentElement.getAttribute('lang') || 'ko';
                     console.log(`[카테고리 페이지] document ${eventName} 이벤트 감지:`, lang);
                     updateLanguage(lang);
                 });
@@ -1250,6 +1390,7 @@
             }
 
             // 5. 포스트 카드 초기화
+            const postCards = document.querySelectorAll('.post-card');
             postCards.forEach((card, index) => {
                 // 애니메이션 지연 추가
                 card.style.opacity = 0;
@@ -1275,7 +1416,7 @@
             const currentLang = document.documentElement.getAttribute('lang') ||
                 localStorage.getItem('preferred_language') || 'ko';
 
-            // 언어 다시 적용
+            // 안전을 위해 다시 한번 적용
             updateLanguage(currentLang);
         });
     });
