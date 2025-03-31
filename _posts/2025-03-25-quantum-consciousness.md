@@ -145,8 +145,10 @@ I often find myself pondering: If we were to fully understand consciousness, it 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // 언어 변경 감지 함수
-  function updateLanguage() {
-    const lang = document.documentElement.getAttribute('lang') || 'ko';
+  function updatePostLanguage() {
+    const lang = localStorage.getItem('lang') || 'ko';
+    console.log('[포스트] 언어 변경 감지:', lang);
+    
     const koContent = document.querySelector('.post-content-ko');
     const enContent = document.querySelector('.post-content-en');
     
@@ -160,19 +162,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // 초기 설정 및 이벤트 리스너
-  updateLanguage();
-  document.addEventListener('languageChanged', updateLanguage);
+  // 초기 언어 설정
+  updatePostLanguage();
   
-  // HTML lang 속성 변경 감지
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      if (mutation.attributeName === 'lang') {
-        updateLanguage();
-      }
-    });
+  // 언어 변경 이벤트 리스너
+  document.addEventListener('languageChanged', function(e) {
+    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
+    updatePostLanguage();
   });
-  
-  observer.observe(document.documentElement, { attributes: true });
 });
 </script> 
