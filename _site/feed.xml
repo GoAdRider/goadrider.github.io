@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://goadrider.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://goadrider.github.io/" rel="alternate" type="text/html" /><updated>2025-03-31T21:20:02+09:00</updated><id>https://goadrider.github.io/feed.xml</id><title type="html">NewsLens</title><subtitle>철학적, 과학적 사고로 세상을 바라보는 블로그</subtitle><author><name>NewsLens</name></author><entry><title type="html">양자역학적 관점에서 바라본 의식의 본질</title><link href="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/" rel="alternate" type="text/html" title="양자역학적 관점에서 바라본 의식의 본질" /><published>2025-03-25T10:30:00+09:00</published><updated>2025-03-25T10:30:00+09:00</updated><id>https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness</id><content type="html" xml:base="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/"><![CDATA[<div class="post-content-ko">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://goadrider.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://goadrider.github.io/" rel="alternate" type="text/html" /><updated>2025-03-31T23:08:25+09:00</updated><id>https://goadrider.github.io/feed.xml</id><title type="html">NewsLens</title><subtitle>철학적, 과학적 사고로 세상을 바라보는 블로그</subtitle><author><name>NewsLens</name></author><entry><title type="html">양자역학적 관점에서 바라본 의식의 본질</title><link href="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/" rel="alternate" type="text/html" title="양자역학적 관점에서 바라본 의식의 본질" /><published>2025-03-25T10:30:00+09:00</published><updated>2025-03-25T10:30:00+09:00</updated><id>https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness</id><content type="html" xml:base="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/"><![CDATA[<div class="post-content-ko">
 
   <h2 id="section">뉴스 원문 요약</h2>
   <p><a href="https://www.nature.com/articles/d41586-025-00321-7">Nature - Quantum effects in the brain might explain consciousness, study shows</a></p>
@@ -143,8 +143,10 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // 언어 변경 감지 함수
-  function updateLanguage() {
-    const lang = document.documentElement.getAttribute('lang') || 'ko';
+  function updatePostLanguage() {
+    const lang = localStorage.getItem('lang') || 'ko';
+    console.log('[포스트] 언어 변경 감지:', lang);
+    
     const koContent = document.querySelector('.post-content-ko');
     const enContent = document.querySelector('.post-content-en');
     
@@ -158,20 +160,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // 초기 설정 및 이벤트 리스너
-  updateLanguage();
-  document.addEventListener('languageChanged', updateLanguage);
+  // 초기 언어 설정
+  updatePostLanguage();
   
-  // HTML lang 속성 변경 감지
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      if (mutation.attributeName === 'lang') {
-        updateLanguage();
-      }
-    });
+  // 언어 변경 이벤트 리스너
+  document.addEventListener('languageChanged', function(e) {
+    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
+    updatePostLanguage();
   });
-  
-  observer.observe(document.documentElement, { attributes: true });
 });
 </script>]]></content><author><name>NewsLens</name></author><category term="과학" /><category term="철학" /><category term="양자역학" /><category term="의식" /><category term="마음의철학" /><category term="뇌과학" /><summary type="html"><![CDATA[양자역학과 의식의 관계에 대한 철학적 고찰과 최신 과학적 연구 분석]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-03-25-quantum-consciousness.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-03-25-quantum-consciousness.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">AI의 의식 가능성과 윤리적 함의: 철학적 분석과 과학적 고찰</title><link href="https://goadrider.github.io/%EC%B2%A0%ED%95%99/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5/ai-consciousness-ethics/" rel="alternate" type="text/html" title="AI의 의식 가능성과 윤리적 함의: 철학적 분석과 과학적 고찰" /><published>2024-03-27T00:00:00+09:00</published><updated>2024-03-27T00:00:00+09:00</updated><id>https://goadrider.github.io/%EC%B2%A0%ED%95%99/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5/ai-consciousness-ethics</id><content type="html" xml:base="https://goadrider.github.io/%EC%B2%A0%ED%95%99/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5/ai-consciousness-ethics/"><![CDATA[<div class="post-content-ko">
 
