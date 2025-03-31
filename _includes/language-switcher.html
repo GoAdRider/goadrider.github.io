@@ -1,287 +1,35 @@
-<div class="language-switcher">
-    <span class="lang-switch-title">{{ site.data.i18n[site.active_lang].lang_switcher.change_lang }}</span>
-    <div class="lang-dropdown">
-        <button id="langDropdownBtn" class="dropdown-btn">
-            <span id="currentLangIcon" class="lang-icon">🇰🇷</span>
-            <span id="currentLangText" class="lang-text">한국어</span>
-            <span class="dropdown-arrow">▼</span>
-        </button>
-        <div id="langDropdownContent" class="dropdown-content">
-            {% if site.active_lang == 'en' %}
-            {% comment %} 영어에서 한국어로 전환 {% endcomment %}
-            {% assign ko_url = page.url | replace_first: '/en', '' %}
-            {% if ko_url == '' %}
-            {% assign ko_url = '/' %}
-            {% endif %}
-            <a href="{{ ko_url }}" class="ko-lang {% if site.active_lang == 'ko' %}active{% endif %}" data-lang="ko">
-                <span class="lang-icon">🇰🇷</span>
-                <span class="lang-text">한국어</span>
-            </a>
-            <a href="{{ page.url }}" class="en-lang {% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
-                <span class="lang-icon">🇺🇸</span>
-                <span class="lang-text">English</span>
-            </a>
-            {% else %}
-            {% comment %} 한국어에서 영어로 전환 {% endcomment %}
-            <a href="{{ page.url }}" class="ko-lang {% if site.active_lang == 'ko' %}active{% endif %}" data-lang="ko">
-                <span class="lang-icon">🇰🇷</span>
-                <span class="lang-text">한국어</span>
-            </a>
-            {% assign en_url = '/en' | append: page.url %}
-            <a href="{{ en_url }}" class="en-lang {% if site.active_lang == 'en' %}active{% endif %}" data-lang="en">
-                <span class="lang-icon">🇺🇸</span>
-                <span class="lang-text">English</span>
-            </a>
-            {% endif %}
-        </div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // 기본 언어 설정 (한국어)
-        const defaultLang = 'ko';
-
-        // 언어 전환 드롭다운 토글 처리
-        const dropdownBtn = document.getElementById('langDropdownBtn');
-        const dropdownContent = document.getElementById('langDropdownContent');
-        const currentLangIcon = document.getElementById('currentLangIcon');
-        const currentLangText = document.getElementById('currentLangText');
-
-        if (dropdownBtn) {
-            dropdownBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                dropdownContent.classList.toggle('show');
-            });
-        }
-
-        // 문서 클릭 시 드롭다운 닫기
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.language-switcher')) {
-                if (dropdownContent && dropdownContent.classList.contains('show')) {
-                    dropdownContent.classList.remove('show');
-                }
-            }
-        });
-
-        // 쿠키 관련 함수들
-        function getCookie(name) {
-            let value = `; ${document.cookie}`;
-            let parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
-        }
-
-        function setCookie(name, value, days) {
-            let expires = "";
-            if (days) {
-                let date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
-        }
-
-        // URL 정규화 함수
-        function normalizeUrl(url, targetLang) {
-            // 현재 URL 가져오기
-            let currentPath = window.location.pathname;
-            let newUrl = '';
-
-            if (targetLang === 'en') {
-                // 이미 /en으로 시작하는지 확인
-                if (currentPath.startsWith('/en/')) {
-                    newUrl = currentPath; // 이미 영어 경로면 유지
-                } else if (currentPath === '/') {
-                    newUrl = '/en/'; // 홈페이지인 경우
-                } else {
-                    // /en/ 접두사 추가
-                    newUrl = '/en' + currentPath;
-                }
-
-                // 중복된 /en/en/ 패턴 제거
-                newUrl = newUrl.replace(/\/en\/en\//g, '/en/');
-            } else {
-                // 영어에서 한국어로 변경하는 경우 /en 제거
-                newUrl = currentPath.replace(/^\/en/, '');
-                if (newUrl === '') newUrl = '/';
-            }
-
-            return newUrl;
-        }
-
-        // 언어 버튼 클릭 이벤트 핸들러
-        const langButtons = document.querySelectorAll('.dropdown-content a');
-        if (langButtons) {
-            langButtons.forEach(function (btn) {
-                btn.addEventListener('click', function (e) {
-                    e.preventDefault(); // 기본 동작 방지
-
-                    const lang = this.getAttribute('data-lang');
-                    const newUrl = normalizeUrl(window.location.pathname, lang);
-
-                    // 언어 변경 시 쿠키 저장 (365일 유지)
-                    setCookie('preferred_lang', lang, 365);
-
-                    // 페이지 이동
-                    window.location.href = newUrl;
-                });
-            });
-        }
-
-        // 쿠키에서 선호 언어 확인
-        function getPreferredLanguage() {
-            // 쿠키에서 언어 설정 가져오기
-            const cookieLang = getCookie('preferred_lang');
-
-            // 쿠키가 있으면 해당 언어, 없으면 URL에서 감지
-            if (cookieLang) {
-                return cookieLang;
-            }
-
-            // URL에서 언어 확인
-            return window.location.pathname.startsWith('/en/') ? 'en' : 'ko';
-        }
-
-        // 현재 언어와 URL이 일치하는지 확인하고 필요시 리다이렉트
-        function checkLanguageRedirect() {
-            const preferredLang = getPreferredLanguage();
-            const currentUrl = window.location.pathname;
-            const isEnglishUrl = currentUrl.startsWith('/en/');
-
-            // 선호 언어가 영어인데 URL에 /en/이 없거나 
-            // 선호 언어가 한국어인데 URL에 /en/이 있으면 리다이렉트
-            if ((preferredLang === 'en' && !isEnglishUrl) ||
-                (preferredLang === 'ko' && isEnglishUrl)) {
-
-                const redirectUrl = normalizeUrl(currentUrl, preferredLang);
-                // 무한 리다이렉트 방지를 위한 쿠키 설정
-                if (!getCookie('redirected')) {
-                    setCookie('redirected', 'true', 1 / 1440); // 1분간 유지
-                    window.location.href = redirectUrl;
-                }
-            }
-        }
-
-        // 페이지 로드 시 언어 체크 및 리다이렉트
-        checkLanguageRedirect();
-
-        // 현재 언어 감지 및 설정
-        function updateLanguageUI() {
-            // 현재 선호 언어 가져오기
-            const currentLang = getPreferredLanguage();
-
-            // 현재 언어에 따라 드롭다운 버튼 업데이트
-            if (currentLang === 'en') {
-                currentLangIcon.textContent = '🇺🇸';
-                currentLangText.textContent = 'English';
-            } else {
-                currentLangIcon.textContent = '🇰🇷';
-                currentLangText.textContent = '한국어';
-            }
-
-            // HTML lang 속성 설정
-            document.documentElement.setAttribute('lang', currentLang);
-
-            // 언어 전환 버튼 상태 업데이트
-            const koLangBtn = document.querySelector('.ko-lang');
-            const enLangBtn = document.querySelector('.en-lang');
-
-            if (currentLang === 'ko') {
-                if (koLangBtn) koLangBtn.classList.add('active');
-                if (enLangBtn) enLangBtn.classList.remove('active');
-            } else {
-                if (koLangBtn) koLangBtn.classList.remove('active');
-                if (enLangBtn) enLangBtn.classList.add('active');
-            }
-
-            // 언어 변경 이벤트 발생 - 메뉴와 페이지 내용을 업데이트하기 위해
-            document.dispatchEvent(new CustomEvent('languageChanged', {
-                detail: { language: currentLang }
-            }));
-        }
-
-        // UI 업데이트
-        updateLanguageUI();
-
-        // 리다이렉트 쿠키 클리어 (다음 페이지에서 다시 체크할 수 있도록)
-        setTimeout(function () {
-            setCookie('redirected', '', -1);
-        }, 3000);
-    });
-</script>
+<button id="language-toggle" class="lang-btn">
+    <span class="visually-hidden">언어 변경</span>
+    <span class="lang-text">EN</span>
+</button>
 
 <style>
-    .language-switcher {
-        position: relative;
-        display: inline-flex;
-        flex-direction: column;
-        align-items: flex-end;
-        margin: 0 1rem;
-    }
-
-    .lang-switch-title {
-        font-size: 0.8rem;
-        margin-bottom: 0.25rem;
-        color: #666;
-    }
-
-    .lang-dropdown {
-        position: relative;
-    }
-
-    .dropdown-btn {
-        display: flex;
-        align-items: center;
-        padding: 0.25rem 0.5rem;
-        text-decoration: none;
-        color: #333;
-        background-color: #f5f5f5;
-        transition: background-color 0.2s;
+    #language-toggle {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 4px 8px;
         font-size: 0.85rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        margin-right: 1rem;
     }
 
-    .dropdown-btn:hover {
-        background-color: #e0e0e0;
-        text-decoration: none;
+    #language-toggle:hover {
+        background-color: var(--secondary-color);
     }
 
-    .dropdown-content {
-        display: none;
+    .visually-hidden {
         position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-    }
-
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-
-    .dropdown-content a:hover {
-        background-color: #f1f1f1;
-    }
-
-    .lang-icon {
-        margin-right: 5px;
-    }
-
-    @media (max-width: 767px) {
-        .lang-text {
-            display: none;
-        }
-
-        .dropdown-btn {
-            padding: 0.25rem;
-        }
-
-        .lang-icon {
-            margin-right: 0;
-        }
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
     }
 </style>

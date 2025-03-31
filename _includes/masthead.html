@@ -52,39 +52,17 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 쿠키 관련 함수
-        function getCookie(name) {
-            let value = `; ${document.cookie}`;
-            let parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
-        }
-
-        // 현재 언어 감지 함수
+        // 중앙 언어 시스템에서 현재 언어 가져오기
         function getCurrentLanguage() {
-            // 1. 쿠키에서 언어 확인
-            const cookieLang = getCookie('preferred_lang');
-            if (cookieLang === 'ko' || cookieLang === 'en') {
-                return cookieLang;
-            }
-
-            // 2. URL에서 언어 확인
-            if (window.location.pathname.startsWith('/en/')) {
-                return 'en';
-            }
-
-            // 3. 기본값은 한국어
-            return 'ko';
+            return localStorage.getItem('lang') || 'ko';
         }
 
         // 메뉴 이름과 링크 업데이트 함수
         function updateMenuLanguage() {
             const lang = getCurrentLanguage();
-            // HTML 문서의 lang 속성 설정
-            document.documentElement.setAttribute('lang', lang);
+            console.log('[헤더] 메뉴 언어 업데이트:', lang);
 
             const menuItems = document.querySelectorAll('.masthead__menu-item');
-
             menuItems.forEach(function (item) {
                 const link = item.querySelector('a');
                 if (!link) return;
@@ -97,33 +75,15 @@
                 if (title) link.textContent = title;
                 if (url) link.href = url;
             });
-
-            // 언어 변경 이벤트 발생
-            document.dispatchEvent(new CustomEvent('languageChanged', {
-                detail: { language: lang }
-            }));
         }
 
         // 페이지 로드 시 즉시 실행
         updateMenuLanguage();
 
         // 언어 변경 이벤트 리스너
-        document.addEventListener('languageChanged', function () {
+        document.addEventListener('languageChanged', function (e) {
+            console.log('[헤더] 언어 변경 감지:', e.detail.language);
             updateMenuLanguage();
         });
-
-        // 1초 후 다시 한번 업데이트 (페이지 전환 후 안정화)
-        setTimeout(updateMenuLanguage, 1000);
-
-        // HTML lang 속성 변경 감지
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                if (mutation.attributeName === 'lang') {
-                    updateMenuLanguage();
-                }
-            });
-        });
-
-        observer.observe(document.documentElement, { attributes: true });
     });
 </script>
