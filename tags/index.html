@@ -117,6 +117,9 @@ permalink: /tags/
         --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --gradient-1: linear-gradient(135deg, #2563eb, #4f46e5);
+        --gradient-2: linear-gradient(135deg, #8b5cf6, #d946ef);
+        --gradient-3: linear-gradient(135deg, #ec4899, #f43f5e);
     }
 
     .container {
@@ -131,6 +134,30 @@ permalink: /tags/
         padding: 3rem 0;
         background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(139, 92, 246, 0.1));
         border-radius: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(236, 72, 153, 0.03) 0%, rgba(37, 99, 235, 0.03) 50%, transparent 70%);
+        animation: rotate 30s linear infinite;
+        z-index: 0;
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
     }
 
     .page-title {
@@ -139,15 +166,34 @@ permalink: /tags/
         margin-bottom: 1rem;
         letter-spacing: -0.025em;
         color: var(--text-primary);
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+    }
+
+    .page-title::after {
+        content: '';
+        position: absolute;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
     }
 
     .page-description {
         font-size: 1.25rem;
         color: var(--text-secondary);
         max-width: 600px;
-        margin: 0 auto;
+        margin: 1.5rem auto 0;
+        position: relative;
+        z-index: 1;
+        line-height: 1.6;
     }
 
+    /* 트렌디한 태그 클라우드 */
     .tag-cloud {
         display: flex;
         flex-wrap: wrap;
@@ -157,6 +203,21 @@ permalink: /tags/
         background: var(--bg-secondary);
         border-radius: 1rem;
         box-shadow: var(--shadow-md);
+        position: relative;
+        overflow: hidden;
+        justify-content: center;
+    }
+
+    .tag-cloud::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(ellipse at top right, rgba(37, 99, 235, 0.05), transparent 70%),
+            radial-gradient(ellipse at bottom left, rgba(236, 72, 153, 0.05), transparent 70%);
+        pointer-events: none;
     }
 
     .tag-item {
@@ -168,45 +229,97 @@ permalink: /tags/
         color: var(--text-primary);
         text-decoration: none;
         font-weight: 500;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 1px solid rgba(37, 99, 235, 0.1);
         position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        z-index: 1;
+    }
+
+    .tag-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-1);
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.3s ease;
+    }
+
+    .tag-item:nth-child(3n+1)::before {
+        background: var(--gradient-1);
+    }
+
+    .tag-item:nth-child(3n+2)::before {
+        background: var(--gradient-2);
+    }
+
+    .tag-item:nth-child(3n+3)::before {
+        background: var(--gradient-3);
     }
 
     .tag-item:hover {
-        transform: translateY(-2px);
+        transform: translateY(-5px) scale(1.05);
         box-shadow: var(--shadow-lg);
-        background: linear-gradient(135deg, #2563eb, #4f46e5);
         color: white;
         border-color: transparent;
     }
 
+    .tag-item:hover::before {
+        opacity: 1;
+    }
+
     .tag-name {
         margin-right: 0.5rem;
+        position: relative;
+        transition: all 0.3s ease;
     }
 
     .tag-count {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 24px;
+        min-width: 24px;
         height: 24px;
         background-color: rgba(37, 99, 235, 0.1);
         color: var(--primary-color);
         border-radius: 50%;
         font-size: 0.8rem;
         font-weight: 600;
+        transition: all 0.3s ease;
+        padding: 0 0.4rem;
     }
 
     .tag-item:hover .tag-count {
         background-color: rgba(255, 255, 255, 0.2);
         color: white;
+        transform: scale(1.1);
     }
 
+    /* 섹션 스타일 개선 */
     .tag-section {
         margin-bottom: 4rem;
         padding-bottom: 3rem;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        transition: transform 0.5s ease;
+    }
+
+    .tag-section:target {
+        animation: highlight 1.5s ease;
+    }
+
+    @keyframes highlight {
+        0% {
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
+        100% {
+            background-color: transparent;
+        }
     }
 
     .tag-section:last-child {
@@ -215,6 +328,7 @@ permalink: /tags/
 
     .tag-header {
         margin-bottom: 2rem;
+        position: relative;
     }
 
     .tag-title {
@@ -224,6 +338,11 @@ permalink: /tags/
         margin-bottom: 0.5rem;
         display: flex;
         align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .tag-title:hover {
+        color: var(--primary-color);
     }
 
     .tag-title .tag-count {
@@ -237,6 +356,7 @@ permalink: /tags/
         line-height: 1.6;
     }
 
+    /* 포스트 목록 스타일 */
     .post-list {
         display: grid;
         gap: 2rem;
@@ -248,11 +368,28 @@ permalink: /tags/
         background-color: var(--bg-primary);
         box-shadow: var(--shadow-sm);
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .post-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 0;
+        background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+        transition: height 0.3s ease;
     }
 
     .post-item:hover {
         box-shadow: var(--shadow-md);
         transform: translateY(-2px);
+    }
+
+    .post-item:hover::before {
+        height: 100%;
     }
 
     .post-meta {
@@ -281,11 +418,30 @@ permalink: /tags/
         border-radius: 50px;
         font-size: 0.9rem;
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .category-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary-color);
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.3s ease;
     }
 
     .category-link:hover {
-        background-color: var(--primary-color);
         color: white;
+    }
+
+    .category-link:hover::before {
+        opacity: 1;
     }
 
     .post-title {
@@ -299,10 +455,12 @@ permalink: /tags/
         color: var(--text-primary);
         text-decoration: none;
         transition: all 0.3s ease;
+        display: inline-block;
     }
 
     .post-link:hover {
         color: var(--primary-color);
+        transform: translateX(5px);
     }
 
     .post-excerpt {
@@ -314,7 +472,7 @@ permalink: /tags/
     .post-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: 0.75rem;
     }
 
     .tag-link {
@@ -322,10 +480,28 @@ permalink: /tags/
         text-decoration: none;
         font-size: 0.9rem;
         transition: all 0.3s ease;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .tag-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
     }
 
     .tag-link:hover {
         color: var(--primary-color);
+    }
+
+    .tag-link:hover::after {
+        width: 100%;
     }
 
     /* 반응형 스타일 */
@@ -369,6 +545,50 @@ permalink: /tags/
                 const count = parseInt(item.getAttribute('data-count'));
                 const fontSize = 0.8 + (count / maxCount) * 0.7; // 0.8rem ~ 1.5rem
                 item.style.fontSize = `${fontSize}rem`;
+
+                // 애니메이션 지연 추가 - 랜덤하게 등장하는 효과
+                const delay = Math.random() * 0.5;
+                item.style.animationDelay = `${delay}s`;
+
+                // 마우스 호버 효과 강화
+                item.addEventListener('mouseenter', function () {
+                    const siblings = document.querySelectorAll('.tag-item');
+                    siblings.forEach(sib => {
+                        if (sib !== item) {
+                            sib.style.opacity = '0.7';
+                            sib.style.transform = 'scale(0.95)';
+                        }
+                    });
+                });
+
+                item.addEventListener('mouseleave', function () {
+                    const siblings = document.querySelectorAll('.tag-item');
+                    siblings.forEach(sib => {
+                        sib.style.opacity = '1';
+                        sib.style.transform = '';
+                    });
+                });
+            });
+
+            // 부드러운 스크롤 효과 추가
+            document.querySelectorAll('.tag-item').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+
+                        // URL 업데이트 (스크롤 후)
+                        setTimeout(() => {
+                            history.pushState(null, null, targetId);
+                        }, 500);
+                    }
+                });
             });
         }
 
@@ -437,6 +657,19 @@ permalink: /tags/
             // 4. 초기 언어 적용
             updateLanguage(initialLang);
 
+            // 5. 해시 태그 있으면 스크롤
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const targetElement = document.querySelector(window.location.hash);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 300);
+            }
+
             console.log('[태그 페이지] 초기화 완료');
         }
 
@@ -453,6 +686,11 @@ permalink: /tags/
 
             // 언어 다시 적용
             updateLanguage(currentLang);
+
+            // 애니메이션 클래스 추가
+            document.querySelectorAll('.tag-item').forEach((item, index) => {
+                item.classList.add('animated');
+            });
         });
     });
 </script>
