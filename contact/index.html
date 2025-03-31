@@ -3,6 +3,11 @@ layout: default
 title: 문의하기 - NewsLens
 permalink: /contact/
 ---
+
+<!-- 페이지 제목 메타데이터 -->
+<meta name="title-ko" content="문의하기 | NewsLens">
+<meta name="title-en" content="Contact Us | NewsLens">
+
 <div class="container">
     <div class="page-header">
         <h1 class="page-title" data-ko="문의하기" data-en="Contact Us">문의하기</h1>
@@ -22,38 +27,40 @@ permalink: /contact/
                 기사 제안, 피드백, 협업 제안 등 다양한 문의를 환영합니다.
             </p>
 
-            <div class="contact-method">
-                <div class="contact-icon">
-                    <i class="fas fa-envelope"></i>
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3 data-ko="이메일 문의" data-en="Email Inquiry">이메일 문의</h3>
+                        <p>contact@newslens.com</p>
+                    </div>
                 </div>
-                <div class="contact-text">
-                    <strong data-ko="이메일 문의" data-en="Email Inquiry">이메일 문의</strong>
-                    contact@newslens.com
-                </div>
-            </div>
 
-            <div class="contact-method">
-                <div class="contact-icon">
-                    <i class="fas fa-clock"></i>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3 data-ko="응답 시간" data-en="Response Time">응답 시간</h3>
+                        <p data-ko="일반적으로 2-3 영업일 이내에 답변 드립니다." data-en="We usually respond within 2-3 business days.">
+                            일반적으로 2-3 영업일 이내에 답변 드립니다.
+                        </p>
+                    </div>
                 </div>
-                <div class="contact-text">
-                    <strong data-ko="응답 시간" data-en="Response Time">응답 시간</strong>
-                    <span data-ko="일반적으로 2-3 영업일 이내에 답변 드립니다." data-en="We usually respond within 2-3 business days.">
-                        일반적으로 2-3 영업일 이내에 답변 드립니다.
-                    </span>
-                </div>
-            </div>
 
-            <div class="contact-method">
-                <div class="contact-icon">
-                    <i class="fas fa-comments"></i>
-                </div>
-                <div class="contact-text">
-                    <strong data-ko="제안 사항" data-en="Suggestions">제안 사항</strong>
-                    <span data-ko="새로운 주제 제안이나 특정 분야에 대한 분석 요청도 환영합니다."
-                        data-en="We welcome new topic suggestions or requests for analysis in specific fields.">
-                        새로운 주제 제안이나 특정 분야에 대한 분석 요청도 환영합니다.
-                    </span>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3 data-ko="제안 사항" data-en="Suggestions">제안 사항</h3>
+                        <p data-ko="새로운 주제 제안이나 특정 분야에 대한 분석 요청도 환영합니다."
+                            data-en="We welcome new topic suggestions or requests for analysis in specific fields.">
+                            새로운 주제 제안이나 특정 분야에 대한 분석 요청도 환영합니다.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,7 +84,7 @@ permalink: /contact/
 
                 <div class="form-group">
                     <label for="message" class="form-label" data-ko="메시지" data-en="Message">메시지</label>
-                    <textarea id="message" name="message" class="form-input form-textarea" required></textarea>
+                    <textarea id="message" name="message" class="form-textarea" rows="6" required></textarea>
                 </div>
 
                 <button type="submit" class="form-button" data-ko="보내기" data-en="Send">보내기</button>
@@ -86,67 +93,477 @@ permalink: /contact/
     </div>
 </div>
 
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --accent-color: #fb7185;
+        --text-primary: #1f2937;
+        --text-secondary: #4b5563;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f9fafb;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --gradient-1: linear-gradient(135deg, #2563eb, #4f46e5);
+        --gradient-2: linear-gradient(135deg, #8b5cf6, #d946ef);
+        --gradient-3: linear-gradient(135deg, #ec4899, #f43f5e);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    /* 크고 트렌디한 페이지 헤더 */
+    .page-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding: 3rem 0;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(139, 92, 246, 0.1));
+        border-radius: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(236, 72, 153, 0.03) 0%, rgba(37, 99, 235, 0.03) 50%, transparent 70%);
+        animation: rotate 30s linear infinite;
+        z-index: 0;
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .page-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        letter-spacing: -0.025em;
+        color: var(--text-primary);
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+    }
+
+    .page-title::after {
+        content: '';
+        position: absolute;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+    }
+
+    .page-description {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        max-width: 700px;
+        margin: 1.5rem auto 0;
+        position: relative;
+        z-index: 1;
+        line-height: 1.6;
+    }
+
+    /* 연락처 섹션 스타일 */
+    .contact-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .contact-info {
+        padding: 2rem;
+        background-color: var(--bg-primary);
+        border-radius: 1rem;
+        box-shadow: var(--shadow-md);
+    }
+
+    .contact-heading {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+    }
+
+    .contact-description {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        line-height: 1.7;
+    }
+
+    .contact-cards {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .contact-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.5rem;
+        background-color: var(--bg-secondary);
+        border-radius: 0.75rem;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.3s ease;
+    }
+
+    .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .contact-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(139, 92, 246, 0.1));
+        color: var(--primary-color);
+        border-radius: 50%;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+    }
+
+    .contact-card:nth-child(1) .contact-icon {
+        color: #4f46e5;
+    }
+
+    .contact-card:nth-child(2) .contact-icon {
+        color: #8b5cf6;
+    }
+
+    .contact-card:nth-child(3) .contact-icon {
+        color: #ec4899;
+    }
+
+    .contact-text {
+        flex-grow: 1;
+    }
+
+    .contact-text h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+    }
+
+    .contact-text p {
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+
+    /* 폼 스타일 */
+    .contact-form-container {
+        padding: 2rem;
+        background-color: var(--bg-primary);
+        border-radius: 1rem;
+        box-shadow: var(--shadow-md);
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: var(--text-primary);
+    }
+
+    .form-input,
+    .form-textarea {
+        padding: 0.75rem 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .form-button {
+        align-self: flex-start;
+        padding: 0.75rem 2rem;
+        background: var(--gradient-1);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .form-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-2);
+        transition: left 0.3s ease;
+        z-index: -1;
+    }
+
+    .form-button:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .form-button:hover::before {
+        left: 0;
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+        .contact-section {
+            grid-template-columns: 1fr;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .container {
+            padding: 1rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+        }
+
+        .contact-card {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-icon {
+            margin-bottom: 1rem;
+        }
+
+        .form-button {
+            width: 100%;
+        }
+    }
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // 다국어 요소 선택
         const pageTitle = document.querySelector('.page-title');
         const pageDescription = document.querySelector('.page-description');
         const contactHeading = document.querySelector('.contact-heading');
         const contactDescription = document.querySelector('.contact-description');
-        const contactMethodStrongs = document.querySelectorAll('.contact-text strong');
-        const contactMethodSpans = document.querySelectorAll('.contact-text span');
+        const contactCardTitles = document.querySelectorAll('.contact-text h3');
+        const contactCardTexts = document.querySelectorAll('.contact-text p[data-ko], .contact-text p[data-en]');
         const formLabels = document.querySelectorAll('.form-label');
         const formButton = document.querySelector('.form-button');
 
+        // 언어 변경 처리 함수
         function updateLanguage(lang) {
+            console.log('[문의 페이지] 언어 업데이트:', lang);
+
             // 페이지 제목과 설명 업데이트
-            pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
-            pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
+            if (pageTitle && pageTitle.getAttribute(`data-${lang}`)) {
+                pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
+            }
+
+            if (pageDescription && pageDescription.getAttribute(`data-${lang}`)) {
+                pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
+            }
 
             // 연락처 섹션 업데이트
-            contactHeading.textContent = contactHeading.getAttribute(`data-${lang}`);
-            contactDescription.textContent = contactDescription.getAttribute(`data-${lang}`);
+            if (contactHeading && contactHeading.getAttribute(`data-${lang}`)) {
+                contactHeading.textContent = contactHeading.getAttribute(`data-${lang}`);
+            }
 
-            // 연락 방법 텍스트 업데이트
-            contactMethodStrongs.forEach(strong => {
-                strong.textContent = strong.getAttribute(`data-${lang}`);
+            if (contactDescription && contactDescription.getAttribute(`data-${lang}`)) {
+                contactDescription.textContent = contactDescription.getAttribute(`data-${lang}`);
+            }
+
+            // 카드 제목 업데이트
+            contactCardTitles.forEach(title => {
+                if (title.getAttribute(`data-${lang}`)) {
+                    title.textContent = title.getAttribute(`data-${lang}`);
+                }
             });
 
-            contactMethodSpans.forEach(span => {
-                if (span.hasAttribute(`data-${lang}`)) {
-                    span.textContent = span.getAttribute(`data-${lang}`);
+            // 카드 텍스트 업데이트
+            contactCardTexts.forEach(text => {
+                if (text.getAttribute(`data-${lang}`)) {
+                    text.textContent = text.getAttribute(`data-${lang}`);
                 }
             });
 
             // 폼 라벨 업데이트
             formLabels.forEach(label => {
-                label.textContent = label.getAttribute(`data-${lang}`);
+                if (label.getAttribute(`data-${lang}`)) {
+                    label.textContent = label.getAttribute(`data-${lang}`);
+                }
             });
 
             // 폼 버튼 업데이트
-            formButton.textContent = formButton.getAttribute(`data-${lang}`);
+            if (formButton && formButton.getAttribute(`data-${lang}`)) {
+                formButton.textContent = formButton.getAttribute(`data-${lang}`);
+            }
+
+            // 문서 제목 업데이트
+            const titleMeta = document.querySelector('meta[name="title-' + lang + '"]');
+            if (titleMeta) {
+                document.title = titleMeta.getAttribute('content');
+            }
         }
 
-        // 언어 변경 이벤트 리스너
-        window.addEventListener('languageChange', function (e) {
-            updateLanguage(e.detail.language);
-        });
+        // 언어 변경 이벤트 리스너 설정
+        function setupAllLanguageListeners() {
+            // 언어 변경 이벤트 리스너 (window와 document 모두에 설정)
+            ['languageChange', 'languageChanged'].forEach(eventName => {
+                window.addEventListener(eventName, e => {
+                    const lang = e.detail.language;
+                    console.log(`[문의 페이지] ${eventName} 이벤트 감지:`, lang);
+                    updateLanguage(lang);
+                });
 
-        // 초기 언어 설정
-        const urlParams = new URLSearchParams(window.location.search);
-        const langParam = urlParams.get('lang');
-        const storedLang = localStorage.getItem('preferred_language');
-        const initialLang = langParam || storedLang || 'ko';
+                document.addEventListener(eventName, e => {
+                    const lang = e.detail.language;
+                    console.log(`[문의 페이지] document ${eventName} 이벤트 감지:`, lang);
+                    updateLanguage(lang);
+                });
+            });
 
-        // 초기 언어 적용
-        updateLanguage(initialLang);
+            // HTML lang 속성 변경 감지
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'lang') {
+                        const lang = document.documentElement.getAttribute('lang') || 'ko';
+                        console.log('[문의 페이지] HTML lang 속성 변경 감지:', lang);
+                        updateLanguage(lang);
+                    }
+                });
+            });
+
+            observer.observe(document.documentElement, { attributes: true });
+        }
+
+        // 초기화 함수
+        function initialize() {
+            // 연락처 카드 애니메이션 효과 추가
+            const contactCards = document.querySelectorAll('.contact-card');
+            contactCards.forEach((card, index) => {
+                // 애니메이션 지연 추가
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = 'translateY(0)';
+                }, 100 + index * 100);
+            });
+
+            // 폼 필드 애니메이션 효과 추가
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.opacity = 0;
+                group.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    group.style.opacity = 1;
+                    group.style.transform = 'translateY(0)';
+                }, 300 + index * 100);
+            });
+
+            // 폼 버튼 애니메이션
+            const formButton = document.querySelector('.form-button');
+            formButton.style.opacity = 0;
+            formButton.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                formButton.style.opacity = 1;
+                formButton.style.transform = 'translateY(0)';
+            }, 700);
+
+            // 언어 이벤트 리스너 설정
+            setupAllLanguageListeners();
+
+            // 초기 언어 설정
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            const storedLang = localStorage.getItem('preferred_language');
+            const htmlLang = document.documentElement.getAttribute('lang');
+            const initialLang = langParam || storedLang || htmlLang || 'ko';
+
+            console.log('[문의 페이지] 초기 언어 설정:', initialLang);
+
+            // 초기 언어 적용
+            updateLanguage(initialLang);
+        }
+
+        // 페이지 로드 시 초기화 실행
+        initialize();
 
         // 폼 제출 이벤트
         const contactForm = document.getElementById('contactForm');
         contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
             const currentLang = localStorage.getItem('preferred_language') || 'ko';
-            alert(currentLang === 'en' ? 'Your message has been sent!' : '메시지가 전송되었습니다!');
+            alert(currentLang === 'en' ? 'Your message has been sent successfully!' : '메시지가 성공적으로 전송되었습니다!');
             contactForm.reset();
+        });
+
+        // 페이지 완전 로드 후 추가 초기화 (안전장치)
+        window.addEventListener('load', function () {
+            console.log('[문의 페이지] 페이지 완전히 로드됨, 추가 초기화');
+
+            // 현재 언어 재확인
+            const currentLang = document.documentElement.getAttribute('lang') ||
+                localStorage.getItem('preferred_language') || 'ko';
+
+            // 언어 다시 적용
+            updateLanguage(currentLang);
         });
     });
 </script>

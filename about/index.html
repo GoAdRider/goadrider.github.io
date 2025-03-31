@@ -3,564 +3,429 @@ layout: default
 title: 소개 - NewsLens
 permalink: /about/
 ---
-<!DOCTYPE html>
-<html lang="ko">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>소개 - NewsLens</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #fb7185;
-            --dark-color: #1e293b;
-            --light-color: #f8fafc;
-            --gray-color: #64748b;
-            --transition: all 0.3s ease;
+<!-- 페이지 제목 메타데이터 -->
+<meta name="title-ko" content="소개 | NewsLens">
+<meta name="title-en" content="About | NewsLens">
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title" data-ko="NewsLens 소개" data-en="About NewsLens">NewsLens 소개</h1>
+        <p class="page-description" data-ko="철학적, 과학적 관점으로 세상을 바라보는 블로그"
+            data-en="A blog that views the world through philosophical and scientific perspectives">
+            철학적, 과학적 관점으로 세상을 바라보는 블로그
+        </p>
+    </div>
+
+    <div class="about-section">
+        <div class="about-card vision-card">
+            <div class="about-icon">
+                <i class="fas fa-eye"></i>
+            </div>
+            <div class="about-content">
+                <h2 class="about-title" data-ko="비전" data-en="Our Vision">비전</h2>
+                <p class="about-text"
+                    data-ko="NewsLens는 뉴스와 사건을 단순히 전달하는 것을 넘어, 철학적, 과학적 렌즈를 통해 세상을 바라보고 분석합니다. 우리는 정보의 홍수 속에서 진정한 통찰력을 제공하고, 독자들이 세상을 더 깊이 이해할 수 있도록 돕는 것을 목표로 합니다."
+                    data-en="NewsLens goes beyond simply delivering news and events, looking at and analyzing the world through philosophical and scientific lenses. Our goal is to provide genuine insight in a flood of information and help readers understand the world more deeply.">
+                    NewsLens는 뉴스와 사건을 단순히 전달하는 것을 넘어, 철학적, 과학적 렌즈를 통해 세상을 바라보고 분석합니다. 우리는 정보의 홍수 속에서 진정한 통찰력을 제공하고, 독자들이
+                    세상을 더 깊이 이해할 수 있도록 돕는 것을 목표로 합니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="about-card mission-card">
+            <div class="about-icon">
+                <i class="fas fa-bullseye"></i>
+            </div>
+            <div class="about-content">
+                <h2 class="about-title" data-ko="사명" data-en="Our Mission">사명</h2>
+                <p class="about-text"
+                    data-ko="우리의 사명은 복잡한 세상의 이슈들을 심층적으로 분석하고, 철학과 과학의 관점에서 새로운 시각을 제시하는 것입니다. 단순한 정보 전달을 넘어, 사고의 깊이를 더하는 콘텐츠를 통해 독자들이 비판적 사고력을 기르고 세상을 다양한 관점에서 바라볼 수 있도록 돕습니다."
+                    data-en="Our mission is to deeply analyze complex global issues and present new perspectives from philosophical and scientific viewpoints. Beyond simply conveying information, we help readers develop critical thinking and view the world from various perspectives through content that adds depth of thought.">
+                    우리의 사명은 복잡한 세상의 이슈들을 심층적으로 분석하고, 철학과 과학의 관점에서 새로운 시각을 제시하는 것입니다. 단순한 정보 전달을 넘어, 사고의 깊이를 더하는 콘텐츠를 통해
+                    독자들이 비판적 사고력을 기르고 세상을 다양한 관점에서 바라볼 수 있도록 돕습니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="about-card values-card">
+            <div class="about-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="about-content">
+                <h2 class="about-title" data-ko="가치관" data-en="Our Values">가치관</h2>
+                <p class="about-text"
+                    data-ko="NewsLens는 지적 호기심, 다양성 존중, 비판적 사고, 그리고 지속적인 학습을 핵심 가치로 삼고 있습니다. 우리는 이러한 가치를 바탕으로 객관적이고 깊이 있는 콘텐츠를 제작하여, 독자들에게 새로운 관점과 생각할 거리를 제공합니다."
+                    data-en="NewsLens values intellectual curiosity, respect for diversity, critical thinking, and continuous learning. Based on these values, we create objective and in-depth content, providing readers with new perspectives and food for thought.">
+                    NewsLens는 지적 호기심, 다양성 존중, 비판적 사고, 그리고 지속적인 학습을 핵심 가치로 삼고 있습니다. 우리는 이러한 가치를 바탕으로 객관적이고 깊이 있는 콘텐츠를
+                    제작하여, 독자들에게 새로운 관점과 생각할 거리를 제공합니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="about-card team-card">
+            <div class="about-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="about-content">
+                <h2 class="about-title" data-ko="팀 소개" data-en="Our Team">팀 소개</h2>
+                <p class="about-text"
+                    data-ko="NewsLens 팀은 철학, 과학, 저널리즘, 기술 등 다양한 분야의 전문가들로 구성되어 있습니다. 각자의 전문 분야에서 축적한 지식과 경험을 바탕으로, 세상의 다양한 이슈에 대해 깊이 있는 분석과 통찰력 있는 관점을 제공합니다."
+                    data-en="The NewsLens team consists of experts in various fields including philosophy, science, journalism, and technology. Based on the knowledge and experience accumulated in their respective fields of expertise, they provide in-depth analysis and insightful perspectives on various global issues.">
+                    NewsLens 팀은 철학, 과학, 저널리즘, 기술 등 다양한 분야의 전문가들로 구성되어 있습니다. 각자의 전문 분야에서 축적한 지식과 경험을 바탕으로, 세상의 다양한 이슈에 대해
+                    깊이 있는 분석과 통찰력 있는 관점을 제공합니다.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --accent-color: #fb7185;
+        --text-primary: #1f2937;
+        --text-secondary: #4b5563;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f9fafb;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --gradient-1: linear-gradient(135deg, #2563eb, #4f46e5);
+        --gradient-2: linear-gradient(135deg, #8b5cf6, #d946ef);
+        --gradient-3: linear-gradient(135deg, #ec4899, #f43f5e);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    /* 크고 트렌디한 페이지 헤더 */
+    .page-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding: 3rem 0;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(139, 92, 246, 0.1));
+        border-radius: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(236, 72, 153, 0.03) 0%, rgba(37, 99, 235, 0.03) 50%, transparent 70%);
+        animation: rotate 30s linear infinite;
+        z-index: 0;
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .page-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        letter-spacing: -0.025em;
+        color: var(--text-primary);
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+    }
+
+    .page-title::after {
+        content: '';
+        position: absolute;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+    }
+
+    .page-description {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        max-width: 700px;
+        margin: 1.5rem auto 0;
+        position: relative;
+        z-index: 1;
+        line-height: 1.6;
+    }
+
+    /* 소개 섹션 스타일 */
+    .about-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .about-card {
+        display: flex;
+        gap: 1.5rem;
+        background-color: var(--bg-primary);
+        border-radius: 1rem;
+        box-shadow: var(--shadow-md);
+        padding: 2rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 0;
+        transition: height 0.3s ease;
+        border-radius: 4px 0 0 4px;
+    }
+
+    .vision-card::before {
+        background: var(--gradient-1);
+    }
+
+    .mission-card::before {
+        background: var(--gradient-2);
+    }
+
+    .values-card::before {
+        background: var(--gradient-3);
+    }
+
+    .team-card::before {
+        background: linear-gradient(180deg, #3b82f6, #10b981);
+    }
+
+    .about-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .about-card:hover::before {
+        height: 100%;
+    }
+
+    .about-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        background: var(--bg-secondary);
+        border-radius: 1rem;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        color: var(--primary-color);
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .vision-card .about-icon {
+        color: #4f46e5;
+    }
+
+    .mission-card .about-icon {
+        color: #8b5cf6;
+    }
+
+    .values-card .about-icon {
+        color: #ec4899;
+    }
+
+    .team-card .about-icon {
+        color: #10b981;
+    }
+
+    .about-card:hover .about-icon {
+        transform: scale(1.1) rotate(10deg);
+        box-shadow: var(--shadow-md);
+    }
+
+    .about-content {
+        flex-grow: 1;
+    }
+
+    .about-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+    }
+
+    .about-text {
+        color: var(--text-secondary);
+        line-height: 1.7;
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+        .page-title {
+            font-size: 2.5rem;
         }
 
-        body {
-            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-            line-height: 1.7;
-            color: var(--dark-color);
-            background-color: var(--light-color);
+        .about-section {
+            grid-template-columns: 1fr;
         }
+    }
 
+    @media (max-width: 576px) {
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* 헤더 스타일 - 공통 */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #2563eb;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            color: #fb7185;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #64748b;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a:hover,
-        nav a.active {
-            color: #2563eb;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #2563eb;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover::after,
-        nav a.active::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .language-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .language-switcher:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-        }
-
-        .language-switcher i {
-            color: #2563eb;
-        }
-
-        .search-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #2563eb;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .search-button:hover {
-            background-color: #1e40af;
-            transform: scale(1.05);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* 메인 콘텐츠 스타일 */
-        .main {
-            padding: 4rem 0;
-            min-height: calc(100vh - 200px);
-        }
-
-        .page-header {
-            margin-bottom: 3rem;
-            text-align: center;
+            padding: 1rem;
         }
 
         .page-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-
-        .page-description {
-            font-size: 1.1rem;
-            color: var(--gray-color);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-        }
-
-        /* About 섹션 스타일 */
-        .about-section {
-            max-width: 800px;
-            margin: 0 auto 4rem;
-        }
-
-        .about-item {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            padding: 2.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .about-heading {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-        }
-
-        .about-content {
-            color: var(--gray-color);
-            line-height: 1.8;
-        }
-
-        .about-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .about-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .mission-values {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .value-card {
-            background-color: var(--light-color);
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .value-card .icon {
             font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
         }
 
-        .value-card h4 {
-            margin-bottom: 0.8rem;
-            color: var(--dark-color);
-        }
-
-        .value-card p {
-            font-size: 0.95rem;
-            margin-bottom: 0;
-        }
-
-        .team-members {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .contact-link {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .contact-link:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-
-        /* 푸터 스타일 - 공통 */
-        .footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 3rem 0;
-            margin-top: 3rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-brand {
-            max-width: 400px;
-        }
-
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .footer-description {
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-        .footer-links-container {
-            display: flex;
+        .about-card {
             flex-direction: column;
+            padding: 1.5rem;
+            gap: 1rem;
         }
 
-        .footer-links-title {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link {
+        .about-icon {
             margin-bottom: 0.5rem;
         }
+    }
+</style>
 
-        .footer-link a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: var(--transition);
-        }
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 다국어 요소 선택
+        const pageTitle = document.querySelector('.page-title');
+        const pageDescription = document.querySelector('.page-description');
+        const aboutTitles = document.querySelectorAll('.about-title');
+        const aboutTexts = document.querySelectorAll('.about-text');
 
-        .footer-link a:hover {
-            color: white;
-        }
+        // 언어 변경 처리 함수
+        function updateLanguage(lang) {
+            console.log('[소개 페이지] 언어 업데이트:', lang);
 
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-        }
-
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
+            // 페이지 제목과 설명 업데이트
+            if (pageTitle && pageTitle.getAttribute(`data-${lang}`)) {
+                pageTitle.textContent = pageTitle.getAttribute(`data-${lang}`);
             }
 
-            .footer-brand {
-                grid-column: 1 / -1;
-                max-width: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            nav,
-            .header-actions {
-                display: none;
+            if (pageDescription && pageDescription.getAttribute(`data-${lang}`)) {
+                pageDescription.textContent = pageDescription.getAttribute(`data-${lang}`);
             }
 
-            .mobile-menu {
-                display: block;
-            }
-
-            nav.active,
-            .header-actions.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: white;
-                padding: 1rem;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            nav.active {
-                gap: 1rem;
-            }
-
-            .about-item {
-                padding: 1.5rem;
-            }
-
-            .mission-values {
-                grid-template-columns: 1fr;
-            }
-
-            .team-members {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <main class="main">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title" id="page-title">소개</h1>
-                <p class="page-description" id="page-description">NewsLens는 철학적, 과학적 사고로 세상을 바라보는 블로그입니다.</p>
-            </div>
-
-            <!-- 한국어 콘텐츠 -->
-            <div class="about-section" id="about-ko" data-lang="ko">
-                <div class="about-item">
-                    <h2 class="about-heading">철학적 사고의 중요성</h2>
-                    <div class="about-content">
-                        <p>현대 사회의 복잡한 문제들을 이해하기 위해서는 철학적 사고가 필수적입니다. NewsLens는 다양한 현상과 이슈를 철학적 관점에서 바라보고 분석합니다.</p>
-                        <p>우리는 단순한 사실 전달을 넘어, 그 사실이 가지는 의미와 함의를 깊이 있게 탐구합니다. 이를 통해 독자들에게 새로운 시각과 통찰을 제공하고자 합니다.</p>
-                    </div>
-                </div>
-
-                <div class="about-item">
-                    <h2 class="about-heading">과학적 접근의 가치</h2>
-                    <div class="about-content">
-                        <p>철학적 사고와 함께, 엄격한 과학적 방법론은 우리의 분석에 객관성과 타당성을 부여합니다. NewsLens는 검증 가능한 데이터와 연구 결과를 기반으로 주장을
-                            전개합니다.</p>
-                        <p>우리는 과학의 최신 발견들이 우리의 세계관과 자기 이해에 어떤 영향을 미치는지 탐구하며, 과학과 인문학의 경계를 넘나드는 통합적 관점을 추구합니다.</p>
-                    </div>
-                </div>
-
-                <div class="about-item">
-                    <h2 class="about-heading">다학제적 접근</h2>
-                    <div class="about-content">
-                        <p>어떤 복잡한 현상도 단일 학문의 관점으로는 충분히 이해될 수 없습니다. NewsLens는 철학, 과학, 사회학, 심리학, 인류학 등 다양한 학문 분야의 통찰을 통합하는
-                            다학제적 접근을 지향합니다.</p>
-                        <p>우리는 이러한 다양한 관점의 교차점에서 더 깊고 풍부한 이해가 가능하다고 믿으며, 이를 통해 독자들에게 균형 잡힌 시각을 제공하고자 합니다.</p>
-                    </div>
-                </div>
-
-                <div class="about-item">
-                    <h2 class="about-heading">NewsLens의 비전</h2>
-                    <div class="about-content">
-                        <p>NewsLens는 현대 사회의 정보 과잉 속에서 깊이 있는 사고와 분석이 더욱 중요해졌다고 믿습니다. 우리는 빠르게 소비되는 단편적 정보가 아닌, 철저한 조사와 깊이
-                            있는 성찰을 바탕으로 한 콘텐츠를 제공합니다.</p>
-                        <p>우리의 목표는 독자들이 현대 사회의 복잡한 이슈들을 더 깊이 이해하고, 비판적으로 사고하며, 자신만의 관점을 발전시킬 수 있도록 돕는 것입니다. NewsLens와 함께
-                            세상을 더 넓고 깊게 바라보세요.</p>
-                        <p><a href="/contact/" class="contact-link" id="contact-link-ko">문의하기</a></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 영어 콘텐츠 -->
-            <div class="about-section" id="about-en" data-lang="en" style="display: none;">
-                <div class="about-item">
-                    <h2 class="about-heading">The Importance of Philosophical Thinking</h2>
-                    <div class="about-content">
-                        <p>To understand the complex problems of modern society, philosophical thinking is essential.
-                            NewsLens observes and analyzes various phenomena and issues from a philosophical
-                            perspective.</p>
-                        <p>We go beyond simply conveying facts, deeply exploring their meanings and implications.
-                            Through this approach, we aim to provide readers with new perspectives and insights.</p>
-                    </div>
-                </div>
-
-                <div class="about-item">
-                    <h2 class="about-heading">The Value of Scientific Approach</h2>
-                    <div class="about-content">
-                        <p>Along with philosophical thinking, rigorous scientific methodology lends objectivity and
-                            validity to our analyses. NewsLens develops arguments based on verifiable data and research
-                            findings.</p>
-                        <p>We explore how the latest scientific discoveries affect our worldview and self-understanding,
-                            pursuing an integrated perspective that crosses the boundaries between science and
-                            humanities.</p>
-                    </div>
-                </div>
-
-                <div class="about-item">
-                    <h2 class="about-heading">Interdisciplinary Approach</h2>
-                    <div class="about-content">
-                        <p>No complex phenomenon can be fully understood from the perspective of a single discipline.
-                            NewsLens aims for an interdisciplinary approach that integrates insights from various
-                            academic fields including philosophy, science, sociology, psychology, and anthropology.</p>
-                        <p>We believe that a deeper and richer understanding is possible at the intersection of these
-                            diverse perspectives, and through this, we strive to provide readers with a balanced
-                            viewpoint.</p>
-                    </div>
-                </div>
-
-                <div class="about-item">
-                    <h2 class="about-heading">NewsLens Vision</h2>
-                    <div class="about-content">
-                        <p>NewsLens believes that in-depth thinking and analysis have become even more important in
-                            today's information-saturated society. We provide content based on thorough research and
-                            deep reflection, rather than fragmentary information that is quickly consumed.</p>
-                        <p>Our goal is to help readers understand the complex issues of modern society more deeply,
-                            think critically, and develop their own perspectives. See the world more broadly and deeply
-                            with NewsLens.</p>
-                        <p><a href="/contact/?lang=en" class="contact-link" id="contact-link-en">Contact Us</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // 언어 변경 함수
-            function updateLanguage(lang) {
-                const pageTitle = document.getElementById('page-title');
-                const pageDescription = document.getElementById('page-description');
-                const aboutKo = document.getElementById('about-ko');
-                const aboutEn = document.getElementById('about-en');
-                const contactLinkKo = document.getElementById('contact-link-ko');
-                const contactLinkEn = document.getElementById('contact-link-en');
-
-                if (lang === 'en') {
-                    // 영어 콘텐츠 표시
-                    pageTitle.textContent = 'About';
-                    pageDescription.textContent = 'NewsLens is a blog that views the world through philosophical and scientific thinking.';
-                    aboutKo.style.display = 'none';
-                    aboutEn.style.display = 'block';
-                } else {
-                    // 한국어 콘텐츠 표시
-                    pageTitle.textContent = '소개';
-                    pageDescription.textContent = 'NewsLens는 철학적, 과학적 사고로 세상을 바라보는 블로그입니다.';
-                    aboutKo.style.display = 'block';
-                    aboutEn.style.display = 'none';
+            // 소개 섹션 제목 업데이트
+            aboutTitles.forEach(title => {
+                if (title.getAttribute(`data-${lang}`)) {
+                    title.textContent = title.getAttribute(`data-${lang}`);
                 }
+            });
 
-                // 링크에 언어 파라미터 추가
-                if (contactLinkKo) {
-                    contactLinkKo.href = "/contact/" + (lang === 'en' ? '?lang=en' : '');
+            // 소개 섹션 텍스트 업데이트
+            aboutTexts.forEach(text => {
+                if (text.getAttribute(`data-${lang}`)) {
+                    text.textContent = text.getAttribute(`data-${lang}`);
                 }
-                if (contactLinkEn) {
-                    contactLinkEn.href = "/contact/" + (lang === 'en' ? '?lang=en' : '');
-                }
+            });
+
+            // 문서 제목 업데이트
+            const titleMeta = document.querySelector('meta[name="title-' + lang + '"]');
+            if (titleMeta) {
+                document.title = titleMeta.getAttribute('content');
             }
+        }
 
-            // URL 파라미터에서 언어 확인
+        // 언어 변경 이벤트 리스너 설정
+        function setupAllLanguageListeners() {
+            // 언어 변경 이벤트 리스너 (window와 document 모두에 설정)
+            ['languageChange', 'languageChanged'].forEach(eventName => {
+                window.addEventListener(eventName, e => {
+                    const lang = e.detail.language;
+                    console.log(`[소개 페이지] ${eventName} 이벤트 감지:`, lang);
+                    updateLanguage(lang);
+                });
+
+                document.addEventListener(eventName, e => {
+                    const lang = e.detail.language;
+                    console.log(`[소개 페이지] document ${eventName} 이벤트 감지:`, lang);
+                    updateLanguage(lang);
+                });
+            });
+
+            // HTML lang 속성 변경 감지
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'lang') {
+                        const lang = document.documentElement.getAttribute('lang') || 'ko';
+                        console.log('[소개 페이지] HTML lang 속성 변경 감지:', lang);
+                        updateLanguage(lang);
+                    }
+                });
+            });
+
+            observer.observe(document.documentElement, { attributes: true });
+        }
+
+        // 초기화 함수
+        function initialize() {
+            // 카드 애니메이션 효과 추가
+            const aboutCards = document.querySelectorAll('.about-card');
+            aboutCards.forEach((card, index) => {
+                // 애니메이션 지연 추가
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = 'translateY(0)';
+                }, 100 + index * 100);
+            });
+
+            // 언어 이벤트 리스너 설정
+            setupAllLanguageListeners();
+
+            // 초기 언어 설정
             const urlParams = new URLSearchParams(window.location.search);
             const langParam = urlParams.get('lang');
-
-            // localStorage에서 언어 설정 확인
             const storedLang = localStorage.getItem('preferred_language');
+            const htmlLang = document.documentElement.getAttribute('lang');
+            const initialLang = langParam || storedLang || htmlLang || 'ko';
 
-            // 언어 파라미터가 있으면 그에 맞게 설정
-            if (langParam) {
-                updateLanguage(langParam);
-            }
-            // localStorage에 저장된 설정 사용
-            else if (storedLang) {
-                updateLanguage(storedLang);
-            }
+            console.log('[소개 페이지] 초기 언어 설정:', initialLang);
 
-            // 언어 변경 이벤트 리스너 추가
-            window.addEventListener('languageChange', function (e) {
-                const newLang = e.detail.language;
-                updateLanguage(newLang);
-            });
+            // 초기 언어 적용
+            updateLanguage(initialLang);
+        }
+
+        // 페이지 로드 시 초기화 실행
+        initialize();
+
+        // 페이지 완전 로드 후 추가 초기화 (안전장치)
+        window.addEventListener('load', function () {
+            console.log('[소개 페이지] 페이지 완전히 로드됨, 추가 초기화');
+
+            // 현재 언어 재확인
+            const currentLang = document.documentElement.getAttribute('lang') ||
+                localStorage.getItem('preferred_language') || 'ko';
+
+            // 언어 다시 적용
+            updateLanguage(currentLang);
         });
-    </script>
-</body>
-
-</html>
+    });
+</script>
