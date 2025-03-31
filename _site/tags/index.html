@@ -559,85 +559,176 @@
     </div>
 
     <div class="tag-cloud">
+        <!-- 전체 태그 버튼 추가 -->
+        <a href="#" class="tag-item all-tags-button" data-tag="all" data-ko="전체" data-en="All">
+            <span class="tag-name" data-ko="전체" data-en="All">전체</span>
+            <span class="tag-count">8</span>
+        </a>
+
+        
+        
+        
+        
+        
+
+        <!-- 이 태그의 영어 버전 찾기 -->
         
         
         
         
         
         
+
+        
+
         <a href="#AI" class="tag-item" data-count="1" data-tag="AI"
-            data-ko="AI" data-en="quantum mechanics">
-            <span class="tag-name">#AI</span>
+            data-ko="AI" data-en="AI">
+            <span class="tag-name" data-ko="#AI" data-en="#AI">#AI</span>
             <span class="tag-count">1</span>
         </a>
         
         
         
         
+
+        <!-- 이 태그의 영어 버전 찾기 -->
         
+        
+        
+        
+        
+        
+
+        
+
         <a href="#과학적고찰" class="tag-item" data-count="1" data-tag="과학적고찰"
-            data-ko="과학적고찰" data-en="consciousness">
-            <span class="tag-name">#과학적고찰</span>
+            data-ko="과학적고찰" data-en="과학적고찰">
+            <span class="tag-name" data-ko="#과학적고찰" data-en="#과학적고찰">#과학적고찰</span>
             <span class="tag-count">1</span>
         </a>
         
         
         
         
+
+        <!-- 이 태그의 영어 버전 찾기 -->
         
+        
+        
+        
+        
+        
+
+        
+
         <a href="#뇌과학" class="tag-item" data-count="1" data-tag="뇌과학"
-            data-ko="뇌과학" data-en="philosophy of mind">
-            <span class="tag-name">#뇌과학</span>
+            data-ko="뇌과학" data-en="뇌과학">
+            <span class="tag-name" data-ko="#뇌과학" data-en="#뇌과학">#뇌과학</span>
             <span class="tag-count">1</span>
         </a>
         
         
         
         
+
+        <!-- 이 태그의 영어 버전 찾기 -->
         
+        
+        
+        
+        
+        
+
+        
+
         <a href="#마음의철학" class="tag-item" data-count="1" data-tag="마음의철학"
-            data-ko="마음의철학" data-en="neuroscience">
-            <span class="tag-name">#마음의철학</span>
+            data-ko="마음의철학" data-en="마음의철학">
+            <span class="tag-name" data-ko="#마음의철학" data-en="#마음의철학">#마음의철학</span>
             <span class="tag-count">1</span>
         </a>
         
         
         
         
+
+        <!-- 이 태그의 영어 버전 찾기 -->
         
+        
+        
+        
+        
+        
+
+        
+
         <a href="#양자역학" class="tag-item" data-count="1" data-tag="양자역학"
             data-ko="양자역학" data-en="양자역학">
-            <span class="tag-name">#양자역학</span>
+            <span class="tag-name" data-ko="#양자역학" data-en="#양자역학">#양자역학</span>
             <span class="tag-count">1</span>
         </a>
         
         
         
         
+
+        <!-- 이 태그의 영어 버전 찾기 -->
         
+        
+        
+        
+        
+        
+
+        
+
         <a href="#윤리" class="tag-item" data-count="1" data-tag="윤리"
             data-ko="윤리" data-en="윤리">
-            <span class="tag-name">#윤리</span>
+            <span class="tag-name" data-ko="#윤리" data-en="#윤리">#윤리</span>
             <span class="tag-count">1</span>
         </a>
         
         
         
         
+
+        <!-- 이 태그의 영어 버전 찾기 -->
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+
         <a href="#의식" class="tag-item" data-count="2" data-tag="의식"
             data-ko="의식" data-en="의식">
-            <span class="tag-name">#의식</span>
+            <span class="tag-name" data-ko="#의식" data-en="#의식">#의식</span>
             <span class="tag-count">2</span>
         </a>
         
         
         
         
+
+        <!-- 이 태그의 영어 버전 찾기 -->
         
+        
+        
+        
+        
+        
+
+        
+
         <a href="#철학적분석" class="tag-item" data-count="1" data-tag="철학적분석"
             data-ko="철학적분석" data-en="철학적분석">
-            <span class="tag-name">#철학적분석</span>
+            <span class="tag-name" data-ko="#철학적분석" data-en="#철학적분석">#철학적분석</span>
             <span class="tag-count">1</span>
         </a>
         
@@ -1848,6 +1939,7 @@
         let currentTag = '';
         const allSections = document.querySelectorAll('.tag-section');
         const tagItems = document.querySelectorAll('.tag-item');
+        const allTagsBtn = document.querySelector('.all-tags-button');
 
         // 태그 데이터 로드
         try {
@@ -1868,8 +1960,35 @@
                 section.style.display = 'none';
             });
 
+            // 전체 태그 버튼 클릭 이벤트
+            if (allTagsBtn) {
+                allTagsBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    console.log('[태그 페이지] 전체 태그 클릭');
+
+                    // 현재 선택된 태그 표시
+                    tagItems.forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // 모든 섹션 표시
+                    allSections.forEach(section => {
+                        section.style.display = 'block';
+                    });
+
+                    currentTag = 'all';
+
+                    // 브라우저 URL 업데이트
+                    window.history.replaceState(null, null, '');
+
+                    // 페이지 상단으로 스크롤
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
             // 태그 클릭 이벤트 추가
             tagItems.forEach(tagItem => {
+                if (tagItem.classList.contains('all-tags-button')) return; // 전체 버튼 제외
+
                 tagItem.addEventListener('click', function (e) {
                     e.preventDefault();
                     const tagName = this.getAttribute('data-tag');
@@ -1920,8 +2039,8 @@
                     }
                 }
 
-                // 태그 링크인 경우 '#' 기호 추가
-                if (el.classList.contains('tag-link') || el.classList.contains('tag-name')) {
+                // 태그 링크인 경우 '#' 기호 확인
+                if (el.classList.contains('tag-link')) {
                     if (el.textContent && !el.textContent.startsWith('#')) {
                         el.textContent = '#' + el.textContent;
                     }
@@ -2010,10 +2129,17 @@
                     }, 100);
                 } else {
                     console.warn('[태그 페이지] 해당 태그 아이템을 찾을 수 없음:', tagName);
+                    // 태그를 찾지 못했을 경우 전체 버튼 클릭
+                    if (allTagsBtn) {
+                        setTimeout(() => allTagsBtn.click(), 100);
+                    }
                 }
             } else {
-                // 해시가 없으면 첫 번째 태그 클릭
-                if (tagItems.length > 0) {
+                // 해시가 없으면 전체 태그 버튼 클릭
+                if (allTagsBtn) {
+                    setTimeout(() => allTagsBtn.click(), 100);
+                } else if (tagItems.length > 0) {
+                    // 전체 버튼이 없으면 첫 번째 태그 클릭
                     setTimeout(() => {
                         tagItems[0].click();
                     }, 100);
