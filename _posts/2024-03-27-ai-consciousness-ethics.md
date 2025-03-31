@@ -130,7 +130,9 @@ While answers to these questions remain unclear, they will become increasingly i
 document.addEventListener('DOMContentLoaded', function() {
   // 언어 변경 감지 함수
   function updatePostLanguage() {
-    const lang = document.documentElement.getAttribute('lang') || 'ko';
+    const lang = localStorage.getItem('lang') || 'ko';
+    console.log('[포스트] 언어 변경 감지:', lang);
+    
     const koContent = document.querySelector('.post-content-ko');
     const enContent = document.querySelector('.post-content-en');
     
@@ -148,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 언어 변경 이벤트 리스너
   document.addEventListener('languageChanged', function(e) {
+    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
     updatePostLanguage();
   });
 });
