@@ -10,59 +10,101 @@
             console.log('[💡 포스트 레이아웃] 언어 전환:', lang);
 
             try {
-                // 1. 본문 내용 전환 (강력한 직접 표시/숨김 방식)
-                console.log('[💡 포스트 레이아웃] 본문 내용 전환 시작');
+                // 1. 가장 간단한 접근법 - 직접 스타일시트 삽입
+                const styleId = 'language-switch-styles';
+                let styleEl = document.getElementById(styleId);
 
-                // 여러 선택자를 시도하여 모든 가능한 본문 요소 찾기
-                const koContents = document.querySelectorAll('.post-content-ko, [class*="post-content-ko"], [class^="post-content-ko"]');
-                const enContents = document.querySelectorAll('.post-content-en, [class*="post-content-en"], [class^="post-content-en"]');
-
-                console.log('[�� 포스트 레이아웃] 콘텐츠 요소 개수:', {
-                    '한국어요소': koContents.length,
-                    '영어요소': enContents.length
-                });
-
-                // 강력한 방식으로 표시/숨김 처리
-                if (koContents.length > 0 || enContents.length > 0) {
-                    if (lang === 'ko') {
-                        // 한국어 표시, 영어 숨김
-                        koContents.forEach(el => {
-                            el.style.cssText = "display: block !important; visibility: visible !important; opacity: 1 !important;";
-                        });
-                        enContents.forEach(el => {
-                            el.style.cssText = "display: none !important; visibility: hidden !important; opacity: 0 !important;";
-                        });
-                    } else {
-                        // 영어 표시, 한국어 숨김
-                        koContents.forEach(el => {
-                            el.style.cssText = "display: none !important; visibility: hidden !important; opacity: 0 !important;";
-                        });
-                        enContents.forEach(el => {
-                            el.style.cssText = "display: block !important; visibility: visible !important; opacity: 1 !important;";
-                        });
-                    }
-
-                    console.log('[💡 포스트 레이아웃] 본문 내용 전환 완료:', lang === 'ko' ? '한국어' : '영어');
-
-                    // 변경 사항이 DOM에 반영되도록 강제 리플로우
-                    document.body.offsetHeight;
-                } else {
-                    console.warn('[💡 포스트 레이아웃] 다국어 콘텐츠 요소를 찾을 수 없음');
+                if (!styleEl) {
+                    styleEl = document.createElement('style');
+                    styleEl.id = styleId;
+                    document.head.appendChild(styleEl);
                 }
 
-                // 2. 카테고리/태그 업데이트 (데이터 속성 기반)
+                // 아주 강력한 CSS 규칙 추가 (모든 다른 스타일을 덮어씀)
+                if (lang === 'ko') {
+                    styleEl.innerHTML = `
+                        .post-content-ko { display: block !important; visibility: visible !important; opacity: 1 !important; }
+                        .post-content-en { display: none !important; visibility: hidden !important; opacity: 0 !important; }
+                    `;
+                    console.log('[💡 포스트 레이아웃] 한국어 모드 스타일 적용');
+                } else {
+                    styleEl.innerHTML = `
+                        .post-content-ko { display: none !important; visibility: hidden !important; opacity: 0 !important; }
+                        .post-content-en { display: block !important; visibility: visible !important; opacity: 1 !important; }
+                    `;
+                    console.log('[💡 포스트 레이아웃] 영어 모드 스타일 적용');
+                }
+
+                // 2. 직접 DOM 요소 수정 (백업 메커니즘)
+                console.log('[💡 포스트 레이아웃] 본문 요소 직접 조작 시작');
+
+                // 여러 방법으로 요소 찾기 시도
+                const koContents = document.querySelectorAll('.post-content-ko');
+                const enContents = document.querySelectorAll('.post-content-en');
+
+                console.log('[💡 포스트 레이아웃] 찾은 요소:', {
+                    '한국어': koContents.length,
+                    '영어': enContents.length
+                });
+
+                // 직접 인라인 스타일 적용 (가장 우선순위 높음)
+                if (lang === 'ko') {
+                    koContents.forEach(el => {
+                        console.log('[💡 포스트 레이아웃] 한국어 요소 표시:', el);
+                        el.style.setProperty('display', 'block', 'important');
+                        el.style.setProperty('visibility', 'visible', 'important');
+                        el.style.setProperty('opacity', '1', 'important');
+                    });
+
+                    enContents.forEach(el => {
+                        console.log('[💡 포스트 레이아웃] 영어 요소 숨김:', el);
+                        el.style.setProperty('display', 'none', 'important');
+                        el.style.setProperty('visibility', 'hidden', 'important');
+                        el.style.setProperty('opacity', '0', 'important');
+                    });
+                } else {
+                    koContents.forEach(el => {
+                        console.log('[�� 포스트 레이아웃] 한국어 요소 숨김:', el);
+                        el.style.setProperty('display', 'none', 'important');
+                        el.style.setProperty('visibility', 'hidden', 'important');
+                        el.style.setProperty('opacity', '0', 'important');
+                    });
+
+                    enContents.forEach(el => {
+                        console.log('[💡 포스트 레이아웃] 영어 요소 표시:', el);
+                        el.style.setProperty('display', 'block', 'important');
+                        el.style.setProperty('visibility', 'visible', 'important');
+                        el.style.setProperty('opacity', '1', 'important');
+                    });
+                }
+
+                // 추가 디버깅 - 요소 속성 출력
+                if (koContents.length > 0) {
+                    console.log('[💡 포스트 레이아웃] 한국어 요소 클래스:', koContents[0].className);
+                    console.log('[💡 포스트 레이아웃] 한국어 요소 HTML:', koContents[0].outerHTML.substring(0, 100) + '...');
+                }
+
+                if (enContents.length > 0) {
+                    console.log('[💡 포스트 레이아웃] 영어 요소 클래스:', enContents[0].className);
+                    console.log('[💡 포스트 레이아웃] 영어 요소 HTML:', enContents[0].outerHTML.substring(0, 100) + '...');
+                }
+
+                // 3. 다른 언어 요소들 (카테고리, 태그 등) 업데이트
+                document.querySelectorAll('[data-ko][data-en]').forEach(el => {
+                    el.textContent = lang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+                });
+
+                // 4. 카테고리/태그 특별 처리
                 document.querySelectorAll('.post-categories .category-link span, .post-tags .tag-text').forEach(el => {
                     if (el.hasAttribute('data-ko') && el.hasAttribute('data-en')) {
                         el.textContent = lang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
                     }
                 });
 
-                // 3. 기타 다국어 요소
-                document.querySelectorAll('[data-ko][data-en]').forEach(el => {
-                    el.textContent = lang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
-                });
-
                 console.log('[💡 포스트 레이아웃] 모든 요소 전환 완료');
+
+                // DOM 업데이트가 반영되도록 강제
+                document.body.offsetHeight;
             } catch (err) {
                 console.error('[💡 포스트 레이아웃] 오류 발생:', err);
             }
