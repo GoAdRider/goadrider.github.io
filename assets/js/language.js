@@ -25,20 +25,78 @@ function updateLanguage(lang) {
         영어요소수: enContents.length
     });
 
-    // 포스트 본문 언어 전환 - !important로 강제 적용
-    koContents.forEach(el => {
-        el.style.cssText = lang === 'ko'
-            ? 'display: block !important; visibility: visible !important; opacity: 1 !important;'
-            : 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+    // 디버깅을 위한 더 상세한 요소 정보 로깅
+    koContents.forEach((el, i) => {
+        console.log(`[언어 시스템] 한국어 콘텐츠 #${i + 1}:`, {
+            표시상태: getComputedStyle(el).display,
+            가시성: getComputedStyle(el).visibility,
+            부모요소: el.parentElement ? el.parentElement.className : '없음'
+        });
     });
 
-    enContents.forEach(el => {
-        el.style.cssText = lang === 'en'
-            ? 'display: block !important; visibility: visible !important; opacity: 1 !important;'
-            : 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+    enContents.forEach((el, i) => {
+        console.log(`[언어 시스템] 영어 콘텐츠 #${i + 1}:`, {
+            표시상태: getComputedStyle(el).display,
+            가시성: getComputedStyle(el).visibility,
+            부모요소: el.parentElement ? el.parentElement.className : '없음'
+        });
     });
 
-    console.log('[언어 시스템] 포스트 본문 언어 전환 완료:', lang);
+    // 포스트 본문 언어 전환 - DOM 직접 조작 방식
+    try {
+        koContents.forEach(el => {
+            // 스타일 속성 직접 설정 + !important로 강제 적용
+            el.style.cssText = lang === 'ko'
+                ? 'display: block !important; visibility: visible !important; opacity: 1 !important;'
+                : 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+
+            // 클래스 방식으로도 추가 적용
+            if (lang === 'ko') {
+                el.classList.add('lang-active');
+                el.classList.remove('lang-inactive');
+            } else {
+                el.classList.add('lang-inactive');
+                el.classList.remove('lang-active');
+            }
+        });
+
+        enContents.forEach(el => {
+            // 스타일 속성 직접 설정 + !important로 강제 적용
+            el.style.cssText = lang === 'en'
+                ? 'display: block !important; visibility: visible !important; opacity: 1 !important;'
+                : 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+
+            // 클래스 방식으로도 추가 적용
+            if (lang === 'en') {
+                el.classList.add('lang-active');
+                el.classList.remove('lang-inactive');
+            } else {
+                el.classList.add('lang-inactive');
+                el.classList.remove('lang-active');
+            }
+        });
+
+        console.log('[언어 시스템] DOM 조작 완료');
+    } catch (err) {
+        console.error('[언어 시스템] DOM 조작 오류:', err);
+    }
+
+    // 적용 후 상태 확인 로깅
+    setTimeout(() => {
+        koContents.forEach((el, i) => {
+            console.log(`[언어 시스템] 한국어 콘텐츠 #${i + 1} 상태:`, {
+                표시상태: getComputedStyle(el).display,
+                가시성: getComputedStyle(el).visibility
+            });
+        });
+
+        enContents.forEach((el, i) => {
+            console.log(`[언어 시스템] 영어 콘텐츠 #${i + 1} 상태:`, {
+                표시상태: getComputedStyle(el).display,
+                가시성: getComputedStyle(el).visibility
+            });
+        });
+    }, 50);
 
     // 모든 다국어 요소 업데이트
     document.querySelectorAll('[data-ko]').forEach(element => {
@@ -77,6 +135,12 @@ function updateLanguage(lang) {
         console.error('[언어 시스템] 스토리지 이벤트 발생 실패:', e);
     }
 
+    // 포스트 페이지 전용 이벤트
+    document.dispatchEvent(new CustomEvent('postLanguageChange', {
+        detail: { language: lang }
+    }));
+    console.log('[언어 시스템] 포스트 언어 변경 이벤트 발생');
+
     // 지연 후 컨텐츠 전환 확인 및 필요시 강제 변환
     setTimeout(() => {
         const koVisible = document.querySelectorAll('.post-content-ko:not([style*="display: none"])').length;
@@ -88,37 +152,43 @@ function updateLanguage(lang) {
             현재언어: lang
         });
 
-        // 전환이 제대로 되지 않았으면 DOM 조작으로 강제 전환
+        // 전환이 제대로 되지 않았으면 더 강력한 DOM 조작으로 강제 전환
         if ((lang === 'ko' && (koVisible === 0 || enVisible > 0)) ||
             (lang === 'en' && (enVisible === 0 || koVisible > 0))) {
             console.log('[언어 시스템] 강제 DOM 교체 수행');
 
-            // 모든 포스트 컨텐츠 요소 찾기
-            const postContentEls = document.querySelectorAll('.post-content');
+            // 콘텐츠 요소 컨테이너 찾기
+            const containers = document.querySelectorAll('.post-content');
 
-            postContentEls.forEach(postEl => {
-                const koEl = postEl.querySelector('.post-content-ko');
-                const enEl = postEl.querySelector('.post-content-en');
+            containers.forEach(container => {
+                const koEl = container.querySelector('.post-content-ko');
+                const enEl = container.querySelector('.post-content-en');
 
                 if (koEl && enEl) {
-                    // HTML 내용 직접 설정
+                    // 완전히 새로운 요소 생성 및 교체
+                    const newContainer = container.cloneNode(false);
+
                     if (lang === 'ko') {
-                        koEl.style.display = 'block';
-                        enEl.style.display = 'none';
+                        const newKoEl = koEl.cloneNode(true);
+                        newKoEl.style.cssText = 'display: block !important; visibility: visible !important;';
+                        newContainer.appendChild(newKoEl);
 
-                        // 부모 요소에 명시적 높이 설정 (레이아웃 시프트 방지)
-                        if (postEl.offsetHeight > 0) {
-                            postEl.style.minHeight = postEl.offsetHeight + 'px';
-                        }
+                        const hiddenEnEl = enEl.cloneNode(true);
+                        hiddenEnEl.style.cssText = 'display: none !important; visibility: hidden !important;';
+                        newContainer.appendChild(hiddenEnEl);
                     } else {
-                        koEl.style.display = 'none';
-                        enEl.style.display = 'block';
+                        const hiddenKoEl = koEl.cloneNode(true);
+                        hiddenKoEl.style.cssText = 'display: none !important; visibility: hidden !important;';
+                        newContainer.appendChild(hiddenKoEl);
 
-                        // 부모 요소에 명시적 높이 설정 (레이아웃 시프트 방지)
-                        if (postEl.offsetHeight > 0) {
-                            postEl.style.minHeight = postEl.offsetHeight + 'px';
-                        }
+                        const newEnEl = enEl.cloneNode(true);
+                        newEnEl.style.cssText = 'display: block !important; visibility: visible !important;';
+                        newContainer.appendChild(newEnEl);
                     }
+
+                    // 기존 컨테이너 교체
+                    container.parentNode.replaceChild(newContainer, container);
+                    console.log('[언어 시스템] 컨테이너 교체 완료');
                 }
             });
         }
