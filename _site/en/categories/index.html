@@ -2781,6 +2781,16 @@
                 }
             });
 
+            // 카테고리 탭 버튼 텍스트 업데이트
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                if (lang === 'ko' && button.hasAttribute('data-ko')) {
+                    button.textContent = button.getAttribute('data-ko');
+                } else if (lang === 'en' && button.hasAttribute('data-en')) {
+                    button.textContent = button.getAttribute('data-en');
+                }
+            });
+
             // 카테고리 링크 업데이트 - 프론트매터 데이터 우선 사용
             const categoryLinks = document.querySelectorAll('.category-link');
             categoryLinks.forEach(link => {
