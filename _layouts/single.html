@@ -1,7 +1,349 @@
+---
+layout: default
+---
+
+<div class="container">
+    <div class="post-container">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">
+                    <span data-ko="{{ page.title }}" data-en="{{ page.title_en | default: page.title }}">
+                        {% if page.lang == 'en' %}
+                        {{ page.title_en | default: page.title }}
+                        {% else %}
+                        {{ page.title }}
+                        {% endif %}
+                    </span>
+                </h1>
+
+                <div class="post-meta">
+                    <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+                        {{ page.date | date: "%Y-%m-%d" }}
+                    </time>
+
+                    {% if page.categories %}
+                    <div class="post-categories">
+                        {% for category in page.categories %}
+                        {% assign index = forloop.index0 %}
+                        {% if page.categories_en %}
+                        {% assign cat_name_en = page.categories_en[index] | default: category %}
+                        {% else %}
+                        {% assign cat_data = site.data.categories[category] %}
+                        {% assign cat_name_en = cat_data.en | default: category %}
+                        {% endif %}
+                        <a href="/categories/#{{ category }}" class="category-link">
+                            <span data-ko="{{ category }}" data-en="{{ cat_name_en }}">
+                                {% if page.lang == 'en' %}
+                                {{ cat_name_en }}
+                                {% else %}
+                                {{ category }}
+                                {% endif %}
+                            </span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if page.tags %}
+                    <div class="post-tags">
+                        {% for tag in page.tags %}
+                        {% assign index = forloop.index0 %}
+                        {% if page.tags_en %}
+                        {% assign tag_name_en = page.tags_en[index] | default: tag %}
+                        {% else %}
+                        {% assign tag_data = site.data.tags[tag] %}
+                        {% assign tag_name_en = tag_data.en | default: tag %}
+                        {% endif %}
+                        <a href="/tags/#{{ tag }}" class="tag-link">
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="{{ tag }}" data-en="{{ tag_name_en }}">
+                                {% if page.lang == 'en' %}
+                                {{ tag_name_en }}
+                                {% else %}
+                                {{ tag }}
+                                {% endif %}
+                            </span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </header>
+
+            {% if page.image %}
+            <div class="post-featured-image">
+                <img src="{{ page.image }}" alt="Featured Image">
+            </div>
+            {% endif %}
+
+            <div class="post-content e-content" itemprop="articleBody">
+                <!-- 다국어 콘텐츠 분리 및 표시 로직 -->
+                {% if content contains '<div class="post-content-ko">' %}
+                    {{ content }}
+                    {% else %}
+                    <div class="post-content-container markdown-content">
+                        {{ content | markdownify }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="post-navigation">
+                    {% if page.previous %}
+                    <a href="{{ page.previous.url | relative_url }}" class="prev-post" rel="prev">
+                        &larr;
+                        <span data-ko="이전 글" data-en="Previous Post">
+                            {% if page.lang == 'en' %}Previous Post{% else %}이전 글{% endif %}
+                        </span>
+                    </a>
+                    {% endif %}
+
+                    {% if page.next %}
+                    <a href="{{ page.next.url | relative_url }}" class="next-post" rel="next">
+                        <span data-ko="다음 글" data-en="Next Post">
+                            {% if page.lang == 'en' %}Next Post{% else %}다음 글{% endif %}
+                        </span>
+                        &rarr;
+                    </a>
+                    {% endif %}
+                </div>
+        </article>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .post-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .post-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+
+    .post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        color: var(--gray-color);
+        font-size: 0.9rem;
+    }
+
+    .post-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .category-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        padding: 0.25rem 0.75rem;
+        background: rgba(37, 99, 235, 0.1);
+        border-radius: 9999px;
+        transition: var(--transition);
+    }
+
+    .category-link:hover {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tag-link {
+        color: var(--gray-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .tag-link:hover {
+        color: var(--primary-color);
+    }
+
+    .post-featured-image {
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    .post-featured-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .post-content {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 3rem;
+    }
+
+    .post-content-container {
+        width: 100%;
+    }
+
+    /* 수정된 다국어 콘텐츠 스타일 */
+    .post-content-ko,
+    .post-content-en,
+    .markdown-content {
+        width: 100%;
+    }
+
+    /* 마크다운 요소 스타일 */
+    .post-content h1,
+    .post-content h2,
+    .post-content h3,
+    .post-content h4,
+    .post-content h5,
+    .post-content h6,
+    .post-content-ko h1,
+    .post-content-ko h2,
+    .post-content-ko h3,
+    .post-content-ko h4,
+    .post-content-ko h5,
+    .post-content-ko h6,
+    .post-content-en h1,
+    .post-content-en h2,
+    .post-content-en h3,
+    .post-content-en h4,
+    .post-content-en h5,
+    .post-content-en h6 {
+        margin-top: 1.5em;
+        margin-bottom: 0.8em;
+        line-height: 1.3;
+    }
+
+    .post-content h2,
+    .post-content-ko h2,
+    .post-content-en h2 {
+        font-size: 1.8rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 0.3em;
+    }
+
+    .post-content h3,
+    .post-content-ko h3,
+    .post-content-en h3 {
+        font-size: 1.5rem;
+    }
+
+    .post-content p,
+    .post-content ul,
+    .post-content ol,
+    .post-content-ko p,
+    .post-content-ko ul,
+    .post-content-ko ol,
+    .post-content-en p,
+    .post-content-en ul,
+    .post-content-en ol {
+        margin-bottom: 1.5em;
+    }
+
+    .post-content ul,
+    .post-content ol,
+    .post-content-ko ul,
+    .post-content-ko ol,
+    .post-content-en ul,
+    .post-content-en ol {
+        padding-left: 2em;
+    }
+
+    .post-content li,
+    .post-content-ko li,
+    .post-content-en li {
+        margin-bottom: 0.5em;
+    }
+
+    .post-content code,
+    .post-content-ko code,
+    .post-content-en code {
+        background: rgba(0, 0, 0, 0.05);
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: monospace;
+        font-size: 0.9em;
+    }
+
+    .post-content pre,
+    .post-content-ko pre,
+    .post-content-en pre {
+        background: #f5f5f5;
+        padding: 1em;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin-bottom: 1.5em;
+    }
+
+    .post-content pre code,
+    .post-content-ko pre code,
+    .post-content-en pre code {
+        background: none;
+        padding: 0;
+    }
+
+    .post-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .prev-post,
+    .next-post {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .prev-post:hover,
+    .next-post:hover {
+        color: var(--secondary-color);
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+
+        .post-title {
+            font-size: 2rem;
+        }
+
+        .post-content {
+            font-size: 1rem;
+        }
+    }
+</style>
+
 <!-- 포스트 내 언어 전환 스크립트 - 단순화된 버전 -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('[💡 포스트 레이아웃] 언어 전환 초기화');
+        console.log('[�� 포스트 레이아웃] 언어 전환 초기화');
 
         // DOM 요소 교체 방식의 언어 전환 함수
         function forceLanguageSwitch() {
@@ -64,7 +406,7 @@
                     });
                 } else {
                     koContents.forEach(el => {
-                        console.log('[�� 포스트 레이아웃] 한국어 요소 숨김:', el);
+                        console.log('[💡 포스트 레이아웃] 한국어 요소 숨김:', el);
                         el.style.setProperty('display', 'none', 'important');
                         el.style.setProperty('visibility', 'hidden', 'important');
                         el.style.setProperty('opacity', '0', 'important');

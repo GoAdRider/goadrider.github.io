@@ -142,4 +142,4 @@ The quantum mechanical approach to consciousness is evolving from philosophical 
 I often find myself pondering: If we were to fully understand consciousness, it would bring about not just an expansion of scientific knowledge but a fundamental shift in our understanding of human existence. Are we prepared to embrace that future?
 </div>
 
-</article> 
+</div> 

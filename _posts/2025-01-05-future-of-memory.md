@@ -131,4 +131,4 @@ In the future, human natural memory and digital technology will be more closely 
 Ultimately, memory changes in the digital age represent an interesting case of co-evolution between technology and humans. Our challenge is to understand these changes, maximize their potential, while preserving the essential value of human experience.
 </div>
 
-</article> 
+</div> 
