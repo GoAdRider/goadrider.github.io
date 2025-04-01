@@ -32,9 +32,14 @@ permalink: /tags/
         <!-- 이 태그의 영어 버전 찾기 -->
         {% for post in posts %}
         {% if post.tags contains tag_name and post.tags_en %}
-        {% assign tag_index = post.tags | index_of: tag_name %}
-        {% if tag_index >= 0 and post.tags_en[tag_index] %}
-        {% assign tag_en = post.tags_en[tag_index] %}
+        {% for post_tag in post.tags %}
+        {% assign index = forloop.index0 %}
+        {% if post_tag == tag_name and post.tags_en[index] %}
+        {% assign tag_en = post.tags_en[index] %}
+        {% break %}
+        {% endif %}
+        {% endfor %}
+        {% if tag_en != "" %}
         {% break %}
         {% endif %}
         {% endif %}
@@ -59,7 +64,7 @@ permalink: /tags/
 
         <section id="{{ tag_name }}" class="tag-section">
             <div class="tag-header">
-                <h2 class="tag-title" data-ko="#{{ tag_name }}" data-en="#{{ tag_name }}">
+                <h2 class="tag-title" data-ko="#{{ tag_name }}" data-en="#{{ tag_en }}">
                     #{{ tag_name }}
                     <span class="tag-count">{{ posts.size }}</span>
                 </h2>

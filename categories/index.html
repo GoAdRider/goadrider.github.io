@@ -26,9 +26,14 @@ permalink: /categories/
         <!-- 이 카테고리의 영어 버전 찾기 -->
         {% for post in site.posts %}
         {% if post.categories contains category_name and post.categories_en %}
-        {% assign cat_index = post.categories | index_of: category_name %}
-        {% if cat_index >= 0 and post.categories_en[cat_index] %}
-        {% assign category_en = post.categories_en[cat_index] %}
+        {% for post_category in post.categories %}
+        {% assign index = forloop.index0 %}
+        {% if post_category == category_name and post.categories_en[index] %}
+        {% assign category_en = post.categories_en[index] %}
+        {% break %}
+        {% endif %}
+        {% endfor %}
+        {% if category_en != "" %}
         {% break %}
         {% endif %}
         {% endif %}
