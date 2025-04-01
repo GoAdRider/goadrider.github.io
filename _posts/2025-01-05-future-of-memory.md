@@ -131,33 +131,106 @@ In the future, human natural memory and digital technology will be more closely 
 Ultimately, memory changes in the digital age represent an interesting case of co-evolution between technology and humans. Our challenge is to understand these changes, maximize their potential, while preserving the essential value of human experience.
 </div>
 
+<!-- 포스트 개별 언어 전환 스크립트 -->
 <script>
+// 이 스크립트는 개별 포스트 파일에 직접 추가되었습니다
 document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
+    console.log('[개별 포스트] 포스트 언어 전환 스크립트 초기화');
     
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
+    // 포스트 프론트매터 정보 (템플릿에서 자동 주입)
+    const postInfo = {
+        categories: {{ page.categories | jsonify }},
+        categories_en: {{ page.categories_en | jsonify }},
+        tags: {{ page.tags | jsonify }},
+        tags_en: {{ page.tags_en | jsonify }}
+    };
+    console.log('[개별 포스트] 프론트매터:', postInfo);
     
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
+    // 언어 변경에 따른 모든 요소 업데이트 (제목, 카테고리, 태그, 본문 등)
+    function forceUpdateAllElements() {
+        // 현재 언어 확인
+        const lang = localStorage.getItem('lang') || 'ko';
+        console.log('[개별 포스트] 언어 전환 적용:', lang);
+        
+        // 1. 본문 내용 전환 (중요: !important 스타일 적용)
+        const koContent = document.querySelector('.post-content-ko');
+        const enContent = document.querySelector('.post-content-en');
+        
+        if (koContent && enContent) {
+            if (lang === 'ko') {
+                koContent.setAttribute('style', 'display: block !important');
+                enContent.setAttribute('style', 'display: none !important');
+            } else {
+                koContent.setAttribute('style', 'display: none !important');
+                enContent.setAttribute('style', 'display: block !important');
+            }
+            console.log('[개별 포스트] 본문 전환 완료:', lang);
+        }
+        
+        // 2. 카테고리 요소 업데이트
+        document.querySelectorAll('.post-categories .category-link span').forEach(function(element, idx) {
+            if (element && postInfo.categories && postInfo.categories_en && idx < postInfo.categories.length) {
+                const ko = postInfo.categories[idx];
+                const en = postInfo.categories_en[idx];
+                
+                // data-* 속성 확인 및 설정
+                if (!element.getAttribute('data-ko')) element.setAttribute('data-ko', ko);
+                if (!element.getAttribute('data-en')) element.setAttribute('data-en', en);
+                
+                // 내용 업데이트
+                element.textContent = lang === 'ko' ? ko : en;
+                console.log('[개별 포스트] 카테고리 업데이트:', idx, ko, '->', en);
+            }
+        });
+        
+        // 3. 태그 요소 업데이트
+        document.querySelectorAll('.post-tags .tag-text').forEach(function(element, idx) {
+            if (element && postInfo.tags && postInfo.tags_en && idx < postInfo.tags.length) {
+                const ko = postInfo.tags[idx];
+                const en = postInfo.tags_en[idx];
+                
+                // data-* 속성 확인 및 설정
+                if (!element.getAttribute('data-ko')) element.setAttribute('data-ko', ko);
+                if (!element.getAttribute('data-en')) element.setAttribute('data-en', en);
+                
+                // 내용 업데이트
+                element.textContent = lang === 'ko' ? ko : en;
+                console.log('[개별 포스트] 태그 업데이트:', idx, ko, '->', en);
+            }
+        });
+        
+        // 4. 기타 다국어 요소 업데이트
+        document.querySelectorAll('[data-ko][data-en]').forEach(function(element) {
+            const ko = element.getAttribute('data-ko');
+            const en = element.getAttribute('data-en');
+            
+            if (ko && en) {
+                element.textContent = lang === 'ko' ? ko : en;
+            }
+        });
     }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
+    
+    // 초기 언어 설정 적용
+    setTimeout(forceUpdateAllElements, 100);  // 약간 지연시켜 실행
+    
+    // 언어 변경 이벤트 리스너 등록
+    document.addEventListener('languageChanged', function(e) {
+        console.log('[개별 포스트] languageChanged 이벤트 감지:', e.detail);
+        setTimeout(forceUpdateAllElements, 50);
+    });
+    
+    // 토글 버튼 이벤트 직접 리스닝
+    const toggleButton = document.getElementById('language-toggle');
+    if (toggleButton) {
+        toggleButton.addEventListener('click', function() {
+            console.log('[개별 포스트] 언어 토글 버튼 클릭 감지');
+            setTimeout(forceUpdateAllElements, 100);
+        });
+    }
+    
+    // 추가 보호 장치: 페이지 로드 후 지연 실행
+    setTimeout(forceUpdateAllElements, 500);
+    setTimeout(forceUpdateAllElements, 1000);
+    setTimeout(forceUpdateAllElements, 2000);
 });
 </script> 
