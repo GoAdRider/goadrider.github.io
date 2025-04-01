@@ -1111,12 +1111,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 언어 변경 감지 및 처리
+        // 언어 변경 감지 함수 - 포스트 콘텐츠 전환
         function updatePostLanguage() {
-            const lang = document.documentElement.getAttribute('lang') || 'ko';
-            console.log('포스트 페이지 언어 업데이트:', lang);
+            const lang = localStorage.getItem('lang') || 'ko';
+            console.log('[포스트 페이지] 언어 변경 감지:', lang);
 
-            // 다국어 콘텐츠 요소들 표시/숨김 처리
+            // 포스트 콘텐츠 전환
             const koContent = document.querySelector('.post-content-ko');
             const enContent = document.querySelector('.post-content-en');
 
@@ -1130,13 +1130,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            // 데이터 속성을 가진 다국어 요소들 업데이트
-            const allMultilingualElements = document.querySelectorAll('[data-ko], [data-en]');
-            allMultilingualElements.forEach(el => {
-                if (lang === 'ko' && el.hasAttribute('data-ko')) {
-                    el.textContent = el.getAttribute('data-ko');
-                } else if (lang === 'en' && el.hasAttribute('data-en')) {
-                    el.textContent = el.getAttribute('data-en');
+            // 카테고리 및 태그 언어 전환
+            document.querySelectorAll('.category-link span[data-ko], .tag-text[data-ko]').forEach(element => {
+                if (lang === 'ko' && element.hasAttribute('data-ko')) {
+                    element.textContent = element.getAttribute('data-ko');
+                } else if (lang === 'en' && element.hasAttribute('data-en')) {
+                    element.textContent = element.getAttribute('data-en');
+                }
+            });
+
+            // 태그 기호('#') 확인
+            document.querySelectorAll('.tag-link').forEach(link => {
+                const tagSymbol = link.querySelector('.tag-symbol');
+                const tagText = link.querySelector('.tag-text');
+                if (tagSymbol && tagText) {
+                    // 태그 기호가 별도 요소로 있는 경우는 그대로 유지
+                } else if (tagText) {
+                    // 태그 텍스트에 # 기호 추가
+                    if (!tagText.textContent.startsWith('#')) {
+                        tagText.textContent = '#' + tagText.textContent;
+                    }
                 }
             });
         }
@@ -1145,16 +1158,10 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePostLanguage();
 
         // 언어 변경 이벤트 리스너
-        document.addEventListener('languageChanged', updatePostLanguage);
-
-        // URL에서 언어 파라미터 변경 감지
-        const urlParams = new URLSearchParams(window.location.search);
-        const langParam = urlParams.get('lang');
-        if (langParam) {
-            document.documentElement.setAttribute('lang', langParam);
-            localStorage.setItem('preferred_language', langParam);
+        document.addEventListener('languageChanged', function (e) {
+            console.log('[포스트 페이지] languageChanged 이벤트 감지:', e.detail?.language);
             updatePostLanguage();
-        }
+        });
     });
 </script>
     </div>
