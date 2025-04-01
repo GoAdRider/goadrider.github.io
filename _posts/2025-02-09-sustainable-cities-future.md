@@ -87,7 +87,7 @@ UN 해비타트(UN-Habitat)의 최근 보고서에 따르면, 글로벌 도시 �
 미래 도시의 진정한 지능은 효율성이 아닌 회복력에, 성장이 아닌 지속가능성에, 기술이 아닌 인간과 자연의 공존에 있을 것입니다. 이러한 비전을 실현하는 것이 우리 세대가 직면한 가장 중요한 도전 과제이자 기회입니다.
 </div>
 
-<div class="post-content-en" markdown="1" style="display: none;">
+<div class="post-content-en" markdown="1" >
   
 ## The Evolution of Smart Cities: From Technology to Ecology
 

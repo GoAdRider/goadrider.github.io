@@ -108,7 +108,7 @@ AI와 자동화가 가져올 일의 미래는 기술 결정론적 시각으로�
 궁극적으로 AI 시대의 진정한 과제는 기술적인 것이 아니라, 사회적, 정치적, 문화적인 것입니다. 우리가 어떤 가치를 중심으로 일의 미래를 설계할 것인가, 어떻게 모두에게 공정한 기회를 제공할 것인가, 인간다움의 본질을 어떻게 재정의할 것인가에 대한 대답을 찾아가는 과정이 될 것입니다.
 </div>
 
-<div class="post-content-en" markdown="1" style="display: none;">
+<div class="post-content-en" markdown="1" >
   
 ## Introduction: The Rapidly Changing Landscape of Work
 

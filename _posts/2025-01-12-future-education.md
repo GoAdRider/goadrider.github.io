@@ -113,7 +113,7 @@ AI 튜터는 또한 24/7 학습 지원을 제공할 수 있으며, 학생들이 
 교육의 미래는 불확실하지만, 그 불확실성 속에서 우리는 더 포용적이고, 유연하며, 의미 있는 학습 경험을 창조할 수 있는 무한한 가능성을 발견할 수 있습니다. 교육의 재창조는 이미 시작되었으며, 우리 모두가 그 여정의 공동 창조자가 될 수 있습니다.
 </div>
 
-<div class="post-content-en" markdown="1" style="display: none;">
+<div class="post-content-en" markdown="1">
   
 ## Accelerating Educational Change: Summary of Recent Trends
 

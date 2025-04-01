@@ -78,7 +78,7 @@ AWS와 마이크로소프트는 각각 Amazon Braket과 Azure Quantum 서비스�
 앞으로 양자 컴퓨팅이 제공할 잠재력을 최대한 활용하기 위해서는 기술 개발, 인력 양성, 산업 응용 사례 발굴이 균형 있게 진행되어야 할 것입니다. 양자 혁명은 서서히, 그러나 확실하게 우리의 디지털 세계를 변화시키고 있습니다.
 </div>
 
-<div class="post-content-en" markdown="1" style="display: none;">
+<div class="post-content-en" markdown="1" >
   
 ## Quantum Computing Enters Practical Stage
 

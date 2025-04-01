@@ -77,7 +77,7 @@ AI와 인간 예술가의 관계는 대립이나 대체가 아닌 공존과 공�
 궁극적으로 AI 예술의 가치는 기술적 혁신에만 있지 않고, 인간 경험을 풍요롭게 하고 새로운 시각으로 세상을 바라볼 수 있게 하는 잠재력에 있을 것입니다.
 </div>
 
-<div class="post-content-en" markdown="1" style="display: none;">
+<div class="post-content-en" markdown="1" >
   
 ## The Current State of AI Art
 

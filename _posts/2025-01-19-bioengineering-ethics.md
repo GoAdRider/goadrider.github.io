@@ -122,7 +122,7 @@ CRISPR-Cas9과 같은 유전자 편집 기술은 인류에게 전례 없는 기�
 유전자 편집 기술이 급속히 발전하는 이 시점에서, 우리는 '할 수 있는 것'과 '해야 하는 것' 사이의 구분을 명확히 하고, 후자를 결정하기 위한 포용적이고 사려 깊은 사회적 대화를 시작해야 합니다. 이것이 바로 생명공학의 진정한 잠재력을 책임감 있게 실현하는 길이 될 것입니다.
 </div>
 
-<div class="post-content-en" markdown="1" style="display: none;">
+<div class="post-content-en" markdown="1" >
   
 ## Recent Trends in Bioengineering Development
 

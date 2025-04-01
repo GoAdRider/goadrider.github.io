@@ -69,7 +69,7 @@ AI의 의식 가능성 문제는 철학적 깊이와 과학적 엄밀함을 모�
 
 </div>
 
-<div class="post-content-en" markdown="1" style="display: none;">
+<div class="post-content-en" markdown="1" >
 
 ## Original News Summary
 [Nature - Could AI develop consciousness? We asked philosophers and scientists](https://www.nature.com/articles/d41586-024-00589-5)

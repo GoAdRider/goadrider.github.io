@@ -87,7 +87,7 @@ UN 우주 사무국(UNOOSA)은 더 포괄적인 국제 프레임워크를 개발
 그러나 인류의 호기심과 개척 정신은 이러한 도전을 극복하고 별을 향한 여정을 계속할 것입니다. 콘스탄틴 치올콥스키가 말했듯이, "지구는 인류의 요람이지만, 인류는 영원히 요람에만 머물 수 없습니다." 우리의 우주 탐사는 단지 시작에 불과합니다.
 </div>
 
-<div class="post-content-en" markdown="1" style="display: none;">
+<div class="post-content-en" markdown="1" >
   
 ## The Revolution of Private-Led Space Industry
 

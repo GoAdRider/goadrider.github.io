@@ -72,7 +72,7 @@ image: /assets/images/posts/2025-01-05-future-of-memory.jpg
 궁극적으로, 디지털 시대의 기억 변화는 기술과 인간의 공진화(co-evolution)를 보여주는 흥미로운 사례입니다. 우리의 도전은 이러한 변화를 이해하고, 그 잠재력을 최대한 활용하면서도, 인간 경험의 본질적 가치를 보존하는 것입니다.
 </div>
 
-<div class="post-content-en" markdown="1" style="display: none;">
+<div class="post-content-en" markdown="1">
   
 ## Original News Summary
 [Science - Digital technology reshapes human memory formation, study finds](https://www.science.org/content/article/digital-technology-reshapes-human-memory-formation)
