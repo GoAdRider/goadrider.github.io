@@ -8439,13 +8439,17 @@
                 }
             });
 
-            // 태그 버튼 텍스트 업데이트
+            // 태그 버튼 텍스트 업데이트 (버튼 내부의 span.tag-name만 업데이트)
             const tagButtons = document.querySelectorAll('.tag-item');
             tagButtons.forEach(button => {
-                if (lang === 'ko' && button.hasAttribute('data-ko')) {
-                    button.textContent = button.getAttribute('data-ko');
-                } else if (lang === 'en' && button.hasAttribute('data-en')) {
-                    button.textContent = button.getAttribute('data-en');
+                // 태그 이름 요소 찾기
+                const tagNameSpan = button.querySelector('.tag-name');
+                if (!tagNameSpan) return;
+
+                if (lang === 'ko' && tagNameSpan.hasAttribute('data-ko')) {
+                    tagNameSpan.textContent = tagNameSpan.getAttribute('data-ko');
+                } else if (lang === 'en' && tagNameSpan.hasAttribute('data-en')) {
+                    tagNameSpan.textContent = tagNameSpan.getAttribute('data-en');
                 }
             });
 
