@@ -1132,20 +1132,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
             console.log('[포스트] 본문 요소 확인:', {
                 한국어본문: koContent ? 'O' : 'X',
-                영어본문: enContent ? 'O' : 'X'
+                영어본문: enContent ? 'O' : 'X',
+                현재스타일: koContent ? koContent.style.display : '없음'
             });
 
             if (koContent && enContent) {
+                // DOM 요소 스타일 직접 조작 (CSS 우선순위 무시)
                 if (lang === 'ko') {
-                    // !important로 스타일 강제 적용
-                    koContent.setAttribute('style', 'display: block !important');
-                    enContent.setAttribute('style', 'display: none !important');
+                    koContent.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+                    enContent.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
                 } else {
-                    // !important로 스타일 강제 적용
-                    koContent.setAttribute('style', 'display: none !important');
-                    enContent.setAttribute('style', 'display: block !important');
+                    koContent.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                    enContent.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
                 }
-                console.log('[포스트] 본문 전환 완료:', lang);
+
+                // 또는 innerHTML 방식으로 강제 전환
+                /*
+                if (lang === 'ko') {
+                    koContent.style.removeProperty('display');
+                    enContent.style.setProperty('display', 'none', 'important');
+                } else {
+                    koContent.style.setProperty('display', 'none', 'important');
+                    enContent.style.removeProperty('display');
+                }
+                */
+
+                console.log('[포스트] 본문 전환 완료:', lang, koContent.style.display, enContent.style.display);
+
+                // 강제 레이아웃 리플로우를 위한 트릭
+                void koContent.offsetHeight;
+                void enContent.offsetHeight;
             } else {
                 console.log('[포스트] 경고: 본문 요소 찾을 수 없음');
             }
@@ -1183,6 +1199,47 @@ document.addEventListener('DOMContentLoaded', function() {
                     el.textContent = lang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
                 }
             });
+
+            // 내용이 전환되었는지 확인하기 위한 로그
+            setTimeout(function () {
+                if (koContent && enContent) {
+                    const koDisplay = window.getComputedStyle(koContent).display;
+                    const enDisplay = window.getComputedStyle(enContent).display;
+                    console.log('[포스트] 전환 후 실제 계산된 스타일:', {
+                        koDisplay: koDisplay,
+                        enDisplay: enDisplay,
+                        lang: lang
+                    });
+
+                    // 전환이 안 됐으면 DOM을 직접 조작
+                    if ((lang === 'ko' && koDisplay === 'none') || (lang === 'en' && enDisplay === 'none')) {
+                        console.log('[포스트] 강제 내용 전환 실행');
+                        forceContentSwitch(lang, koContent, enContent);
+                    }
+                }
+            }, 100);
+        }
+
+        // 강제로 내용을 전환하는 함수
+        function forceContentSwitch(lang, koContent, enContent) {
+            // 전환이 제대로 되지 않았을 때 부모 노드를 통한 강제 전환
+            const parent = koContent.parentNode;
+            if (parent) {
+                if (lang === 'ko') {
+                    // 한국어 컨텐츠 복제 및 교체
+                    const koClone = koContent.cloneNode(true);
+                    koClone.style.cssText = 'display: block !important;';
+                    parent.innerHTML = '';
+                    parent.appendChild(koClone);
+                } else {
+                    // 영어 컨텐츠 복제 및 교체
+                    const enClone = enContent.cloneNode(true);
+                    enClone.style.cssText = 'display: block !important;';
+                    parent.innerHTML = '';
+                    parent.appendChild(enClone);
+                }
+                console.log('[포스트] 강제 DOM 교체 완료:', lang);
+            }
         }
 
         // 이벤트 리스너 설정 - 여러 방식으로 언어 변경 감지
@@ -1230,6 +1287,12 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('[포스트] 지연 후 언어 설정 확인');
             switchPostLanguage(localStorage.getItem('lang') || 'ko');
         }, 500);
+
+        // 추가 지연 확인 (혹시 몰라서)
+        setTimeout(function () {
+            console.log('[포스트] 최종 언어 설정 확인');
+            switchPostLanguage(localStorage.getItem('lang') || 'ko');
+        }, 2000);
     });
 </script>
     </div>
