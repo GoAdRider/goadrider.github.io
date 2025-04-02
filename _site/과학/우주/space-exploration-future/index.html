@@ -438,163 +438,10 @@
             </nav>
 
             <div class="header-actions">
-                <!-- 기존 버튼 대신 언어 토글 버튼 사용 -->
-                <!-- 언어 전환 버튼 -->
-
-<div class="language-toggle-container">
-    <button id="language-toggle" class="language-toggle">
-        EN
-    </button>
-</div>
-
-<style>
-    .language-toggle-container {
-        display: inline-block;
-        margin-left: 1rem;
-    }
-
-    .language-toggle {
-        background-color: #2563eb;
-        color: white;
-        border: none;
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.8rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .language-toggle:hover {
-        background-color: #1d4ed8;
-        transform: translateY(-1px);
-    }
-
-    .language-toggle:active {
-        transform: translateY(1px);
-    }
-
-    /* 효과 추가 */
-    .language-toggle::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: -100%;
-        background: rgba(255, 255, 255, 0.2);
-        transition: all 0.3s ease;
-    }
-
-    .language-toggle:hover::after {
-        left: 0;
-    }
-</style>
-
-<script>
-    // 언어 토글 버튼 초기화 및 강화
-    document.addEventListener('DOMContentLoaded', function () {
-        var toggleButton = document.getElementById('language-toggle');
-        if (!toggleButton) return;
-
-        // 현재 언어에 따라 버튼 텍스트 설정
-        var currentLang = localStorage.getItem('lang') || 'ko';
-        toggleButton.textContent = currentLang === 'ko' ? 'EN' : 'KO';
-
-        // 클릭 이벤트에 직접 DOM 조작 추가
-        toggleButton.addEventListener('click', function () {
-            // 버튼 클릭 효과
-            toggleButton.classList.add('active');
-            setTimeout(function () {
-                toggleButton.classList.remove('active');
-            }, 300);
-
-            // 현재 언어 확인
-            var currentLang = localStorage.getItem('lang') || 'ko';
-            var newLang = currentLang === 'ko' ? 'en' : 'ko';
-
-            console.log('[토글버튼] 언어 전환 시작:', currentLang, '->', newLang);
-
-            // 1. localStorage 업데이트
-            localStorage.setItem('lang', newLang);
-            localStorage.setItem('preferred_language', newLang);
-
-            // 2. 버튼 텍스트 업데이트
-            toggleButton.textContent = newLang === 'ko' ? 'EN' : 'KO';
-
-            // 3. HTML 속성 설정
-            document.documentElement.lang = newLang;
-            document.documentElement.setAttribute('lang', newLang);
-            document.documentElement.setAttribute('data-lang', newLang);
-
-            // 4. 언어 전환 이벤트 발생
-            document.dispatchEvent(new CustomEvent('languageChanged', {
-                detail: { language: newLang }
-            }));
-
-            // 5. 콘텐츠 직접 전환 시도 (폴백)
-            setTimeout(function () {
-                console.log('[토글버튼] 언어 전환 확인 중');
-
-                var hasKoreanContent = document.querySelectorAll('.post-content-ko').length > 0;
-                var hasEnglishContent = document.querySelectorAll('.post-content-en').length > 0;
-
-                // 포스트 페이지인 경우
-                if (hasKoreanContent || hasEnglishContent) {
-                    console.log('[토글버튼] 포스트 콘텐츠 감지, 직접 전환 시도');
-
-                    // 포스트 콘텐츠 직접 전환
-                    if (newLang === 'ko') {
-                        // 한국어 콘텐츠 표시
-                        document.querySelectorAll('.post-content-ko').forEach(function (el) {
-                            el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
-                        });
-                        // 영어 콘텐츠 숨김
-                        document.querySelectorAll('.post-content-en').forEach(function (el) {
-                            el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
-                        });
-                    } else {
-                        // 영어 콘텐츠 표시
-                        document.querySelectorAll('.post-content-en').forEach(function (el) {
-                            el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
-                        });
-                        // 한국어 콘텐츠 숨김
-                        document.querySelectorAll('.post-content-ko').forEach(function (el) {
-                            el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
-                        });
-                    }
-
-                    // 추가 디버깅 도구 사용
-                    if (window.languageDiagnostics) {
-                        console.log('[토글버튼] languageDiagnostics 사용');
-                        if (newLang === 'ko') {
-                            window.languageDiagnostics.forceKorean();
-                        } else {
-                            window.languageDiagnostics.forceEnglish();
-                        }
-                    }
-                }
-
-                // 다국어 텍스트 업데이트
-                document.querySelectorAll('[data-ko][data-en]').forEach(function (el) {
-                    el.textContent = el.getAttribute(newLang === 'ko' ? 'data-ko' : 'data-en');
-
-                    // 태그 링크의 경우 '#' 추가
-                    if (el.closest('.tag-link')) {
-                        const tagSymbol = el.closest('.tag-link').querySelector('.tag-symbol');
-                        if (!tagSymbol) {
-                            el.textContent = '#' + el.textContent;
-                        }
-                    }
-                });
-
-                console.log('[토글버튼] 언어 전환 완료');
-            }, 100);
-        });
-    });
-</script>
+                <div class="language-switcher" id="language-switcher">
+                    <i class="fas fa-globe"></i>
+                    <span id="current-lang" data-ko="한국어" data-en="English">한국어</span>
+                </div>
 
                 <a href="/search/" class="search-button">
                     <i class="fas fa-search"></i>
@@ -685,6 +532,25 @@
         gap: 1.5rem;
     }
 
+    .language-switcher {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .language-switcher:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .language-switcher i {
+        color: var(--primary-color);
+    }
+
     .search-button {
         display: flex;
         align-items: center;
@@ -747,6 +613,8 @@
         const nav = document.querySelector('nav');
         const headerActions = document.querySelector('.header-actions');
         const navLinks = document.querySelectorAll('.nav-link');
+        const currentLang = document.getElementById('current-lang');
+        const languageSwitcher = document.getElementById('language-switcher');
 
         mobileMenu.addEventListener('click', function () {
             nav.classList.toggle('active');
@@ -758,19 +626,52 @@
             // 네비게이션 링크 텍스트 업데이트
             navLinks.forEach(link => {
                 link.textContent = link.getAttribute(`data-${lang}`);
+                // URL에 언어 파라미터 추가
+                const href = link.getAttribute('href');
+                const baseUrl = href.split('?')[0];
+                const params = new URLSearchParams(href.split('?')[1] || '');
+                params.set('lang', lang);
+                link.href = `${baseUrl}?${params.toString()}`;
             });
+
+            // 현재 언어 표시 업데이트
+            currentLang.textContent = currentLang.getAttribute(`data-${lang}`);
         }
 
         // 언어 변경 이벤트 리스너
-        document.addEventListener('languageChanged', function (e) {
+        window.addEventListener('languageChange', function (e) {
             updateHeaderLanguage(e.detail.language);
         });
 
         // 초기 언어 설정
-        const storedLang = localStorage.getItem('lang') || 'ko';
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
 
         // 초기 언어 적용
-        updateHeaderLanguage(storedLang);
+        updateHeaderLanguage(initialLang);
+
+        // 언어 스위처 클릭 이벤트
+        languageSwitcher.addEventListener('click', function () {
+            const currentLanguage = localStorage.getItem('preferred_language') || 'ko';
+            const newLanguage = currentLanguage === 'en' ? 'ko' : 'en';
+
+            // 언어 설정 저장
+            localStorage.setItem('preferred_language', newLanguage);
+
+            // 언어 변경 이벤트 발생
+            window.dispatchEvent(new CustomEvent('languageChange', {
+                detail: {
+                    language: newLanguage
+                }
+            }));
+
+            // URL 업데이트
+            const url = new URL(window.location);
+            url.searchParams.set('lang', newLanguage);
+            window.history.pushState({}, '', url);
+        });
     });
 </script>
 
@@ -1509,63 +1410,6 @@
                 updatePostContent(savedLang);
             }
         }, 300);
-    });
-
-    // 페이지 로드 완료 후 즉시 포스트 언어 직접 적용
-    window.addEventListener('load', function () {
-        console.log('[포스트] 페이지 완전 로드 완료, 최종 언어 강제 적용');
-
-        // 1. 저장된 언어 확인
-        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferred_language') || 'ko';
-
-        // 2. HTML/문서 전체 설정
-        document.documentElement.lang = savedLang;
-        document.documentElement.setAttribute('lang', savedLang);
-        document.documentElement.setAttribute('data-lang', savedLang);
-
-        // 3. 클래스 설정
-        document.documentElement.classList.remove('lang-ko', 'lang-en');
-        document.documentElement.classList.add('lang-' + savedLang);
-
-        document.body.classList.remove('body-lang-ko', 'body-lang-en');
-        document.body.classList.add('body-lang-' + savedLang);
-
-        // 4. 한국어 컨텐츠 요소
-        document.querySelectorAll('.post-content-ko').forEach(function (el) {
-            if (savedLang === 'ko') {
-                // 한국어로 설정됐을 때
-                el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
-                el.classList.add('content-visible');
-                el.classList.remove('content-hidden');
-            } else {
-                // 영어로 설정됐을 때
-                el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
-                el.classList.add('content-hidden');
-                el.classList.remove('content-visible');
-            }
-        });
-
-        // 5. 영어 컨텐츠 요소
-        document.querySelectorAll('.post-content-en').forEach(function (el) {
-            if (savedLang === 'en') {
-                // 영어로 설정됐을 때
-                el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
-                el.classList.add('content-visible');
-                el.classList.remove('content-hidden');
-            } else {
-                // 한국어로 설정됐을 때
-                el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
-                el.classList.add('content-hidden');
-                el.classList.remove('content-visible');
-            }
-        });
-
-        console.log('[포스트] 최종 상태 확인:', {
-            'HTML lang': document.documentElement.lang,
-            '저장된 언어': savedLang,
-            '한국어 요소': document.querySelectorAll('.post-content-ko').length,
-            '영어 요소': document.querySelectorAll('.post-content-en').length
-        });
     });
 </script>
     </div>
