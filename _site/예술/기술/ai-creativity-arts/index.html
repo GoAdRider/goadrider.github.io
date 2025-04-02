@@ -25,7 +25,6 @@
                         if (pendingScripts[i].src && pendingScripts[i].src.includes('lunr')) {
                             // 문제가 되는 스크립트는 비동기로 변경
                             pendingScripts[i].async = true;
-                            pendingScripts[i].defer = true;
                             console.log('스크립트 최적화:', pendingScripts[i].src);
                         }
                     }
@@ -264,6 +263,9 @@
     <link rel="stylesheet" href="/assets/css/custom.css">
     <!-- 언어 관리 스크립트 -->
     <script src="/assets/js/language.js"></script>
+
+    <!-- 언어 진단 도구 스크립트 (개발 및 디버깅용) -->
+    <script src="/assets/js/test-language.js"></script>
 
     <style>
         :root {
@@ -1274,6 +1276,63 @@
             }
         }, 300);
     });
+
+    // 페이지 로드 완료 후 즉시 포스트 언어 직접 적용
+    window.addEventListener('load', function () {
+        console.log('[포스트] 페이지 완전 로드 완료, 최종 언어 강제 적용');
+
+        // 1. 저장된 언어 확인
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferred_language') || 'ko';
+
+        // 2. HTML/문서 전체 설정
+        document.documentElement.lang = savedLang;
+        document.documentElement.setAttribute('lang', savedLang);
+        document.documentElement.setAttribute('data-lang', savedLang);
+
+        // 3. 클래스 설정
+        document.documentElement.classList.remove('lang-ko', 'lang-en');
+        document.documentElement.classList.add('lang-' + savedLang);
+
+        document.body.classList.remove('body-lang-ko', 'body-lang-en');
+        document.body.classList.add('body-lang-' + savedLang);
+
+        // 4. 한국어 컨텐츠 요소
+        document.querySelectorAll('.post-content-ko').forEach(function (el) {
+            if (savedLang === 'ko') {
+                // 한국어로 설정됐을 때
+                el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+                el.classList.add('content-visible');
+                el.classList.remove('content-hidden');
+            } else {
+                // 영어로 설정됐을 때
+                el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                el.classList.add('content-hidden');
+                el.classList.remove('content-visible');
+            }
+        });
+
+        // 5. 영어 컨텐츠 요소
+        document.querySelectorAll('.post-content-en').forEach(function (el) {
+            if (savedLang === 'en') {
+                // 영어로 설정됐을 때
+                el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+                el.classList.add('content-visible');
+                el.classList.remove('content-hidden');
+            } else {
+                // 한국어로 설정됐을 때
+                el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                el.classList.add('content-hidden');
+                el.classList.remove('content-visible');
+            }
+        });
+
+        console.log('[포스트] 최종 상태 확인:', {
+            'HTML lang': document.documentElement.lang,
+            '저장된 언어': savedLang,
+            '한국어 요소': document.querySelectorAll('.post-content-ko').length,
+            '영어 요소': document.querySelectorAll('.post-content-en').length
+        });
+    });
 </script>
     </div>
 
@@ -1468,7 +1527,7 @@
     <!-- 최적화된 스크립트 로딩 -->
     <script>
         // 스크립트 로드 상태 모니터링
-        var scriptsLoaded = false;
+        var scriptsLe;
         var safetyTimeout = null;
 
         // 스크립트 타임아웃 설정 (20초)
@@ -1516,6 +1575,97 @@
 
 
 
+
+    <!-- 언어 진단 도구 (하단에 한번 더 추가) -->
+    <script>
+        // 진단 스크립트 인라인으로 직접 추가
+        (function () {
+            // 1초 간격으로 언어 진단 도구가 로드됐는지 확인
+            function checkDiagnosticTools() {
+                console.log('진단 도구 확인 중...');
+                if (typeof window.languageDiagnostics === 'undefined') {
+                    console.log('진단 도구가 아직 로드되지 않음. 직접 로드 시도...');
+
+                    // 스크립트 다시 로드
+                    var script = document.createElement('script');
+                    script.src = '/assets/js/test-language.js';
+                    document.body.appendChild(script);
+
+                    // 인라인 백업 진단 도구 정의
+                    window.languageDiagnostics = {
+                        forceKorean: function () {
+                            console.log('강제 한국어 전환 실행 (백업)');
+                            document.documentElement.lang = 'ko';
+                            localStorage.setItem('lang', 'ko');
+
+                            // 콘텐츠 요소 처리
+                            document.querySelectorAll('.post-content-ko').forEach(function (el) {
+                                el.style.cssText = 'display: block !important; visibility: visible !important;';
+                            });
+
+                            document.querySelectorAll('.post-content-en').forEach(function (el) {
+                                el.style.cssText = 'display: none !important; visibility: hidden !important;';
+                            });
+
+                            return '한국어로 전환 완료 (백업)';
+                        },
+
+                        forceEnglish: function () {
+                            console.log('강제 영어 전환 실행 (백업)');
+                            document.documentElement.lang = 'en';
+                            localStorage.setItem('lang', 'en');
+
+                            // 콘텐츠 요소 처리
+                            document.querySelectorAll('.post-content-ko').forEach(function (el) {
+                                el.style.cssText = 'display: none !important; visibility: hidden !important;';
+                            });
+
+                            document.querySelectorAll('.post-content-en').forEach(function (el) {
+                                el.style.cssText = 'display: block !important; visibility: visible !important;';
+                            });
+
+                            return '영어로 전환 완료 (백업)';
+                        },
+
+                        toggleView: function () {
+                            console.log('언어 토글 실행 (백업)');
+                            var currentLang = localStorage.getItem('lang') || 'ko';
+                            if (currentLang === 'ko') {
+                                return this.forceEnglish();
+                            } else {
+                                return this.forceKorean();
+                            }
+                        },
+
+                        logCurrentState: function () {
+                            console.log('현재 상태 (백업):', {
+                                htmlLang: document.documentElement.lang,
+                                storedLang: localStorage.getItem('lang'),
+                                koElements: document.querySelectorAll('.post-content-ko').length,
+                                enElements: document.querySelectorAll('.post-content-en').length
+                            });
+
+                            return '상태 확인 완료 (백업)';
+                        }
+                    };
+
+                    console.log('백업 진단 도구가 설정되었습니다.');
+                    setTimeout(checkDiagnosticTools, 2000); // 2초 후 다시 확인
+                } else {
+                    console.log('진단 도구가 성공적으로 로드됨:', Object.keys(window.languageDiagnostics));
+                }
+            }
+
+            // 페이지 로드 후 진단 도구 확인
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                setTimeout(checkDiagnosticTools, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', function () {
+                    setTimeout(checkDiagnosticTools, 1000);
+                });
+            }
+        })();
+    </script>
 </body>
 
 </html>
