@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://goadrider.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://goadrider.github.io/" rel="alternate" type="text/html" /><updated>2025-04-02T10:57:54+09:00</updated><id>https://goadrider.github.io/feed.xml</id><title type="html">NewsLens</title><subtitle>철학적, 과학적 사고로 세상을 바라보는 블로그</subtitle><author><name>NewsLens</name></author><entry><title type="html">양자역학적 관점에서 바라본 의식의 본질</title><link href="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/" rel="alternate" type="text/html" title="양자역학적 관점에서 바라본 의식의 본질" /><published>2025-03-25T10:30:00+09:00</published><updated>2025-03-25T10:30:00+09:00</updated><id>https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness</id><content type="html" xml:base="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/"><![CDATA[<div class="post-content-ko">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://goadrider.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://goadrider.github.io/" rel="alternate" type="text/html" /><updated>2025-04-02T12:17:19+09:00</updated><id>https://goadrider.github.io/feed.xml</id><title type="html">NewsLens</title><subtitle>철학적, 과학적 사고로 세상을 바라보는 블로그</subtitle><author><name>NewsLens</name></author><entry><title type="html">양자역학적 관점에서 바라본 의식의 본질</title><link href="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/" rel="alternate" type="text/html" title="양자역학적 관점에서 바라본 의식의 본질" /><published>2025-03-25T10:30:00+09:00</published><updated>2025-03-25T10:30:00+09:00</updated><id>https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness</id><content type="html" xml:base="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/"><![CDATA[<div class="post-content-ko">
 
   <h2 id="section">뉴스 원문 요약</h2>
   <p><a href="https://www.nature.com/articles/d41586-025-00321-7">Nature - Quantum effects in the brain might explain consciousness, study shows</a></p>
@@ -297,38 +297,7 @@
   <p>In the coming years, we can expect to see the development of more sophisticated privacy-preserving technologies, internationally harmonized regulatory frameworks, and deeper social dialogues on data ethics. Businesses and governments will increasingly value transparency and accountability to build digital trust, and users will become more educated and active in making decisions about their digital identities and privacy.</p>
 
   <p>Ultimately, a new digital ecosystem centered on personal data sovereignty has the potential to resolve the long-standing tensions between innovation and privacy, convenience and security. Implementing this future will not be simply a technological challenge but a process of answering fundamental questions about how we want to live in the digital age.</p>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script>]]></content><author><name>NewsLens</name></author><category term="기술" /><category term="사회" /><category term="디지털정체성" /><category term="프라이버시" /><category term="자기주권신원" /><category term="데이터윤리" /><category term="생체인증" /><summary type="html"><![CDATA[디지털 정체성의 진화와 프라이버시 보호 기술의 발전, 그리고 이와 관련된 사회적, 윤리적 과제들을 탐색하며 개인 데이터 주권에 기반한 새로운 디지털 생태계의 가능성을 모색합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-03-16-digital-identity-privacy.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-03-16-digital-identity-privacy.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">양자 컴퓨팅의 최신 진전과 실용화: 이론에서 산업 응용까지</title><link href="https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-breakthroughs/" rel="alternate" type="text/html" title="양자 컴퓨팅의 최신 진전과 실용화: 이론에서 산업 응용까지" /><published>2025-03-09T14:30:00+09:00</published><updated>2025-03-09T14:30:00+09:00</updated><id>https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-breakthroughs</id><content type="html" xml:base="https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-breakthroughs/"><![CDATA[<div class="post-content-ko">
+</div>]]></content><author><name>NewsLens</name></author><category term="기술" /><category term="사회" /><category term="디지털정체성" /><category term="프라이버시" /><category term="자기주권신원" /><category term="데이터윤리" /><category term="생체인증" /><summary type="html"><![CDATA[디지털 정체성의 진화와 프라이버시 보호 기술의 발전, 그리고 이와 관련된 사회적, 윤리적 과제들을 탐색하며 개인 데이터 주권에 기반한 새로운 디지털 생태계의 가능성을 모색합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-03-16-digital-identity-privacy.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-03-16-digital-identity-privacy.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">양자 컴퓨팅의 최신 진전과 실용화: 이론에서 산업 응용까지</title><link href="https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-breakthroughs/" rel="alternate" type="text/html" title="양자 컴퓨팅의 최신 진전과 실용화: 이론에서 산업 응용까지" /><published>2025-03-09T14:30:00+09:00</published><updated>2025-03-09T14:30:00+09:00</updated><id>https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-breakthroughs</id><content type="html" xml:base="https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-breakthroughs/"><![CDATA[<div class="post-content-ko">
 
   <h2 id="section">양자 컴퓨팅의 새로운 시대</h2>
 
@@ -497,38 +466,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <p>Quantum computing is no longer a distant future technology. Recent rapid developments have enabled it to contribute to solving practical problems and offer new possibilities to various industries.</p>
 
   <p>Rather than replacing existing computing, quantum computing will establish itself as a complementary paradigm specialized for certain problem types. A hybrid approach combining quantum and classical systems will provide more powerful computing solutions by merging advantages from both worlds.</p>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script>]]></content><author><name>NewsLens</name></author><category term="기술" /><category term="컴퓨팅" /><category term="양자컴퓨팅" /><category term="양자알고리즘" /><category term="양자우위" /><category term="양자오류보정" /><category term="양자인터넷" /><summary type="html"><![CDATA[이론적 개념에서 실용적 응용 단계로 빠르게 발전하고 있는 양자 컴퓨팅 기술의 최신 동향과 주요 돌파구, 그리고 다양한 산업 분야에서의 활용 사례를 살펴봅니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-03-09-quantum-computing-breakthroughs.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-03-09-quantum-computing-breakthroughs.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">생명공학 혁명과 의학의 미래: 맞춤형 치료에서 질병 예방까지</title><link href="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9D%98%ED%95%99/biotech-revolution-medicine/" rel="alternate" type="text/html" title="생명공학 혁명과 의학의 미래: 맞춤형 치료에서 질병 예방까지" /><published>2025-03-02T10:15:00+09:00</published><updated>2025-03-02T10:15:00+09:00</updated><id>https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9D%98%ED%95%99/biotech-revolution-medicine</id><content type="html" xml:base="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9D%98%ED%95%99/biotech-revolution-medicine/"><![CDATA[<div class="post-content-ko">
+</div>]]></content><author><name>NewsLens</name></author><category term="기술" /><category term="컴퓨팅" /><category term="양자컴퓨팅" /><category term="양자알고리즘" /><category term="양자우위" /><category term="양자오류보정" /><category term="양자인터넷" /><summary type="html"><![CDATA[이론적 개념에서 실용적 응용 단계로 빠르게 발전하고 있는 양자 컴퓨팅 기술의 최신 동향과 주요 돌파구, 그리고 다양한 산업 분야에서의 활용 사례를 살펴봅니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-03-09-quantum-computing-breakthroughs.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-03-09-quantum-computing-breakthroughs.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">생명공학 혁명과 의학의 미래: 맞춤형 치료에서 질병 예방까지</title><link href="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9D%98%ED%95%99/biotech-revolution-medicine/" rel="alternate" type="text/html" title="생명공학 혁명과 의학의 미래: 맞춤형 치료에서 질병 예방까지" /><published>2025-03-02T10:15:00+09:00</published><updated>2025-03-02T10:15:00+09:00</updated><id>https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9D%98%ED%95%99/biotech-revolution-medicine</id><content type="html" xml:base="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9D%98%ED%95%99/biotech-revolution-medicine/"><![CDATA[<div class="post-content-ko">
 
   <h2 id="section">의학의 새로운 시대: 정밀성과 개인화</h2>
 
@@ -697,38 +635,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <p>These developments are accelerating the shift in medical paradigms from disease-centered to health-centered, from reactive to preventive, and from general to personalized. Future healthcare will not simply treat sick people but will move toward optimizing health before disease occurs by comprehensively considering individual genetic characteristics, environmental exposures, and lifestyle.</p>
 
   <p>To maximize the benefits and minimize the risks of the biotechnology revolution, a broad dialogue involving scientists, healthcare professionals, policymakers, ethicists, and the general public is needed. The challenges we face are complex, but if we collaborate under the common goal of improving human health, we can realize the bright future of biotechnology together.</p>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script>]]></content><author><name>NewsLens</name></author><category term="과학" /><category term="의학" /><category term="바이오테크놀로지" /><category term="정밀의학" /><category term="유전자치료" /><category term="면역치료" /><category term="재생의학" /><summary type="html"><![CDATA[급속도로 발전하는 생명공학 기술이 의학 분야에 가져오는 혁명적 변화와 이로 인한 질병 치료, 예방, 건강 관리 패러다임의 전환을 살펴봅니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-03-02-biotech-revolution-medicine.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-03-02-biotech-revolution-medicine.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">우주 탐사의 새 지평: 상업화와 심우주 진출의 시대</title><link href="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9A%B0%EC%A3%BC/space-exploration-future/" rel="alternate" type="text/html" title="우주 탐사의 새 지평: 상업화와 심우주 진출의 시대" /><published>2025-02-23T13:20:00+09:00</published><updated>2025-02-23T13:20:00+09:00</updated><id>https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9A%B0%EC%A3%BC/space-exploration-future</id><content type="html" xml:base="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9A%B0%EC%A3%BC/space-exploration-future/"><![CDATA[<div class="post-content-ko">
+</div>]]></content><author><name>NewsLens</name></author><category term="과학" /><category term="의학" /><category term="바이오테크놀로지" /><category term="정밀의학" /><category term="유전자치료" /><category term="면역치료" /><category term="재생의학" /><summary type="html"><![CDATA[급속도로 발전하는 생명공학 기술이 의학 분야에 가져오는 혁명적 변화와 이로 인한 질병 치료, 예방, 건강 관리 패러다임의 전환을 살펴봅니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-03-02-biotech-revolution-medicine.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-03-02-biotech-revolution-medicine.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">우주 탐사의 새 지평: 상업화와 심우주 진출의 시대</title><link href="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9A%B0%EC%A3%BC/space-exploration-future/" rel="alternate" type="text/html" title="우주 탐사의 새 지평: 상업화와 심우주 진출의 시대" /><published>2025-02-23T13:20:00+09:00</published><updated>2025-02-23T13:20:00+09:00</updated><id>https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9A%B0%EC%A3%BC/space-exploration-future</id><content type="html" xml:base="https://goadrider.github.io/%EA%B3%BC%ED%95%99/%EC%9A%B0%EC%A3%BC/space-exploration-future/"><![CDATA[<div class="post-content-ko">
 
   <h2 id="section">민간 주도 우주 산업의 혁명</h2>
 
@@ -876,38 +783,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <p>Of course, there are many challenges to overcome. Space debris, fair utilization of space resources, protection of the space environment, and building international cooperation frameworks are areas that require continuous effort.</p>
 
   <p>However, human curiosity and pioneering spirit will overcome these challenges and continue the journey toward the stars. As Konstantin Tsiolkovsky said, “Earth is the cradle of humanity, but one cannot remain in the cradle forever.” Our space exploration is just the beginning.</p>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script>]]></content><author><name>NewsLens</name></author><category term="과학" /><category term="우주" /><category term="우주탐사" /><category term="민간우주기업" /><category term="화성탐사" /><category term="달기지" /><category term="우주거주지" /><summary type="html"><![CDATA[민간 기업의 우주 산업 진출이 가속화되고 인류의 달 귀환과 화성 탐사가 본격화되는 가운데, 심우주 탐사와 우주 거주지 개발의 현황과 미래 전망을 살펴봅니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-02-23-space-exploration-future.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-02-23-space-exploration-future.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">AI 시대의 일의 미래: 직업 생태계의 대전환</title><link href="https://goadrider.github.io/%EA%B2%BD%EC%A0%9C/%EA%B8%B0%EC%88%A0/future-of-work-ai-era/" rel="alternate" type="text/html" title="AI 시대의 일의 미래: 직업 생태계의 대전환" /><published>2025-02-16T09:45:00+09:00</published><updated>2025-02-16T09:45:00+09:00</updated><id>https://goadrider.github.io/%EA%B2%BD%EC%A0%9C/%EA%B8%B0%EC%88%A0/future-of-work-ai-era</id><content type="html" xml:base="https://goadrider.github.io/%EA%B2%BD%EC%A0%9C/%EA%B8%B0%EC%88%A0/future-of-work-ai-era/"><![CDATA[<div class="post-content-ko">
+</div>]]></content><author><name>NewsLens</name></author><category term="과학" /><category term="우주" /><category term="우주탐사" /><category term="민간우주기업" /><category term="화성탐사" /><category term="달기지" /><category term="우주거주지" /><summary type="html"><![CDATA[민간 기업의 우주 산업 진출이 가속화되고 인류의 달 귀환과 화성 탐사가 본격화되는 가운데, 심우주 탐사와 우주 거주지 개발의 현황과 미래 전망을 살펴봅니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-02-23-space-exploration-future.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-02-23-space-exploration-future.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">AI 시대의 일의 미래: 직업 생태계의 대전환</title><link href="https://goadrider.github.io/%EA%B2%BD%EC%A0%9C/%EA%B8%B0%EC%88%A0/future-of-work-ai-era/" rel="alternate" type="text/html" title="AI 시대의 일의 미래: 직업 생태계의 대전환" /><published>2025-02-16T09:45:00+09:00</published><updated>2025-02-16T09:45:00+09:00</updated><id>https://goadrider.github.io/%EA%B2%BD%EC%A0%9C/%EA%B8%B0%EC%88%A0/future-of-work-ai-era</id><content type="html" xml:base="https://goadrider.github.io/%EA%B2%BD%EC%A0%9C/%EA%B8%B0%EC%88%A0/future-of-work-ai-era/"><![CDATA[<div class="post-content-ko">
 
   <h2 id="section">서론: 급변하는 일의 풍경</h2>
 
@@ -1101,38 +977,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <p>The future of work will take the form of cooperation, not competition, between humans and machines. While AI handles repetitive and predictable tasks, humans can focus on areas where they exercise unique strengths such as creativity, empathy, intuition, and ethical judgment.</p>
 
   <p>Ultimately, the true challenge of the AI era is not technological but social, political, and cultural. It will be a process of finding answers to what values we will design the future of work around, how we will provide fair opportunities to everyone, and how we will redefine the essence of being human.</p>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script>]]></content><author><name>NewsLens</name></author><category term="경제" /><category term="기술" /><category term="인공지능" /><category term="자동화" /><category term="미래직업" /><category term="노동시장" /><category term="디지털전환" /><summary type="html"><![CDATA[인공지능과 자동화 기술의 발전이 가져올 직업 세계의 변화와 새로운 기회, 그리고 이에 대응하기 위한 사회적, 개인적 전략을 탐구합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-02-16-future-of-work-ai-era.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-02-16-future-of-work-ai-era.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">지속가능한 스마트 도시: 기술과 생태가 공존하는 도시 설계</title><link href="https://goadrider.github.io/%EB%8F%84%EC%8B%9C%EA%B3%84%ED%9A%8D/%ED%99%98%EA%B2%BD/sustainable-cities-future/" rel="alternate" type="text/html" title="지속가능한 스마트 도시: 기술과 생태가 공존하는 도시 설계" /><published>2025-02-09T11:00:00+09:00</published><updated>2025-02-09T11:00:00+09:00</updated><id>https://goadrider.github.io/%EB%8F%84%EC%8B%9C%EA%B3%84%ED%9A%8D/%ED%99%98%EA%B2%BD/sustainable-cities-future</id><content type="html" xml:base="https://goadrider.github.io/%EB%8F%84%EC%8B%9C%EA%B3%84%ED%9A%8D/%ED%99%98%EA%B2%BD/sustainable-cities-future/"><![CDATA[<div class="post-content-ko">
+</div>]]></content><author><name>NewsLens</name></author><category term="경제" /><category term="기술" /><category term="인공지능" /><category term="자동화" /><category term="미래직업" /><category term="노동시장" /><category term="디지털전환" /><summary type="html"><![CDATA[인공지능과 자동화 기술의 발전이 가져올 직업 세계의 변화와 새로운 기회, 그리고 이에 대응하기 위한 사회적, 개인적 전략을 탐구합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-02-16-future-of-work-ai-era.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-02-16-future-of-work-ai-era.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">지속가능한 스마트 도시: 기술과 생태가 공존하는 도시 설계</title><link href="https://goadrider.github.io/%EB%8F%84%EC%8B%9C%EA%B3%84%ED%9A%8D/%ED%99%98%EA%B2%BD/sustainable-cities-future/" rel="alternate" type="text/html" title="지속가능한 스마트 도시: 기술과 생태가 공존하는 도시 설계" /><published>2025-02-09T11:00:00+09:00</published><updated>2025-02-09T11:00:00+09:00</updated><id>https://goadrider.github.io/%EB%8F%84%EC%8B%9C%EA%B3%84%ED%9A%8D/%ED%99%98%EA%B2%BD/sustainable-cities-future</id><content type="html" xml:base="https://goadrider.github.io/%EB%8F%84%EC%8B%9C%EA%B3%84%ED%9A%8D/%ED%99%98%EA%B2%BD/sustainable-cities-future/"><![CDATA[<div class="post-content-ko">
 
   <h2 id="section">스마트 도시의 진화: 기술에서 생태로</h2>
 
@@ -1288,38 +1133,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <p>Successful cities will utilize advanced technology but ensure it contributes to the greater goals of human and natural wellbeing. Cities that value community spirit, cultural diversity, and ecological harmony—not just data and algorithms—will become truly ‘smart cities’ in the meaningful sense.</p>
 
   <p>The true intelligence of future cities will lie in resilience rather than efficiency, sustainability rather than growth, and the coexistence of humans and nature rather than technology alone. Realizing this vision is the most important challenge and opportunity facing our generation.</p>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script>]]></content><author><name>NewsLens</name></author><category term="도시계획" /><category term="환경" /><category term="스마트시티" /><category term="지속가능성" /><category term="도시생태계" /><category term="그린인프라" /><category term="탄소중립" /><summary type="html"><![CDATA[기후 변화와 도시 인구 증가 문제에 대응하기 위한, 기술과 자연이 조화롭게 통합된 미래 도시 모델을 탐구합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-02-09-sustainable-cities-future.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-02-09-sustainable-cities-future.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">AI와 예술의 공존: 창작의 새로운 패러다임</title><link href="https://goadrider.github.io/%EC%98%88%EC%88%A0/%EA%B8%B0%EC%88%A0/ai-creativity-arts/" rel="alternate" type="text/html" title="AI와 예술의 공존: 창작의 새로운 패러다임" /><published>2025-02-02T10:30:00+09:00</published><updated>2025-02-02T10:30:00+09:00</updated><id>https://goadrider.github.io/%EC%98%88%EC%88%A0/%EA%B8%B0%EC%88%A0/ai-creativity-arts</id><content type="html" xml:base="https://goadrider.github.io/%EC%98%88%EC%88%A0/%EA%B8%B0%EC%88%A0/ai-creativity-arts/"><![CDATA[<div class="post-content-ko">
+</div>]]></content><author><name>NewsLens</name></author><category term="도시계획" /><category term="환경" /><category term="스마트시티" /><category term="지속가능성" /><category term="도시생태계" /><category term="그린인프라" /><category term="탄소중립" /><summary type="html"><![CDATA[기후 변화와 도시 인구 증가 문제에 대응하기 위한, 기술과 자연이 조화롭게 통합된 미래 도시 모델을 탐구합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-02-09-sustainable-cities-future.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-02-09-sustainable-cities-future.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">AI와 예술의 공존: 창작의 새로운 패러다임</title><link href="https://goadrider.github.io/%EC%98%88%EC%88%A0/%EA%B8%B0%EC%88%A0/ai-creativity-arts/" rel="alternate" type="text/html" title="AI와 예술의 공존: 창작의 새로운 패러다임" /><published>2025-02-02T10:30:00+09:00</published><updated>2025-02-02T10:30:00+09:00</updated><id>https://goadrider.github.io/%EC%98%88%EC%88%A0/%EA%B8%B0%EC%88%A0/ai-creativity-arts</id><content type="html" xml:base="https://goadrider.github.io/%EC%98%88%EC%88%A0/%EA%B8%B0%EC%88%A0/ai-creativity-arts/"><![CDATA[<div class="post-content-ko">
 
   <h2 id="ai--">AI 예술의 현주소</h2>
 
@@ -1459,38 +1273,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <p>In the future art ecosystem, the computational creativity of AI will combine with human cultural and emotional intelligence to create new forms of expression and aesthetic experiences previously unimagined. Through this process, we can deepen our understanding of creativity, consciousness, and the essence of art.</p>
 
   <p>Ultimately, the value of AI art lies not only in technological innovation but in its potential to enrich human experience and view the world from new perspectives.</p>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script>]]></content><author><name>NewsLens</name></author><category term="예술" /><category term="기술" /><category term="인공지능예술" /><category term="창의성" /><category term="생성AI" /><category term="디지털아트" /><category term="예술윤리" /><summary type="html"><![CDATA[인공지능이 예술 창작의 동반자로 자리 잡으면서 변화하는 예술의 개념과 창작자의 역할, 그리고 이로 인해 제기되는 미학적, 윤리적 질문들을 탐구합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-02-02-ai-creativity-arts.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-02-02-ai-creativity-arts.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">양자 컴퓨팅의 실용적 응용: 2025년 현황과 전망</title><link href="https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-applications/" rel="alternate" type="text/html" title="양자 컴퓨팅의 실용적 응용: 2025년 현황과 전망" /><published>2025-01-26T09:15:00+09:00</published><updated>2025-01-26T09:15:00+09:00</updated><id>https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-applications</id><content type="html" xml:base="https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-applications/"><![CDATA[<div class="post-content-ko">
+</div>]]></content><author><name>NewsLens</name></author><category term="예술" /><category term="기술" /><category term="인공지능예술" /><category term="창의성" /><category term="생성AI" /><category term="디지털아트" /><category term="예술윤리" /><summary type="html"><![CDATA[인공지능이 예술 창작의 동반자로 자리 잡으면서 변화하는 예술의 개념과 창작자의 역할, 그리고 이로 인해 제기되는 미학적, 윤리적 질문들을 탐구합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-02-02-ai-creativity-arts.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-02-02-ai-creativity-arts.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">양자 컴퓨팅의 실용적 응용: 2025년 현황과 전망</title><link href="https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-applications/" rel="alternate" type="text/html" title="양자 컴퓨팅의 실용적 응용: 2025년 현황과 전망" /><published>2025-01-26T09:15:00+09:00</published><updated>2025-01-26T09:15:00+09:00</updated><id>https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-applications</id><content type="html" xml:base="https://goadrider.github.io/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-applications/"><![CDATA[<div class="post-content-ko">
 
   <h2 id="section">양자 컴퓨팅의 실용화 단계 진입</h2>
 
@@ -1620,38 +1403,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <p>Quantum computing is now moving beyond mere theoretical possibility into the stage of practical application. While it will still take time to implement fully fault-tolerant quantum computers, current NISQ devices and quantum-classical hybrid approaches are already creating significant value in specific industry problems.</p>
 
   <p>To maximize the potential offered by quantum computing in the future, balanced progress in technology development, workforce training, and discovery of industry applications will be necessary. The quantum revolution is slowly but surely transforming our digital world.</p>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script>]]></content><author><name>NewsLens</name></author><category term="기술" /><category term="컴퓨팅" /><category term="양자컴퓨팅" /><category term="양자알고리즘" /><category term="양자암호" /><category term="기술전망" /><summary type="html"><![CDATA[양자 컴퓨팅 기술이 실용화 단계에 접어들면서 나타나는 응용 사례와 산업별 활용 방안, 그리고 향후 발전 방향을 분석합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-01-26-quantum-computing-applications.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-01-26-quantum-computing-applications.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">생명공학의 경계: CRISPR 이후의 윤리적 고려사항</title><link href="https://goadrider.github.io/%EC%83%9D%EB%AA%85%EA%B3%BC%ED%95%99/%EC%9C%A4%EB%A6%AC/bioengineering-ethics/" rel="alternate" type="text/html" title="생명공학의 경계: CRISPR 이후의 윤리적 고려사항" /><published>2025-01-19T16:20:00+09:00</published><updated>2025-01-19T16:20:00+09:00</updated><id>https://goadrider.github.io/%EC%83%9D%EB%AA%85%EA%B3%BC%ED%95%99/%EC%9C%A4%EB%A6%AC/bioengineering-ethics</id><content type="html" xml:base="https://goadrider.github.io/%EC%83%9D%EB%AA%85%EA%B3%BC%ED%95%99/%EC%9C%A4%EB%A6%AC/bioengineering-ethics/"><![CDATA[<div class="post-content-ko">
+</div>]]></content><author><name>NewsLens</name></author><category term="기술" /><category term="컴퓨팅" /><category term="양자컴퓨팅" /><category term="양자알고리즘" /><category term="양자암호" /><category term="기술전망" /><summary type="html"><![CDATA[양자 컴퓨팅 기술이 실용화 단계에 접어들면서 나타나는 응용 사례와 산업별 활용 방안, 그리고 향후 발전 방향을 분석합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-01-26-quantum-computing-applications.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-01-26-quantum-computing-applications.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">생명공학의 경계: CRISPR 이후의 윤리적 고려사항</title><link href="https://goadrider.github.io/%EC%83%9D%EB%AA%85%EA%B3%BC%ED%95%99/%EC%9C%A4%EB%A6%AC/bioengineering-ethics/" rel="alternate" type="text/html" title="생명공학의 경계: CRISPR 이후의 윤리적 고려사항" /><published>2025-01-19T16:20:00+09:00</published><updated>2025-01-19T16:20:00+09:00</updated><id>https://goadrider.github.io/%EC%83%9D%EB%AA%85%EA%B3%BC%ED%95%99/%EC%9C%A4%EB%A6%AC/bioengineering-ethics</id><content type="html" xml:base="https://goadrider.github.io/%EC%83%9D%EB%AA%85%EA%B3%BC%ED%95%99/%EC%9C%A4%EB%A6%AC/bioengineering-ethics/"><![CDATA[<div class="post-content-ko">
 
   <h2 id="section">생명공학 발전의 최신 동향</h2>
 
@@ -1945,35 +1697,4 @@ document.addEventListener('DOMContentLoaded', function() {
   <p>The future of bioengineering must be shaped by scientists, policymakers, ethicists, civil society, and the general public together. Our choices should be based not simply on technological possibilities, but on fundamental values such as human dignity, justice, and responsibility to future generations.</p>
 
   <p>At this point of rapid development in gene editing technology, we must clearly distinguish between “what we can do” and “what we should do,” and initiate an inclusive and thoughtful social dialogue to determine the latter. This will be the way to responsibly realize the true potential of bioengineering.</p>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script>]]></content><author><name>NewsLens</name></author><category term="생명과학" /><category term="윤리" /><category term="생명공학" /><category term="크리스퍼" /><category term="유전자편집" /><category term="생명윤리" /><category term="미래의학" /><summary type="html"><![CDATA[CRISPR-Cas9 기술의 발전으로 인해 제기되는 생명공학의 윤리적 경계와 사회적 합의의 필요성에 대해 탐구합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-01-19-bioengineering-ethics.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-01-19-bioengineering-ethics.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+</div>]]></content><author><name>NewsLens</name></author><category term="생명과학" /><category term="윤리" /><category term="생명공학" /><category term="크리스퍼" /><category term="유전자편집" /><category term="생명윤리" /><category term="미래의학" /><summary type="html"><![CDATA[CRISPR-Cas9 기술의 발전으로 인해 제기되는 생명공학의 윤리적 경계와 사회적 합의의 필요성에 대해 탐구합니다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://goadrider.github.io/assets/images/posts/2025-01-19-bioengineering-ethics.jpg" /><media:content medium="image" url="https://goadrider.github.io/assets/images/posts/2025-01-19-bioengineering-ethics.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
