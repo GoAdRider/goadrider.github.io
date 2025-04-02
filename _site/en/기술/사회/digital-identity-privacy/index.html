@@ -974,7 +974,7 @@ document.addEventListener('DOMContentLoaded', function() {
         width: 100%;
     }
 
-    /* 다국어 콘텐츠 스타일 - 중요: 인라인 스타일 없음 */
+    /* 다국어 콘텐츠 스타일 - !important로 강제 적용 */
     .post-content-ko,
     .post-content-en,
     .markdown-content {
@@ -983,20 +983,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /* 기본값은 한국어 표시, 영어 숨김 (JS에 의해 변경됨) */
     .post-content-en {
-        display: none;
+        display: none !important;
     }
 
     .post-content-ko {
-        display: block;
+        display: block !important;
     }
 
     /* 언어가 en일 때는 스타일 반전 */
-    :lang(en) .post-content-en {
-        display: block;
+    html[lang="en"] .post-content-en {
+        display: block !important;
     }
 
-    :lang(en) .post-content-ko {
-        display: none;
+    html[lang="en"] .post-content-ko {
+        display: none !important;
     }
 
     /* 마크다운 요소 스타일 */
@@ -1127,42 +1127,105 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 </style>
 
-<!-- 간소화된 포스트별 언어 처리 스크립트 -->
+<!-- 개선된 포스트별 언어 처리 스크립트 -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('[포스트] 초기화');
+        console.log('[포스트] 초기화 시작');
 
         // 초기 언어 상태 확인
         const savedLang = localStorage.getItem('lang') || 'ko';
         console.log('[포스트] 초기 언어:', savedLang);
 
+        // 포스트 콘텐츠 요소
+        const koContent = document.querySelector('.post-content-ko');
+        const enContent = document.querySelector('.post-content-en');
+
+        // 초기 상태 로깅
+        if (koContent) console.log('[포스트] 한국어 콘텐츠 존재, 현재 표시:', getComputedStyle(koContent).display);
+        if (enContent) console.log('[포스트] 영어 콘텐츠 존재, 현재 표시:', getComputedStyle(enContent).display);
+
+        // DOM 콘텐츠 직접 조작 함수
+        function updatePostContent(lang) {
+            console.log('[포스트] 콘텐츠 업데이트 시작:', lang);
+
+            if (koContent && enContent) {
+                // !important 속성 사용하여 스타일 강제 적용
+                if (lang === 'ko') {
+                    koContent.style.cssText = 'display: block !important; visibility: visible !important;';
+                    enContent.style.cssText = 'display: none !important; visibility: hidden !important;';
+                    document.documentElement.lang = 'ko';
+                } else {
+                    koContent.style.cssText = 'display: none !important; visibility: hidden !important;';
+                    enContent.style.cssText = 'display: block !important; visibility: visible !important;';
+                    document.documentElement.lang = 'en';
+                }
+
+                console.log('[포스트] 콘텐츠 표시 상태 변경 완료:', {
+                    한국어: getComputedStyle(koContent).display,
+                    영어: getComputedStyle(enContent).display
+                });
+            } else {
+                console.warn('[포스트] 콘텐츠 요소를 찾을 수 없음');
+            }
+
+            // 카테고리와 태그도 업데이트
+            document.querySelectorAll('[data-ko][data-en]').forEach(el => {
+                el.textContent = el.getAttribute(lang === 'ko' ? 'data-ko' : 'data-en');
+
+                // 태그 링크의 경우 '#' 기호 추가
+                if (el.closest('.tag-link')) {
+                    const tagSymbol = el.closest('.tag-link').querySelector('.tag-symbol');
+                    if (!tagSymbol) {
+                        el.textContent = '#' + el.textContent;
+                    }
+                }
+            });
+        }
+
+        // 초기 언어 적용
+        updatePostContent(savedLang);
+
         // 언어 변경 이벤트 리스너
         document.addEventListener('languageChanged', function (e) {
             console.log('[포스트] 언어 변경 이벤트 감지:', e.detail);
+            updatePostContent(e.detail.language);
         });
 
-        // 포스트별 언어 변경 이벤트 리스너 (중앙 스크립트에서 발생)
-        document.addEventListener('postLanguageChange', function (e) {
-            console.log('[포스트] 포스트 언어 변경 이벤트 감지:', e.detail);
+        // 로컬 저장소 변경 이벤트 감지
+        window.addEventListener('storage', function (e) {
+            if (e.key === 'lang') {
+                console.log('[포스트] 저장소 언어 변경 감지:', e.newValue);
+                updatePostContent(e.newValue);
+            }
         });
 
         // 강제 언어 적용 (디버깅용)
         window.forcePostLanguage = function (lang) {
             console.log('[포스트] 강제 언어 적용:', lang);
-            const koContent = document.querySelector('.post-content-ko');
-            const enContent = document.querySelector('.post-content-en');
-
-            if (koContent && enContent) {
-                if (lang === 'ko') {
-                    koContent.style.display = 'block';
-                    enContent.style.display = 'none';
-                } else {
-                    koContent.style.display = 'none';
-                    enContent.style.display = 'block';
-                }
-                console.log('[포스트] 강제 언어 적용 완료');
-            }
+            updatePostContent(lang);
         };
+
+        // 100ms 후 상태 재확인 및 필요시 재적용
+        setTimeout(() => {
+            if (koContent && enContent) {
+                const koDisplay = getComputedStyle(koContent).display;
+                const enDisplay = getComputedStyle(enContent).display;
+                console.log('[포스트] 상태 확인:', {
+                    언어: savedLang,
+                    한국어표시: koDisplay,
+                    영어표시: enDisplay
+                });
+
+                // 예상과 다르면 재적용
+                const isCorrect = (savedLang === 'ko' && koDisplay !== 'none' && enDisplay === 'none') ||
+                    (savedLang === 'en' && koDisplay === 'none' && enDisplay !== 'none');
+
+                if (!isCorrect) {
+                    console.log('[포스트] 상태 불일치, 언어 재적용');
+                    updatePostContent(savedLang);
+                }
+            }
+        }, 100);
     });
 </script>
     </div>
