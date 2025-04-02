@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>언어 전환 테스트</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+
+        h1 {
+            color: #336699;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .button-group {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: #336699;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #264d73;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        .content-ko,
+        .content-en {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .d-block {
+            display: block;
+        }
+
+        .d-none {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>언어 전환 테스트 페이지</h1>
+
+        <div class="test-section">
+            <h2>현재 언어 상태</h2>
+            <div class="status" id="status">
+                로드 중...
+            </div>
+            <div class="button-group">
+                <button onclick="updateStatus()">상태 확인</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>언어 전환 테스트</h2>
+            <div class="button-group">
+                <button onclick="forceLang('ko')">한국어로 변경</button>
+                <button onclick="forceLang('en')">영어로 변경</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>콘텐츠 표시 테스트</h2>
+            <div class="post-content-ko" lang="ko">
+                <h3>한국어 콘텐츠</h3>
+                <p>이것은 한국어 콘텐츠입니다. 언어 설정이 한국어일 때 표시됩니다.</p>
+                <p>언어 전환이 제대로 작동하면 이 텍스트는 영어로 변경했을 때 사라지고, 한국어로 변경했을 때 표시되어야 합니다.</p>
+            </div>
+            <div class="post-content-en" lang="en">
+                <h3>English Content</h3>
+                <p>This is English content. It will be displayed when the language setting is English.</p>
+                <p>If the language switching works properly, this text should disappear when changed to Korean, and
+                    appear when changed to English.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 초기 상태 확인
+            updateStatus();
+
+            // 언어에 따라 콘텐츠 표시/숨김 제어
+            applyLanguageStyles();
+
+            // 이벤트 리스너 등록
+            document.addEventListener('languageChanged', function (e) {
+                console.log('언어 변경 이벤트 감지:', e.detail);
+                updateStatus();
+                applyLanguageStyles();
+            });
+        });
+
+        // 상태 확인 함수
+        function updateStatus() {
+            const currentLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
+            const htmlLang = document.documentElement.lang;
+
+            const status = document.getElementById('status');
+            status.innerHTML = `
+                <p><strong>로컬 스토리지 언어:</strong> ${currentLang}</p>
+                <p><strong>HTML lang 속성:</strong> ${htmlLang}</p>
+                <p><strong>한국어 콘텐츠 표시:</strong> ${window.getComputedStyle(document.querySelector('.post-content-ko')).display}</p>
+                <p><strong>영어 콘텐츠 표시:</strong> ${window.getComputedStyle(document.querySelector('.post-content-en')).display}</p>
+            `;
+        }
+
+        // 언어에 따라 스타일 적용
+        function applyLanguageStyles() {
+            const lang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
+            document.documentElement.lang = lang;
+
+            const koContent = document.querySelector('.post-content-ko');
+            const enContent = document.querySelector('.post-content-en');
+
+            if (lang === 'ko') {
+                koContent.style.cssText = 'display: block !important; visibility: visible !important;';
+                enContent.style.cssText = 'display: none !important; visibility: hidden !important;';
+            } else {
+                koContent.style.cssText = 'display: none !important; visibility: hidden !important;';
+                enContent.style.cssText = 'display: block !important; visibility: visible !important;';
+            }
+
+            console.log('언어 스타일 적용 완료:', lang);
+        }
+
+        // 강제 언어 변경 함수
+        function forceLang(lang) {
+            console.log('언어 강제 변경:', lang);
+
+            // 로컬 스토리지 업데이트
+            localStorage.setItem('preferred_language', lang);
+            localStorage.setItem('lang', lang);
+
+            // HTML lang 속성 변경
+            document.documentElement.lang = lang;
+
+            // 콘텐츠 표시 제어
+            applyLanguageStyles();
+
+            // 이벤트 발생
+            document.dispatchEvent(new CustomEvent('languageChanged', {
+                detail: { language: lang }
+            }));
+
+            // 상태 업데이트
+            updateStatus();
+
+            return false;
+        }
+    </script>
+</body>
+
+</html>
