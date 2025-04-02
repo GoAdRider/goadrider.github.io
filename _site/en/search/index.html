@@ -652,23 +652,49 @@
 
         // 언어 스위처 클릭 이벤트
         languageSwitcher.addEventListener('click', function () {
-            const currentLanguage = localStorage.getItem('preferred_language') || 'ko';
+            const currentLanguage = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
             const newLanguage = currentLanguage === 'en' ? 'ko' : 'en';
 
-            // 언어 설정 저장
-            localStorage.setItem('preferred_language', newLanguage);
+            console.log('[헤더] 언어 변경 시작:', newLanguage);
 
-            // 언어 변경 이벤트 발생
-            window.dispatchEvent(new CustomEvent('languageChange', {
-                detail: {
-                    language: newLanguage
-                }
-            }));
+            // 모든 저장소에 언어 설정 저장
+            localStorage.setItem('preferred_language', newLanguage);
+            localStorage.setItem('lang', newLanguage);
+
+            // 전역 언어 변경 함수 호출 (language.js에 정의됨)
+            if (typeof window.changeLanguage === 'function') {
+                console.log('[헤더] 전역 언어 변경 함수 호출');
+                window.changeLanguage(newLanguage);
+            } else {
+                console.warn('[헤더] 전역 언어 변경 함수가 없음');
+
+                // 언어 변경 이벤트 발생
+                window.dispatchEvent(new CustomEvent('languageChange', {
+                    detail: {
+                        language: newLanguage
+                    }
+                }));
+            }
+
+            // 직접 내용 조작 (백업 동작)
+            document.querySelectorAll('.post-content-ko').forEach(el => {
+                el.style.cssText = newLanguage === 'ko'
+                    ? 'display: block !important; visibility: visible !important;'
+                    : 'display: none !important; visibility: hidden !important;';
+            });
+
+            document.querySelectorAll('.post-content-en').forEach(el => {
+                el.style.cssText = newLanguage === 'en'
+                    ? 'display: block !important; visibility: visible !important;'
+                    : 'display: none !important; visibility: hidden !important;';
+            });
 
             // URL 업데이트
             const url = new URL(window.location);
             url.searchParams.set('lang', newLanguage);
             window.history.pushState({}, '', url);
+
+            console.log('[헤더] 언어 변경 완료:', newLanguage);
         });
     });
 </script>
