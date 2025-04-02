@@ -436,22 +436,7 @@
             </nav>
 
             <div class="header-actions">
-                <div class="language-switcher" id="language-switcher">
-                    <i class="fas fa-globe"></i>
-                    <span id="current-lang" data-ko="한국어" data-en="English">한국어</span>
-                </div>
-
-                <a href="/en/search/" class="search-button">
-                    <i class="fas fa-search"></i>
-                </a>
-            </div>
-
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-
-            <div class="header-right">
-                <!-- 언어 토글 버튼 추가 -->
+                <!-- 기존 버튼 대신 언어 토글 버튼 사용 -->
                 <!-- 언어 전환 버튼 -->
 
 <div class="language-toggle-container">
@@ -609,11 +594,13 @@
     });
 </script>
 
-                <!-- 기존 버튼들 -->
-                <a href="/en/categories" class="header-button">카테고리</a>
-                <a href="/en/tags" class="header-button">태그</a>
-                <a href="/en/about" class="header-button">소개</a>
-                <a href="/en/contact" class="header-button">문의</a>
+                <a href="/en/search/" class="search-button">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
             </div>
         </div>
     </div>
@@ -696,25 +683,6 @@
         gap: 1.5rem;
     }
 
-    .language-switcher {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-
-    .language-switcher:hover {
-        background-color: rgba(0, 0, 0, 0.03);
-    }
-
-    .language-switcher i {
-        color: var(--primary-color);
-    }
-
     .search-button {
         display: flex;
         align-items: center;
@@ -777,8 +745,6 @@
         const nav = document.querySelector('nav');
         const headerActions = document.querySelector('.header-actions');
         const navLinks = document.querySelectorAll('.nav-link');
-        const currentLang = document.getElementById('current-lang');
-        const languageSwitcher = document.getElementById('language-switcher');
 
         mobileMenu.addEventListener('click', function () {
             nav.classList.toggle('active');
@@ -790,52 +756,19 @@
             // 네비게이션 링크 텍스트 업데이트
             navLinks.forEach(link => {
                 link.textContent = link.getAttribute(`data-${lang}`);
-                // URL에 언어 파라미터 추가
-                const href = link.getAttribute('href');
-                const baseUrl = href.split('?')[0];
-                const params = new URLSearchParams(href.split('?')[1] || '');
-                params.set('lang', lang);
-                link.href = `${baseUrl}?${params.toString()}`;
             });
-
-            // 현재 언어 표시 업데이트
-            currentLang.textContent = currentLang.getAttribute(`data-${lang}`);
         }
 
         // 언어 변경 이벤트 리스너
-        window.addEventListener('languageChange', function (e) {
+        document.addEventListener('languageChanged', function (e) {
             updateHeaderLanguage(e.detail.language);
         });
 
         // 초기 언어 설정
-        const urlParams = new URLSearchParams(window.location.search);
-        const langParam = urlParams.get('lang');
-        const storedLang = localStorage.getItem('preferred_language');
-        const initialLang = langParam || storedLang || 'ko';
+        const storedLang = localStorage.getItem('lang') || 'ko';
 
         // 초기 언어 적용
-        updateHeaderLanguage(initialLang);
-
-        // 언어 스위처 클릭 이벤트
-        languageSwitcher.addEventListener('click', function () {
-            const currentLanguage = localStorage.getItem('preferred_language') || 'ko';
-            const newLanguage = currentLanguage === 'en' ? 'ko' : 'en';
-
-            // 언어 설정 저장
-            localStorage.setItem('preferred_language', newLanguage);
-
-            // 언어 변경 이벤트 발생
-            window.dispatchEvent(new CustomEvent('languageChange', {
-                detail: {
-                    language: newLanguage
-                }
-            }));
-
-            // URL 업데이트
-            const url = new URL(window.location);
-            url.searchParams.set('lang', newLanguage);
-            window.history.pushState({}, '', url);
-        });
+        updateHeaderLanguage(storedLang);
     });
 </script>
 
