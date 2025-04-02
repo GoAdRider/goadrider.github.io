@@ -266,3 +266,60 @@ body.body-lang-ko .post-content-en,
     visibility: hidden !important;
     opacity: 0 !important;
 }
+
+/* 추가적으로 강화된 언어별 세부 스타일 */
+[data-lang="ko"] .post-content-ko,
+[lang="ko"] .post-content-ko,
+html[data-lang="ko"] .post-content-ko {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    clip-path: none !important;
+    z-index: auto !important;
+}
+
+[data-lang="ko"] .post-content-en,
+[lang="ko"] .post-content-en,
+html[data-lang="ko"] .post-content-en {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
+    z-index: -1 !important;
+}
+
+[data-lang="en"] .post-content-en,
+[lang="en"] .post-content-en,
+html[data-lang="en"] .post-content-en {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    clip-path: none !important;
+    z-index: auto !important;
+}
+
+[data-lang="en"] .post-content-ko,
+[lang="en"] .post-content-ko,
+html[data-lang="en"] .post-content-ko {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
+    z-index: -1 !important;
+}
