@@ -195,3 +195,74 @@
         font-size: 0.95rem;
     }
 }
+
+/* 다국어 콘텐츠 스타일 - 전역 규칙 */
+.post-content-ko,
+.post-content-en {
+    width: 100%;
+    transition: opacity 0.2s ease;
+}
+
+/* 기본값은 한국어 표시, 영어 숨김 */
+.post-content-en {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+.post-content-ko {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* 언어가 en일 때는 스타일 반전 */
+html[lang="en"] .post-content-en,
+.lang-en .post-content-en,
+body.body-lang-en .post-content-en,
+.content-visible.post-content-en {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+html[lang="en"] .post-content-ko,
+.lang-en .post-content-ko,
+body.body-lang-en .post-content-ko,
+.content-hidden.post-content-ko {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* 언어가 ko일 때의 스타일 */
+html[lang="ko"] .post-content-ko,
+.lang-ko .post-content-ko,
+body.body-lang-ko .post-content-ko,
+.content-visible.post-content-ko {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+html[lang="ko"] .post-content-en,
+.lang-ko .post-content-en,
+body.body-lang-ko .post-content-en,
+.content-hidden.post-content-en {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* 우선순위가 가장 높은 클래스 기반 스타일 */
+.content-visible {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.content-hidden {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
