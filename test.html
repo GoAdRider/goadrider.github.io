@@ -7,188 +7,249 @@
     <title>언어 전환 테스트</title>
     <style>
         body {
-            font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            margin: 0;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-        }
-
-        .container {
+            color: #333;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            border: 1px solid #eee;
-            border-radius: 5px;
         }
 
         h1 {
-            color: #336699;
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
         }
 
-        .test-section {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f9f9f9;
+        .debug-panel {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
             border-radius: 5px;
-        }
-
-        .button-group {
-            margin: 20px 0;
-            display: flex;
-            gap: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
         }
 
         button {
-            padding: 8px 15px;
-            background-color: #336699;
+            background: #4a6bdf;
             color: white;
             border: none;
+            padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
         }
 
         button:hover {
-            background-color: #264d73;
+            background: #3a5ac9;
         }
 
-        .status {
+        .language-display {
+            display: flex;
+            gap: 20px;
             margin-top: 20px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-radius: 4px;
         }
 
-        .content-ko,
-        .content-en {
-            margin-top: 15px;
-            padding: 10px;
+        .content-box {
+            flex: 1;
             border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            display: inline-flex;
+        }
+
+        .language-switcher:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .language-switcher i {
+            color: #4a6bdf;
+        }
+
+        #log {
+            height: 150px;
+            overflow-y: auto;
+            background: #2b2b2b;
+            color: #f8f8f8;
+            padding: 10px;
             border-radius: 4px;
+            font-family: monospace;
+            margin-top: 20px;
         }
 
-        .d-block {
-            display: block;
+        .post-content-ko,
+        .post-content-en {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
         }
 
-        .d-none {
+        .post-content-en {
             display: none;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>언어 전환 테스트 페이지</h1>
+    <h1>언어 전환 테스트 페이지</h1>
 
-        <div class="test-section">
-            <h2>현재 언어 상태</h2>
-            <div class="status" id="status">
-                로드 중...
-            </div>
-            <div class="button-group">
-                <button onclick="updateStatus()">상태 확인</button>
-            </div>
+    <div class="debug-panel">
+        <h2>디버그 도구</h2>
+        <div>
+            <button onclick="setLanguage('ko')">한국어 설정</button>
+            <button onclick="setLanguage('en')">영어 설정</button>
+            <button onclick="clearLocalStorage()">로컬 스토리지 초기화</button>
+            <button onclick="checkDomElements()">DOM 요소 확인</button>
         </div>
 
-        <div class="test-section">
-            <h2>언어 전환 테스트</h2>
-            <div class="button-group">
-                <button onclick="forceLang('ko')">한국어로 변경</button>
-                <button onclick="forceLang('en')">영어로 변경</button>
+        <div class="language-display">
+            <div class="content-box">
+                <h3>현재 상태</h3>
+                <p>HTML Lang: <span id="html-lang"></span></p>
+                <p>LocalStorage.lang: <span id="storage-lang"></span></p>
+                <p>LocalStorage.preferred_language: <span id="preferred-lang"></span></p>
             </div>
-        </div>
 
-        <div class="test-section">
-            <h2>콘텐츠 표시 테스트</h2>
-            <div class="post-content-ko" lang="ko">
-                <h3>한국어 콘텐츠</h3>
-                <p>이것은 한국어 콘텐츠입니다. 언어 설정이 한국어일 때 표시됩니다.</p>
-                <p>언어 전환이 제대로 작동하면 이 텍스트는 영어로 변경했을 때 사라지고, 한국어로 변경했을 때 표시되어야 합니다.</p>
-            </div>
-            <div class="post-content-en" lang="en">
-                <h3>English Content</h3>
-                <p>This is English content. It will be displayed when the language setting is English.</p>
-                <p>If the language switching works properly, this text should disappear when changed to Korean, and
-                    appear when changed to English.</p>
+            <div class="content-box">
+                <h3>다국어 스위처 테스트</h3>
+                <div class="language-switcher" id="test-switcher">
+                    <i class="fas fa-globe"></i>
+                    <span id="test-lang" data-ko="한국어" data-en="English">한국어</span>
+                </div>
             </div>
         </div>
     </div>
 
+    <h2>콘텐츠 표시 테스트</h2>
+    <div class="post-content-ko">
+        <h3>한국어 콘텐츠</h3>
+        <p>이것은 한국어 콘텐츠입니다. 언어 설정이 한국어로 되어 있을 때 표시됩니다.</p>
+    </div>
+
+    <div class="post-content-en">
+        <h3>English Content</h3>
+        <p>This is English content. It should be displayed when the language is set to English.</p>
+    </div>
+
+    <h2>실시간 로그</h2>
+    <div id="log"></div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // 초기 상태 확인
-            updateStatus();
+        // 로그 함수
+        function log(message) {
+            const logElement = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.textContent = `${new Date().toLocaleTimeString()} - ${message}`;
+            logElement.appendChild(entry);
+            logElement.scrollTop = logElement.scrollHeight;
+        }
 
-            // 언어에 따라 콘텐츠 표시/숨김 제어
-            applyLanguageStyles();
-
-            // 이벤트 리스너 등록
-            document.addEventListener('languageChanged', function (e) {
-                console.log('언어 변경 이벤트 감지:', e.detail);
-                updateStatus();
-                applyLanguageStyles();
-            });
-        });
-
-        // 상태 확인 함수
+        // 상태 업데이트 함수
         function updateStatus() {
-            const currentLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
-            const htmlLang = document.documentElement.lang;
-
-            const status = document.getElementById('status');
-            status.innerHTML = `
-                <p><strong>로컬 스토리지 언어:</strong> ${currentLang}</p>
-                <p><strong>HTML lang 속성:</strong> ${htmlLang}</p>
-                <p><strong>한국어 콘텐츠 표시:</strong> ${window.getComputedStyle(document.querySelector('.post-content-ko')).display}</p>
-                <p><strong>영어 콘텐츠 표시:</strong> ${window.getComputedStyle(document.querySelector('.post-content-en')).display}</p>
-            `;
+            document.getElementById('html-lang').textContent = document.documentElement.lang;
+            document.getElementById('storage-lang').textContent = localStorage.getItem('lang') || '(없음)';
+            document.getElementById('preferred-lang').textContent = localStorage.getItem('preferred_language') || '(없음)';
         }
 
-        // 언어에 따라 스타일 적용
-        function applyLanguageStyles() {
-            const lang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
-            document.documentElement.lang = lang;
-
-            const koContent = document.querySelector('.post-content-ko');
-            const enContent = document.querySelector('.post-content-en');
-
-            if (lang === 'ko') {
-                koContent.style.cssText = 'display: block !important; visibility: visible !important;';
-                enContent.style.cssText = 'display: none !important; visibility: hidden !important;';
-            } else {
-                koContent.style.cssText = 'display: none !important; visibility: hidden !important;';
-                enContent.style.cssText = 'display: block !important; visibility: visible !important;';
-            }
-
-            console.log('언어 스타일 적용 완료:', lang);
-        }
-
-        // 강제 언어 변경 함수
-        function forceLang(lang) {
-            console.log('언어 강제 변경:', lang);
+        // 언어 설정 함수
+        function setLanguage(lang) {
+            log(`언어 설정: ${lang}`);
 
             // 로컬 스토리지 업데이트
-            localStorage.setItem('preferred_language', lang);
             localStorage.setItem('lang', lang);
+            localStorage.setItem('preferred_language', lang);
 
             // HTML lang 속성 변경
             document.documentElement.lang = lang;
 
-            // 콘텐츠 표시 제어
-            applyLanguageStyles();
+            // 콘텐츠 표시/숨김 처리
+            const koContent = document.querySelector('.post-content-ko');
+            const enContent = document.querySelector('.post-content-en');
 
-            // 이벤트 발생
-            document.dispatchEvent(new CustomEvent('languageChanged', {
-                detail: { language: lang }
-            }));
+            if (lang === 'ko') {
+                koContent.style.display = 'block';
+                enContent.style.display = 'none';
+            } else {
+                koContent.style.display = 'none';
+                enContent.style.display = 'block';
+            }
 
-            // 상태 업데이트
+            // 테스트 스위처 업데이트
+            const testLang = document.getElementById('test-lang');
+            testLang.textContent = testLang.getAttribute(`data-${lang}`);
+
+            updateStatus();
+            log(`언어 변경 완료: ${lang}`);
+        }
+
+        // 로컬 스토리지 초기화
+        function clearLocalStorage() {
+            localStorage.removeItem('lang');
+            localStorage.removeItem('preferred_language');
+            log('로컬 스토리지 초기화 완료');
+            updateStatus();
+        }
+
+        // DOM 요소 확인
+        function checkDomElements() {
+            log('DOM 요소 확인 중...');
+
+            const testLang = document.getElementById('test-lang');
+            log(`테스트 스위처 요소: ${testLang ? '존재함' : '없음'}`);
+            if (testLang) {
+                log(`  - data-ko: "${testLang.getAttribute('data-ko')}"`);
+                log(`  - data-en: "${testLang.getAttribute('data-en')}"`);
+                log(`  - textContent: "${testLang.textContent}"`);
+                log(`  - innerHTML: "${testLang.innerHTML}"`);
+            }
+
+            const koContent = document.querySelector('.post-content-ko');
+            const enContent = document.querySelector('.post-content-en');
+
+            log(`한국어 콘텐츠: ${koContent ? '존재함' : '없음'} (표시: ${koContent ? getComputedStyle(koContent).display : 'N/A'})`);
+            log(`영어 콘텐츠: ${enContent ? '존재함' : '없음'} (표시: ${enContent ? getComputedStyle(enContent).display : 'N/A'})`);
+        }
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function () {
+            log('페이지 로드 완료');
             updateStatus();
 
-            return false;
-        }
+            // URL 파라미터에서 언어 확인
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+
+            if (langParam) {
+                log(`URL 파라미터에서 언어 감지: ${langParam}`);
+                setLanguage(langParam);
+            } else {
+                // 저장된 언어 설정 확인
+                const storedLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
+                log(`저장된 언어 설정 확인: ${storedLang}`);
+                setLanguage(storedLang);
+            }
+
+            // 테스트 스위처 클릭 이벤트
+            const testSwitcher = document.getElementById('test-switcher');
+            testSwitcher.addEventListener('click', function () {
+                log('테스트 스위처 클릭');
+                const currentLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
+                const newLang = currentLang === 'en' ? 'ko' : 'en';
+                setLanguage(newLang);
+            });
+        });
     </script>
 </body>
 
