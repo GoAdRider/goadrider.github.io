@@ -164,3 +164,129 @@
         });
     })();
 </script>
+
+<!-- 언어 전환 디버깅 도구 - 인라인 직접 정의 -->
+<script>
+    (function () {
+        // 언어 전환 디버깅 도구 정의
+        window.languageDebug = {
+            forceKorean: function () {
+                console.log('[인라인 디버그] 한국어 강제 적용');
+                document.documentElement.lang = 'ko';
+                localStorage.setItem('lang', 'ko');
+                localStorage.setItem('preferred_language', 'ko');
+
+                // 다시 로드 없이 DOM 직접 조작
+                var koElements = document.querySelectorAll('.post-content-ko');
+                var enElements = document.querySelectorAll('.post-content-en');
+
+                koElements.forEach(function (el) {
+                    el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+                });
+
+                enElements.forEach(function (el) {
+                    el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                });
+
+                // 이벤트 발생으로 다른 스크립트에 알림
+                try {
+                    document.dispatchEvent(new CustomEvent('languageChanged', {
+                        detail: { language: 'ko' }
+                    }));
+                } catch (e) {
+                    console.error('[인라인 디버그] 이벤트 발생 오류:', e);
+                }
+
+                return '한국어 적용 완료 (인라인)';
+            },
+
+            forceEnglish: function () {
+                console.log('[인라인 디버그] 영어 강제 적용');
+                document.documentElement.lang = 'en';
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferred_language', 'en');
+
+                // 다시 로드 없이 DOM 직접 조작
+                var koElements = document.querySelectorAll('.post-content-ko');
+                var enElements = document.querySelectorAll('.post-content-en');
+
+                koElements.forEach(function (el) {
+                    el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                });
+
+                enElements.forEach(function (el) {
+                    el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+                });
+
+                // 이벤트 발생으로 다른 스크립트에 알림
+                try {
+                    document.dispatchEvent(new CustomEvent('languageChanged', {
+                        detail: { language: 'en' }
+                    }));
+                } catch (e) {
+                    console.error('[인라인 디버그] 이벤트 발생 오류:', e);
+                }
+
+                return '영어 적용 완료 (인라인)';
+            },
+
+            checkState: function () {
+                var htmlLang = document.documentElement.lang;
+                var langSetting = localStorage.getItem('lang');
+                var preferredLang = localStorage.getItem('preferred_language');
+                var koElements = document.querySelectorAll('.post-content-ko');
+                var enElements = document.querySelectorAll('.post-content-en');
+
+                var info = {
+                    'HTML 언어': htmlLang,
+                    'localStorage.lang': langSetting,
+                    'localStorage.preferred_language': preferredLang,
+                    '한국어 요소 수': koElements.length,
+                    '영어 요소 수': enElements.length
+                };
+
+                console.log('[인라인 디버그] 현재 상태:', info);
+
+                koElements.forEach(function (el, idx) {
+                    var style = window.getComputedStyle(el);
+                    console.log(`[인라인 디버그] 한국어 요소 #${idx + 1}:`, {
+                        display: style.display,
+                        visibility: style.visibility,
+                        opacity: style.opacity
+                    });
+                });
+
+                enElements.forEach(function (el, idx) {
+                    var style = window.getComputedStyle(el);
+                    console.log(`[인라인 디버그] 영어 요소 #${idx + 1}:`, {
+                        display: style.display,
+                        visibility: style.visibility,
+                        opacity: style.opacity
+                    });
+                });
+
+                return info;
+            },
+
+            toggleLanguage: function () {
+                var current = localStorage.getItem('lang') || 'ko';
+                if (current === 'ko') {
+                    return this.forceEnglish();
+                } else {
+                    return this.forceKorean();
+                }
+            }
+        };
+
+        // DOMContentLoaded 이벤트가 이미 발생했는지 확인
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log('[인라인 디버그] 페이지 로드 완료, 디버깅 도구 준비 완료');
+                console.log('[인라인 디버그] 사용법: window.languageDebug.forceKorean() 또는 window.languageDebug.forceEnglish()');
+            });
+        } else {
+            console.log('[인라인 디버그] 페이지 이미 로드됨, 디버깅 도구 준비 완료');
+            console.log('[인라인 디버그] 사용법: window.languageDebug.forceKorean() 또는 window.languageDebug.forceEnglish()');
+        }
+    })();
+</script>
