@@ -5,14 +5,14 @@ var store = [{
         "url": "/%EC%B2%A0%ED%95%99/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5/ai-consciousness-ethics/",
         "teaser": null
       },{
-        "title": "디지털 시대의 기억: 뇌과학이 밝혀낸 새로운 발견",
-        "excerpt":"뉴스 원문 요약 Science - Digital technology reshapes human memory formation, study finds 미국 스탠퍼드 대학과 독일 막스 플랑크 연구소가 협력한 최근 연구에 따르면, 스마트폰과 디지털 기기의 일상적 사용이 인간의 기억 형성 메커니즘을 근본적으로 변화시키고 있다고 합니다. 이 연구는 10년간 3,000명 이상의 참가자를 추적하며 디지털 기기 사용과 기억력 변화의 상관관계를...","categories": ["뇌과학","디지털"],
-        "tags": ["기억","뇌과학","디지털기술","인지향상"],
-        "url": "/%EB%87%8C%EA%B3%BC%ED%95%99/%EB%94%94%EC%A7%80%ED%84%B8/future-of-memory/",
+        "title": "디지털 기억 혁명의 미래",
+        "excerpt":"디지털 시대의 기억 증강: 현재와 미래 인간의 기억은 항상 불완전했습니다. 우리는 중요한 순간을 잊어버리고, 배운 지식을 잃어버리며, 소중한 추억이 시간에 따라 흐려지는 것을 경험합니다. 그러나 디지털 기술과 신경과학의 발전으로 인해, 우리는 기억의 한계를 극복할 수 있는 새로운 방법을 개발하고 있습니다. 현재 기술의 진보 현재 우리는 이미 간단한 형태의 기억 증강...","categories": ["Technology","Neuroscience"],
+        "tags": ["디지털 기억","신경과학","증강현실","인공지능","미래예측","Digital Memory","Neuroscience","Augmented Reality","Artificial Intelligence","Future Prediction"],
+        "url": "/technology/neuroscience/future-of-memory/",
         "teaser": null
       },{
         "title": "초연결 시대의 교육: 2025년 학습 패러다임의 변화",
-        "excerpt":"교육 변화의 가속화: 최근 동향 요약 OECD Education Outlook 2025 - Reimagining Learning in the Digital Age OECD가 발표한 ‘2025 교육 전망’ 보고서에 따르면, 디지털 전환과 코로나19 이후 교육 시스템이 급격한 변화를 겪고 있습니다. 전통적인 교실 중심 학습에서 하이브리드 및 개인화된 학습 경험으로의 전환이 가속화되고 있으며, 인공지능과 확장현실(XR) 기술을 활용한...","categories": ["교육","기술"],
+        "excerpt":"미래 교육의 새로운 패러다임: 개인화와 평생학습 교육의 역사는 인류 문명의 발전과 함께해왔습니다. 고대 그리스의 아카데미아부터 현대의 디지털 학습 플랫폼까지, 교육 방법은 계속해서 진화해왔습니다. 그러나 4차 산업혁명과 인공지능 시대의 도래로 인해, 미래 교육은 과거 어느 때보다 급격한 변화를 맞이하고 있습니다. 전통적 교육 모델의 한계 산업화 시대에 설계된 현재의 교육 시스템은 표준화된...","categories": ["교육","기술"],
         "tags": ["미래교육","에듀테크","학습혁신","메타버스교육","평생학습"],
         "url": "/%EA%B5%90%EC%9C%A1/%EA%B8%B0%EC%88%A0/future-education/",
         "teaser": null

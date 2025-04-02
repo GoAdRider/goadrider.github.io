@@ -1241,8 +1241,8 @@
     document.addEventListener('DOMContentLoaded', function () {
         console.log('[포스트] 초기화 시작');
 
-        // 초기 언어 상태 확인
-        const savedLang = localStorage.getItem('lang') || 'ko';
+        // 초기 언어 상태 확인 (lang 또는 preferred_language 확인)
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferred_language') || 'ko';
         console.log('[포스트] 초기 언어:', savedLang);
 
         // 포스트 콘텐츠 요소
@@ -1294,15 +1294,21 @@
         // 초기 언어 적용
         updatePostContent(savedLang);
 
-        // 언어 변경 이벤트 리스너
+        // 헤더에서 발생하는 언어 변경 이벤트 리스너 (languageChange 이벤트)
+        window.addEventListener('languageChange', function (e) {
+            console.log('[포스트] 헤더 언어 변경 이벤트 감지:', e.detail);
+            updatePostContent(e.detail.language);
+        });
+
+        // 자체 언어 변경 이벤트 리스너 (languageChanged 이벤트)
         document.addEventListener('languageChanged', function (e) {
-            console.log('[포스트] 언어 변경 이벤트 감지:', e.detail);
+            console.log('[포스트] 자체 언어 변경 이벤트 감지:', e.detail);
             updatePostContent(e.detail.language);
         });
 
         // 로컬 저장소 변경 이벤트 감지
         window.addEventListener('storage', function (e) {
-            if (e.key === 'lang') {
+            if (e.key === 'lang' || e.key === 'preferred_language') {
                 console.log('[포스트] 저장소 언어 변경 감지:', e.newValue);
                 updatePostContent(e.newValue);
             }
@@ -1312,6 +1318,7 @@
         window.forcePostLanguage = function (lang) {
             console.log('[포스트] 강제 언어 적용:', lang);
             updatePostContent(lang);
+            return `언어를 ${lang}으로 변경했습니다.`;
         };
 
         // 100ms 후 상태 재확인 및 필요시 재적용
@@ -1319,22 +1326,24 @@
             if (koContent && enContent) {
                 const koDisplay = getComputedStyle(koContent).display;
                 const enDisplay = getComputedStyle(enContent).display;
+                const currentLang = localStorage.getItem('lang') || localStorage.getItem('preferred_language') || 'ko';
+
                 console.log('[포스트] 상태 확인:', {
-                    언어: savedLang,
+                    언어: currentLang,
                     한국어표시: koDisplay,
                     영어표시: enDisplay
                 });
 
                 // 예상과 다르면 재적용
-                const isCorrect = (savedLang === 'ko' && koDisplay !== 'none' && enDisplay === 'none') ||
-                    (savedLang === 'en' && koDisplay === 'none' && enDisplay !== 'none');
+                const isCorrect = (currentLang === 'ko' && koDisplay !== 'none' && enDisplay === 'none') ||
+                    (currentLang === 'en' && koDisplay === 'none' && enDisplay !== 'none');
 
                 if (!isCorrect) {
                     console.log('[포스트] 상태 불일치, 언어 재적용');
-                    updatePostContent(savedLang);
+                    updatePostContent(currentLang);
                 }
             }
-        }, 100);
+        }, 300);
     });
 </script>
     </div>
