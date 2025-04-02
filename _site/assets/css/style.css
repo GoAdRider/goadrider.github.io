@@ -115,10 +115,16 @@ body {
 /* 드롭다운 언어 전환 스타일 */
 .language-switcher {
     position: relative;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin: 0 1rem;
+    z-index: 10;
+    transition: transform 0.3s ease;
+}
+
+.language-switcher:hover {
+    transform: scale(1.05);
+}
+
+.language-switcher:active {
+    transform: scale(0.95);
 }
 
 .lang-switch-title {
@@ -264,4 +270,30 @@ body {
     .greedy-nav a.site-title {
         font-size: 1.2em;
     }
+}
+
+/* 언어 스위처 관련 스타일 */
+/* 포스트 콘텐츠 언어별 표시 설정 */
+html[lang="ko"] .post-content-ko {
+    display: block !important;
+    visibility: visible !important;
+    position: static !important;
+}
+
+html[lang="ko"] .post-content-en {
+    display: none !important;
+    visibility: hidden !important;
+    position: absolute !important;
+}
+
+html[lang="en"] .post-content-ko {
+    display: none !important;
+    visibility: hidden !important;
+    position: absolute !important;
+}
+
+html[lang="en"] .post-content-en {
+    display: block !important;
+    visibility: visible !important;
+    position: static !important;
 }
