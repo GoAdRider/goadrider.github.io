@@ -31,6 +31,17 @@
             <div class="mobile-menu">
                 <i class="fas fa-bars"></i>
             </div>
+
+            <div class="header-right">
+                <!-- 언어 토글 버튼 추가 -->
+                {% include language-toggle.html %}
+
+                <!-- 기존 버튼들 -->
+                <a href="/categories" class="header-button">카테고리</a>
+                <a href="/tags" class="header-button">태그</a>
+                <a href="/about" class="header-button">소개</a>
+                <a href="/contact" class="header-button">문의</a>
+            </div>
         </div>
     </div>
 </header>
