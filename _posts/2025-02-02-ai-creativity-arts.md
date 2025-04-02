@@ -77,7 +77,7 @@ AI와 인간 예술가의 관계는 대립이나 대체가 아닌 공존과 공�
 궁극적으로 AI 예술의 가치는 기술적 혁신에만 있지 않고, 인간 경험을 풍요롭게 하고 새로운 시각으로 세상을 바라볼 수 있게 하는 잠재력에 있을 것입니다.
 </div>
 
-<div class="post-content-en" markdown="1" >
+<div class="post-content-en" markdown="1">
   
 ## The Current State of AI Art
 
@@ -140,35 +140,4 @@ The relationship between AI and human artists is moving toward coexistence and c
 In the future art ecosystem, the computational creativity of AI will combine with human cultural and emotional intelligence to create new forms of expression and aesthetic experiences previously unimagined. Through this process, we can deepen our understanding of creativity, consciousness, and the essence of art.
 
 Ultimately, the value of AI art lies not only in technological innovation but in its potential to enrich human experience and view the world from new perspectives.
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script> 
+</div> 

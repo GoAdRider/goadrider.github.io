@@ -162,33 +162,3 @@ Successful cities will utilize advanced technology but ensure it contributes to 
 The true intelligence of future cities will lie in resilience rather than efficiency, sustainability rather than growth, and the coexistence of humans and nature rather than technology alone. Realizing this vision is the most important challenge and opportunity facing our generation.
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script> 

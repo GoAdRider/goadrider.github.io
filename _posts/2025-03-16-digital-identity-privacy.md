@@ -171,33 +171,3 @@ In the coming years, we can expect to see the development of more sophisticated 
 Ultimately, a new digital ecosystem centered on personal data sovereignty has the potential to resolve the long-standing tensions between innovation and privacy, convenience and security. Implementing this future will not be simply a technological challenge but a process of answering fundamental questions about how we want to live in the digital age.
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 언어 변경 감지 함수
-  function updatePostLanguage() {
-    const lang = localStorage.getItem('lang') || 'ko';
-    console.log('[포스트] 언어 변경 감지:', lang);
-    
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    // 콘텐츠 표시/숨김 전환
-    if (lang === 'ko') {
-      if(koContent) koContent.style.display = 'block';
-      if(enContent) enContent.style.display = 'none';
-    } else {
-      if(koContent) koContent.style.display = 'none';
-      if(enContent) enContent.style.display = 'block';
-    }
-  }
-  
-  // 초기 언어 설정
-  updatePostLanguage();
-  
-  // 언어 변경 이벤트 리스너
-  document.addEventListener('languageChanged', function(e) {
-    console.log('[포스트] languageChanged 이벤트 감지:', e.detail?.language);
-    updatePostLanguage();
-  });
-});
-</script> 
