@@ -4,56 +4,50 @@ let isProcessingLanguageChange = false;
 let initialLoadComplete = false;
 
 // 전역 언어 관리 객체
-window.languageManager = {
+const languageManager = {
     // 현재 언어 가져오기
     getCurrentLanguage: function () {
-        return preferredLanguage;
+        return localStorage.getItem('lang') || localStorage.getItem('preferred_language') || 'ko';
     },
 
     // 언어 직접 설정 (강제)
     setLanguage: function (lang) {
         if (lang !== 'ko' && lang !== 'en') return false;
-        preferredLanguage = lang;
-        document.documentElement.lang = lang;
-        localStorage.setItem('preferred_language', lang);
-        localStorage.setItem('lang', lang);
         return applyLanguage(lang, true);
     },
 
     // 언어 토글
     toggleLanguage: function () {
-        if (isProcessingLanguageChange) {
-            console.log('[언어 시스템] 이미 처리 중');
-            return false;
-        }
+        const currentLang = this.getCurrentLanguage();
+        const newLang = currentLang === 'ko' ? 'en' : 'ko';
+        return this.setLanguage(newLang);
+    },
 
-        isProcessingLanguageChange = true;
-        const newLang = (preferredLanguage === 'en') ? 'ko' : 'en';
-        const success = this.setLanguage(newLang);
+    initialize: function () {
+        console.log('[언어 시스템] 초기화 시작');
 
-        if (success) {
-            const url = new URL(window.location);
-            url.searchParams.set('lang', newLang);
-            url.searchParams.set('t', Date.now());
+        // 초기 언어 설정
+        const initialLang = this.getCurrentLanguage();
+        this.setLanguage(initialLang);
 
-            const isTestPage = window.location.pathname.includes('test.html');
-            if (!isTestPage) {
-                window.location.href = url.toString();
-            }
-        }
+        // 언어 전환 버튼 이벤트 리스너 설정
+        document.querySelectorAll('.language-switcher').forEach(button => {
+            button.addEventListener('click', () => {
+                this.toggleLanguage();
+            });
+        });
 
-        isProcessingLanguageChange = false;
-        return success;
+        console.log('[언어 시스템] 초기화 완료');
     }
 };
 
 // 기존 전역 함수들을 새로운 시스템으로 연결
 window.changeLanguage = function (lang) {
-    return window.languageManager.setLanguage(lang);
+    return languageManager.setLanguage(lang);
 };
 
 window.toggleLanguage = function () {
-    return window.languageManager.toggleLanguage();
+    return languageManager.toggleLanguage();
 };
 
 // DOM이 로드되면 초기화
@@ -77,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 언어 설정
-    window.languageManager.setLanguage(initialLang);
+    languageManager.setLanguage(initialLang);
 
     // 언어 스위처 설정
     setupLanguageSwitcher();
@@ -101,7 +95,7 @@ function setupLanguageSwitcher() {
         newSwitcher.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            window.languageManager.toggleLanguage();
+            languageManager.toggleLanguage();
             return false;
         });
 
@@ -114,35 +108,29 @@ function setupLanguageSwitcher() {
 let currentLanguage = '';
 
 // 언어 전환 함수
-function updateLanguage(lang) {
+function applyLanguage(lang, isForced = false) {
     console.log('[언어 시스템] 언어 변경:', lang);
 
-    // 시작 시간 기록 (성능 측정용)
-    const startTime = performance.now();
-
-    // 이전 언어 저장 (변경 감지용)
-    const prevLang = localStorage.getItem('lang');
-
-    // 모든 저장소에 언어 설정 저장 (통합)
-    localStorage.setItem('lang', lang);
-    localStorage.setItem('preferred_language', lang);
-
-    // HTML lang 속성 설정 - 중요! CSS 선택자가 이를 기반으로 작동
-    document.documentElement.lang = lang;
-    console.log('[언어 시스템] HTML lang 속성 설정:', document.documentElement.lang);
-
-    // HTML 클래스도 추가 (CSS 선택자 다양화)
-    document.documentElement.classList.remove('lang-ko', 'lang-en');
-    document.documentElement.classList.add('lang-' + lang);
-
-    // 언어 변경 이벤트 발생 (다른 스크립트에 알림)
-    const event = new CustomEvent('languageChanged', { detail: { language: lang, previousLanguage: prevLang } });
-    document.dispatchEvent(event);
-    console.log('[언어 시스템] 언어 변경 이벤트 발생:', lang);
-
-    // 1. 포스트 컨텐츠 직접 DOM 조작 (가장 강력한 방법)
     try {
-        // 포스트 컨텐츠 요소 선택
+        // 시작 시간 기록 (성능 측정용)
+        const startTime = performance.now();
+
+        // 이전 언어 저장 (변경 감지용)
+        const prevLang = localStorage.getItem('lang');
+
+        // 모든 저장소에 언어 설정 저장 (통합)
+        localStorage.setItem('lang', lang);
+        localStorage.setItem('preferred_language', lang);
+
+        // HTML lang 속성 설정 - 중요! CSS 선택자가 이를 기반으로 작동
+        document.documentElement.lang = lang;
+        console.log('[언어 시스템] HTML lang 속성 설정:', document.documentElement.lang);
+
+        // HTML 클래스도 추가 (CSS 선택자 다양화)
+        document.documentElement.classList.remove('lang-ko', 'lang-en');
+        document.documentElement.classList.add('lang-' + lang);
+
+        // 1. 포스트 컨텐츠 직접 DOM 조작 (가장 강력한 방법)
         const koContents = document.querySelectorAll('.post-content-ko');
         const enContents = document.querySelectorAll('.post-content-en');
 
@@ -191,89 +179,20 @@ function updateLanguage(lang) {
             }
         });
 
-        console.log('[언어 시스템] DOM 조작 완료');
+        // 3. 이벤트 발생
+        const event = new CustomEvent('languageChanged', { detail: { language: lang, previousLanguage: prevLang } });
+        document.dispatchEvent(event);
+        window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: lang } }));
+
+        // 실행 시간 및 상태 로깅
+        const endTime = performance.now();
+        console.log(`[언어 시스템] 언어 전환 완료 (${(endTime - startTime).toFixed(2)}ms)`);
+
+        return true;
     } catch (err) {
-        console.error('[언어 시스템] DOM 조작 오류:', err);
+        console.error('[언어 시스템] 언어 변경 오류:', err);
+        return false;
     }
-
-    // 3. 언어 변경 이벤트 발생 (languageChange - 헤더에서 사용)
-    window.dispatchEvent(new CustomEvent('languageChange', {
-        detail: { language: lang }
-    }));
-
-    // 4. 언어 변경 이벤트 발생 (languageChanged - 포스트에서 사용)
-    document.dispatchEvent(new CustomEvent('languageChanged', {
-        detail: { language: lang }
-    }));
-
-    // 5. 스토리지 이벤트 수동 발생 (다른 스크립트에 알림)
-    try {
-        window.dispatchEvent(new StorageEvent('storage', {
-            key: 'lang',
-            oldValue: prevLang,
-            newValue: lang,
-            storageArea: localStorage
-        }));
-    } catch (e) {
-        console.error('[언어 시스템] 스토리지 이벤트 발생 실패:', e);
-    }
-
-    // 실행 시간 및 상태 로깅
-    const endTime = performance.now();
-    console.log(`[언어 시스템] 언어 전환 완료 (${(endTime - startTime).toFixed(2)}ms)`);
-    console.log('[언어 시스템] 최종 상태:', {
-        'HTML lang': document.documentElement.lang,
-        'localStorage.lang': localStorage.getItem('lang'),
-        'localStorage.preferred_language': localStorage.getItem('preferred_language'),
-        '한국어요소 표시': document.querySelectorAll('.post-content-ko:not([style*="display: none"])').length,
-        '영어요소 표시': document.querySelectorAll('.post-content-en:not([style*="display: none"])').length
-    });
-
-    // 100ms 후 상태 확인 및 필요시 강제 재적용
-    setTimeout(() => {
-        const koVisible = document.querySelectorAll('.post-content-ko:not([style*="display: none"])').length;
-        const enVisible = document.querySelectorAll('.post-content-en:not([style*="display: none"])').length;
-
-        const expectedKoVisible = lang === 'ko' ? (document.querySelectorAll('.post-content-ko').length) : 0;
-        const expectedEnVisible = lang === 'en' ? (document.querySelectorAll('.post-content-en').length) : 0;
-
-        const isCorrect = (koVisible === expectedKoVisible && enVisible === expectedEnVisible);
-
-        console.log('[언어 시스템] 상태 확인:', {
-            현재언어: lang,
-            한국어표시: koVisible,
-            영어표시: enVisible,
-            기대한국어표시: expectedKoVisible,
-            기대영어표시: expectedEnVisible,
-            정상상태: isCorrect
-        });
-
-        if (!isCorrect) {
-            console.warn('[언어 시스템] 상태 불일치 감지, 강제 재적용');
-
-            // 진단 도구의 forceLanguageSwitch 함수 사용 시도
-            if (window.languageDiagnostics && typeof window.languageDiagnostics[lang === 'ko' ? 'forceKorean' : 'forceEnglish'] === 'function') {
-                console.log('[언어 시스템] 진단 도구로 강제 적용');
-                window.languageDiagnostics[lang === 'ko' ? 'forceKorean' : 'forceEnglish']();
-            } else {
-                console.log('[언어 시스템] 기본 방식으로 재적용');
-                // 기본 DOM 직접 조작 재시도
-                document.querySelectorAll('.post-content-ko').forEach(el => {
-                    el.style.cssText = lang === 'ko'
-                        ? 'display: block !important; visibility: visible !important;'
-                        : 'display: none !important; visibility: hidden !important;';
-                });
-
-                document.querySelectorAll('.post-content-en').forEach(el => {
-                    el.style.cssText = lang === 'en'
-                        ? 'display: block !important; visibility: visible !important;'
-                        : 'display: none !important; visibility: hidden !important;';
-                });
-            }
-        }
-    }, 300);
-
-    return lang;
 }
 
 // 저장된 언어 설정 가져오기
@@ -341,7 +260,7 @@ function setupLanguageToggle(toggleElement, koText = '한국어', enText = 'Engl
         const newLang = storedLang === 'en' ? 'ko' : 'en';
 
         // 언어 업데이트
-        updateLanguage(newLang);
+        applyLanguage(newLang);
 
         // 버튼 텍스트 업데이트
         if (toggleElement.tagName === 'BUTTON' || toggleElement.tagName === 'A') {
@@ -365,3 +284,8 @@ function setupLanguageToggle(toggleElement, koText = '한국어', enText = 'Engl
 console.log('[언어 시스템] 언어 관리 스크립트 초기화 완료'); // 20240430 수정: 언어 토글 버그 수정
 // 20240501 수정: 언어 전환 시스템 중복 초기화 및 비동기 처리 문제 해결
 // 20240501 수정: 언어 전환 시스템 중복 초기화 및 이벤트 처리 개선
+
+// DOM이 로드되면 언어 관리자 초기화
+document.addEventListener('DOMContentLoaded', () => {
+    languageManager.initialize();
+});
