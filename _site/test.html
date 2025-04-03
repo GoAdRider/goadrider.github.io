@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>언어 전환 디버깅</title>
+    <title>언어 전환 테스트</title>
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
@@ -43,10 +43,6 @@
             background-color: #3b78e7;
         }
 
-        .test-buttons {
-            margin-top: 20px;
-        }
-
         .language-switcher {
             display: flex;
             align-items: center;
@@ -55,7 +51,6 @@
             padding: 0.5rem 1rem;
             border-radius: 50px;
             cursor: pointer;
-            display: inline-flex;
             margin-bottom: 20px;
             background: none;
             font-family: inherit;
@@ -71,6 +66,7 @@
             padding: 10px;
             background-color: #f5f5f5;
             border-radius: 4px;
+            font-size: 14px;
         }
 
         .console {
@@ -82,273 +78,296 @@
             max-height: 300px;
             overflow-y: auto;
             font-family: monospace;
+            font-size: 14px;
         }
 
-        .hidden {
-            display: none;
+        .important {
+            color: red;
+            font-weight: bold;
+        }
+
+        .content-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .language-content {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #eee;
+            margin-right: 10px;
+        }
+
+        .language-content h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
         }
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <h1 data-ko="언어 전환 디버깅 페이지" data-en="Language Switching Debug Page">언어 전환 디버깅 페이지</h1>
+    <h1 data-ko="언어 전환 테스트 페이지" data-en="Language Switching Test Page">언어 전환 테스트 페이지</h1>
 
-    <button class="language-switcher" id="language-switcher" data-initialized="true" type="button">
+    <button class="language-switcher" id="language-switcher" type="button">
         <i class="fas fa-globe"></i>
         <span id="current-lang" data-ko="한국어" data-en="English">한국어</span>
     </button>
 
-    <section id="section1">
-        <h2 data-ko="문제 진단" data-en="Problem Diagnosis">문제 진단</h2>
-        <div class="test-buttons">
-            <button id="fix-language-switcher">이벤트 강제 복구</button>
-            <button id="check-event-listeners">이벤트 리스너 확인</button>
-            <button id="direct-change-ko">한국어 직접 변경</button>
-            <button id="direct-change-en">영어 직접 변경</button>
-            <button id="check-dom">DOM 요소 확인</button>
-            <button id="force-reload">강제 새로고침</button>
+    <div class="content-container">
+        <div class="language-content post-content-ko">
+            <h3>한국어 컨텐츠</h3>
+            <p>이 콘텐츠는 한국어로 작성되었습니다. 언어가 한국어로 설정되면 보여야 합니다.</p>
         </div>
+        <div class="language-content post-content-en">
+            <h3>English Content</h3>
+            <p>This content is written in English. It should be visible when language is set to English.</p>
+        </div>
+    </div>
+
+    <section>
+        <h2 data-ko="언어 테스트" data-en="Language Test">언어 테스트</h2>
+
+        <div class="test-buttons">
+            <button id="btn-ko">한국어로 변경</button>
+            <button id="btn-en">영어로 변경</button>
+            <button id="btn-refresh">페이지 새로고침</button>
+            <button id="btn-reset">로컬스토리지 초기화</button>
+        </div>
+
+        <div class="status" id="status-display"></div>
     </section>
 
-    <section id="section2">
-        <h2 data-ko="상태 및 정보" data-en="Status and Info">상태 및 정보</h2>
-        <div id="status-display" class="status"></div>
-        <div id="console-log" class="console"></div>
+    <section>
+        <h2 data-ko="디버그 도구" data-en="Debug Tools">디버그 도구</h2>
+
+        <div class="test-buttons">
+            <button id="btn-check-DOM">DOM 상태 확인</button>
+            <button id="btn-force-reattach">이벤트 리스너 강제 재등록</button>
+            <button id="btn-clear-console">콘솔 지우기</button>
+        </div>
+
+        <div class="console" id="console-log"></div>
     </section>
+
+    <!-- 언어 스크립트 로드 -->
+    <script src="/assets/js/language.js"></script>
 
     <script>
         // 콘솔 로그 재정의 - 화면에도 출력
-        const originalConsoleLog = console.log;
-        const originalConsoleWarn = console.warn;
-        const originalConsoleError = console.error;
         const consoleDisplay = document.getElementById('console-log');
 
+        const originalConsoleLog = console.log;
         console.log = function () {
             if (consoleDisplay) {
-                const args = Array.from(arguments);
+                const args = Array.from(arguments).join(' ');
                 const log = document.createElement('div');
-                log.textContent = args.join(' ');
+                log.textContent = new Date().toLocaleTimeString() + ' - ' + args;
                 consoleDisplay.appendChild(log);
                 consoleDisplay.scrollTop = consoleDisplay.scrollHeight;
             }
             originalConsoleLog.apply(console, arguments);
         };
 
-        console.warn = function () {
-            if (consoleDisplay) {
-                const args = Array.from(arguments);
-                const log = document.createElement('div');
-                log.style.color = 'yellow';
-                log.textContent = '⚠️ ' + args.join(' ');
-                consoleDisplay.appendChild(log);
-                consoleDisplay.scrollTop = consoleDisplay.scrollHeight;
-            }
-            originalConsoleWarn.apply(console, arguments);
-        };
-
+        const originalConsoleError = console.error;
         console.error = function () {
             if (consoleDisplay) {
-                const args = Array.from(arguments);
+                const args = Array.from(arguments).join(' ');
                 const log = document.createElement('div');
-                log.style.color = 'red';
-                log.textContent = '❌ ' + args.join(' ');
+                log.className = 'important';
+                log.textContent = new Date().toLocaleTimeString() + ' - 오류: ' + args;
                 consoleDisplay.appendChild(log);
                 consoleDisplay.scrollTop = consoleDisplay.scrollHeight;
             }
             originalConsoleError.apply(console, arguments);
         };
 
-        // 상태 표시 함수
+        // 상태 표시 갱신
         function updateStatus() {
             const statusDisplay = document.getElementById('status-display');
             if (!statusDisplay) return;
 
-            const currentLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
+            const preferredLanguage = localStorage.getItem('preferred_language') || '없음';
+            const langStorage = localStorage.getItem('lang') || '없음';
             const htmlLang = document.documentElement.lang;
-            const currentLangText = document.getElementById('current-lang')?.textContent;
+            const currentLangText = document.getElementById('current-lang')?.textContent || '?';
+
+            const koVisible = document.querySelector('.post-content-ko')?.style.display;
+            const enVisible = document.querySelector('.post-content-en')?.style.display;
 
             statusDisplay.innerHTML = `
-                <strong>현재 언어:</strong> ${currentLang}<br>
-                <strong>HTML lang 속성:</strong> ${htmlLang}<br>
-                <strong>스위처 표시 텍스트:</strong> ${currentLangText || '없음'}<br>
-                <strong>localStorage.lang:</strong> ${localStorage.getItem('lang') || '없음'}<br>
-                <strong>localStorage.preferred_language:</strong> ${localStorage.getItem('preferred_language') || '없음'}<br>
+                <strong>현재 상태:</strong><br>
+                - preferred_language: ${preferredLanguage}<br>
+                - lang: ${langStorage}<br>
+                - HTML lang 속성: ${htmlLang}<br>
+                - 현재 언어 표시: ${currentLangText}<br>
+                - 한국어 콘텐츠: ${koVisible === 'none' ? '숨김' : '표시'}<br>
+                - 영어 콘텐츠: ${enVisible === 'none' ? '숨김' : '표시'}<br>
             `;
         }
 
-        // 언어 변경 함수
-        function updateElementLanguage(lang) {
-            // 모든 다국어 요소 업데이트
-            document.querySelectorAll('[data-ko][data-en]').forEach(el => {
-                const newText = el.getAttribute(`data-${lang}`);
+        // DOM 요소 확인
+        function checkDOM() {
+            console.log('DOM 요소 확인 중...');
 
-                // DOM 노드 교체 방식으로 텍스트 업데이트
-                while (el.firstChild) {
-                    el.removeChild(el.firstChild);
-                }
-                el.appendChild(document.createTextNode(newText));
-            });
-
-            // HTML lang 속성 설정
-            document.documentElement.lang = lang;
-
-            // 상태 업데이트
-            updateStatus();
-        }
-
-        // 이벤트 처리 설정
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('디버깅 페이지 초기화됨');
-
-            // 초기 상태 표시
-            updateStatus();
-
-            // 이벤트 리스너 복구
-            document.getElementById('fix-language-switcher').addEventListener('click', function () {
-                const languageSwitcher = document.getElementById('language-switcher');
-                if (!languageSwitcher) {
-                    console.error('언어 스위처 요소를 찾을 수 없음');
-                    return;
-                }
-
-                // 기존 이벤트 리스너 제거를 위해 클론 교체
-                const clone = languageSwitcher.cloneNode(true);
-                languageSwitcher.parentNode.replaceChild(clone, languageSwitcher);
-
-                // 새 이벤트 리스너 추가
-                clone.addEventListener('click', function (e) {
-                    console.log('언어 스위처 클릭됨 (새 이벤트 리스너)');
-
-                    // 현재 언어 확인
-                    const currentLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
-                    // 새 언어 설정 (한국어 <-> 영어)
-                    const newLang = currentLang === 'en' ? 'ko' : 'en';
-
-                    console.log(`언어 변경: ${currentLang} -> ${newLang}`);
-
-                    // 스토리지 업데이트
-                    localStorage.setItem('preferred_language', newLang);
-                    localStorage.setItem('lang', newLang);
-
-                    // UI 업데이트
-                    updateElementLanguage(newLang);
-
-                    // 전역 이벤트 발생
-                    window.dispatchEvent(new CustomEvent('languageChange', {
-                        detail: { language: newLang }
-                    }));
-
-                    document.dispatchEvent(new CustomEvent('languageChanged', {
-                        detail: { language: newLang }
-                    }));
-
-                    // URL 업데이트
-                    try {
-                        const url = new URL(window.location);
-                        url.searchParams.set('lang', newLang);
-                        window.history.pushState({}, '', url);
-                    } catch (e) {
-                        console.error('URL 업데이트 오류:', e);
-                    }
+            const currentLangSpan = document.getElementById('current-lang');
+            if (currentLangSpan) {
+                console.log('언어 표시 요소:', {
+                    'textContent': currentLangSpan.textContent,
+                    'data-ko': currentLangSpan.getAttribute('data-ko'),
+                    'data-en': currentLangSpan.getAttribute('data-en')
                 });
+            } else {
+                console.error('언어 표시 요소를 찾을 수 없음');
+            }
 
-                console.log('언어 스위처 이벤트 리스너 복구 완료');
-            });
+            const koContent = document.querySelector('.post-content-ko');
+            const enContent = document.querySelector('.post-content-en');
 
-            // 이벤트 리스너 확인
-            document.getElementById('check-event-listeners').addEventListener('click', function () {
-                const languageSwitcher = document.getElementById('language-switcher');
-                if (!languageSwitcher) {
-                    console.error('언어 스위처 요소를 찾을 수 없음');
-                    return;
-                }
-
-                console.log('언어 스위처 요소 속성:');
-                console.log('- ID: ' + languageSwitcher.id);
-                console.log('- className: ' + languageSwitcher.className);
-                console.log('- tagName: ' + languageSwitcher.tagName);
-                console.log('- data-initialized: ' + languageSwitcher.getAttribute('data-initialized'));
-
-                // 수동으로 클릭 이벤트 발생
-                console.log('수동으로 클릭 이벤트 발생시키기');
-                languageSwitcher.click();
-            });
-
-            // 직접 언어 변경
-            document.getElementById('direct-change-ko').addEventListener('click', function () {
-                console.log('한국어 직접 변경');
-                localStorage.setItem('preferred_language', 'ko');
-                localStorage.setItem('lang', 'ko');
-                updateElementLanguage('ko');
-            });
-
-            document.getElementById('direct-change-en').addEventListener('click', function () {
-                console.log('영어 직접 변경');
-                localStorage.setItem('preferred_language', 'en');
-                localStorage.setItem('lang', 'en');
-                updateElementLanguage('en');
-            });
-
-            // DOM 요소 확인
-            document.getElementById('check-dom').addEventListener('click', function () {
-                const currentLang = document.getElementById('current-lang');
-                if (!currentLang) {
-                    console.error('current-lang 요소를 찾을 수 없음');
-                    return;
-                }
-
-                console.log('current-lang 요소 정보:');
-                console.log('- textContent: ' + currentLang.textContent);
-                console.log('- data-ko: ' + currentLang.getAttribute('data-ko'));
-                console.log('- data-en: ' + currentLang.getAttribute('data-en'));
-                console.log('- innerHTML: ' + currentLang.innerHTML);
-                console.log('- outerHTML: ' + currentLang.outerHTML);
-
-                // 노드 복제 및 교체 테스트
-                const clone = currentLang.cloneNode(true);
-                currentLang.parentNode.replaceChild(clone, currentLang);
-                console.log('current-lang 요소 복제 및 교체 완료');
-            });
-
-            // 강제 새로고침
-            document.getElementById('force-reload').addEventListener('click', function () {
-                console.log('페이지 강제 새로고침');
-                window.location.reload();
-            });
-
-            // 언어 스위처 리스너 설정
-            const languageSwitcher = document.getElementById('language-switcher');
-            if (languageSwitcher) {
-                languageSwitcher.addEventListener('click', function () {
-                    console.log('언어 스위처 클릭됨 (초기 이벤트 리스너)');
-
-                    // 현재 언어 확인
-                    const currentLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
-                    // 새 언어 설정 (한국어 <-> 영어)
-                    const newLang = currentLang === 'en' ? 'ko' : 'en';
-
-                    console.log(`언어 변경: ${currentLang} -> ${newLang}`);
-
-                    // 스토리지 업데이트
-                    localStorage.setItem('preferred_language', newLang);
-                    localStorage.setItem('lang', newLang);
-
-                    // UI 업데이트
-                    updateElementLanguage(newLang);
+            if (koContent) {
+                console.log('한국어 콘텐츠 상태:', {
+                    'display': window.getComputedStyle(koContent).display,
+                    'visibility': window.getComputedStyle(koContent).visibility
                 });
             }
 
+            if (enContent) {
+                console.log('영어 콘텐츠 상태:', {
+                    'display': window.getComputedStyle(enContent).display,
+                    'visibility': window.getComputedStyle(enContent).visibility
+                });
+            }
+
+            updateStatus();
+        }
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('테스트 페이지 초기화');
+
+            // 상태 갱신
+            updateStatus();
+
+            // 이벤트 리스너 설정
+            document.getElementById('btn-ko').addEventListener('click', function () {
+                console.log('한국어 버튼 클릭');
+                if (typeof window.changeLanguage === 'function') {
+                    window.changeLanguage('ko');
+                } else {
+                    console.error('changeLanguage 함수를 찾을 수 없음');
+                }
+                updateStatus();
+            });
+
+            document.getElementById('btn-en').addEventListener('click', function () {
+                console.log('영어 버튼 클릭');
+                if (typeof window.changeLanguage === 'function') {
+                    window.changeLanguage('en');
+                } else {
+                    console.error('changeLanguage 함수를 찾을 수 없음');
+                }
+                updateStatus();
+            });
+
+            document.getElementById('btn-refresh').addEventListener('click', function () {
+                console.log('페이지 새로고침');
+                window.location.reload();
+            });
+
+            document.getElementById('btn-reset').addEventListener('click', function () {
+                console.log('로컬 스토리지 초기화');
+                localStorage.removeItem('preferred_language');
+                localStorage.removeItem('lang');
+                updateStatus();
+            });
+
+            document.getElementById('btn-check-DOM').addEventListener('click', function () {
+                checkDOM();
+            });
+
+            document.getElementById('btn-force-reattach').addEventListener('click', function () {
+                console.log('이벤트 리스너 강제 재등록 시도');
+
+                const languageSwitcher = document.getElementById('language-switcher');
+                if (!languageSwitcher) {
+                    console.error('언어 스위처 요소를 찾을 수 없음');
+                    return;
+                }
+
+                // 기존 요소 복제 및 교체
+                const newSwitcher = languageSwitcher.cloneNode(true);
+                languageSwitcher.parentNode.replaceChild(newSwitcher, languageSwitcher);
+
+                // 새 이벤트 리스너 추가
+                newSwitcher.addEventListener('click', function () {
+                    console.log('언어 스위처 클릭 (강제 등록 리스너)');
+
+                    // 현재 언어 확인
+                    const currentLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
+                    // 새 언어 설정
+                    const newLang = currentLang === 'en' ? 'ko' : 'en';
+
+                    // 로컬 스토리지 업데이트
+                    localStorage.setItem('preferred_language', newLang);
+                    localStorage.setItem('lang', newLang);
+
+                    // HTML lang 속성 업데이트
+                    document.documentElement.lang = newLang;
+
+                    // 현재 언어 표시 업데이트
+                    const currentLangSpan = document.getElementById('current-lang');
+                    if (currentLangSpan) {
+                        currentLangSpan.textContent = currentLangSpan.getAttribute(`data-${newLang}`);
+                    }
+
+                    // 모든 다국어 요소 업데이트
+                    document.querySelectorAll('[data-ko][data-en]').forEach(el => {
+                        el.textContent = el.getAttribute(`data-${newLang}`);
+                    });
+
+                    // 콘텐츠 영역 업데이트
+                    const koContents = document.querySelectorAll('.post-content-ko');
+                    koContents.forEach(el => {
+                        el.style.display = newLang === 'ko' ? 'block' : 'none';
+                    });
+
+                    const enContents = document.querySelectorAll('.post-content-en');
+                    enContents.forEach(el => {
+                        el.style.display = newLang === 'en' ? 'block' : 'none';
+                    });
+
+                    // 상태 업데이트
+                    updateStatus();
+
+                    // 페이지 새로고침
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 500);
+                });
+
+                console.log('이벤트 리스너 강제 재등록 완료');
+            });
+
+            document.getElementById('btn-clear-console').addEventListener('click', function () {
+                if (consoleDisplay) {
+                    consoleDisplay.innerHTML = '';
+                }
+                console.log('콘솔 내용 지움');
+            });
+
             // 언어 변경 이벤트 리스너
             window.addEventListener('languageChange', function (e) {
-                console.log('languageChange 이벤트 발생:', e.detail.language);
-                updateElementLanguage(e.detail.language);
+                console.log('languageChange 이벤트 감지:', e.detail.language);
+                updateStatus();
             });
 
             document.addEventListener('languageChanged', function (e) {
-                console.log('languageChanged 이벤트 발생:', e.detail.language);
-                updateElementLanguage(e.detail.language);
+                console.log('languageChanged 이벤트 감지:', e.detail.language);
+                updateStatus();
             });
+
+            // 초기 DOM 상태 확인
+            setTimeout(checkDOM, 500);
         });
     </script>
 </body>
