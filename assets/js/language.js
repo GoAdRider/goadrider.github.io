@@ -343,3 +343,4 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 console.log('[언어 시스템] 언어 관리 스크립트 초기화 완료'); // 20240430 수정: 언어 토글 버그 수정
+// 20240501 수정: 언어 전환 시스템 중복 초기화 및 비동기 처리 문제 해결
