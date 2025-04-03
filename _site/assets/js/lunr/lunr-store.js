@@ -6,9 +6,9 @@ var store = [{
         "teaser": null
       },{
         "title": "디지털 기억 혁명의 미래",
-        "excerpt":"디지털 시대의 기억 증강: 현재와 미래 인간의 기억은 항상 불완전했습니다. 우리는 중요한 순간을 잊어버리고, 배운 지식을 잃어버리며, 소중한 추억이 시간에 따라 흐려지는 것을 경험합니다. 그러나 디지털 기술과 신경과학의 발전으로 인해, 우리는 기억의 한계를 극복할 수 있는 새로운 방법을 개발하고 있습니다. 현재 기술의 진보 현재 우리는 이미 간단한 형태의 기억 증강...","categories": ["Technology","Neuroscience"],
-        "tags": ["디지털 기억","신경과학","증강현실","인공지능","미래예측","Digital Memory","Neuroscience","Augmented Reality","Artificial Intelligence","Future Prediction"],
-        "url": "/technology/neuroscience/future-of-memory/",
+        "excerpt":"디지털 시대의 기억 증강: 현재와 미래 인간의 기억은 항상 불완전했습니다. 우리는 중요한 순간을 잊어버리고, 배운 지식을 잃어버리며, 소중한 추억이 시간에 따라 흐려지는 것을 경험합니다. 그러나 디지털 기술과 신경과학의 발전으로 인해, 우리는 기억의 한계를 극복할 수 있는 새로운 방법을 개발하고 있습니다. 현재 기술의 진보 현재 우리는 이미 간단한 형태의 기억 증강...","categories": ["기술","신경과학"],
+        "tags": ["디지털 기억","신경과학","증강현실","인공지능","미래예측"],
+        "url": "/%EA%B8%B0%EC%88%A0/%EC%8B%A0%EA%B2%BD%EA%B3%BC%ED%95%99/future-of-memory/",
         "teaser": null
       },{
         "title": "초연결 시대의 교육: 2025년 학습 패러다임의 변화",
