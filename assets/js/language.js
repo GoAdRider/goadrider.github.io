@@ -20,7 +20,10 @@ const languageManager = {
     toggleLanguage: function () {
         const currentLang = this.getCurrentLanguage();
         const newLang = currentLang === 'ko' ? 'en' : 'ko';
-        return this.setLanguage(newLang);
+        console.log('[언어 시스템] 언어 토글 시작:', currentLang, '->', newLang);
+        const result = this.setLanguage(newLang);
+        console.log('[언어 시스템] 언어 토글 결과:', result ? '성공' : '실패');
+        return result;
     },
 
     initialize: function () {
@@ -57,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
+    console.log('[언어 시스템] 초기화 시작');
+
     // URL 파라미터 확인
     const urlParams = new URLSearchParams(window.location.search);
     const langParam = urlParams.get('lang');
@@ -76,13 +81,29 @@ document.addEventListener('DOMContentLoaded', function () {
     // 언어 스위처 설정
     setupLanguageSwitcher();
 
+    // 진단 도구 초기화 - 진단 도구가 있으면 초기화
+    if (window.initializeDiagnosticTools && typeof window.initializeDiagnosticTools === 'function') {
+        try {
+            window.initializeDiagnosticTools();
+            console.log('[언어 시스템] 진단 도구 초기화됨');
+        } catch (e) {
+            console.warn('[언어 시스템] 진단 도구 초기화 중 오류:', e);
+        }
+    }
+
     window.languageSystemInitialized = true;
     initialLoadComplete = true;
+    console.log('[언어 시스템] 초기화 완료');
 });
 
 // 언어 스위처 설정
 function setupLanguageSwitcher() {
     const switchers = document.querySelectorAll('#language-switcher, .language-switcher, .language-switcher-button');
+
+    console.log('[언어 시스템] 언어 스위처 초기화 시작', {
+        발견된버튼수: switchers.length,
+        이미초기화됨: window.switchersInitialized || false
+    });
 
     // 이전에 설정된 이벤트 리스너가 있는지 확인하기 위한 플래그
     if (window.switchersInitialized) {
@@ -90,29 +111,47 @@ function setupLanguageSwitcher() {
         return;
     }
 
-    switchers.forEach(switcher => {
-        // 이벤트 리스너만 설정하고 DOM 요소는 복제하지 않음
-        switcher.setAttribute('data-current-lang', preferredLanguage);
+    if (switchers.length === 0) {
+        console.log('[언어 시스템] 언어 스위처 버튼을 찾을 수 없습니다.');
+        return;
+    }
 
-        // 기존 이벤트 리스너를 모두 제거 (중복 방지)
-        const newSwitcher = switcher.cloneNode(true);
-        if (switcher.parentNode) {
-            switcher.parentNode.replaceChild(newSwitcher, switcher);
-        }
+    switchers.forEach((switcher, index) => {
+        // 기존 이벤트 리스너를 모두 제거하기 위해 복제
+        const oldSwitcher = switcher;
+        const newSwitcher = oldSwitcher.cloneNode(true);
 
+        // 데이터 속성 설정
+        newSwitcher.setAttribute('data-current-lang', preferredLanguage);
+        newSwitcher.setAttribute('data-initialized', 'true');
+
+        console.log(`[언어 시스템] 스위처 ${index + 1} 설정 중:`, newSwitcher.id || newSwitcher.className);
+
+        // 이벤트 리스너 추가
         newSwitcher.addEventListener('click', function (e) {
+            // 기본 이벤트와 이벤트 전파 방지
             e.preventDefault();
             e.stopPropagation();
+
             console.log('[언어 시스템] 언어 전환 버튼 클릭됨');
+            // 언어 전환 실행
             languageManager.toggleLanguage();
             return false;
         });
 
+        // 원래 요소 교체
+        if (oldSwitcher.parentNode) {
+            oldSwitcher.parentNode.replaceChild(newSwitcher, oldSwitcher);
+            console.log('[언어 시스템] 스위처 교체 완료');
+        }
+
+        // 텍스트 업데이트
         updateSwitcherText(preferredLanguage);
     });
 
     // 초기화 완료 플래그 설정
     window.switchersInitialized = true;
+    console.log('[언어 시스템] 모든 스위처 초기화 완료');
 }
 
 // 언어 스위처 텍스트 업데이트
