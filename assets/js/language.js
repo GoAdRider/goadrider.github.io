@@ -1,4 +1,4 @@
-// 언어 관리 시스템 (2024년 5월 버그픽스 버전 1.3)
+// 언어 관리 시스템 (2024년 5월 버그픽스 버전 1.4)
 let preferredLanguage = 'ko';
 let isProcessingLanguageChange = false;
 let initialLoadComplete = false;
@@ -347,6 +347,7 @@ function setupLanguageToggle(toggleElement, koText = '한국어', enText = 'Engl
 console.log('[언어 시스템] 언어 관리 스크립트 초기화 완료'); // 20240430 수정: 언어 토글 버그 수정
 // 20240501 수정: 언어 전환 시스템 중복 초기화 및 비동기 처리 문제 해결
 // 20240501 수정: 언어 전환 시스템 중복 초기화 및 이벤트 처리 개선
+// 20240503 수정: 언어 전환 버튼 이벤트 리스너 안정성 개선 및 디버깅 기능 강화
 
 // DOM이 로드되면 언어 관리자 초기화
 document.addEventListener('DOMContentLoaded', () => {
