@@ -983,82 +983,12 @@
   <p>Ultimately, the goal of future education is to support all learners in maximizing their potential and developing the knowledge, skills, and attitudes needed to successfully live in a rapidly changing world. It's time for all of us to participate in this educational innovation and create better education for the future together.</p>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('[포스트 콘텐츠] 초기화');
-    
-    // 언어 변경 이벤트 수신
-    document.addEventListener('languageChanged', function(e) {
-      const lang = e.detail.language;
-      console.log('[포스트 콘텐츠] 언어 변경 감지:', lang);
-      
-      const koContent = document.querySelector('.post-content-ko');
-      const enContent = document.querySelector('.post-content-en');
-      
-      if (koContent && enContent) {
-        if (lang === 'ko') {
-          koContent.style.cssText = 'display: block !important; visibility: visible !important;';
-          enContent.style.cssText = 'display: none !important; visibility: hidden !important;';
-        } else {
-          koContent.style.cssText = 'display: none !important; visibility: hidden !important;';
-          enContent.style.cssText = 'display: block !important; visibility: visible !important;';
-        }
-        console.log('[포스트 콘텐츠] 콘텐츠 표시 설정:', {
-          lang: lang,
-          koDisplay: koContent.style.display,
-          enDisplay: enContent.style.display
-        });
-      }
-    });
-    
-    // languageChange 이벤트도 수신 (헤더에서 발생)
-    window.addEventListener('languageChange', function(e) {
-      console.log('[포스트 콘텐츠] 전역 언어 변경 감지:', e.detail);
-      const lang = e.detail.language;
-      
-      const koContent = document.querySelector('.post-content-ko');
-      const enContent = document.querySelector('.post-content-en');
-      
-      if (koContent && enContent) {
-        if (lang === 'ko') {
-          koContent.style.cssText = 'display: block !important; visibility: visible !important;';
-          enContent.style.cssText = 'display: none !important; visibility: hidden !important;';
-        } else {
-          koContent.style.cssText = 'display: none !important; visibility: hidden !important;';
-          enContent.style.cssText = 'display: block !important; visibility: visible !important;';
-        }
-      }
-    });
-    
-    // 초기 상태 설정
-    const storedLang = localStorage.getItem('lang') || localStorage.getItem('preferred_language') || 'ko';
-    const koContent = document.querySelector('.post-content-ko');
-    const enContent = document.querySelector('.post-content-en');
-    
-    if (koContent && enContent) {
-      if (storedLang === 'ko') {
-        koContent.style.cssText = 'display: block !important; visibility: visible !important;';
-        enContent.style.cssText = 'display: none !important; visibility: hidden !important;';
-      } else {
-        koContent.style.cssText = 'display: none !important; visibility: hidden !important;';
-        enContent.style.cssText = 'display: block !important; visibility: visible !important;';
-      }
-      console.log('[포스트 콘텐츠] 초기 콘텐츠 설정:', {
-        lang: storedLang,
-        koDisplay: getComputedStyle(koContent).display,
-        enDisplay: getComputedStyle(enContent).display
-      });
-    }
-  });
-</script>
-
-
                 
             </div>
 
             <div class="post-navigation">
                 
-                <a href="/technology/neuroscience/future-of-memory/" class="prev-post" rel="prev">
+                <a href="/%EA%B8%B0%EC%88%A0/%EC%8B%A0%EA%B2%BD%EA%B3%BC%ED%95%99/future-of-memory/" class="prev-post" rel="prev">
                     &larr;
                     <span data-ko="이전 글" data-en="Previous Post">
                         이전 글 </span>
