@@ -242,8 +242,8 @@ window.onerror = function (message, source, lineno, colno, error) {
         }
     };
 
-    // 진단 도구 초기화
-    function initializeDiagnosticTools() {
+    // 진단 도구 초기화 - 언어 시스템에서도 호출할 수 있도록 전역으로 노출
+    window.initializeDiagnosticTools = function () {
         console.log('진단 도구 확인 중...');
 
         if (!window.diagnosticTools) {
