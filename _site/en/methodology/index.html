@@ -611,8 +611,6 @@
         const nav = document.querySelector('nav');
         const headerActions = document.querySelector('.header-actions');
         const navLinks = document.querySelectorAll('.nav-link');
-        const currentLang = document.getElementById('current-lang');
-        const languageSwitcher = document.getElementById('language-switcher');
 
         mobileMenu.addEventListener('click', function () {
             nav.classList.toggle('active');
@@ -624,16 +622,7 @@
             // 네비게이션 링크 텍스트 업데이트
             navLinks.forEach(link => {
                 link.textContent = link.getAttribute(`data-${lang}`);
-                // URL에 언어 파라미터 추가
-                const href = link.getAttribute('href');
-                const baseUrl = href.split('?')[0];
-                const params = new URLSearchParams(href.split('?')[1] || '');
-                params.set('lang', lang);
-                link.href = `${baseUrl}?${params.toString()}`;
             });
-
-            // 현재 언어 표시 업데이트
-            currentLang.textContent = currentLang.getAttribute(`data-${lang}`);
         }
 
         // 언어 변경 이벤트 리스너
@@ -642,60 +631,10 @@
         });
 
         // 초기 언어 설정
-        const urlParams = new URLSearchParams(window.location.search);
-        const langParam = urlParams.get('lang');
-        const storedLang = localStorage.getItem('preferred_language');
-        const initialLang = langParam || storedLang || 'ko';
+        const storedLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
 
         // 초기 언어 적용
-        updateHeaderLanguage(initialLang);
-
-        // 언어 스위처 클릭 이벤트
-        languageSwitcher.addEventListener('click', function () {
-            const currentLanguage = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
-            const newLanguage = currentLanguage === 'en' ? 'ko' : 'en';
-
-            console.log('[헤더] 언어 변경 시작:', newLanguage);
-
-            // 모든 저장소에 언어 설정 저장
-            localStorage.setItem('preferred_language', newLanguage);
-            localStorage.setItem('lang', newLanguage);
-
-            // 전역 언어 변경 함수 호출 (language.js에 정의됨)
-            if (typeof window.changeLanguage === 'function') {
-                console.log('[헤더] 전역 언어 변경 함수 호출');
-                window.changeLanguage(newLanguage);
-            } else {
-                console.warn('[헤더] 전역 언어 변경 함수가 없음');
-
-                // 언어 변경 이벤트 발생
-                window.dispatchEvent(new CustomEvent('languageChange', {
-                    detail: {
-                        language: newLanguage
-                    }
-                }));
-            }
-
-            // 직접 내용 조작 (백업 동작)
-            document.querySelectorAll('.post-content-ko').forEach(el => {
-                el.style.cssText = newLanguage === 'ko'
-                    ? 'display: block !important; visibility: visible !important;'
-                    : 'display: none !important; visibility: hidden !important;';
-            });
-
-            document.querySelectorAll('.post-content-en').forEach(el => {
-                el.style.cssText = newLanguage === 'en'
-                    ? 'display: block !important; visibility: visible !important;'
-                    : 'display: none !important; visibility: hidden !important;';
-            });
-
-            // URL 업데이트
-            const url = new URL(window.location);
-            url.searchParams.set('lang', newLanguage);
-            window.history.pushState({}, '', url);
-
-            console.log('[헤더] 언어 변경 완료:', newLanguage);
-        });
+        updateHeaderLanguage(storedLang);
     });
 </script>
 

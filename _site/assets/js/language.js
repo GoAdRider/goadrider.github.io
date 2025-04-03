@@ -84,22 +84,46 @@ document.addEventListener('DOMContentLoaded', function () {
 function setupLanguageSwitcher() {
     const switchers = document.querySelectorAll('#language-switcher, .language-switcher, .language-switcher-button');
 
+    // 이전에 설정된 이벤트 리스너가 있는지 확인하기 위한 플래그
+    if (window.switchersInitialized) {
+        console.log('[언어 시스템] 스위처가 이미 초기화되어 있습니다.');
+        return;
+    }
+
     switchers.forEach(switcher => {
+        // 이벤트 리스너만 설정하고 DOM 요소는 복제하지 않음
+        switcher.setAttribute('data-current-lang', preferredLanguage);
+
+        // 기존 이벤트 리스너를 모두 제거 (중복 방지)
         const newSwitcher = switcher.cloneNode(true);
         if (switcher.parentNode) {
             switcher.parentNode.replaceChild(newSwitcher, switcher);
         }
 
-        newSwitcher.setAttribute('data-current-lang', preferredLanguage);
-
         newSwitcher.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
+            console.log('[언어 시스템] 언어 전환 버튼 클릭됨');
             languageManager.toggleLanguage();
             return false;
         });
 
         updateSwitcherText(preferredLanguage);
+    });
+
+    // 초기화 완료 플래그 설정
+    window.switchersInitialized = true;
+}
+
+// 언어 스위처 텍스트 업데이트
+function updateSwitcherText(lang) {
+    document.querySelectorAll('#language-switcher, .language-switcher, .language-switcher-button').forEach(switcher => {
+        const textElement = switcher.querySelector('.language-text') || switcher;
+        if (textElement && textElement !== switcher) {
+            textElement.textContent = switcher.getAttribute(`data-${lang}`) || (lang === 'ko' ? '한국어' : 'English');
+        } else {
+            switcher.textContent = switcher.getAttribute(`data-${lang}`) || (lang === 'ko' ? '한국어' : 'English');
+        }
     });
 }
 
