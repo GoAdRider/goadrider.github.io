@@ -222,4 +222,63 @@ window.onerror = function (message, source, lineno, colno, error) {
 
     console.error('[오류]', message);
     return false;
-}; 
+};
+
+// 전역 설정 및 유틸리티
+(function () {
+    // 디버그 모드 설정
+    const DEBUG_MODE = false;
+
+    // 로깅 유틸리티
+    const logger = {
+        log: function (...args) {
+            if (DEBUG_MODE) console.log('[global.js]', ...args);
+        },
+        warn: function (...args) {
+            if (DEBUG_MODE) console.warn('[global.js]', ...args);
+        },
+        error: function (...args) {
+            console.error('[global.js]', ...args);
+        }
+    };
+
+    // 진단 도구 초기화
+    function initializeDiagnosticTools() {
+        if (!DEBUG_MODE) return;
+
+        window.diagnosticTools = {
+            logCurrentState: function () {
+                logger.log('현재 상태:', {
+                    language: document.documentElement.lang,
+                    localStorage: {
+                        lang: localStorage.getItem('lang'),
+                        preferred_language: localStorage.getItem('preferred_language')
+                    }
+                });
+            },
+            forceKorean: function () {
+                window.languageManager.setLanguage('ko');
+            },
+            forceEnglish: function () {
+                window.languageManager.setLanguage('en');
+            },
+            inspect: function () {
+                logger.log('시스템 검사 결과:', {
+                    initialized: window.languageSystemInitialized,
+                    manager: window.languageManager,
+                    handlers: document.querySelectorAll('#language-switcher').length
+                });
+            },
+            toggleView: function () {
+                document.body.classList.toggle('debug-view');
+            }
+        };
+
+        logger.log('진단 도구 초기화 완료');
+    }
+
+    // 문서 로드 시 초기화
+    document.addEventListener('DOMContentLoaded', function () {
+        initializeDiagnosticTools();
+    });
+})(); 
