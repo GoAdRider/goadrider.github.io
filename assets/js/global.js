@@ -26,18 +26,35 @@ function getCookie(name) {
 // 현재 언어 감지 함수 - 단순화된 버전
 function detectCurrentLanguage() {
     try {
-        // 1. 쿠키에서 언어 확인
+        // 1. 로컬 스토리지 확인 (언어 시스템에서 설정한 값)
+        const prefLang = localStorage.getItem('preferred_language');
+        const storedLang = localStorage.getItem('lang');
+        if (prefLang === 'ko' || prefLang === 'en') {
+            return prefLang;
+        }
+        if (storedLang === 'ko' || storedLang === 'en') {
+            return storedLang;
+        }
+
+        // 2. 쿠키에서 언어 확인
         const cookieLang = getCookie('preferred_lang');
         if (cookieLang === 'ko' || cookieLang === 'en') {
             return cookieLang;
         }
 
-        // 2. URL에서 언어 확인 (단순 패턴 확인)
+        // 3. URL에서 언어 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        if (langParam === 'ko' || langParam === 'en') {
+            return langParam;
+        }
+
+        // 4. URL 경로에서 언어 확인 (단순 패턴 확인)
         if (window.location.pathname.indexOf('/en/') >= 0) {
             return 'en';
         }
 
-        // 3. 기본값은 한국어
+        // 5. 기본값은 한국어
         return 'ko';
     } catch (e) {
         console.error('언어 감지 오류:', e);
@@ -70,8 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
-            // 언어 전환 이벤트 리스너 설정 (필수 기능)
-            setupLanguageSwitcher();
+            // 언어 전환 시스템 호환성 확인
+            checkLanguageSystem();
         } catch (e) {
             console.error('페이지 초기화 오류:', e);
         }
@@ -79,25 +96,77 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /**
- * 언어 전환 버튼 설정 - 단순화된 버전
+ * 언어 시스템 호환성 확인 및 설정
+ * - 기존 언어 시스템이 없을 경우에만 설정
+ */
+function checkLanguageSystem() {
+    try {
+        // 언어 스위처 요소 찾기
+        const languageSwitcher = document.getElementById('language-switcher');
+
+        // 이미 이벤트 리스너가 설정되어 있는지 확인 (data-initialized 속성으로 확인)
+        if (languageSwitcher && !languageSwitcher.getAttribute('data-initialized')) {
+            console.log('[global.js] 기존 언어 시스템 확인 중...');
+
+            // language.js가 로드되었는지 확인 (window.changeLanguage 함수 확인)
+            if (typeof window.changeLanguage !== 'function') {
+                console.log('[global.js] 주 언어 시스템이 없어 대체 시스템을 활성화합니다.');
+                setupLanguageSwitcher();
+            } else {
+                console.log('[global.js] 주 언어 시스템 감지됨. 언어 스위처 초기화를 건너뜁니다.');
+                // language.js 시스템이 제대로 작동하도록 표시
+                languageSwitcher.setAttribute('data-initialized', 'true');
+            }
+        }
+    } catch (e) {
+        console.error('언어 시스템 확인 오류:', e);
+    }
+}
+
+/**
+ * 언어 전환 버튼 설정 - 주 언어 시스템이 없는 경우에만 사용
  */
 function setupLanguageSwitcher() {
     try {
         // 언어 스위처 버튼 찾기
-        var languageSwitchers = document.querySelectorAll('.language-switcher');
+        const languageSwitchers = document.querySelectorAll('.language-switcher');
         if (!languageSwitchers || languageSwitchers.length === 0) return;
+
+        console.log('[global.js] 대체 언어 시스템 설정 중... (language.js가 없는 경우)');
 
         // 각 언어 스위처에 이벤트 리스너 추가
         languageSwitchers.forEach(function (switcher) {
-            switcher.addEventListener('click', function (e) {
-                var lang = this.getAttribute('data-lang');
-                if (!lang) return;
+            // 이미 설정되었는지 확인
+            if (switcher.getAttribute('data-initialized') === 'true') return;
+
+            switcher.setAttribute('data-initialized', 'true');
+
+            // 클릭 이벤트 추가
+            switcher.addEventListener('click', function () {
+                // 현재 언어 확인
+                const currentLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
+                // 새 언어 설정
+                const newLang = currentLang === 'en' ? 'ko' : 'en';
+
+                console.log('[global.js] 대체 언어 시스템으로 언어 변경:', currentLang, '->', newLang);
+
+                // 로컬 스토리지에 언어 설정 저장
+                localStorage.setItem('preferred_language', newLang);
+                localStorage.setItem('lang', newLang);
 
                 // 언어 변경 이벤트 발생
-                var event = new CustomEvent('languageChanged', {
-                    detail: { language: lang }
-                });
-                document.dispatchEvent(event);
+                window.dispatchEvent(new CustomEvent('languageChange', {
+                    detail: { language: newLang }
+                }));
+
+                document.dispatchEvent(new CustomEvent('languageChanged', {
+                    detail: { language: newLang }
+                }));
+
+                // 현재 페이지 새로고침 (URL에 lang 파라미터 추가)
+                const url = new URL(window.location);
+                url.searchParams.set('lang', newLang);
+                window.location.href = url.toString();
             });
         });
     } catch (e) {
