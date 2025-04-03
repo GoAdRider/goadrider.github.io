@@ -227,7 +227,7 @@ window.onerror = function (message, source, lineno, colno, error) {
 // 전역 설정 및 유틸리티
 (function () {
     // 디버그 모드 설정
-    const DEBUG_MODE = false;
+    const DEBUG_MODE = true;  // 디버그 모드 활성화
 
     // 로깅 유틸리티
     const logger = {
@@ -244,41 +244,63 @@ window.onerror = function (message, source, lineno, colno, error) {
 
     // 진단 도구 초기화
     function initializeDiagnosticTools() {
-        if (!DEBUG_MODE) return;
+        console.log('진단 도구 확인 중...');
 
-        window.diagnosticTools = {
-            logCurrentState: function () {
-                logger.log('현재 상태:', {
-                    language: document.documentElement.lang,
-                    localStorage: {
-                        lang: localStorage.getItem('lang'),
-                        preferred_language: localStorage.getItem('preferred_language')
+        if (!window.diagnosticTools) {
+            window.diagnosticTools = {
+                logCurrentState: function () {
+                    console.log('현재 상태:', {
+                        language: document.documentElement.lang,
+                        localStorage: {
+                            lang: localStorage.getItem('lang'),
+                            preferred_language: localStorage.getItem('preferred_language')
+                        },
+                        elements: {
+                            koContents: document.querySelectorAll('.post-content-ko').length,
+                            enContents: document.querySelectorAll('.post-content-en').length,
+                            languageSwitchers: document.querySelectorAll('.language-switcher').length
+                        }
+                    });
+                },
+                forceKorean: function () {
+                    if (window.languageManager && window.languageManager.setLanguage) {
+                        window.languageManager.setLanguage('ko');
+                    } else {
+                        console.error('언어 관리자를 찾을 수 없습니다.');
                     }
-                });
-            },
-            forceKorean: function () {
-                window.languageManager.setLanguage('ko');
-            },
-            forceEnglish: function () {
-                window.languageManager.setLanguage('en');
-            },
-            inspect: function () {
-                logger.log('시스템 검사 결과:', {
-                    initialized: window.languageSystemInitialized,
-                    manager: window.languageManager,
-                    handlers: document.querySelectorAll('#language-switcher').length
-                });
-            },
-            toggleView: function () {
-                document.body.classList.toggle('debug-view');
-            }
-        };
+                },
+                forceEnglish: function () {
+                    if (window.languageManager && window.languageManager.setLanguage) {
+                        window.languageManager.setLanguage('en');
+                    } else {
+                        console.error('언어 관리자를 찾을 수 없습니다.');
+                    }
+                },
+                inspect: function () {
+                    console.log('시스템 검사 결과:', {
+                        initialized: window.languageSystemInitialized,
+                        manager: window.languageManager,
+                        handlers: document.querySelectorAll('#language-switcher').length,
+                        currentState: {
+                            htmlLang: document.documentElement.lang,
+                            storedLang: localStorage.getItem('lang'),
+                            preferredLang: localStorage.getItem('preferred_language')
+                        }
+                    });
+                },
+                toggleView: function () {
+                    document.body.classList.toggle('debug-view');
+                }
+            };
 
-        logger.log('진단 도구 초기화 완료');
+            console.log('진단 도구가 성공적으로 로드됨:', Object.keys(window.diagnosticTools));
+        }
     }
 
     // 문서 로드 시 초기화
-    document.addEventListener('DOMContentLoaded', function () {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeDiagnosticTools);
+    } else {
         initializeDiagnosticTools();
-    });
+    }
 })(); 
