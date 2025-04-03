@@ -2,24 +2,14 @@
 layout: post
 title: "디지털 기억 혁명의 미래"
 title_en: "The Future of Digital Memory Revolution"
+date: 2025-01-05
+categories: [기술, 신경과학]
+categories_en: [Technology, Neuroscience]
+tags: [디지털 기억, 신경과학, 증강현실, 인공지능, 미래예측]
+tags_en: [Digital Memory, Neuroscience, Augmented Reality, Artificial Intelligence, Future Prediction]
 excerpt: "신경과학과 디지털 기술의 결합이 인간의 기억 능력을 어떻게 변화시킬 수 있는지 탐구하는 글입니다."
 excerpt_en: "Exploring how the convergence of neuroscience and digital technology can transform human memory capabilities."
-categories:
-  - Technology
-  - Neuroscience
-tags:
-  - 디지털 기억
-  - 신경과학
-  - 증강현실
-  - 인공지능
-  - 미래예측
-  - Digital Memory
-  - Neuroscience
-  - Augmented Reality
-  - Artificial Intelligence
-  - Future Prediction
-date: 2025-01-05
-featured_image: /assets/images/posts/digital-memory.jpg
+image: /assets/images/posts/digital-memory.jpg
 language: both
 ---
 
