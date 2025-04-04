@@ -1,4 +1,10 @@
 var store = [{
+        "title": "전쟁 속 윤리적 갈등: 우크라이나 전쟁의 성폭력 문제",
+        "excerpt":"# 전쟁 속 윤리적 갈등: 우크라이나 전쟁의 성폭력 문제 우크라이나 전쟁은 단순한 군사적 충돌을 넘어서, 인간의 윤리와 도덕성을 시험하는 복잡한 상황을 만들어내고 있다. 최근 뉴스에 따르면, 한 여성이 군인 남편에게 \"우크라이나 여성들을 성폭행해도 좋다\"고 부추긴 사건이 발생했다. 이는 전쟁 중에 인간성이 어떻게 왜곡될 수 있는지를 보여주는 충격적인 사례로, 인류 역사에서...","categories": ["hot_news"],
+        "tags": ["윤리","전쟁","성폭력"],
+        "url": "/hot_news/%EC%A0%84%EC%9F%81-%EC%86%8D-%EC%9C%A4%EB%A6%AC%EC%A0%81-%EA%B0%88%EB%93%B1-%EC%9A%B0%ED%81%AC%EB%9D%BC%EC%9D%B4%EB%82%98-%EC%A0%84%EC%9F%81%EC%9D%98-%EC%84%B1%ED%8F%AD%EB%A0%A5-%EB%AC%B8%EC%A0%9C/",
+        "teaser": null
+      },{
         "title": "AI의 의식 가능성과 윤리적 함의: 철학적 분석과 과학적 고찰",
         "excerpt":"뉴스 원문 요약 Nature - Could AI develop consciousness? We asked philosophers and scientists 최근 GPT-4와 같은 대규모 언어 모델의 발전으로 AI의 의식 가능성에 대한 논쟁이 재점화되었다. 과학자들과 철학자들은 의식의 정의부터 시작하여, AI 시스템이 진정한 의식을 가질 수 있는지, 그리고 이를 어떻게 검증할 수 있는지에 대해 활발한 논의를 진행하고 있다....","categories": ["철학","인공지능"],
         "tags": ["AI","의식","윤리","철학적분석","과학적고찰"],
@@ -77,15 +83,27 @@ var store = [{
         "url": "/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/",
         "teaser": null
       },{
-        "title": "전쟁 속 윤리적 갈등 우크라이나 전쟁의 성폭력 문제",
-        "excerpt":"—JEKYLL_FRONTMATTER— layout: post title: “전쟁 속 윤리적 갈등: 우크라이나 전쟁의 성폭력 문제” title_en: “Ethical Dilemmas in War: The Issue of Sexual Violence in the Ukraine Conflict” date: 2023-10-04 categories: [hot_news] categories_en: [hot_news] tags: [윤리, 전쟁, 성폭력] tags_en: [ethics, war, sexual violence] excerpt: “최근 우크라이나 전쟁 중 발생한 성폭력 문제는 전쟁의...","categories": [],
-        "tags": [],
-        "url": "/%EC%A0%84%EC%9F%81-%EC%86%8D-%EC%9C%A4%EB%A6%AC%EC%A0%81-%EA%B0%88%EB%93%B1-%EC%9A%B0%ED%81%AC%EB%9D%BC%EC%9D%B4%EB%82%98-%EC%A0%84%EC%9F%81%EC%9D%98-%EC%84%B1%ED%8F%AD%EB%A0%A5-%EB%AC%B8%EC%A0%9C/",
+        "title": "디지털 시대의 교육 패러다임 변화",
+        "excerpt":"# 디지털 시대의 교육 패러다임 변화 인공지능이 교육의 미래에 미치는 영향에 대해 생각해봤다. 기술이 발전하는데 인간의 고민은 여전하다. 우리는 과연 어떤 교육 체계를 구축해야 할까? 이러한 질문은 단순한 호기심을 넘어서서, 교육의 본질과 인간의 존재에 대한 깊은 사유를 요구한다. ## 교육의 본질과 변화 교육의 본질은 무엇일까? 플라톤은 교육을 통해 영혼의 진정한...","categories": ["교육","기술"],
+        "tags": ["인공지능","교육","미래","디지털학습"],
+        "url": "/%EA%B5%90%EC%9C%A1/%EA%B8%B0%EC%88%A0/%EB%94%94%EC%A7%80%ED%84%B8-%EC%8B%9C%EB%8C%80%EC%9D%98-%EA%B5%90%EC%9C%A1-%ED%8C%A8%EB%9F%AC%EB%8B%A4%EC%9E%84-%EB%B3%80%ED%99%94/",
         "teaser": null
       },{
-        "title": "헌법과 윤리 탄핵의 의미를 되새기며",
-        "excerpt":"—JEKYLL_FRONTMATTER— layout: post title: “헌법과 윤리: 탄핵의 의미를 되새기며” title_en: “Constitution and Ethics: Reflecting on the Meaning of Impeachment” date: 2025-04-04 categories: [hot_news, politics] categories_en: [hot_news, politics] tags: [헌법, 윤리, 정치] tags_en: [Constitution, Ethics, Politics] excerpt: “헌법재판소의 윤석열 전 대통령 탄핵 결정은 법적, 윤리적 차원에서 다양한 질문을 제기한다.” excerpt_en: “The...","categories": [],
-        "tags": [],
-        "url": "/%ED%97%8C%EB%B2%95%EA%B3%BC-%EC%9C%A4%EB%A6%AC-%ED%83%84%ED%95%B5%EC%9D%98-%EC%9D%98%EB%AF%B8%EB%A5%BC-%EB%90%98%EC%83%88%EA%B8%B0%EB%A9%B0/",
+        "title": "메타버스가 가져올 교육의 새로운 패러다임",
+        "excerpt":"# 메타버스가 가져올 교육의 새로운 패러다임 메타버스에 대해 생각해보면, 우리는 단순히 가상현실의 세계를 넘어서는 새로운 차원의 교육 가능성을 떠올린다. 메타버스가 교육에 미치는 영향은 무엇일까? 기술이 발전함에 따라 교육의 본질 또한 변화해야만 한다는 것이다. ## 교육의 경계 허물기 메타버스는 물리적 공간의 제약을 넘어서는 가상의 교육 환경을 제공한다. 공자는 \"인(仁)의 도리는 사람...","categories": ["교육","기술"],
+        "tags": ["메타버스","교육","기술","가상현실"],
+        "url": "/%EA%B5%90%EC%9C%A1/%EA%B8%B0%EC%88%A0/%EB%A9%94%ED%83%80%EB%B2%84%EC%8A%A4%EA%B0%80-%EA%B0%80%EC%A0%B8%EC%98%AC-%EA%B5%90%EC%9C%A1%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%8C%A8%EB%9F%AC%EB%8B%A4%EC%9E%84/",
+        "teaser": null
+      },{
+        "title": "헌법과 윤리: 탄핵의 의미를 되새기며",
+        "excerpt":"# 헌법과 윤리: 탄핵의 의미를 되새기며 헌법재판소는 윤석열 전 대통령에 대한 탄핵 결정을 내렸다. 이 결정은 전원일치로 이루어졌으며, 이는 한국 정치의 복잡한 상황과 사회적 갈등을 반영하는 중요한 사건이다. 탄핵이라는 법적 과정은 단순히 권력을 행사하는 자에게 제재를 가하는 것을 넘어, 민주주의의 기본 원칙을 지키기 위한 의도적인 행위로 볼 수 있다. \"헌법재판소는...","categories": ["hot_news","politics"],
+        "tags": ["헌법","윤리","정치"],
+        "url": "/hot_news/politics/%ED%97%8C%EB%B2%95%EA%B3%BC-%EC%9C%A4%EB%A6%AC-%ED%83%84%ED%95%B5%EC%9D%98-%EC%9D%98%EB%AF%B8%EB%A5%BC-%EB%90%98%EC%83%88%EA%B8%B0%EB%A9%B0/",
+        "teaser": null
+      },{
+        "title": null,
+        "excerpt":"# 정치적 불확실성과 경제적 반응: 환율의 철학적 고찰 최근 원·달러 환율이 급락하면서 코스피가 약세로 마감했다. 헌법재판소의 윤석열 대통령 탄핵 인용 결정은 정치적 불확실성을 해소하는 긍정적 요소로 작용했다. “정치적 불확실성 해소와 미국 경기침체 우려에 따른 달러화 약세도 환율 하락을 거들었다고 평가했다.” 출처: [더퍼블릭, \"특보 원·달러 환율 급락…코스피는 약세 마감\" (2025-04-04)](https://www.thepublic.kr/news/articleView.html?idxno=257151) ##...","categories": [],
+        "tags": null,
+        "url": "/2025-04-04-%ED%8A%B9%EB%B3%B4-%EC%9B%90%EB%8B%AC%EB%9F%AC-%ED%99%98%EC%9C%A8-%EA%B8%89%EB%9D%BD%EC%BD%94%EC%8A%A4%ED%94%BC%EB%8A%94-%EC%95%BD%EC%84%B8-%EB%A7%88%EA%B0%90/",
         "teaser": null
       }]
