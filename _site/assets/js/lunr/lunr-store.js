@@ -76,4 +76,16 @@ var store = [{
         "tags": ["양자역학","의식","마음의철학","뇌과학"],
         "url": "/%EA%B3%BC%ED%95%99/%EC%B2%A0%ED%95%99/quantum-consciousness/",
         "teaser": null
+      },{
+        "title": "전쟁 속 윤리적 갈등 우크라이나 전쟁의 성폭력 문제",
+        "excerpt":"—JEKYLL_FRONTMATTER— layout: post title: “전쟁 속 윤리적 갈등: 우크라이나 전쟁의 성폭력 문제” title_en: “Ethical Dilemmas in War: The Issue of Sexual Violence in the Ukraine Conflict” date: 2023-10-04 categories: [hot_news] categories_en: [hot_news] tags: [윤리, 전쟁, 성폭력] tags_en: [ethics, war, sexual violence] excerpt: “최근 우크라이나 전쟁 중 발생한 성폭력 문제는 전쟁의...","categories": [],
+        "tags": [],
+        "url": "/%EC%A0%84%EC%9F%81-%EC%86%8D-%EC%9C%A4%EB%A6%AC%EC%A0%81-%EA%B0%88%EB%93%B1-%EC%9A%B0%ED%81%AC%EB%9D%BC%EC%9D%B4%EB%82%98-%EC%A0%84%EC%9F%81%EC%9D%98-%EC%84%B1%ED%8F%AD%EB%A0%A5-%EB%AC%B8%EC%A0%9C/",
+        "teaser": null
+      },{
+        "title": "헌법과 윤리 탄핵의 의미를 되새기며",
+        "excerpt":"—JEKYLL_FRONTMATTER— layout: post title: “헌법과 윤리: 탄핵의 의미를 되새기며” title_en: “Constitution and Ethics: Reflecting on the Meaning of Impeachment” date: 2025-04-04 categories: [hot_news, politics] categories_en: [hot_news, politics] tags: [헌법, 윤리, 정치] tags_en: [Constitution, Ethics, Politics] excerpt: “헌법재판소의 윤석열 전 대통령 탄핵 결정은 법적, 윤리적 차원에서 다양한 질문을 제기한다.” excerpt_en: “The...","categories": [],
+        "tags": [],
+        "url": "/%ED%97%8C%EB%B2%95%EA%B3%BC-%EC%9C%A4%EB%A6%AC-%ED%83%84%ED%95%B5%EC%9D%98-%EC%9D%98%EB%AF%B8%EB%A5%BC-%EB%90%98%EC%83%88%EA%B8%B0%EB%A9%B0/",
+        "teaser": null
       }]
