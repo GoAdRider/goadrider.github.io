@@ -1,0 +1,325 @@
+/* 드롭다운 언어 전환 스타일 */
+.language-switcher {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0 1rem;
+}
+
+.lang-switch-title {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+    color: #666;
+}
+
+.lang-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-btn {
+    display: flex;
+    align-items: center;
+    padding: 0.4rem 0.8rem;
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+.dropdown-btn:hover {
+    background-color: #e8e8e8;
+}
+
+.dropdown-arrow {
+    margin-left: 8px;
+    font-size: 0.7rem;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    min-width: 120px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    z-index: 1000;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #336699;
+}
+
+.dropdown-content a.active {
+    background-color: #f0f0f0;
+    font-weight: 600;
+}
+
+.lang-icon {
+    margin-right: 8px;
+}
+
+@media (max-width: 767px) {
+    .lang-text {
+        display: none;
+    }
+
+    .dropdown-btn {
+        padding: 0.3rem;
+    }
+
+    .lang-icon {
+        margin-right: 0;
+    }
+}
+
+/* 헤더 타이틀 크기 조정 */
+.site-title {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
+}
+
+@media (max-width: 767px) {
+    .site-title {
+        font-size: 2rem !important;
+    }
+}
+
+/* 페이지 제목 중복 문제 해결 */
+.page__title {
+    display: none;
+}
+
+/* 대신 JavaScript로 추가한 제목 사용 */
+.about-content-ko h1,
+.about-content-en h1,
+.categories-content-ko h1,
+.categories-content-en h1,
+.tags-content-ko h1,
+.tags-content-en h1,
+.archive-content-ko h1,
+.archive-content-en h1 {
+    font-size: 2em;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+/* 카테고리 탭 스타일링 */
+.category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2.5rem;
+    justify-content: center;
+}
+
+.category-tab {
+    padding: 0.7rem 1.5rem;
+    background-color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--gray-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.category-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(251, 113, 133, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.category-tab:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    color: var(--primary-color);
+}
+
+.category-tab:hover::before {
+    opacity: 1;
+}
+
+.category-tab.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+    transform: translateY(-3px);
+}
+
+.category-tab.active::before {
+    opacity: 0;
+}
+
+/* 반응형 카테고리 탭 */
+@media (max-width: 768px) {
+    .category-tabs {
+        gap: 0.5rem;
+    }
+
+    .category-tab {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* 다국어 콘텐츠 스타일 - 전역 규칙 */
+.post-content-ko,
+.post-content-en {
+    width: 100%;
+    transition: opacity 0.2s ease;
+}
+
+/* 기본값은 한국어 표시, 영어 숨김 */
+.post-content-en {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+.post-content-ko {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* 언어가 en일 때는 스타일 반전 */
+html[lang="en"] .post-content-en,
+.lang-en .post-content-en,
+body.body-lang-en .post-content-en,
+.content-visible.post-content-en {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+html[lang="en"] .post-content-ko,
+.lang-en .post-content-ko,
+body.body-lang-en .post-content-ko,
+.content-hidden.post-content-ko {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* 언어가 ko일 때의 스타일 */
+html[lang="ko"] .post-content-ko,
+.lang-ko .post-content-ko,
+body.body-lang-ko .post-content-ko,
+.content-visible.post-content-ko {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+html[lang="ko"] .post-content-en,
+.lang-ko .post-content-en,
+body.body-lang-ko .post-content-en,
+.content-hidden.post-content-en {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* 우선순위가 가장 높은 클래스 기반 스타일 */
+.content-visible {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.content-hidden {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* 추가적으로 강화된 언어별 세부 스타일 */
+[data-lang="ko"] .post-content-ko,
+[lang="ko"] .post-content-ko,
+html[data-lang="ko"] .post-content-ko {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    clip-path: none !important;
+    z-index: auto !important;
+}
+
+[data-lang="ko"] .post-content-en,
+[lang="ko"] .post-content-en,
+html[data-lang="ko"] .post-content-en {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
+    z-index: -1 !important;
+}
+
+[data-lang="en"] .post-content-en,
+[lang="en"] .post-content-en,
+html[data-lang="en"] .post-content-en {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    clip-path: none !important;
+    z-index: auto !important;
+}
+
+[data-lang="en"] .post-content-ko,
+[lang="en"] .post-content-ko,
+html[data-lang="en"] .post-content-ko {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
+    z-index: -1 !important;
+}

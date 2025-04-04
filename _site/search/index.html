@@ -1,0 +1,1198 @@
+<!doctype html>
+<html lang="ko" class="no-js">
+
+<head>
+    <!-- 안전 모드 스크립트 - 페이지 응답성 유지 -->
+    <script>
+        // 페이지 응답성 보호를 위한 스크립트
+        window.addEventListener('error', function (e) {
+            // 로딩 시간이 너무 오래 걸리는 스크립트를 감지
+            if (e.target && e.target.tagName === 'SCRIPT') {
+                console.warn('Script loading error:', e.target.src);
+            }
+        }, true);
+
+        // 10초 후에도 로딩이 완료되지 않으면 자동으로 복구 시도
+        setTimeout(function () {
+            if (document.readyState !== 'complete') {
+                console.warn('페이지 로딩 지연 감지 - 복구 모드 활성화');
+
+                // 로딩이 안 된 이미지나 스크립트 감지
+                var pendingScripts = document.querySelectorAll('script:not([async]):not([defer])');
+                for (var i = 0; i < pendingScripts.length; i++) {
+                    if (!pendingScripts[i].hasAttribute('data-checked')) {
+                        pendingScripts[i].setAttribute('data-checked', 'true');
+                        if (pendingScripts[i].src && pendingScripts[i].src.includes('lunr')) {
+                            // 문제가 되는 스크립트는 비동기로 변경
+                            pendingScripts[i].async = true;
+                            console.log('스크립트 최적화:', pendingScripts[i].src);
+                        }
+                    }
+                }
+            }
+        }, 8000);
+    </script>
+
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>검색 - NewsLens - NewsLens</title>
+<meta name="description" content="철학적, 과학적 사고로 세상을 바라보는 블로그">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="NewsLens">
+<meta property="og:title" content="검색 - NewsLens">
+<meta property="og:url" content="https://goadrider.github.io/search/">
+
+
+  <meta property="og:description" content="철학적, 과학적 사고로 세상을 바라보는 블로그">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://goadrider.github.io/search/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://goadrider.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="NewsLens Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- 페이지 타이틀 설정 -->
+<title>
+    
+    검색 - NewsLens | NewsLens
+    
+</title>
+
+<!-- Google Font 로드 - 비동기 로딩으로 변경 -->
+
+
+<!-- Google Analytics - 비동기로 변경 -->
+
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<!-- 문제가 되는 webmanifest 파일 로딩 비활성화 -->
+<!-- <link rel="manifest" href="/site.webmanifest"> -->
+
+<!-- end custom head snippets -->
+
+<!-- 글로벌 스크립트 - 페이지 로드 전에 실행됨 (지연 로딩으로 변경) -->
+<script src="/assets/js/global.js" defer async></script>
+
+<!-- 언어 변경 처리를 위한 즉시 실행 스크립트 -->
+<script>
+    (function () {
+        // DOM 로드 완료 시 실행
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('언어 전환 스크립트 초기화');
+
+            // 언어 변경 함수 - 모든 data-ko/data-en 속성을 처리
+            function updateLanguageElements(lang) {
+                console.log('언어 변경 적용: ' + lang);
+
+                // 모든 data-ko 또는 data-en 속성을 가진 요소 선택
+                const elementsWithLangData = document.querySelectorAll('[data-ko], [data-en]');
+                console.log('언어 변경 대상 요소 수: ' + elementsWithLangData.length);
+
+                // 각 요소에 대해 현재 언어에 맞는 텍스트 적용
+                elementsWithLangData.forEach(function (el) {
+                    if (el.hasAttribute('data-' + lang)) {
+                        const content = el.getAttribute('data-' + lang);
+                        el.textContent = content;
+                        console.log('요소 텍스트 변경: ', content);
+                    }
+                });
+
+                // title 태그 업데이트
+                if (lang === 'en' && document.querySelector('meta[name="title-en"]')) {
+                    document.title = document.querySelector('meta[name="title-en"]').getAttribute('content');
+                } else if (document.querySelector('meta[name="title-ko"]')) {
+                    document.title = document.querySelector('meta[name="title-ko"]').getAttribute('content');
+                }
+            }
+
+            // 초기 언어 설정 확인 및 적용
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlLang = urlParams.get('lang');
+            const storedLang = localStorage.getItem('preferred_language');
+            const initialLang = urlLang || storedLang || 'ko';
+
+            // HTML lang 속성 설정
+            document.documentElement.setAttribute('lang', initialLang);
+
+            // 초기 언어 적용
+            setTimeout(function () {
+                updateLanguageElements(initialLang);
+            }, 0);
+
+            // 언어 변경 이벤트 리스너 등록 (여러 이벤트 타입 지원)
+            window.addEventListener('languageChange', function (e) {
+                if (e.detail && e.detail.language) {
+                    updateLanguageElements(e.detail.language);
+                }
+            });
+
+            document.addEventListener('languageChanged', function (e) {
+                if (e.detail && e.detail.language) {
+                    updateLanguageElements(e.detail.language);
+                }
+            });
+
+            // HTML lang 속성 변경 감지
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.attributeName === 'lang') {
+                        const newLang = document.documentElement.getAttribute('lang');
+                        updateLanguageElements(newLang);
+                    }
+                });
+            });
+
+            observer.observe(document.documentElement, { attributes: true });
+        });
+    })();
+</script>
+
+<!-- 긴급 복구 시스템 - 새로운 방식으로 구현 -->
+<script>
+    (function () {
+        // 최우선 실행되는 안전 장치
+        var safetyTimer = setTimeout(function () {
+            if (document.readyState !== 'complete') {
+                console.warn('[안전모드] 페이지 로딩이 지연되고 있습니다. 복구 시작...');
+
+                // 문제가 될 수 있는 스크립트 제거
+                var allScripts = document.querySelectorAll('script[src]');
+                for (var i = 0; i < allScripts.length; i++) {
+                    var script = allScripts[i];
+                    if (script.src.indexOf('/lunr/') !== -1 ||
+                        script.src.indexOf('search') !== -1 ||
+                        script.src.indexOf('/js/') !== -1) {
+                        console.log('[안전모드] 문제 스크립트 제거:', script.src);
+                        script.remove();
+                    }
+                }
+
+                // 로딩 이벤트 강제 발생
+                window.dispatchEvent(new Event('load'));
+                document.dispatchEvent(new Event('DOMContentLoaded'));
+
+                // 사용자에게 상태 알림
+                var notice = document.createElement('div');
+                notice.style.position = 'fixed';
+                notice.style.top = '10px';
+                notice.style.left = '10px';
+                notice.style.padding = '10px';
+                notice.style.background = 'rgba(255,255,255,0.9)';
+                notice.style.border = '1px solid #ddd';
+                notice.style.borderRadius = '5px';
+                notice.style.zIndex = '999999';
+                notice.style.fontSize = '14px';
+                notice.textContent = '페이지 로딩이 자동으로 복구되었습니다.';
+
+                if (document.body) {
+                    document.body.appendChild(notice);
+                    setTimeout(function () {
+                        notice.style.opacity = '0';
+                        notice.style.transition = 'opacity 1s';
+                        setTimeout(function () { notice.remove(); }, 1000);
+                    }, 3000);
+                }
+            }
+        }, 2000); // 2초 후 체크
+
+        // 페이지가 정상적으로 로드된 경우
+        window.addEventListener('load', function () {
+            clearTimeout(safetyTimer);
+        });
+    })();
+</script>
+
+<!-- 언어 전환 디버깅 도구 - 인라인 직접 정의 -->
+<script>
+    (function () {
+        // 언어 전환 디버깅 도구 정의
+        window.languageDebug = {
+            forceKorean: function () {
+                console.log('[인라인 디버그] 한국어 강제 적용');
+                document.documentElement.lang = 'ko';
+                localStorage.setItem('lang', 'ko');
+                localStorage.setItem('preferred_language', 'ko');
+
+                // 다시 로드 없이 DOM 직접 조작
+                var koElements = document.querySelectorAll('.post-content-ko');
+                var enElements = document.querySelectorAll('.post-content-en');
+
+                koElements.forEach(function (el) {
+                    el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+                });
+
+                enElements.forEach(function (el) {
+                    el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                });
+
+                // 이벤트 발생으로 다른 스크립트에 알림
+                try {
+                    document.dispatchEvent(new CustomEvent('languageChanged', {
+                        detail: { language: 'ko' }
+                    }));
+                } catch (e) {
+                    console.error('[인라인 디버그] 이벤트 발생 오류:', e);
+                }
+
+                return '한국어 적용 완료 (인라인)';
+            },
+
+            forceEnglish: function () {
+                console.log('[인라인 디버그] 영어 강제 적용');
+                document.documentElement.lang = 'en';
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferred_language', 'en');
+
+                // 다시 로드 없이 DOM 직접 조작
+                var koElements = document.querySelectorAll('.post-content-ko');
+                var enElements = document.querySelectorAll('.post-content-en');
+
+                koElements.forEach(function (el) {
+                    el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                });
+
+                enElements.forEach(function (el) {
+                    el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+                });
+
+                // 이벤트 발생으로 다른 스크립트에 알림
+                try {
+                    document.dispatchEvent(new CustomEvent('languageChanged', {
+                        detail: { language: 'en' }
+                    }));
+                } catch (e) {
+                    console.error('[인라인 디버그] 이벤트 발생 오류:', e);
+                }
+
+                return '영어 적용 완료 (인라인)';
+            },
+
+            checkState: function () {
+                var htmlLang = document.documentElement.lang;
+                var langSetting = localStorage.getItem('lang');
+                var preferredLang = localStorage.getItem('preferred_language');
+                var koElements = document.querySelectorAll('.post-content-ko');
+                var enElements = document.querySelectorAll('.post-content-en');
+
+                var info = {
+                    'HTML 언어': htmlLang,
+                    'localStorage.lang': langSetting,
+                    'localStorage.preferred_language': preferredLang,
+                    '한국어 요소 수': koElements.length,
+                    '영어 요소 수': enElements.length
+                };
+
+                console.log('[인라인 디버그] 현재 상태:', info);
+
+                koElements.forEach(function (el, idx) {
+                    var style = window.getComputedStyle(el);
+                    console.log(`[인라인 디버그] 한국어 요소 #${idx + 1}:`, {
+                        display: style.display,
+                        visibility: style.visibility,
+                        opacity: style.opacity
+                    });
+                });
+
+                enElements.forEach(function (el, idx) {
+                    var style = window.getComputedStyle(el);
+                    console.log(`[인라인 디버그] 영어 요소 #${idx + 1}:`, {
+                        display: style.display,
+                        visibility: style.visibility,
+                        opacity: style.opacity
+                    });
+                });
+
+                return info;
+            },
+
+            toggleLanguage: function () {
+                var current = localStorage.getItem('lang') || 'ko';
+                if (current === 'ko') {
+                    return this.forceEnglish();
+                } else {
+                    return this.forceKorean();
+                }
+            }
+        };
+
+        // DOMContentLoaded 이벤트가 이미 발생했는지 확인
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log('[인라인 디버그] 페이지 로드 완료, 디버깅 도구 준비 완료');
+                console.log('[인라인 디버그] 사용법: window.languageDebug.forceKorean() 또는 window.languageDebug.forceEnglish()');
+            });
+        } else {
+            console.log('[인라인 디버그] 페이지 이미 로드됨, 디버깅 도구 준비 완료');
+            console.log('[인라인 디버그] 사용법: window.languageDebug.forceKorean() 또는 window.languageDebug.forceEnglish()');
+        }
+    })();
+</script>
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <!-- 언어 관리 스크립트 -->
+    <script src="/assets/js/language.js"></script>
+
+    <!-- 언어 진단 도구 스크립트 (개발 및 디버깅용) -->
+    <script src="/assets/js/test-language.js"></script>
+
+    <!-- 언어 디버그 스크립트 -->
+    <script src="/assets/js/language-debug.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #fb7185;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --gray-color: #64748b;
+            --transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body
+    class="layout--default">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+
+    <!-- 헤더 포함 -->
+    <!-- 헤더 -->
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="/" class="logo">
+                    <i class="fas fa-brain"></i>
+                    NewsLens
+                </a>
+            </div>
+
+            <nav>
+                <a href="/" class="nav-link" data-ko="홈" data-en="Home">홈</a>
+                <a href="/categories/" class="nav-link" data-ko="카테고리" data-en="Categories">카테고리</a>
+                <a href="/tags/" class="nav-link" data-ko="태그" data-en="Tags">태그</a>
+                <a href="/about/" class="nav-link" data-ko="소개" data-en="About">소개</a>
+                <a href="/contact/" class="nav-link" data-ko="문의" data-en="Contact">문의</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="language-switcher" class="language-switcher" data-ko="한국어" data-en="English">
+                    <i class="fas fa-globe"></i>
+                    <span class="language-text">한국어</span>
+                </button>
+
+                <a href="/search/" class="search-button">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    /* 헤더 */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+        padding: 1.2rem 0;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo i {
+        color: var(--accent-color);
+    }
+
+    nav {
+        display: flex;
+        gap: 2rem;
+    }
+
+    nav a {
+        color: var(--gray-color);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.05rem;
+        transition: var(--transition);
+        position: relative;
+    }
+
+    nav a:hover {
+        color: var(--primary-color);
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: var(--transition);
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .language-switcher {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .language-switcher:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .language-switcher i {
+        color: var(--primary-color);
+    }
+
+    .search-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .search-button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+    }
+
+    .mobile-menu {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+
+        nav,
+        .header-actions {
+            display: none;
+        }
+
+        nav.active,
+        .header-actions.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.active {
+            align-items: flex-start;
+        }
+
+        .mobile-menu {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 모바일 메뉴 토글
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const nav = document.querySelector('nav');
+        const headerActions = document.querySelector('.header-actions');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        mobileMenu.addEventListener('click', function () {
+            nav.classList.toggle('active');
+            headerActions.classList.toggle('active');
+        });
+
+        // 언어 변경 함수
+        function updateHeaderLanguage(lang) {
+            // 네비게이션 링크 텍스트 업데이트
+            navLinks.forEach(link => {
+                link.textContent = link.getAttribute(`data-${lang}`);
+            });
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateHeaderLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
+        const storedLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
+
+        // 초기 언어 적용
+        updateHeaderLanguage(storedLang);
+    });
+</script>
+
+    <div class="initial-content">
+        <div class="container">
+    <div class="page-header">
+        <h1 class="page-title">검색</h1>
+        <p class="page-description">NewsLens의 콘텐츠를 검색하여 다양한 주제에 대한 심층 분석을 찾아보세요.</p>
+    </div>
+
+    <div class="search-section">
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="검색어를 입력하세요..." autocomplete="off">
+            <button class="search-button" id="searchButton">
+                <i class="fas fa-search"></i> 검색
+            </button>
+        </div>
+
+        <div class="search-filters">
+            <span class="filter-option active" data-filter="all">전체</span>
+            <span class="filter-option" data-filter="philosophy">철학</span>
+            <span class="filter-option" data-filter="science">과학</span>
+            <span class="filter-option" data-filter="society">사회/정치</span>
+            <span class="filter-option" data-filter="technology">기술</span>
+            <span class="filter-option" data-filter="culture">문화/예술</span>
+        </div>
+
+        <div class="search-results" id="searchResults">
+            <!-- 검색 결과가 없을 때 -->
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>검색 결과가 없습니다</h3>
+                <p>다른 검색어를 입력하거나 필터를 변경해보세요.</p>
+            </div>
+
+            <!-- 검색 결과가 있을 때 (기본적으로 숨김) -->
+            <div class="results-content" style="display: none;">
+                <div class="result-count">
+                    '<span id="searchTerm"></span>'에 대한 검색 결과 <span id="resultCount"></span>건
+                </div>
+
+                <div class="result-list">
+                    <!-- 여기에 검색 결과 항목들이 동적으로 추가됩니다 -->
+                </div>
+
+                <div class="pagination">
+                    <!-- 페이지네이션 버튼들이 동적으로 추가됩니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // URL 파라미터에서 언어 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const searchParam = urlParams.get('q');
+
+        // 언어 파라미터에 따라 UI 텍스트 변경
+        if (langParam === 'en') {
+            document.querySelector('.page-title').textContent = 'Search';
+            document.querySelector('.page-description').textContent = 'Search NewsLens content to find in-depth analysis on various topics.';
+            document.getElementById('searchInput').placeholder = 'Enter search term...';
+            document.querySelector('.search-button').innerHTML = '<i class="fas fa-search"></i> Search';
+            document.querySelector('.filter-option[data-filter="all"]').textContent = 'All';
+            document.querySelector('.filter-option[data-filter="philosophy"]').textContent = 'Philosophy';
+            document.querySelector('.filter-option[data-filter="science"]').textContent = 'Science';
+            document.querySelector('.filter-option[data-filter="society"]').textContent = 'Society/Politics';
+            document.querySelector('.filter-option[data-filter="technology"]').textContent = 'Technology';
+            document.querySelector('.filter-option[data-filter="culture"]').textContent = 'Culture/Arts';
+            document.querySelector('.no-results h3').textContent = 'No results found';
+            document.querySelector('.no-results p').textContent = 'Try different search terms or change filters.';
+        }
+
+        // URL에서 검색어 가져오기 (있을 경우)
+        if (searchParam) {
+            document.getElementById('searchInput').value = searchParam;
+            performSearch(searchParam);
+        }
+
+        // 검색 버튼 클릭 이벤트
+        document.getElementById('searchButton').addEventListener('click', function () {
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            if (searchTerm) {
+                performSearch(searchTerm);
+            }
+        });
+
+        // 검색창에서 엔터 키 이벤트
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const searchTerm = document.getElementById('searchInput').value.trim();
+                if (searchTerm) {
+                    performSearch(searchTerm);
+                }
+            }
+        });
+
+        // 필터 클릭 이벤트
+        document.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', function () {
+                document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+
+                // 현재 검색어가 있으면 필터와 함께 재검색
+                const searchTerm = document.getElementById('searchInput').value.trim();
+                if (searchTerm) {
+                    performSearch(searchTerm);
+                }
+            });
+        });
+
+        // 검색 수행 함수
+        function performSearch(searchTerm) {
+            // 실제 구현에서는 서버에 검색 요청을 보내야 합니다.
+            // 여기서는 예시로 가상의 검색 결과를 표시합니다.
+
+            // 선택된 필터 가져오기
+            const activeFilter = document.querySelector('.filter-option.active').getAttribute('data-filter');
+
+            // 가상의 검색 결과 (실제로는 서버에서 받아와야 함)
+            const sampleResults = [
+                {
+                    category: 'philosophy',
+                    title: '진리의 본질: 현대 인식론의 도전',
+                    excerpt: '포스트 진리 시대에 객관적 진리의 개념이 어떻게 도전받고 있는지 현대 인식론의 관점에서 분석합니다.',
+                    date: '2023.12.10',
+                    url: '#'
+                },
+                {
+                    category: 'science',
+                    title: '다중우주론: 양자역학의 철학적 함의',
+                    excerpt: '양자역학의 다중우주 해석이 가진 철학적 의미와 현실에 대한 우리의 이해에 미치는 영향을 탐구합니다.',
+                    date: '2023.11.28',
+                    url: '#'
+                },
+                {
+                    category: 'technology',
+                    title: '인공지능과 의식: 기계가 의식을 가질 수 있는가?',
+                    excerpt: '인공지능 시스템이 인간과 같은 의식이나 자아를 가질 수 있는지에 대한 철학적, 과학적 관점을 분석합니다.',
+                    date: '2023.11.15',
+                    url: '#'
+                }
+            ];
+
+            // 필터에 따라 결과 필터링
+            let filteredResults = sampleResults;
+            if (activeFilter !== 'all') {
+                filteredResults = sampleResults.filter(result => result.category === activeFilter);
+            }
+
+            // 결과 표시
+            updateSearchResults(searchTerm, filteredResults);
+        }
+
+        // 검색 결과 업데이트 함수
+        function updateSearchResults(searchTerm, results) {
+            const noResultsEl = document.querySelector('.no-results');
+            const resultsContentEl = document.querySelector('.results-content');
+            const resultListEl = document.querySelector('.result-list');
+
+            // 검색어와 결과 수 표시
+            document.getElementById('searchTerm').textContent = searchTerm;
+            document.getElementById('resultCount').textContent = results.length;
+
+            // 결과 목록 비우기
+            resultListEl.innerHTML = '';
+
+            if (results.length === 0) {
+                noResultsEl.style.display = 'block';
+                resultsContentEl.style.display = 'none';
+                return;
+            }
+
+            // 결과가 있으면 표시
+            noResultsEl.style.display = 'none';
+            resultsContentEl.style.display = 'block';
+
+            // 결과 항목 추가
+            results.forEach(result => {
+                const categoryName = langParam === 'en' ? getCategoryNameInEnglish(result.category) : getCategoryNameInKorean(result.category);
+
+                const resultItemEl = document.createElement('div');
+                resultItemEl.className = 'result-item';
+                resultItemEl.innerHTML = `
+                    <span class="result-category">${categoryName}</span>
+                    <h3 class="result-title"><a href="${result.url}">${result.title}</a></h3>
+                    <p class="result-excerpt">${result.excerpt}</p>
+                    <div class="result-meta">
+                        <span class="result-date">${result.date}</span>
+                    </div>
+                `;
+
+                resultListEl.appendChild(resultItemEl);
+            });
+        }
+
+        // 카테고리 이름 변환 함수들
+        function getCategoryNameInKorean(category) {
+            const categories = {
+                'philosophy': '철학',
+                'science': '과학',
+                'society': '사회/정치',
+                'technology': '기술',
+                'culture': '문화/예술'
+            };
+            return categories[category] || category;
+        }
+
+        function getCategoryNameInEnglish(category) {
+            const categories = {
+                'philosophy': 'Philosophy',
+                'science': 'Science',
+                'society': 'Society/Politics',
+                'technology': 'Technology',
+                'culture': 'Culture/Arts'
+            };
+            return categories[category] || category;
+        }
+    });
+</script>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+        <!-- 푸터 포함 -->
+        <!-- 푸터 -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">NewsLens</div>
+                <p class="footer-description" data-ko="철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다."
+                    data-en="A blog that views the world through philosophical and scientific thinking. We provide in-depth analysis and new perspectives on various topics.">
+                    철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.
+                </p>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="카테고리" data-en="Categories">카테고리</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/categories/?category=philosophy" data-ko="철학"
+                            data-en="Philosophy">철학</a></li>
+                    <li class="footer-link"><a href="/categories/?category=science" data-ko="과학"
+                            data-en="Science">과학</a></li>
+                    <li class="footer-link"><a href="/categories/?category=society" data-ko="사회/정치"
+                            data-en="Society/Politics">사회/정치</a></li>
+                    <li class="footer-link"><a href="/categories/?category=technology" data-ko="기술"
+                            data-en="Technology">기술</a></li>
+                    <li class="footer-link"><a href="/categories/?category=culture" data-ko="문화/예술"
+                            data-en="Culture/Arts">문화/예술</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="정보" data-en="Information">정보</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/about/" data-ko="소개" data-en="About">소개</a></li>
+                    <li class="footer-link"><a href="/authors/" data-ko="필자 소개" data-en="Authors">필자 소개</a></li>
+                    <li class="footer-link"><a href="/methodology/" data-ko="분석방법론" data-en="Methodology">분석방법론</a></li>
+                    <li class="footer-link"><a href="/contact/" data-ko="문의하기" data-en="Contact">문의하기</a></li>
+                    <li class="footer-link"><a href="/privacy/" data-ko="개인정보처리방침" data-en="Privacy Policy">개인정보처리방침</a>
+                    </li>
+                    <li class="footer-link"><a href="/terms/" data-ko="이용약관" data-en="Terms of Service">이용약관</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="연락처" data-en="Contact">연락처</h4>
+                <ul class="footer-links">
+                    <li class="footer-link">
+                        <a href="/contact/" data-ko="문의는 '문의하기' 메뉴를 이용해 주세요"
+                            data-en="Please use the 'Contact' menu for inquiries">
+                            문의는 '문의하기' 메뉴를 이용해 주세요
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2024 NewsLens. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* 푸터 스타일 */
+    .footer {
+        background-color: #333;
+        color: white;
+        padding: 3rem 0;
+        margin-top: 3rem;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .footer-brand .footer-logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .footer-description {
+        line-height: 1.6;
+    }
+
+    .footer-links-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-link {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-link a {
+        color: #ddd;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-link a:hover {
+        color: white;
+        text-decoration: underline;
+    }
+
+    .copyright {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+
+    /* 반응형 푸터 */
+    @media (max-width: 992px) {
+        .footer-content {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .footer-brand {
+            grid-column: span 2;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-brand {
+            grid-column: span 1;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const footerDescription = document.querySelector('.footer-description');
+        const footerTitles = document.querySelectorAll('.footer-links-title');
+        const footerLinks = document.querySelectorAll('.footer-link a');
+
+        function updateFooterLanguage(lang) {
+            // 푸터 설명 업데이트
+            footerDescription.textContent = footerDescription.getAttribute(`data-${lang}`);
+
+            // 푸터 섹션 제목 업데이트
+            footerTitles.forEach(title => {
+                title.textContent = title.getAttribute(`data-${lang}`);
+            });
+
+            // 푸터 링크 텍스트 업데이트
+            footerLinks.forEach(link => {
+                link.textContent = link.getAttribute(`data-${lang}`);
+                // URL에 언어 파라미터 추가
+                const href = link.getAttribute('href');
+                const baseUrl = href.split('?')[0];
+                const params = new URLSearchParams(href.split('?')[1] || '');
+                params.set('lang', lang);
+                link.href = `${baseUrl}?${params.toString()}`;
+            });
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateFooterLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
+
+        // 초기 언어 적용
+        updateFooterLanguage(initialLang);
+    });
+</script>
+    </div>
+
+    <!-- 최적화된 스크립트 로딩 -->
+    <script>
+        // 스크립트 로드 상태 모니터링
+        var scriptsLe;
+        var safetyTimeout = null;
+
+        // 스크립트 타임아웃 설정 (20초)
+        safetyTimeout = setTimeout(function () {
+            if (!scriptsLoaded) {
+                console.warn('스크립트 로딩 타임아웃 - 페이지 복구 중');
+                // 페이지가 응답하지 않는 경우 복구
+                document.documentElement.classList.add('js-loading-timeout');
+
+                // 기존 로딩 스크립트 중단
+                var loadingScripts = document.querySelectorAll('script[src*="lunr"]');
+                loadingScripts.forEach(function (script) {
+                    if (script.parentNode) {
+                        script.parentNode.removeChild(script);
+                    }
+                });
+
+                // 페이지 상태 복구
+                document.body.classList.remove('loading');
+                scriptsLoaded = true;
+            }
+        }, 20000);
+
+        // 스크립트 로딩 완료 후 호출되는 함수
+        function markScriptsAsLoaded() {
+            scriptsLoaded = true;
+            if (safetyTimeout) {
+                clearTimeout(safetyTimeout);
+            }
+        }
+
+        // 페이지 완전 로드 시 스크립트 로딩 완료 표시
+        window.addEventListener('load', markScriptsAsLoaded);
+    </script>
+
+    <!-- 비동기 스크립트 로딩으로 변경 -->
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!-- 언어 진단 도구 (하단에 한번 더 추가) -->
+    <script>
+        // 진단 스크립트 인라인으로 직접 추가
+        (function () {
+            // 1초 간격으로 언어 진단 도구가 로드됐는지 확인
+            function checkDiagnosticTools() {
+                console.log('진단 도구 확인 중...');
+                if (typeof window.languageDiagnostics === 'undefined') {
+                    console.log('진단 도구가 아직 로드되지 않음. 직접 로드 시도...');
+
+                    // 스크립트 다시 로드
+                    var script = document.createElement('script');
+                    script.src = '/assets/js/test-language.js';
+                    document.body.appendChild(script);
+
+                    // 인라인 백업 진단 도구 정의
+                    window.languageDiagnostics = {
+                        forceKorean: function () {
+                            console.log('강제 한국어 전환 실행 (백업)');
+                            document.documentElement.lang = 'ko';
+                            localStorage.setItem('lang', 'ko');
+
+                            // 콘텐츠 요소 처리
+                            document.querySelectorAll('.post-content-ko').forEach(function (el) {
+                                el.style.cssText = 'display: block !important; visibility: visible !important;';
+                            });
+
+                            document.querySelectorAll('.post-content-en').forEach(function (el) {
+                                el.style.cssText = 'display: none !important; visibility: hidden !important;';
+                            });
+
+                            return '한국어로 전환 완료 (백업)';
+                        },
+
+                        forceEnglish: function () {
+                            console.log('강제 영어 전환 실행 (백업)');
+                            document.documentElement.lang = 'en';
+                            localStorage.setItem('lang', 'en');
+
+                            // 콘텐츠 요소 처리
+                            document.querySelectorAll('.post-content-ko').forEach(function (el) {
+                                el.style.cssText = 'display: none !important; visibility: hidden !important;';
+                            });
+
+                            document.querySelectorAll('.post-content-en').forEach(function (el) {
+                                el.style.cssText = 'display: block !important; visibility: visible !important;';
+                            });
+
+                            return '영어로 전환 완료 (백업)';
+                        },
+
+                        toggleView: function () {
+                            console.log('언어 토글 실행 (백업)');
+                            var currentLang = localStorage.getItem('lang') || 'ko';
+                            if (currentLang === 'ko') {
+                                return this.forceEnglish();
+                            } else {
+                                return this.forceKorean();
+                            }
+                        },
+
+                        logCurrentState: function () {
+                            console.log('현재 상태 (백업):', {
+                                htmlLang: document.documentElement.lang,
+                                storedLang: localStorage.getItem('lang'),
+                                koElements: document.querySelectorAll('.post-content-ko').length,
+                                enElements: document.querySelectorAll('.post-content-en').length
+                            });
+
+                            return '상태 확인 완료 (백업)';
+                        }
+                    };
+
+                    console.log('백업 진단 도구가 설정되었습니다.');
+                    setTimeout(checkDiagnosticTools, 2000); // 2초 후 다시 확인
+                } else {
+                    console.log('진단 도구가 성공적으로 로드됨:', Object.keys(window.languageDiagnostics));
+                }
+            }
+
+            // 페이지 로드 후 진단 도구 확인
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                setTimeout(checkDiagnosticTools, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', function () {
+                    setTimeout(checkDiagnosticTools, 1000);
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>

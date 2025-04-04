@@ -1,0 +1,1596 @@
+<!doctype html>
+<html lang="ko" class="no-js">
+
+<head>
+    <!-- 안전 모드 스크립트 - 페이지 응답성 유지 -->
+    <script>
+        // 페이지 응답성 보호를 위한 스크립트
+        window.addEventListener('error', function (e) {
+            // 로딩 시간이 너무 오래 걸리는 스크립트를 감지
+            if (e.target && e.target.tagName === 'SCRIPT') {
+                console.warn('Script loading error:', e.target.src);
+            }
+        }, true);
+
+        // 10초 후에도 로딩이 완료되지 않으면 자동으로 복구 시도
+        setTimeout(function () {
+            if (document.readyState !== 'complete') {
+                console.warn('페이지 로딩 지연 감지 - 복구 모드 활성화');
+
+                // 로딩이 안 된 이미지나 스크립트 감지
+                var pendingScripts = document.querySelectorAll('script:not([async]):not([defer])');
+                for (var i = 0; i < pendingScripts.length; i++) {
+                    if (!pendingScripts[i].hasAttribute('data-checked')) {
+                        pendingScripts[i].setAttribute('data-checked', 'true');
+                        if (pendingScripts[i].src && pendingScripts[i].src.includes('lunr')) {
+                            // 문제가 되는 스크립트는 비동기로 변경
+                            pendingScripts[i].async = true;
+                            console.log('스크립트 최적화:', pendingScripts[i].src);
+                        }
+                    }
+                }
+            }
+        }, 8000);
+    </script>
+
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>AI와 예술의 공존: 창작의 새로운 패러다임 - NewsLens</title>
+<meta name="description" content="인공지능이 예술 창작의 동반자로 자리 잡으면서 변화하는 예술의 개념과 창작자의 역할, 그리고 이로 인해 제기되는 미학적, 윤리적 질문들을 탐구합니다.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="NewsLens">
+<meta property="og:title" content="AI와 예술의 공존: 창작의 새로운 패러다임">
+<meta property="og:url" content="https://goadrider.github.io/%EC%98%88%EC%88%A0/%EA%B8%B0%EC%88%A0/ai-creativity-arts/">
+
+
+  <meta property="og:description" content="인공지능이 예술 창작의 동반자로 자리 잡으면서 변화하는 예술의 개념과 창작자의 역할, 그리고 이로 인해 제기되는 미학적, 윤리적 질문들을 탐구합니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-02-02T10:30:00+09:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://goadrider.github.io/%EC%98%88%EC%88%A0/%EA%B8%B0%EC%88%A0/ai-creativity-arts/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://goadrider.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="NewsLens Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- 페이지 타이틀 설정 -->
+<title>
+    
+    AI와 예술의 공존: 창작의 새로운 패러다임 | NewsLens
+    
+</title>
+
+<!-- Google Font 로드 - 비동기 로딩으로 변경 -->
+
+
+<!-- Google Analytics - 비동기로 변경 -->
+
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<!-- 문제가 되는 webmanifest 파일 로딩 비활성화 -->
+<!-- <link rel="manifest" href="/site.webmanifest"> -->
+
+<!-- end custom head snippets -->
+
+<!-- 글로벌 스크립트 - 페이지 로드 전에 실행됨 (지연 로딩으로 변경) -->
+<script src="/assets/js/global.js" defer async></script>
+
+<!-- 언어 변경 처리를 위한 즉시 실행 스크립트 -->
+<script>
+    (function () {
+        // DOM 로드 완료 시 실행
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('언어 전환 스크립트 초기화');
+
+            // 언어 변경 함수 - 모든 data-ko/data-en 속성을 처리
+            function updateLanguageElements(lang) {
+                console.log('언어 변경 적용: ' + lang);
+
+                // 모든 data-ko 또는 data-en 속성을 가진 요소 선택
+                const elementsWithLangData = document.querySelectorAll('[data-ko], [data-en]');
+                console.log('언어 변경 대상 요소 수: ' + elementsWithLangData.length);
+
+                // 각 요소에 대해 현재 언어에 맞는 텍스트 적용
+                elementsWithLangData.forEach(function (el) {
+                    if (el.hasAttribute('data-' + lang)) {
+                        const content = el.getAttribute('data-' + lang);
+                        el.textContent = content;
+                        console.log('요소 텍스트 변경: ', content);
+                    }
+                });
+
+                // title 태그 업데이트
+                if (lang === 'en' && document.querySelector('meta[name="title-en"]')) {
+                    document.title = document.querySelector('meta[name="title-en"]').getAttribute('content');
+                } else if (document.querySelector('meta[name="title-ko"]')) {
+                    document.title = document.querySelector('meta[name="title-ko"]').getAttribute('content');
+                }
+            }
+
+            // 초기 언어 설정 확인 및 적용
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlLang = urlParams.get('lang');
+            const storedLang = localStorage.getItem('preferred_language');
+            const initialLang = urlLang || storedLang || 'ko';
+
+            // HTML lang 속성 설정
+            document.documentElement.setAttribute('lang', initialLang);
+
+            // 초기 언어 적용
+            setTimeout(function () {
+                updateLanguageElements(initialLang);
+            }, 0);
+
+            // 언어 변경 이벤트 리스너 등록 (여러 이벤트 타입 지원)
+            window.addEventListener('languageChange', function (e) {
+                if (e.detail && e.detail.language) {
+                    updateLanguageElements(e.detail.language);
+                }
+            });
+
+            document.addEventListener('languageChanged', function (e) {
+                if (e.detail && e.detail.language) {
+                    updateLanguageElements(e.detail.language);
+                }
+            });
+
+            // HTML lang 속성 변경 감지
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.attributeName === 'lang') {
+                        const newLang = document.documentElement.getAttribute('lang');
+                        updateLanguageElements(newLang);
+                    }
+                });
+            });
+
+            observer.observe(document.documentElement, { attributes: true });
+        });
+    })();
+</script>
+
+<!-- 긴급 복구 시스템 - 새로운 방식으로 구현 -->
+<script>
+    (function () {
+        // 최우선 실행되는 안전 장치
+        var safetyTimer = setTimeout(function () {
+            if (document.readyState !== 'complete') {
+                console.warn('[안전모드] 페이지 로딩이 지연되고 있습니다. 복구 시작...');
+
+                // 문제가 될 수 있는 스크립트 제거
+                var allScripts = document.querySelectorAll('script[src]');
+                for (var i = 0; i < allScripts.length; i++) {
+                    var script = allScripts[i];
+                    if (script.src.indexOf('/lunr/') !== -1 ||
+                        script.src.indexOf('search') !== -1 ||
+                        script.src.indexOf('/js/') !== -1) {
+                        console.log('[안전모드] 문제 스크립트 제거:', script.src);
+                        script.remove();
+                    }
+                }
+
+                // 로딩 이벤트 강제 발생
+                window.dispatchEvent(new Event('load'));
+                document.dispatchEvent(new Event('DOMContentLoaded'));
+
+                // 사용자에게 상태 알림
+                var notice = document.createElement('div');
+                notice.style.position = 'fixed';
+                notice.style.top = '10px';
+                notice.style.left = '10px';
+                notice.style.padding = '10px';
+                notice.style.background = 'rgba(255,255,255,0.9)';
+                notice.style.border = '1px solid #ddd';
+                notice.style.borderRadius = '5px';
+                notice.style.zIndex = '999999';
+                notice.style.fontSize = '14px';
+                notice.textContent = '페이지 로딩이 자동으로 복구되었습니다.';
+
+                if (document.body) {
+                    document.body.appendChild(notice);
+                    setTimeout(function () {
+                        notice.style.opacity = '0';
+                        notice.style.transition = 'opacity 1s';
+                        setTimeout(function () { notice.remove(); }, 1000);
+                    }, 3000);
+                }
+            }
+        }, 2000); // 2초 후 체크
+
+        // 페이지가 정상적으로 로드된 경우
+        window.addEventListener('load', function () {
+            clearTimeout(safetyTimer);
+        });
+    })();
+</script>
+
+<!-- 언어 전환 디버깅 도구 - 인라인 직접 정의 -->
+<script>
+    (function () {
+        // 언어 전환 디버깅 도구 정의
+        window.languageDebug = {
+            forceKorean: function () {
+                console.log('[인라인 디버그] 한국어 강제 적용');
+                document.documentElement.lang = 'ko';
+                localStorage.setItem('lang', 'ko');
+                localStorage.setItem('preferred_language', 'ko');
+
+                // 다시 로드 없이 DOM 직접 조작
+                var koElements = document.querySelectorAll('.post-content-ko');
+                var enElements = document.querySelectorAll('.post-content-en');
+
+                koElements.forEach(function (el) {
+                    el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+                });
+
+                enElements.forEach(function (el) {
+                    el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                });
+
+                // 이벤트 발생으로 다른 스크립트에 알림
+                try {
+                    document.dispatchEvent(new CustomEvent('languageChanged', {
+                        detail: { language: 'ko' }
+                    }));
+                } catch (e) {
+                    console.error('[인라인 디버그] 이벤트 발생 오류:', e);
+                }
+
+                return '한국어 적용 완료 (인라인)';
+            },
+
+            forceEnglish: function () {
+                console.log('[인라인 디버그] 영어 강제 적용');
+                document.documentElement.lang = 'en';
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferred_language', 'en');
+
+                // 다시 로드 없이 DOM 직접 조작
+                var koElements = document.querySelectorAll('.post-content-ko');
+                var enElements = document.querySelectorAll('.post-content-en');
+
+                koElements.forEach(function (el) {
+                    el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                });
+
+                enElements.forEach(function (el) {
+                    el.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+                });
+
+                // 이벤트 발생으로 다른 스크립트에 알림
+                try {
+                    document.dispatchEvent(new CustomEvent('languageChanged', {
+                        detail: { language: 'en' }
+                    }));
+                } catch (e) {
+                    console.error('[인라인 디버그] 이벤트 발생 오류:', e);
+                }
+
+                return '영어 적용 완료 (인라인)';
+            },
+
+            checkState: function () {
+                var htmlLang = document.documentElement.lang;
+                var langSetting = localStorage.getItem('lang');
+                var preferredLang = localStorage.getItem('preferred_language');
+                var koElements = document.querySelectorAll('.post-content-ko');
+                var enElements = document.querySelectorAll('.post-content-en');
+
+                var info = {
+                    'HTML 언어': htmlLang,
+                    'localStorage.lang': langSetting,
+                    'localStorage.preferred_language': preferredLang,
+                    '한국어 요소 수': koElements.length,
+                    '영어 요소 수': enElements.length
+                };
+
+                console.log('[인라인 디버그] 현재 상태:', info);
+
+                koElements.forEach(function (el, idx) {
+                    var style = window.getComputedStyle(el);
+                    console.log(`[인라인 디버그] 한국어 요소 #${idx + 1}:`, {
+                        display: style.display,
+                        visibility: style.visibility,
+                        opacity: style.opacity
+                    });
+                });
+
+                enElements.forEach(function (el, idx) {
+                    var style = window.getComputedStyle(el);
+                    console.log(`[인라인 디버그] 영어 요소 #${idx + 1}:`, {
+                        display: style.display,
+                        visibility: style.visibility,
+                        opacity: style.opacity
+                    });
+                });
+
+                return info;
+            },
+
+            toggleLanguage: function () {
+                var current = localStorage.getItem('lang') || 'ko';
+                if (current === 'ko') {
+                    return this.forceEnglish();
+                } else {
+                    return this.forceKorean();
+                }
+            }
+        };
+
+        // DOMContentLoaded 이벤트가 이미 발생했는지 확인
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log('[인라인 디버그] 페이지 로드 완료, 디버깅 도구 준비 완료');
+                console.log('[인라인 디버그] 사용법: window.languageDebug.forceKorean() 또는 window.languageDebug.forceEnglish()');
+            });
+        } else {
+            console.log('[인라인 디버그] 페이지 이미 로드됨, 디버깅 도구 준비 완료');
+            console.log('[인라인 디버그] 사용법: window.languageDebug.forceKorean() 또는 window.languageDebug.forceEnglish()');
+        }
+    })();
+</script>
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <!-- 언어 관리 스크립트 -->
+    <script src="/assets/js/language.js"></script>
+
+    <!-- 언어 진단 도구 스크립트 (개발 및 디버깅용) -->
+    <script src="/assets/js/test-language.js"></script>
+
+    <!-- 언어 디버그 스크립트 -->
+    <script src="/assets/js/language-debug.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #fb7185;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --gray-color: #64748b;
+            --transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body
+    class="layout--post">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+
+    <!-- 헤더 포함 -->
+    <!-- 헤더 -->
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="/" class="logo">
+                    <i class="fas fa-brain"></i>
+                    NewsLens
+                </a>
+            </div>
+
+            <nav>
+                <a href="/" class="nav-link" data-ko="홈" data-en="Home">홈</a>
+                <a href="/categories/" class="nav-link" data-ko="카테고리" data-en="Categories">카테고리</a>
+                <a href="/tags/" class="nav-link" data-ko="태그" data-en="Tags">태그</a>
+                <a href="/about/" class="nav-link" data-ko="소개" data-en="About">소개</a>
+                <a href="/contact/" class="nav-link" data-ko="문의" data-en="Contact">문의</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="language-switcher" class="language-switcher" data-ko="한국어" data-en="English">
+                    <i class="fas fa-globe"></i>
+                    <span class="language-text">한국어</span>
+                </button>
+
+                <a href="/search/" class="search-button">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    /* 헤더 */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+        padding: 1.2rem 0;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo i {
+        color: var(--accent-color);
+    }
+
+    nav {
+        display: flex;
+        gap: 2rem;
+    }
+
+    nav a {
+        color: var(--gray-color);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.05rem;
+        transition: var(--transition);
+        position: relative;
+    }
+
+    nav a:hover {
+        color: var(--primary-color);
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: var(--transition);
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .language-switcher {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .language-switcher:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .language-switcher i {
+        color: var(--primary-color);
+    }
+
+    .search-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .search-button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+    }
+
+    .mobile-menu {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+
+        nav,
+        .header-actions {
+            display: none;
+        }
+
+        nav.active,
+        .header-actions.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.active {
+            align-items: flex-start;
+        }
+
+        .mobile-menu {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 모바일 메뉴 토글
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const nav = document.querySelector('nav');
+        const headerActions = document.querySelector('.header-actions');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        mobileMenu.addEventListener('click', function () {
+            nav.classList.toggle('active');
+            headerActions.classList.toggle('active');
+        });
+
+        // 언어 변경 함수
+        function updateHeaderLanguage(lang) {
+            // 네비게이션 링크 텍스트 업데이트
+            navLinks.forEach(link => {
+                link.textContent = link.getAttribute(`data-${lang}`);
+            });
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateHeaderLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
+        const storedLang = localStorage.getItem('preferred_language') || localStorage.getItem('lang') || 'ko';
+
+        // 초기 언어 적용
+        updateHeaderLanguage(storedLang);
+    });
+</script>
+
+    <div class="initial-content">
+        <div class="container">
+    <div class="post-container">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">
+                    <span data-ko="AI와 예술의 공존: 창작의 새로운 패러다임" data-en="AI and Art Coexistence: A New Paradigm of Creativity">
+                        
+                        AI와 예술의 공존: 창작의 새로운 패러다임
+                        
+                    </span>
+                </h1>
+
+                <div class="post-meta">
+                    <time class="dt-published" datetime="2025-02-02T10:30:00+09:00" itemprop="datePublished">
+                        2025-02-02
+                    </time>
+
+                    
+                    <div class="post-categories">
+                        
+                        
+                        
+                        <a href="/categories/#예술" class="category-link">
+                            <span data-ko="예술" data-en="Art">
+                                
+                                예술
+                                
+                            </span>
+                        </a>
+                        
+                        
+                        
+                        <a href="/categories/#기술" class="category-link">
+                            <span data-ko="기술" data-en="Technology">
+                                
+                                기술
+                                
+                            </span>
+                        </a>
+                        
+                    </div>
+                    
+
+                    
+                    <div class="post-tags">
+                        
+                        
+                        
+                        <a href="/tags/#인공지능예술" class="tag-link">
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="인공지능예술" data-en="AI Art">
+                                
+                                인공지능예술
+                                
+                            </span>
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/#창의성" class="tag-link">
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="창의성" data-en="Creativity">
+                                
+                                창의성
+                                
+                            </span>
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/#생성AI" class="tag-link">
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="생성AI" data-en="Generative AI">
+                                
+                                생성AI
+                                
+                            </span>
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/#디지털아트" class="tag-link">
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="디지털아트" data-en="Digital Art">
+                                
+                                디지털아트
+                                
+                            </span>
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/#예술윤리" class="tag-link">
+                            <span class="tag-symbol">#</span>
+                            <span class="tag-text" data-ko="예술윤리" data-en="Art Ethics">
+                                
+                                예술윤리
+                                
+                            </span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </header>
+
+            
+            <div class="post-featured-image">
+                <img src="/assets/images/posts/2025-02-02-ai-creativity-arts.jpg" alt="Featured Image">
+            </div>
+            
+
+            <div class="post-content e-content" itemprop="articleBody">
+                <!-- 다국어 콘텐츠 분리 및 표시 로직 -->
+                
+                    <div class="post-content-ko">
+
+  <h2 id="ai--">AI 예술의 현주소</h2>
+
+  <p>2024년 베니스 비엔날레에서 AI 협업 작품이 황금사자상을 수상한 이후, 인공지능과 인간 예술가의 협업은 예술계의 주류로 자리 잡았습니다. 이제 AI는 단순한 도구가 아닌 창작의 동반자로 인식되고 있으며, 전통적인 예술 형식과 AI 기술의 융합은 새로운 미학적 가능성을 열고 있습니다.</p>
+
+  <p>최근의 AI 예술 동향은 크게 세 가지 방향으로 발전하고 있습니다:</p>
+
+  <ol>
+    <li><strong>AI 보조 창작</strong>: 인간 예술가의 창의적 과정을 지원하는 방식</li>
+    <li><strong>인간-AI 공동 창작</strong>: 인간과 AI가 상호작용하며 함께 작품을 만드는 방식</li>
+    <li><strong>AI 자율 창작</strong>: AI 시스템이 스스로 학습하고 독자적인 미학을 발전시키는 방식</li>
+  </ol>
+
+  <p>특히 지난달 출시된 Google의 ‘Synesthetic Studio’와 같은 다감각 AI 창작 도구는 시각, 청각, 촉각적 요소를 통합하여 더욱 풍부한 예술 경험을 가능하게 하고 있습니다.</p>
+
+  <h2 id="section">예술적 창의성의 재정의</h2>
+
+  <p>AI의 등장은 “창의성이란 무엇인가”라는 근본적인 질문을 제기합니다. 전통적으로 창의성은 인간만의 고유한 특성으로 여겨졌으나, AI가 생성하는 독창적인 작품들은 이러한 관점에 도전하고 있습니다.</p>
+
+  <p>일부 비평가들은 AI 창작물을 “진정한 예술”이 아니라고 주장하지만, 다른 이들은 AI가 단순히 기존 데이터를 재조합하는 것이 아니라 새로운 패턴과 표현을 발견하는 능력을 보인다고 지적합니다. 하버드 대학의 최근 연구에 따르면, 전문가들은 인간과 AI가 만든 작품을 구분하는 데 60% 이상 실패했다고 합니다.</p>
+
+  <p>핵심적인 질문은 “창의성이 아이디어의 독창성에 있는가, 아니면 그 실행 과정에 있는가”입니다. AI는 패턴 인식과 조합에 탁월하지만, 의도성과 문화적 맥락 이해는 여전히 인간의 영역으로 남아있습니다. 따라서 많은 예술가들이 AI를 창의적 협업자로 받아들이면서도, 최종적인 예술적 판단과 의미 부여는 인간의 역할로 보고 있습니다.</p>
+
+  <h2 id="section-1">예술 생태계의 변화</h2>
+
+  <p>AI 예술의 부상은 예술 시장과 기관에도 큰 변화를 가져오고 있습니다. 주요 미술관들은 AI 아티스트와 AI 협업 작품을 위한 특별 전시를 마련하고 있으며, NFT 시장에서는 AI 생성 예술이 중요한 카테고리로 자리 잡았습니다.</p>
+
+  <p>예술 교육도 변화하고 있습니다. 세계 유수의 예술 학교들은 AI 도구 활용법과 함께 AI와의 협업 방법론, 그리고 기술과 예술의 윤리적 접점을 가르치는 커리큘럼을 도입하고 있습니다.</p>
+
+  <p>그러나 이러한 변화는 새로운 도전도 제기합니다:</p>
+
+  <ol>
+    <li><strong>저작권과 소유권</strong>: AI 생성 작품의 저작권은 누구에게 있는가? AI를 훈련시킨 원본 작품의 작가들은 어떤 권리를 가지는가?</li>
+    <li><strong>진정성과 가치</strong>: 작품의 가치가 인간의 노력과 기술에 의해 결정된다면, AI 작품은 어떻게 평가되어야 하는가?</li>
+    <li><strong>접근성과 민주화</strong>: AI 도구는 예술 창작을 민주화하는가, 아니면 새로운 기술적 장벽을 만드는가?</li>
+  </ol>
+
+  <p>최근 여러 국가에서 AI 생성 예술의 저작권 보호에 관한 법안이 제정되고 있습니다. EU의 경우 “인간의 창의적 개입 정도”를 저작권 인정의 기준으로 삼고 있으며, 미국은 더 유연한 접근을 취하고 있습니다.</p>
+
+  <h2 id="section-2">예술적 표현의 새로운 지평</h2>
+
+  <p>AI는 기존의 예술적 표현 방식을 확장할 뿐만 아니라, 완전히 새로운 예술 형식도 창출하고 있습니다. 특히 흥미로운 발전은 다음과 같습니다:</p>
+
+  <ol>
+    <li><strong>반응형 및 적응형 예술</strong>: 관객의 감정이나 환경 데이터에 실시간으로 반응하여 변화하는 작품들</li>
+    <li><strong>집단 지능 예술</strong>: 다수의 AI 에이전트가 협력하여 만드는 복잡한 창작물</li>
+    <li><strong>초감각 예술</strong>: 인간의 감각 한계를 넘어서는 지각 경험을 제공하는 작품들</li>
+  </ol>
+
+  <p>예를 들어, 런던의 Tate Modern에서 최근 전시된 “Sentient Canvas” 프로젝트는 관객의 뇌파와 생체 신호를 읽어 실시간으로 작품이 변화하는 경험을 제공했습니다. 또한 뉴욕의 MET 미술관은 “Beyond Perception” 전시에서 인간이 감지할 수 없는 전자기 스펙트럼을 시각화하는 AI 기반 작품들을 선보였습니다.</p>
+
+  <p>이러한 새로운 예술 형식들은 “작가”와 “관객”의 경계를 흐리고, 예술 작품을 고정된 객체가 아닌 지속적으로 진화하는 과정으로 재정의하고 있습니다.</p>
+
+  <h2 id="ai-">인간성의 반영으로서의 AI 예술</h2>
+
+  <p>AI 예술이 발전함에 따라, 역설적으로 우리는 이를 통해 인간성의 본질에 대해 더 깊이 성찰하게 됩니다. AI가 생성한 작품들은 우리가 학습시킨 데이터, 우리가 설계한 알고리즘, 그리고 우리가 부여한 가치를 반영하는 거울과도 같습니다.</p>
+
+  <p>예술사학자 데이비드 프리드버그는 “AI 예술은 우리의 집단적 무의식을 시각화한다”고 표현했습니다. AI 생성 작품에서 나타나는 편향, 선호, 그리고 맹점들은 인간 사회의 그것을 그대로 보여주는 경우가 많습니다.</p>
+
+  <p>이런 관점에서 AI 예술은 단순한 기술적 실험을 넘어, 인간의 창의성, 의식, 그리고 미적 감각에 대한 깊은 철학적 탐구의 도구가 될 수 있습니다. 우리가 AI를 통해 만들어내는 예술은 궁극적으로 우리 자신에 대한 이해를 확장하는 과정인 것입니다.</p>
+
+  <h2 id="section-3">결론: 공존과 공진화의 시대</h2>
+
+  <p>AI와 인간 예술가의 관계는 대립이나 대체가 아닌 공존과 공진화의 방향으로 나아가고 있습니다. AI는 새로운 도구이자 영감의 원천이며, 예술적 상상력을 확장하는 협력자로서 역할하고 있습니다.</p>
+
+  <p>미래의 예술 생태계에서는 AI의 계산적 창의성과 인간의 문화적, 정서적 지능이 결합하여 지금까지 상상하지 못했던 새로운 표현 형식과 미적 경험을 창출할 것입니다. 이 과정에서 우리는 창의성, 의식, 그리고 예술의 본질에 대한 이해를 더욱 깊게 할 수 있을 것입니다.</p>
+
+  <p>궁극적으로 AI 예술의 가치는 기술적 혁신에만 있지 않고, 인간 경험을 풍요롭게 하고 새로운 시각으로 세상을 바라볼 수 있게 하는 잠재력에 있을 것입니다.</p>
+</div>
+
+<div class="post-content-en">
+
+  <h2 id="the-current-state-of-ai-art">The Current State of AI Art</h2>
+
+  <p>Since an AI collaborative work won the Golden Lion Award at the 2024 Venice Biennale, collaboration between artificial intelligence and human artists has become mainstream in the art world. AI is now recognized not just as a tool but as a partner in creation, and the fusion of traditional art forms with AI technology is opening new aesthetic possibilities.</p>
+
+  <p>Recent trends in AI art are developing in three main directions:</p>
+
+  <ol>
+    <li><strong>AI-assisted creation</strong>: Supporting the creative process of human artists</li>
+    <li><strong>Human-AI co-creation</strong>: Humans and AI interacting to create works together</li>
+    <li><strong>AI autonomous creation</strong>: AI systems learning and developing their own aesthetics independently</li>
+  </ol>
+
+  <p>Particularly, multi-sensory AI creation tools like Google’s ‘Synesthetic Studio,’ released last month, integrate visual, auditory, and tactile elements to enable a richer artistic experience.</p>
+
+  <h2 id="redefining-artistic-creativity">Redefining Artistic Creativity</h2>
+
+  <p>The emergence of AI raises the fundamental question of “what is creativity?” Traditionally, creativity was considered a uniquely human characteristic, but the original works generated by AI challenge this perspective.</p>
+
+  <p>Some critics argue that AI creations are not “true art,” but others point out that AI demonstrates the ability to discover new patterns and expressions, not just recombine existing data. According to recent Harvard University research, experts failed to distinguish between human and AI-created works more than 60% of the time.</p>
+
+  <p>The key question is “whether creativity lies in the originality of ideas or in the execution process.” AI excels at pattern recognition and combination, but intentionality and understanding cultural context remain human domains. Therefore, many artists accept AI as a creative collaborator while considering the final artistic judgment and meaning-making as human roles.</p>
+
+  <h2 id="changes-in-the-art-ecosystem">Changes in the Art Ecosystem</h2>
+
+  <p>The rise of AI art is bringing significant changes to the art market and institutions. Major museums are organizing special exhibitions for AI artists and AI collaborative works, and AI-generated art has established itself as an important category in the NFT market.</p>
+
+  <p>Art education is also changing. Leading art schools worldwide are introducing curricula that teach AI tool utilization, methodologies for collaborating with AI, and the ethical intersection of technology and art.</p>
+
+  <p>However, these changes also pose new challenges:</p>
+
+  <ol>
+    <li><strong>Copyright and ownership</strong>: Who owns the copyright to AI-generated works? What rights do the creators of original works used to train AI have?</li>
+    <li><strong>Authenticity and value</strong>: If the value of a work is determined by human effort and skill, how should AI works be evaluated?</li>
+    <li><strong>Accessibility and democratization</strong>: Do AI tools democratize art creation, or do they create new technological barriers?</li>
+  </ol>
+
+  <p>Recently, various countries have been enacting legislation on copyright protection for AI-generated art. The EU uses “the degree of human creative intervention” as a criterion for copyright recognition, while the US takes a more flexible approach.</p>
+
+  <h2 id="new-horizons-of-artistic-expression">New Horizons of Artistic Expression</h2>
+
+  <p>AI not only expands existing modes of artistic expression but also creates entirely new art forms. Particularly interesting developments include:</p>
+
+  <ol>
+    <li><strong>Reactive and adaptive art</strong>: Works that change in real-time in response to audience emotions or environmental data</li>
+    <li><strong>Collective intelligence art</strong>: Complex creations made by multiple AI agents working together</li>
+    <li><strong>Ultra-sensory art</strong>: Works providing perceptual experiences beyond human sensory limits</li>
+  </ol>
+
+  <p>For example, the “Sentient Canvas” project recently exhibited at the Tate Modern in London offered an experience where artworks changed in real-time by reading audience brainwaves and biological signals. The MET Museum in New York showcased AI-based works visualizing electromagnetic spectra imperceptible to humans in its “Beyond Perception” exhibition.</p>
+
+  <p>These new art forms blur the boundaries between “creator” and “audience,” redefining artworks not as fixed objects but as continuously evolving processes.</p>
+
+  <h2 id="ai-art-as-a-reflection-of-humanity">AI Art as a Reflection of Humanity</h2>
+
+  <p>As AI art develops, paradoxically, we reflect more deeply on the essence of humanity through it. Works generated by AI mirror the data we’ve trained it on, the algorithms we’ve designed, and the values we’ve imparted.</p>
+
+  <p>Art historian David Freedberg expressed that “AI art visualizes our collective unconscious.” Biases, preferences, and blind spots appearing in AI-generated works often directly reflect those of human society.</p>
+
+  <p>From this perspective, AI art can be a tool for deep philosophical exploration of human creativity, consciousness, and aesthetic sensibility beyond mere technological experimentation. The art we create through AI is ultimately a process of expanding our understanding of ourselves.</p>
+
+  <h2 id="conclusion-an-era-of-coexistence-and-co-evolution">Conclusion: An Era of Coexistence and Co-evolution</h2>
+
+  <p>The relationship between AI and human artists is moving toward coexistence and co-evolution rather than opposition or replacement. AI serves as a new tool, a source of inspiration, and a collaborator expanding artistic imagination.</p>
+
+  <p>In the future art ecosystem, the computational creativity of AI will combine with human cultural and emotional intelligence to create new forms of expression and aesthetic experiences previously unimagined. Through this process, we can deepen our understanding of creativity, consciousness, and the essence of art.</p>
+
+  <p>Ultimately, the value of AI art lies not only in technological innovation but in its potential to enrich human experience and view the world from new perspectives.</p>
+</div>
+
+                
+            </div>
+
+            <div class="post-navigation">
+                
+                <a href="/%EA%B8%B0%EC%88%A0/%EC%BB%B4%ED%93%A8%ED%8C%85/quantum-computing-applications/" class="prev-post" rel="prev">
+                    &larr;
+                    <span data-ko="이전 글" data-en="Previous Post">
+                        이전 글 </span>
+                    </a>
+                    
+
+                    
+                    <a href="/%EB%8F%84%EC%8B%9C%EA%B3%84%ED%9A%8D/%ED%99%98%EA%B2%BD/sustainable-cities-future/" class="next-post" rel="next">
+                        <span data-ko="다음 글" data-en="Next Post">
+                            다음 글
+                        </span>
+                        &rarr;
+                    </a>
+                    
+                </div>
+        </article>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .post-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .post-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+
+    .post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        color: var(--gray-color);
+        font-size: 0.9rem;
+    }
+
+    .post-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .category-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        padding: 0.25rem 0.75rem;
+        background: rgba(37, 99, 235, 0.1);
+        border-radius: 9999px;
+        transition: var(--transition);
+    }
+
+    .category-link:hover {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tag-link {
+        color: var(--gray-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .tag-link:hover {
+        color: var(--primary-color);
+    }
+
+    .post-featured-image {
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    .post-featured-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .post-content {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 3rem;
+    }
+
+    .post-content-container {
+        width: 100%;
+    }
+
+    /* 다국어 콘텐츠 스타일 - !important로 강제 적용 */
+    .post-content-ko,
+    .post-content-en,
+    .markdown-content {
+        width: 100%;
+    }
+
+    /* 기본값은 한국어 표시, 영어 숨김 (JS에 의해 변경됨) */
+    .post-content-en {
+        display: none !important;
+    }
+
+    .post-content-ko {
+        display: block !important;
+    }
+
+    /* 언어가 en일 때는 스타일 반전 */
+    html[lang="en"] .post-content-en {
+        display: block !important;
+    }
+
+    html[lang="en"] .post-content-ko {
+        display: none !important;
+    }
+
+    /* 마크다운 요소 스타일 */
+    .post-content h1,
+    .post-content h2,
+    .post-content h3,
+    .post-content h4,
+    .post-content h5,
+    .post-content h6,
+    .post-content-ko h1,
+    .post-content-ko h2,
+    .post-content-ko h3,
+    .post-content-ko h4,
+    .post-content-ko h5,
+    .post-content-ko h6,
+    .post-content-en h1,
+    .post-content-en h2,
+    .post-content-en h3,
+    .post-content-en h4,
+    .post-content-en h5,
+    .post-content-en h6 {
+        margin-top: 1.5em;
+        margin-bottom: 0.8em;
+        line-height: 1.3;
+    }
+
+    .post-content h2,
+    .post-content-ko h2,
+    .post-content-en h2 {
+        font-size: 1.8rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 0.3em;
+    }
+
+    .post-content h3,
+    .post-content-ko h3,
+    .post-content-en h3 {
+        font-size: 1.5rem;
+    }
+
+    .post-content p,
+    .post-content ul,
+    .post-content ol,
+    .post-content-ko p,
+    .post-content-ko ul,
+    .post-content-ko ol,
+    .post-content-en p,
+    .post-content-en ul,
+    .post-content-en ol {
+        margin-bottom: 1.5em;
+    }
+
+    .post-content ul,
+    .post-content ol,
+    .post-content-ko ul,
+    .post-content-ko ol,
+    .post-content-en ul,
+    .post-content-en ol {
+        padding-left: 2em;
+    }
+
+    .post-content li,
+    .post-content-ko li,
+    .post-content-en li {
+        margin-bottom: 0.5em;
+    }
+
+    .post-content code,
+    .post-content-ko code,
+    .post-content-en code {
+        background: rgba(0, 0, 0, 0.05);
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: monospace;
+        font-size: 0.9em;
+    }
+
+    .post-content pre,
+    .post-content-ko pre,
+    .post-content-en pre {
+        background: #f5f5f5;
+        padding: 1em;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin-bottom: 1.5em;
+    }
+
+    .post-content pre code,
+    .post-content-ko pre code,
+    .post-content-en pre code {
+        background: none;
+        padding: 0;
+    }
+
+    .post-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .prev-post,
+    .next-post {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .prev-post:hover,
+    .next-post:hover {
+        color: var(--secondary-color);
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+
+        .post-title {
+            font-size: 2rem;
+        }
+
+        .post-content {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<!-- 언어 전환을 위한 인라인 스크립트 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('[포스트] 페이지 로드 완료');
+
+        // 언어 변경 이벤트 수신기 추가
+        document.addEventListener('languageChanged', function (e) {
+            const lang = e.detail.language;
+            console.log('[포스트] 언어 변경 이벤트 감지:', lang);
+
+            try {
+                // 한국어 콘텐츠
+                const koContent = document.querySelector('.post-content-ko');
+                // 영어 콘텐츠
+                const enContent = document.querySelector('.post-content-en');
+
+                if (koContent && enContent) {
+                    console.log('[포스트] 콘텐츠 요소 발견:', {
+                        '한국어': koContent,
+                        '영어': enContent,
+                        '현재언어': lang
+                    });
+
+                    // 콘텐츠 표시/숨김 처리
+                    if (lang === 'ko') {
+                        console.log('[포스트] 한국어 콘텐츠 표시');
+                        koContent.style.cssText = 'display: block !important; visibility: visible !important; position: static !important;';
+                        enContent.style.cssText = 'display: none !important; visibility: hidden !important; position: absolute !important;';
+                    } else {
+                        console.log('[포스트] 영어 콘텐츠 표시');
+                        koContent.style.cssText = 'display: none !important; visibility: hidden !important; position: absolute !important;';
+                        enContent.style.cssText = 'display: block !important; visibility: visible !important; position: static !important;';
+                    }
+
+                    console.log('[포스트] 콘텐츠 표시/숨김 처리 완료');
+
+                    // 상태 확인
+                    setTimeout(() => {
+                        const koDisplayStyle = window.getComputedStyle(koContent).display;
+                        const enDisplayStyle = window.getComputedStyle(enContent).display;
+
+                        console.log('[포스트] 적용된 스타일 확인:', {
+                            '한국어요소': koDisplayStyle,
+                            '영어요소': enDisplayStyle,
+                            '기대한국어표시': lang === 'ko' ? 'block' : 'none',
+                            '기대영어표시': lang === 'en' ? 'block' : 'none'
+                        });
+                    }, 100);
+                } else {
+                    console.warn('[포스트] 콘텐츠 요소를 찾을 수 없음:', {
+                        '한국어요소': !!koContent,
+                        '영어요소': !!enContent
+                    });
+
+                    // 문서 내 모든 클래스 검사
+                    const allElements = document.querySelectorAll('*');
+                    let hasKoClass = false;
+                    let hasEnClass = false;
+
+                    allElements.forEach(el => {
+                        if (el.classList.contains('post-content-ko')) hasKoClass = true;
+                        if (el.classList.contains('post-content-en')) hasEnClass = true;
+                    });
+
+                    console.log('[포스트] 문서 내 클래스 검색 결과:', {
+                        '한국어클래스존재': hasKoClass,
+                        '영어클래스존재': hasEnClass
+                    });
+                }
+            } catch (err) {
+                console.error('[포스트] 언어 변경 처리 중 오류:', err);
+            }
+        });
+
+        // 초기 언어 설정 적용
+        setTimeout(() => {
+            const lang = localStorage.getItem('lang') || localStorage.getItem('preferred_language') || 'ko';
+            console.log('[포스트] 초기 언어 확인:', lang);
+
+            document.dispatchEvent(new CustomEvent('languageChanged', {
+                detail: { language: lang }
+            }));
+        }, 300);
+    });
+</script>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+        <!-- 푸터 포함 -->
+        <!-- 푸터 -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">NewsLens</div>
+                <p class="footer-description" data-ko="철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다."
+                    data-en="A blog that views the world through philosophical and scientific thinking. We provide in-depth analysis and new perspectives on various topics.">
+                    철학적, 과학적 사고로 세상을 바라보는 블로그입니다. 다양한 주제에 대한 심층적인 분석과 새로운 시각을 제공합니다.
+                </p>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="카테고리" data-en="Categories">카테고리</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/categories/?category=philosophy" data-ko="철학"
+                            data-en="Philosophy">철학</a></li>
+                    <li class="footer-link"><a href="/categories/?category=science" data-ko="과학"
+                            data-en="Science">과학</a></li>
+                    <li class="footer-link"><a href="/categories/?category=society" data-ko="사회/정치"
+                            data-en="Society/Politics">사회/정치</a></li>
+                    <li class="footer-link"><a href="/categories/?category=technology" data-ko="기술"
+                            data-en="Technology">기술</a></li>
+                    <li class="footer-link"><a href="/categories/?category=culture" data-ko="문화/예술"
+                            data-en="Culture/Arts">문화/예술</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="정보" data-en="Information">정보</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="/about/" data-ko="소개" data-en="About">소개</a></li>
+                    <li class="footer-link"><a href="/authors/" data-ko="필자 소개" data-en="Authors">필자 소개</a></li>
+                    <li class="footer-link"><a href="/methodology/" data-ko="분석방법론" data-en="Methodology">분석방법론</a></li>
+                    <li class="footer-link"><a href="/contact/" data-ko="문의하기" data-en="Contact">문의하기</a></li>
+                    <li class="footer-link"><a href="/privacy/" data-ko="개인정보처리방침" data-en="Privacy Policy">개인정보처리방침</a>
+                    </li>
+                    <li class="footer-link"><a href="/terms/" data-ko="이용약관" data-en="Terms of Service">이용약관</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-container">
+                <h4 class="footer-links-title" data-ko="연락처" data-en="Contact">연락처</h4>
+                <ul class="footer-links">
+                    <li class="footer-link">
+                        <a href="/contact/" data-ko="문의는 '문의하기' 메뉴를 이용해 주세요"
+                            data-en="Please use the 'Contact' menu for inquiries">
+                            문의는 '문의하기' 메뉴를 이용해 주세요
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2024 NewsLens. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* 푸터 스타일 */
+    .footer {
+        background-color: #333;
+        color: white;
+        padding: 3rem 0;
+        margin-top: 3rem;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .footer-brand .footer-logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .footer-description {
+        line-height: 1.6;
+    }
+
+    .footer-links-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-link {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-link a {
+        color: #ddd;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-link a:hover {
+        color: white;
+        text-decoration: underline;
+    }
+
+    .copyright {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+
+    /* 반응형 푸터 */
+    @media (max-width: 992px) {
+        .footer-content {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .footer-brand {
+            grid-column: span 2;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-brand {
+            grid-column: span 1;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const footerDescription = document.querySelector('.footer-description');
+        const footerTitles = document.querySelectorAll('.footer-links-title');
+        const footerLinks = document.querySelectorAll('.footer-link a');
+
+        function updateFooterLanguage(lang) {
+            // 푸터 설명 업데이트
+            footerDescription.textContent = footerDescription.getAttribute(`data-${lang}`);
+
+            // 푸터 섹션 제목 업데이트
+            footerTitles.forEach(title => {
+                title.textContent = title.getAttribute(`data-${lang}`);
+            });
+
+            // 푸터 링크 텍스트 업데이트
+            footerLinks.forEach(link => {
+                link.textContent = link.getAttribute(`data-${lang}`);
+                // URL에 언어 파라미터 추가
+                const href = link.getAttribute('href');
+                const baseUrl = href.split('?')[0];
+                const params = new URLSearchParams(href.split('?')[1] || '');
+                params.set('lang', lang);
+                link.href = `${baseUrl}?${params.toString()}`;
+            });
+        }
+
+        // 언어 변경 이벤트 리스너
+        window.addEventListener('languageChange', function (e) {
+            updateFooterLanguage(e.detail.language);
+        });
+
+        // 초기 언어 설정
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        const storedLang = localStorage.getItem('preferred_language');
+        const initialLang = langParam || storedLang || 'ko';
+
+        // 초기 언어 적용
+        updateFooterLanguage(initialLang);
+    });
+</script>
+    </div>
+
+    <!-- 최적화된 스크립트 로딩 -->
+    <script>
+        // 스크립트 로드 상태 모니터링
+        var scriptsLe;
+        var safetyTimeout = null;
+
+        // 스크립트 타임아웃 설정 (20초)
+        safetyTimeout = setTimeout(function () {
+            if (!scriptsLoaded) {
+                console.warn('스크립트 로딩 타임아웃 - 페이지 복구 중');
+                // 페이지가 응답하지 않는 경우 복구
+                document.documentElement.classList.add('js-loading-timeout');
+
+                // 기존 로딩 스크립트 중단
+                var loadingScripts = document.querySelectorAll('script[src*="lunr"]');
+                loadingScripts.forEach(function (script) {
+                    if (script.parentNode) {
+                        script.parentNode.removeChild(script);
+                    }
+                });
+
+                // 페이지 상태 복구
+                document.body.classList.remove('loading');
+                scriptsLoaded = true;
+            }
+        }, 20000);
+
+        // 스크립트 로딩 완료 후 호출되는 함수
+        function markScriptsAsLoaded() {
+            scriptsLoaded = true;
+            if (safetyTimeout) {
+                clearTimeout(safetyTimeout);
+            }
+        }
+
+        // 페이지 완전 로드 시 스크립트 로딩 완료 표시
+        window.addEventListener('load', markScriptsAsLoaded);
+    </script>
+
+    <!-- 비동기 스크립트 로딩으로 변경 -->
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!-- 언어 진단 도구 (하단에 한번 더 추가) -->
+    <script>
+        // 진단 스크립트 인라인으로 직접 추가
+        (function () {
+            // 1초 간격으로 언어 진단 도구가 로드됐는지 확인
+            function checkDiagnosticTools() {
+                console.log('진단 도구 확인 중...');
+                if (typeof window.languageDiagnostics === 'undefined') {
+                    console.log('진단 도구가 아직 로드되지 않음. 직접 로드 시도...');
+
+                    // 스크립트 다시 로드
+                    var script = document.createElement('script');
+                    script.src = '/assets/js/test-language.js';
+                    document.body.appendChild(script);
+
+                    // 인라인 백업 진단 도구 정의
+                    window.languageDiagnostics = {
+                        forceKorean: function () {
+                            console.log('강제 한국어 전환 실행 (백업)');
+                            document.documentElement.lang = 'ko';
+                            localStorage.setItem('lang', 'ko');
+
+                            // 콘텐츠 요소 처리
+                            document.querySelectorAll('.post-content-ko').forEach(function (el) {
+                                el.style.cssText = 'display: block !important; visibility: visible !important;';
+                            });
+
+                            document.querySelectorAll('.post-content-en').forEach(function (el) {
+                                el.style.cssText = 'display: none !important; visibility: hidden !important;';
+                            });
+
+                            return '한국어로 전환 완료 (백업)';
+                        },
+
+                        forceEnglish: function () {
+                            console.log('강제 영어 전환 실행 (백업)');
+                            document.documentElement.lang = 'en';
+                            localStorage.setItem('lang', 'en');
+
+                            // 콘텐츠 요소 처리
+                            document.querySelectorAll('.post-content-ko').forEach(function (el) {
+                                el.style.cssText = 'display: none !important; visibility: hidden !important;';
+                            });
+
+                            document.querySelectorAll('.post-content-en').forEach(function (el) {
+                                el.style.cssText = 'display: block !important; visibility: visible !important;';
+                            });
+
+                            return '영어로 전환 완료 (백업)';
+                        },
+
+                        toggleView: function () {
+                            console.log('언어 토글 실행 (백업)');
+                            var currentLang = localStorage.getItem('lang') || 'ko';
+                            if (currentLang === 'ko') {
+                                return this.forceEnglish();
+                            } else {
+                                return this.forceKorean();
+                            }
+                        },
+
+                        logCurrentState: function () {
+                            console.log('현재 상태 (백업):', {
+                                htmlLang: document.documentElement.lang,
+                                storedLang: localStorage.getItem('lang'),
+                                koElements: document.querySelectorAll('.post-content-ko').length,
+                                enElements: document.querySelectorAll('.post-content-en').length
+                            });
+
+                            return '상태 확인 완료 (백업)';
+                        }
+                    };
+
+                    console.log('백업 진단 도구가 설정되었습니다.');
+                    setTimeout(checkDiagnosticTools, 2000); // 2초 후 다시 확인
+                } else {
+                    console.log('진단 도구가 성공적으로 로드됨:', Object.keys(window.languageDiagnostics));
+                }
+            }
+
+            // 페이지 로드 후 진단 도구 확인
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                setTimeout(checkDiagnosticTools, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', function () {
+                    setTimeout(checkDiagnosticTools, 1000);
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>
