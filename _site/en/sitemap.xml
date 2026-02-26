@@ -76,13 +76,7 @@
 <loc>https://goadrider.github.io/categories/</loc>
 </url>
 <url>
-<loc>https://goadrider.github.io/methodology/</loc>
-</url>
-<url>
-<loc>https://goadrider.github.io/tags/</loc>
-</url>
-<url>
-<loc>https://goadrider.github.io/search/</loc>
+<loc>https://goadrider.github.io/contact/</loc>
 </url>
 <url>
 <loc>https://goadrider.github.io/authors/</loc>
@@ -91,7 +85,13 @@
 <loc>https://goadrider.github.io/about/</loc>
 </url>
 <url>
-<loc>https://goadrider.github.io/contact/</loc>
+<loc>https://goadrider.github.io/search/</loc>
+</url>
+<url>
+<loc>https://goadrider.github.io/tags/</loc>
+</url>
+<url>
+<loc>https://goadrider.github.io/methodology/</loc>
 </url>
 <url>
 <loc>https://goadrider.github.io/</loc>
@@ -101,6 +101,6 @@
 </url>
 <url>
 <loc>https://goadrider.github.io/test.html</loc>
-<lastmod>2026-02-25T11:51:15+09:00</lastmod>
+<lastmod>2026-02-26T11:46:16+09:00</lastmod>
 </url>
 </urlset>
